@@ -1,0 +1,13 @@
+{
+  "name": "Add Comments to Code",
+  "description": "Automatically adds comments to all definitions and important lines when TypeScript, JavaScript, or TSX files are saved",
+  "trigger": {
+    "type": "fileSave",
+    "filePattern": "**/*.{ts,tsx,js,jsx}"
+  },
+  "action": {
+    "type": "agent",
+    "prompt": "Please add comprehensive comments to all definitions and important lines in this file. Focus on:\n\n1. Function and method definitions - explain what they do, parameters, and return values\n2. Interface and type definitions - describe the purpose and structure\n3. Complex logic or algorithms - break down what's happening\n4. Important variable declarations - explain their purpose\n5. Key configuration objects - document their properties\n6. Component props and state - clarify their usage\n\nMaintain the existing code structure and functionality while adding clear, concise comments that help other developers understand the code."
+  },
+  "enabled": true
+}

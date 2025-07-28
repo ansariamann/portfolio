@@ -1,0 +1,21 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#fafafa"/>
+  <rect x="50" y="50" width="500" height="300" fill="#ffffff" rx="8" stroke="#e5e7eb" stroke-width="2"/>
+  
+  <!-- Header -->
+  <rect x="70" y="70" width="460" height="50" fill="#6366f1" rx="4"/>
+  <text x="300" y="100" font-family="Arial, sans-serif" font-size="18" fill="#ffffff" text-anchor="middle">SmartShield Malware Detection</text>
+  
+  <!-- Shield icon -->
+  <circle cx="200" cy="200" r="50" fill="#10b981" opacity="0.1"/>
+  <path d="M200 160 l-30 20 v40 l30 20 l30 -20 v-40 z" fill="#10b981"/>
+  <text x="200" y="270" font-family="Arial, sans-serif" font-size="14" fill="#059669" text-anchor="middle">System Protected</text>
+  
+  <!-- Stats -->
+  <rect x="320" y="160" width="200" height="120" fill="#f9fafb" rx="4" stroke="#e5e7eb"/>
+  <text x="330" y="180" font-family="Arial, sans-serif" font-size="12" fill="#374151">Scan Results:</text>
+  <text x="330" y="200" font-family="Arial, sans-serif" font-size="12" fill="#059669">✓ Files Scanned: 45,231</text>
+  <text x="330" y="220" font-family="Arial, sans-serif" font-size="12" fill="#dc2626">⚠ Threats Found: 3</text>
+  <text x="330" y="240" font-family="Arial, sans-serif" font-size="12" fill="#059669">✓ Threats Removed: 3</text>
+  <text x="330" y="260" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">Last Scan: 2 min ago</text>
+</svg>

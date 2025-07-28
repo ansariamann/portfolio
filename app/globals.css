@@ -1,0 +1,524 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply text-gray-900 bg-white dark:text-gray-100 dark:bg-gray-900;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary-600 hover:bg-secondary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+
+  .card {
+    @apply bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent;
+  }
+
+  /* Enhanced mobile-first responsive text utilities */
+  .text-responsive-xs {
+    @apply text-xs sm:text-sm md:text-base;
+  }
+
+  .text-responsive-sm {
+    @apply text-sm sm:text-base md:text-lg;
+  }
+
+  .text-responsive-md {
+    @apply text-base sm:text-lg md:text-xl lg:text-2xl;
+  }
+
+  .text-responsive-lg {
+    @apply text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl;
+  }
+
+  .text-responsive-xl {
+    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl;
+  }
+
+  .text-responsive-2xl {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl;
+  }
+
+  /* Mobile-first spacing utilities */
+  .spacing-responsive-sm {
+    @apply space-y-4 sm:space-y-6 md:space-y-8;
+  }
+
+  .spacing-responsive-md {
+    @apply space-y-6 sm:space-y-8 md:space-y-12;
+  }
+
+  .spacing-responsive-lg {
+    @apply space-y-8 sm:space-y-12 md:space-y-16 lg:space-y-20;
+  }
+
+  /* Touch-friendly interactive elements */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px] flex items-center justify-center;
+  }
+
+  .touch-friendly {
+    @apply p-3 sm:p-2 md:p-1.5;
+  }
+
+  /* Enhanced mobile-optimized grid layouts */
+  .grid-responsive-1-2-3 {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3;
+  }
+
+  .grid-responsive-1-2-4 {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4;
+  }
+
+  .grid-responsive-2-3-4 {
+    @apply grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4;
+  }
+
+  .grid-responsive-1-3-5 {
+    @apply grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5;
+  }
+
+  .grid-responsive-auto-fit {
+    @apply grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(320px,1fr))];
+  }
+
+  /* Mobile-first padding utilities */
+  .padding-responsive-sm {
+    @apply p-4 sm:p-6 md:p-8;
+  }
+
+  .padding-responsive-md {
+    @apply p-6 sm:p-8 md:p-12;
+  }
+
+  .padding-responsive-lg {
+    @apply p-8 sm:p-12 md:p-16 lg:p-20;
+  }
+
+  /* Mobile-first margin utilities */
+  .margin-responsive-sm {
+    @apply m-4 sm:m-6 md:m-8;
+  }
+
+  .margin-responsive-md {
+    @apply m-6 sm:m-8 md:m-12;
+  }
+
+  .margin-responsive-lg {
+    @apply m-8 sm:m-12 md:m-16 lg:m-20;
+  }
+
+  /* Container utilities with mobile-first approach */
+  .container-responsive {
+    @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-narrow {
+    @apply w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-wide {
+    @apply w-full max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12;
+  }
+
+  /* 3D Transform utilities for skill cards */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+
+  /* Responsive shadow utilities with mobile optimization */
+  .shadow-responsive {
+    @apply shadow-sm sm:shadow-md md:shadow-lg;
+  }
+
+  .shadow-responsive-hover {
+    @apply hover:shadow-md sm:hover:shadow-lg md:hover:shadow-xl;
+  }
+
+  /* Custom shadow utilities for depth effects */
+  .shadow-depth-1 {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  }
+
+  .dark .shadow-depth-1 {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.6);
+  }
+
+  .shadow-depth-2 {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  }
+
+  .dark .shadow-depth-2 {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.6), 0 3px 6px rgba(0, 0, 0, 0.7);
+  }
+
+  .shadow-depth-3 {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  }
+
+  .dark .shadow-depth-3 {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7), 0 6px 6px rgba(0, 0, 0, 0.8);
+  }
+
+  .shadow-depth-4 {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  }
+
+  .dark .shadow-depth-4 {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.8), 0 10px 10px rgba(0, 0, 0, 0.9);
+  }
+
+  .shadow-depth-5 {
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  }
+
+  .dark .shadow-depth-5 {
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.9), 0 15px 12px rgba(0, 0, 0, 1);
+  }
+
+  /* Line clamp utilities */
+  .line-clamp-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+  }
+
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+
+  .line-clamp-4 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+  }
+
+  /* Enhanced reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    /* Disable all animations and transitions */
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    /* Safe animation class for essential animations */
+    .motion-reduce-safe {
+      animation: none !important;
+      transition: none !important;
+    }
+
+    /* Allow only essential transitions */
+    .motion-reduce-essential {
+      transition: opacity 0.15s ease !important;
+    }
+
+    /* Disable parallax and transform animations */
+    .motion-reduce-transform {
+      transform: none !important;
+    }
+
+    /* Disable hover animations */
+    .motion-reduce-hover:hover {
+      transform: none !important;
+      animation: none !important;
+    }
+
+    /* Disable scroll-triggered animations */
+    .motion-reduce-scroll {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+
+  /* Motion-safe utilities for developers */
+  .motion-safe-only {
+    @media (prefers-reduced-motion: reduce) {
+      display: none !important;
+    }
+  }
+
+  .motion-reduce-only {
+    display: none;
+    @media (prefers-reduced-motion: reduce) {
+      display: block !important;
+    }
+  }
+
+  /* Mobile viewport utilities */
+  .min-h-screen-mobile {
+    min-height: 100vh;
+    min-height: 100dvh; /* Dynamic viewport height for mobile */
+  }
+
+  /* Safe area utilities for mobile devices */
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .safe-left {
+    padding-left: env(safe-area-inset-left);
+  }
+
+  .safe-right {
+    padding-right: env(safe-area-inset-right);
+  }
+
+  /* Mobile-optimized interaction utilities */
+  .mobile-tap-highlight {
+    -webkit-tap-highlight-color: rgba(59, 130, 246, 0.1);
+  }
+
+  .mobile-scroll-smooth {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* Mobile-first flex utilities */
+  .flex-responsive-col {
+    @apply flex flex-col sm:flex-row;
+  }
+
+  .flex-responsive-row {
+    @apply flex flex-row sm:flex-col md:flex-row;
+  }
+
+  .flex-responsive-wrap {
+    @apply flex flex-wrap gap-2 sm:gap-4 md:gap-6;
+  }
+
+  /* Mobile-optimized aspect ratios */
+  .aspect-responsive-square {
+    @apply aspect-square sm:aspect-[4/3] md:aspect-video;
+  }
+
+  .aspect-responsive-video {
+    @apply aspect-[4/3] sm:aspect-video;
+  }
+
+  /* Mobile-first border radius utilities */
+  .rounded-responsive {
+    @apply rounded-lg sm:rounded-xl md:rounded-2xl;
+  }
+
+  .rounded-responsive-sm {
+    @apply rounded sm:rounded-md md:rounded-lg;
+  }
+
+  /* Mobile-optimized gap utilities */
+  .gap-responsive-sm {
+    @apply gap-2 sm:gap-3 md:gap-4;
+  }
+
+  .gap-responsive-md {
+    @apply gap-3 sm:gap-4 md:gap-6;
+  }
+
+  .gap-responsive-lg {
+    @apply gap-4 sm:gap-6 md:gap-8;
+  }
+
+  /* Mobile-first width utilities */
+  .w-responsive-full {
+    @apply w-full sm:w-auto;
+  }
+
+  .w-responsive-auto {
+    @apply w-auto sm:w-full md:w-auto;
+  }
+
+  /* Mobile-optimized z-index utilities */
+  .z-mobile-menu {
+    z-index: 9999;
+  }
+
+  .z-mobile-overlay {
+    z-index: 9998;
+  }
+
+  /* Mobile-specific visibility utilities */
+  .mobile-only {
+    @apply block sm:hidden;
+  }
+
+  .tablet-up {
+    @apply hidden sm:block;
+  }
+
+  .desktop-only {
+    @apply hidden lg:block;
+  }
+
+  /* Mobile-optimized button sizing */
+  .btn-mobile-friendly {
+    @apply min-h-[44px] min-w-[44px] px-4 py-3 sm:px-3 sm:py-2 md:px-2 md:py-1.5;
+  }
+
+  /* Mobile-first card utilities */
+  .card-responsive {
+    @apply rounded-lg sm:rounded-xl shadow-sm sm:shadow-md md:shadow-lg p-4 sm:p-6 md:p-8;
+  }
+
+  /* Mobile-optimized form utilities */
+  .form-input-mobile {
+    @apply w-full px-4 py-3 sm:px-3 sm:py-2 text-base sm:text-sm rounded-lg sm:rounded-md;
+  }
+
+  /* Mobile-first animation utilities */
+  .animate-mobile-safe {
+    @apply motion-reduce:animate-none;
+  }
+
+  /* Mobile-optimized overflow utilities */
+  .overflow-mobile-scroll {
+    @apply overflow-x-auto sm:overflow-x-visible;
+  }
+
+  /* Mobile-first positioning utilities */
+  .position-mobile-relative {
+    @apply relative sm:absolute md:relative;
+  }
+
+  .position-mobile-fixed {
+    @apply fixed sm:relative md:fixed;
+  }
+
+  /* Enhanced mobile-first layout utilities */
+  .layout-mobile-stack {
+    @apply flex flex-col sm:flex-row;
+  }
+
+  .layout-mobile-center {
+    @apply flex flex-col items-center sm:flex-row sm:justify-between;
+  }
+
+  /* Mobile-optimized image utilities */
+  .img-responsive {
+    @apply w-full h-auto object-cover;
+  }
+
+  .img-mobile-contain {
+    @apply object-contain sm:object-cover;
+  }
+
+  /* Mobile-first navigation utilities */
+  .nav-mobile-hidden {
+    @apply hidden md:flex;
+  }
+
+  .nav-mobile-visible {
+    @apply flex md:hidden;
+  }
+
+  /* Enhanced mobile touch interactions */
+  .touch-feedback {
+    @apply active:bg-gray-100 active:scale-95 transition-all duration-150;
+  }
+
+  .touch-feedback-primary {
+    @apply active:bg-blue-700 active:scale-95 transition-all duration-150;
+  }
+
+  /* Mobile-optimized content spacing */
+  .content-mobile-compact {
+    @apply space-y-3 sm:space-y-4 md:space-y-6;
+  }
+
+  .content-mobile-relaxed {
+    @apply space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10;
+  }
+
+  /* Mobile-first typography scaling */
+  .text-mobile-scale {
+    @apply text-sm sm:text-base md:text-lg;
+  }
+
+  .heading-mobile-scale {
+    @apply text-lg sm:text-xl md:text-2xl lg:text-3xl;
+  }
+
+  /* Mobile-optimized modal and overlay utilities */
+  .modal-mobile-fullscreen {
+    @apply fixed inset-0 sm:relative sm:inset-auto sm:max-w-lg sm:mx-auto;
+  }
+
+  .overlay-mobile-blur {
+    @apply backdrop-blur-sm sm:backdrop-blur-md;
+  }
+
+  /* Mobile-first animation performance utilities */
+  .will-change-mobile {
+    will-change: transform, opacity;
+  }
+
+  @media (max-width: 768px) {
+    .will-change-mobile {
+      will-change: auto;
+    }
+  }
+
+  /* Mobile-optimized scroll utilities */
+  .scroll-mobile-smooth {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Mobile-first focus utilities */
+  .focus-mobile-visible {
+    @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+  }
+
+  @media (max-width: 768px) {
+    .focus-mobile-visible {
+      @apply focus:ring-offset-1;
+    }
+  }
+}
