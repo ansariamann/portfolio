@@ -544,9 +544,7 @@ export default function AboutSection() {
                   <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mr-3">
                     <span className="text-white text-sm font-bold">A</span>
                   </div>
-                  <span className="text-slate-600 font-medium">
-                    Aman Ansari
-                  </span>
+                  <span className="text-slate-600 font-medium">-Aman</span>
                 </div>
               </motion.div>
             </motion.div>

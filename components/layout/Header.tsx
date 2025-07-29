@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NavigationItem } from "@/types";
 import { scrollToSection } from "@/lib/utils";
+import { HeaderClock } from "@/components/ui/DigitalClock";
 
 const navigationItems: NavigationItem[] = [
   { label: "Home", href: "#home" },
@@ -67,29 +68,26 @@ export default function Header() {
     >
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          {/* Modern Logo */}
+          {/* Digital Clock */}
           <motion.div
             className="relative group"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <button
+            <div
               onClick={() => handleScrollToSection("#home")}
-              className={`text-2xl font-bold transition-all duration-300 ${
-                isScrolled ? "text-slate-800" : "text-white"
-              } hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 hover:bg-clip-text hover:text-transparent`}
+              className="cursor-pointer"
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  handleScrollToSection("#home");
+                }
+              }}
               aria-label="Go to home section"
             >
-              <span className="relative">
-                John.dev
-                <motion.div
-                  className="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  initial={{ width: 0 }}
-                  whileHover={{ width: "100%" }}
-                  transition={{ duration: 0.3 }}
-                />
-              </span>
-            </button>
+              <HeaderClock isScrolled={isScrolled} />
+            </div>
           </motion.div>
 
           {/* Modern Desktop Navigation */}

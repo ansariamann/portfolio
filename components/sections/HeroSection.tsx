@@ -315,7 +315,7 @@ export default function HeroSection() {
           return true;
         }
         return false;
-      } catch (error) {
+      } catch {
         return false;
       }
     };
@@ -397,9 +397,7 @@ export default function HeroSection() {
                   </span>
                   <br />
                   <div className="mt-4 flex items-center">
-                    <span className="text-green-400 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-mono mr-2">
-                      $
-                    </span>
+                    <span className="text-green-400 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-mono mr-2"></span>
                     <span className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-mono text-green-300 bg-black/20 px-4 py-2 rounded-lg border border-green-400/30 backdrop-blur-sm">
                       {shouldReduceAnimations
                         ? "Software Developer"
