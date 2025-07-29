@@ -148,11 +148,11 @@ export function HeaderClock({ isScrolled }: { isScrolled: boolean }) {
   // Show placeholder during hydration
   if (!mounted) {
     return (
-      <div className="font-mono text-lg font-bold">
-        <div className="relative bg-black/30 backdrop-blur-sm border border-blue-400/40 rounded-lg px-4 py-2 shadow-lg">
+      <div className="font-mono text-sm sm:text-base font-bold min-w-max">
+        <div className="relative bg-black/30 backdrop-blur-sm border border-blue-400/40 rounded-lg px-3 py-2 shadow-lg">
           <div className="flex items-center space-x-1">
             <span
-              className={`mr-2 transition-colors duration-300 ${
+              className={`transition-colors duration-300 ${
                 isScrolled ? "text-blue-600" : "text-blue-400"
               }`}
             >
@@ -162,11 +162,16 @@ export function HeaderClock({ isScrolled }: { isScrolled: boolean }) {
               className={`font-mono font-bold tracking-wider transition-colors duration-300 ${
                 isScrolled ? "text-slate-800" : "text-blue-300"
               }`}
+              style={{
+                fontFamily: '"Courier New", "Lucida Console", monospace',
+                letterSpacing: "0.1em",
+                minWidth: "5rem",
+              }}
             >
               --:--:--
             </span>
             <div
-              className={`w-2 h-2 rounded-full ml-2 ${
+              className={`w-1.5 h-1.5 rounded-full ${
                 isScrolled ? "bg-blue-600" : "bg-blue-400"
               }`}
             />
@@ -177,27 +182,18 @@ export function HeaderClock({ isScrolled }: { isScrolled: boolean }) {
   }
 
   return (
-    <motion.div
-      className="font-mono text-lg font-bold"
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5 }}
-      whileHover={{ scale: 1.05 }}
-    >
-      {/* Digital clock container */}
+    <div className="font-mono text-sm sm:text-base font-bold min-w-max">
+      {/* Digital clock container - Optimized for mobile */}
       <div className="relative group">
         {/* Background glow effect */}
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-lg blur-sm opacity-0 group-hover:opacity-100"
-          transition={{ duration: 0.3 }}
-        />
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-lg blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-        {/* Main clock display */}
-        <div className="relative bg-black/30 backdrop-blur-sm border border-blue-400/40 rounded-lg px-4 py-2 shadow-lg">
+        {/* Main clock display - Fixed positioning optimized */}
+        <div className="relative bg-black/30 backdrop-blur-sm border border-blue-400/40 rounded-lg px-3 py-2 shadow-lg">
           <div className="flex items-center space-x-1">
             {/* Digital clock icon */}
             <span
-              className={`mr-2 transition-colors duration-300 ${
+              className={`transition-colors duration-300 ${
                 isScrolled ? "text-blue-600" : "text-blue-400"
               }`}
             >
@@ -205,7 +201,7 @@ export function HeaderClock({ isScrolled }: { isScrolled: boolean }) {
             </span>
 
             {/* Time display */}
-            <motion.span
+            <span
               className={`font-mono font-bold tracking-wider transition-colors duration-300 ${
                 isScrolled
                   ? "text-slate-800 group-hover:text-blue-600"
@@ -214,33 +210,24 @@ export function HeaderClock({ isScrolled }: { isScrolled: boolean }) {
               style={{
                 fontFamily: '"Courier New", "Lucida Console", monospace',
                 letterSpacing: "0.1em",
+                minWidth: "5rem",
               }}
-              key={formatTime(time)}
-              initial={{ opacity: 0.8 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.1 }}
             >
               {formatTime(time)}
-            </motion.span>
+            </span>
 
-            {/* Blinking indicator */}
-            <motion.div
-              className={`w-2 h-2 rounded-full ml-2 ${
+            {/* Blinking indicator - CSS animation for better performance */}
+            <div
+              className={`w-1.5 h-1.5 rounded-full ${
                 isScrolled ? "bg-blue-600" : "bg-blue-400"
               }`}
-              animate={{
-                opacity: [1, 0.3, 1],
-                scale: [1, 0.8, 1],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
+              style={{
+                animation: "pulse 2s ease-in-out infinite",
               }}
             />
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

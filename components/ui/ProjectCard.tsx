@@ -5,7 +5,7 @@ import { ExternalLink, Github, Calendar } from "lucide-react";
 import { Project } from "@/types";
 import { formatDate, cn } from "@/lib/utils";
 import { useMobileOptimizedAnimation } from "@/lib/hooks";
-import OptimizedImage from "./OptimizedImage";
+import ProjectImage from "./ProjectImage";
 
 interface ProjectCardProps {
   project: Project;
@@ -67,21 +67,19 @@ export default function ProjectCard({
       {/* Project image with optimized loading */}
       <div
         className={cn(
-          "relative overflow-hidden",
+          "relative overflow-hidden bg-gray-100",
           "h-40 sm:h-44 md:h-48", // Responsive height
           isMobile && "aspect-responsive-video"
         )}
       >
-        <OptimizedImage
-          src={project.images[0] || "/images/placeholder.svg"}
+        <ProjectImage
+          src={project.images?.[0] || "/images/placeholder.svg"}
           alt={`${project.title} - Project Screenshot`}
-          width={400}
-          height={192}
           className={cn(
-            "w-full h-full object-cover transition-transform duration-300",
+            "w-full h-full transition-transform duration-300",
             !shouldReduceAnimations && "group-hover:scale-105"
           )}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          priority={index < 3} // Prioritize first 3 images
         />
         <div
           className={cn(

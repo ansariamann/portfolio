@@ -1,0 +1,22 @@
+<svg width="400" height="240" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="240" fill="#0f172a"/>
+  <rect x="50" y="40" width="300" height="160" rx="8" fill="#1e293b"/>
+  
+  <!-- Network nodes -->
+  <circle cx="120" cy="100" r="8" fill="#ef4444"/>
+  <circle cx="200" cy="80" r="8" fill="#22c55e"/>
+  <circle cx="280" cy="100" r="8" fill="#3b82f6"/>
+  <circle cx="160" cy="140" r="8" fill="#f59e0b"/>
+  <circle cx="240" cy="140" r="8" fill="#8b5cf6"/>
+  
+  <!-- Connections -->
+  <line x1="120" y1="100" x2="200" y2="80" stroke="#64748b" stroke-width="2"/>
+  <line x1="200" y1="80" x2="280" y2="100" stroke="#64748b" stroke-width="2"/>
+  <line x1="120" y1="100" x2="160" y2="140" stroke="#64748b" stroke-width="2"/>
+  <line x1="280" y1="100" x2="240" y2="140" stroke="#64748b" stroke-width="2"/>
+  <line x1="160" y1="140" x2="240" y2="140" stroke="#64748b" stroke-width="2"/>
+  
+  <!-- Attack indicators -->
+  <path d="M200 80 L190 70 L210 70 Z" fill="#ef4444"/>
+  <text x="200" y="210" text-anchor="middle" fill="#e2e8f0" font-family="Arial, sans-serif" font-size="14" font-weight="600">DDoS Detection System</text>
+</svg>

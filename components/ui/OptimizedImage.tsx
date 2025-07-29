@@ -31,7 +31,7 @@ export default function OptimizedImage({
   fill = false,
   sizes,
   quality = 85,
-  placeholder = "blur",
+  placeholder = "empty",
   blurDataURL,
   fallbackSrc = "/images/placeholder.svg",
   onLoad,
@@ -41,71 +41,71 @@ export default function OptimizedImage({
   const [hasError, setHasError] = useState(false);
   const [imageSrc, setImageSrc] = useState(src);
 
-  // Generate a simple blur data URL if none provided
-  const defaultBlurDataURL =
-    blurDataURL ||
-    "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q==";
-
   const handleLoad = () => {
     setIsLoading(false);
+    setHasError(false);
     onLoad?.();
   };
 
   const handleError = () => {
-    setHasError(true);
-    setIsLoading(false);
-    setImageSrc(fallbackSrc);
+    console.log(`Image failed to load: ${imageSrc}`);
+    if (imageSrc !== fallbackSrc) {
+      setImageSrc(fallbackSrc);
+      setIsLoading(true); // Try loading fallback
+    } else {
+      setHasError(true);
+      setIsLoading(false);
+    }
     onError?.();
   };
 
   const imageProps = {
     src: imageSrc,
-    alt: alt || "", // Ensure alt is always present
+    alt: alt || "",
     quality,
     priority,
     onLoad: handleLoad,
     onError: handleError,
     className: `${className} ${
       isLoading ? "opacity-0" : "opacity-100"
-    } transition-opacity duration-500`,
+    } transition-opacity duration-300`,
     ...(fill ? { fill: true } : { width, height }),
     ...(sizes && { sizes }),
-    ...(placeholder === "blur" && {
-      placeholder: "blur" as const,
-      blurDataURL: defaultBlurDataURL,
-    }),
+    ...(placeholder === "blur" &&
+      blurDataURL && {
+        placeholder: "blur" as const,
+        blurDataURL,
+      }),
   };
 
   return (
-    <div className={`relative ${fill ? "w-full h-full" : ""}`}>
+    <div className={`relative ${fill ? "w-full h-full" : ""} bg-gray-100`}>
       {/* Loading skeleton */}
-      {isLoading && (
-        <motion.div
+      {isLoading && !hasError && (
+        <div
           className={`absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse ${
-            fill ? "w-full h-full" : `w-[${width}px] h-[${height}px]`
+            fill ? "w-full h-full" : ""
           }`}
-          initial={{ opacity: 1 }}
-          animate={{ opacity: isLoading ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
+          style={!fill ? { width: `${width}px`, height: `${height}px` } : {}}
         />
       )}
 
       {/* Optimized Image */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isLoading ? 0 : 1 }}
-        transition={{ duration: 0.5 }}
-        className={fill ? "w-full h-full" : ""}
-      >
-        <Image {...imageProps} alt={alt || ""} />
-      </motion.div>
+      {!hasError && (
+        <div className={fill ? "w-full h-full" : ""}>
+          <Image {...imageProps} alt={alt || ""} />
+        </div>
+      )}
 
-      {/* Error state */}
+      {/* Error state with fallback */}
       {hasError && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-100 text-gray-500">
-          <div className="text-center">
-            <div className="text-2xl mb-2">📷</div>
-            <div className="text-sm">Image not available</div>
+          <div className="text-center p-4">
+            <div className="text-3xl mb-2">🖼️</div>
+            <div className="text-sm font-medium">Image not available</div>
+            <div className="text-xs text-gray-400 mt-1">
+              {src.split("/").pop()}
+            </div>
           </div>
         </div>
       )}

@@ -68,9 +68,10 @@ export default function Header() {
     >
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          {/* Digital Clock */}
+          {/* Digital Clock - Fixed from left margin */}
           <motion.div
-            className="relative group"
+            className="relative group flex-shrink-0"
+            style={{ marginLeft: "0", minWidth: "fit-content" }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -127,32 +128,31 @@ export default function Header() {
             ))}
           </div>
 
-          {/* Mobile Menu Button - Enhanced touch target */}
-          <motion.button
-            className="nav-mobile-visible touch-target flex flex-col items-center justify-center rounded-lg focus-mobile-visible mobile-tap-highlight touch-feedback p-2"
+          {/* Mobile Menu Button - Optimized */}
+          <button
+            className="md:hidden flex flex-col items-center justify-center w-10 h-10 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            whileTap={{ scale: 0.95 }}
             aria-label={
               isMenuOpen ? "Close navigation menu" : "Open navigation menu"
             }
             aria-expanded={isMenuOpen}
           >
-            <motion.span
-              className={`w-6 h-0.5 bg-gray-800 transition-all duration-300 ${
-                isMenuOpen ? "rotate-45 translate-y-1.5" : ""
-              }`}
+            <span
+              className={`w-6 h-0.5 transition-all duration-300 ${
+                isScrolled ? "bg-gray-800" : "bg-white"
+              } ${isMenuOpen ? "rotate-45 translate-y-1.5" : ""}`}
             />
-            <motion.span
-              className={`w-6 h-0.5 bg-gray-800 transition-all duration-300 mt-1.5 ${
-                isMenuOpen ? "opacity-0" : ""
-              }`}
+            <span
+              className={`w-6 h-0.5 transition-all duration-300 mt-1.5 ${
+                isScrolled ? "bg-gray-800" : "bg-white"
+              } ${isMenuOpen ? "opacity-0" : ""}`}
             />
-            <motion.span
-              className={`w-6 h-0.5 bg-gray-800 transition-all duration-300 mt-1.5 ${
-                isMenuOpen ? "-rotate-45 -translate-y-1.5" : ""
-              }`}
+            <span
+              className={`w-6 h-0.5 transition-all duration-300 mt-1.5 ${
+                isScrolled ? "bg-gray-800" : "bg-white"
+              } ${isMenuOpen ? "-rotate-45 -translate-y-1.5" : ""}`}
             />
-          </motion.button>
+          </button>
         </div>
 
         {/* Mobile Menu - Full screen overlay */}
@@ -169,56 +169,38 @@ export default function Header() {
                 onClick={() => setIsMenuOpen(false)}
               />
 
-              {/* Menu Content */}
-              <motion.div
-                className="md:hidden modal-mobile-fullscreen bg-white/98 backdrop-blur-md shadow-xl border-t border-gray-200 max-h-[80vh] overflow-y-auto scroll-mobile-smooth"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-              >
-                <div className="container mx-auto px-4 py-6 safe-bottom">
-                  <div className="content-mobile-compact">
+              {/* Menu Content - Optimized */}
+              <div className="md:hidden fixed top-16 left-0 right-0 bg-white/95 backdrop-blur-md shadow-xl border-t border-gray-200 max-h-[calc(100vh-4rem)] overflow-y-auto">
+                <div className="px-4 py-6">
+                  <div className="space-y-2">
                     {navigationItems.map((item, index) => (
-                      <motion.button
+                      <button
                         key={item.href}
                         onClick={() => handleScrollToSection(item.href)}
-                        className="block w-full text-left py-4 px-4 text-lg font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 active:bg-blue-100 rounded-lg transition-all duration-300 touch-target focus-mobile-visible mobile-tap-highlight touch-feedback"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                        whileHover={{ x: 8 }}
-                        whileTap={{ scale: 0.98 }}
+                        className="block w-full text-left py-3 px-4 text-lg font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 active:bg-blue-100 rounded-lg transition-colors duration-200"
+                        style={{
+                          minHeight: "48px",
+                          WebkitTapHighlightColor: "transparent",
+                        }}
                       >
                         <span className="flex items-center justify-between">
-                          <span className="text-mobile-scale font-semibold">
-                            {item.label}
-                          </span>
-                          <motion.span
-                            className="text-blue-600 opacity-0 text-xl"
-                            whileHover={{ opacity: 1 }}
-                            transition={{ duration: 0.2 }}
-                          >
+                          <span className="font-semibold">{item.label}</span>
+                          <span className="text-blue-600 text-xl opacity-60">
                             →
-                          </motion.span>
+                          </span>
                         </span>
-                      </motion.button>
+                      </button>
                     ))}
                   </div>
 
                   {/* Mobile menu footer */}
-                  <motion.div
-                    className="mt-6 pt-4 border-t border-gray-200 text-center"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.5 }}
-                  >
+                  <div className="mt-6 pt-4 border-t border-gray-200 text-center">
                     <p className="text-sm text-gray-500">
                       Tap anywhere outside to close
                     </p>
-                  </motion.div>
+                  </div>
                 </div>
-              </motion.div>
+              </div>
             </>
           )}
         </AnimatePresence>

@@ -11,6 +11,7 @@ export const projects: Project[] = [
     technologies: ["PHP", "SQL", "XAMPP", "HTML", "CSS", "JavaScript", "MySQL"],
     category: "web",
     images: [
+      "/images/projects/hospital-placeholder.svg",
       "/images/projects/hospital-management-1.jpg",
       "/images/projects/hospital-management-2.jpg",
     ],
@@ -57,6 +58,7 @@ export const projects: Project[] = [
     ],
     category: "other",
     images: [
+      "/images/projects/ddos-placeholder.svg",
       "/images/projects/ddos-detection-1.jpg",
       "/images/projects/ddos-detection-2.jpg",
     ],
@@ -103,6 +105,7 @@ export const projects: Project[] = [
     ],
     category: "other",
     images: [
+      "/images/projects/smartshield-placeholder.svg",
       "/images/projects/smartshield-1.jpg",
       "/images/projects/smartshield-2.jpg",
     ],

@@ -3,6 +3,7 @@ export { default as Modal } from "./Modal";
 export { Button } from "./Button";
 export { default as ProjectCard } from "./ProjectCard";
 export { default as ProjectModal } from "./ProjectModal";
+export { default as ProjectImage } from "./ProjectImage";
 export { default as DigitalClock, HeaderClock } from "./DigitalClock";
 
 // Image and Performance Components
