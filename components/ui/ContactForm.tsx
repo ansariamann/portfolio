@@ -254,14 +254,10 @@ export default function ContactForm() {
           className="w-full"
         >
           {submissionStatus === "submitting" ? (
-            <motion.div
-              className="flex items-center justify-center"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-            >
+            <div className="flex items-center justify-center">
               <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
               <span className="ml-2">Sending...</span>
-            </motion.div>
+            </div>
           ) : (
             <>
               <Send size={18} className="mr-2" />
@@ -273,15 +269,12 @@ export default function ContactForm() {
 
       {/* Status Messages */}
       {submitMessage && (
-        <motion.div
+        <div
           className={`flex items-center p-4 rounded-lg ${
             submissionStatus === "success"
               ? "bg-green-900/50 border border-green-500 text-green-300"
               : "bg-red-900/50 border border-red-500 text-red-300"
           }`}
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3 }}
         >
           {submissionStatus === "success" ? (
             <CheckCircle size={20} className="mr-3 flex-shrink-0" />
@@ -289,7 +282,7 @@ export default function ContactForm() {
             <AlertCircle size={20} className="mr-3 flex-shrink-0" />
           )}
           <p>{submitMessage}</p>
-        </motion.div>
+        </div>
       )}
     </motion.form>
   );
