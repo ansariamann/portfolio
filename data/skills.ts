@@ -179,18 +179,6 @@ export const skills: Skill[] = [
     color: "#47A248",
     relatedSkills: ["nodejs", "express", "mongoose"],
   },
-  {
-    id: "redis",
-    name: "Redis",
-    category: "databases",
-    proficiency: 3,
-    icon: "redis",
-    description:
-      "In-memory data structure store for caching and session management",
-    yearsOfExperience: 1,
-    color: "#DC382D",
-    relatedSkills: ["nodejs", "caching", "sessions"],
-  },
 
   // Tools & Technologies
   {
@@ -215,53 +203,6 @@ export const skills: Skill[] = [
     yearsOfExperience: 1,
     color: "#2496ED",
     relatedSkills: ["kubernetes", "ci-cd", "devops"],
-  },
-  {
-    id: "webpack",
-    name: "Webpack",
-    category: "tools",
-    proficiency: 3,
-    icon: "webpack",
-    description:
-      "Module bundler with optimization and development server configuration",
-    yearsOfExperience: 1.5,
-    color: "#8DD6F9",
-    relatedSkills: ["babel", "eslint", "build-tools"],
-  },
-  {
-    id: "vite",
-    name: "Vite",
-    category: "tools",
-    proficiency: 4,
-    icon: "vite",
-    description:
-      "Fast build tool with hot module replacement and optimized bundling",
-    yearsOfExperience: 1,
-    color: "#646CFF",
-    relatedSkills: ["vue", "react", "rollup"],
-  },
-  {
-    id: "jest",
-    name: "Jest",
-    category: "tools",
-    proficiency: 3,
-    icon: "jest",
-    description:
-      "JavaScript testing framework with mocking and coverage reporting",
-    yearsOfExperience: 1.5,
-    color: "#C21325",
-    relatedSkills: ["testing-library", "react", "nodejs"],
-  },
-  {
-    id: "cypress",
-    name: "Cypress",
-    category: "tools",
-    proficiency: 3,
-    icon: "cypress",
-    description: "End-to-end testing framework with real browser automation",
-    yearsOfExperience: 1,
-    color: "#17202C",
-    relatedSkills: ["testing", "e2e", "automation"],
   },
 
   // Cloud & DevOps

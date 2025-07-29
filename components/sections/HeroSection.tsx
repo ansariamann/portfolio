@@ -288,6 +288,62 @@ export default function HeroSection() {
     }
   };
 
+  // Download CV function
+  const handleDownloadCV = () => {
+    // List of possible CV file names to try
+    const cvFiles = [
+      "/cv/Aman_Ansari_CV.pdf",
+      "/cv/Aman_Ansari_CV.docx",
+      "/cv/Aman_Ansari_CV.txt",
+      "/cv/resume.pdf",
+      "/cv/cv.pdf",
+    ];
+
+    // Function to try downloading a file
+    const tryDownload = async (filePath: string): Promise<boolean> => {
+      try {
+        const response = await fetch(filePath, { method: "HEAD" });
+        if (response.ok) {
+          // File exists, create download link
+          const link = document.createElement("a");
+          link.href = filePath;
+          link.download = filePath.split("/").pop() || "Aman_Ansari_CV";
+          link.target = "_blank";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          return true;
+        }
+        return false;
+      } catch (error) {
+        return false;
+      }
+    };
+
+    // Try each file until one is found
+    const downloadCV = async () => {
+      for (const filePath of cvFiles) {
+        const success = await tryDownload(filePath);
+        if (success) {
+          console.log(`CV downloaded: ${filePath}`);
+          return;
+        }
+      }
+
+      // If no CV file is found, show a helpful message
+      alert(
+        "CV file not found. Please add your CV file to the /public/cv/ directory.\n\n" +
+          "Supported formats:\n" +
+          "• Aman_Ansari_CV.pdf (recommended)\n" +
+          "• Aman_Ansari_CV.docx\n" +
+          "• Aman_Ansari_CV.txt\n\n" +
+          "Place your CV file in the public/cv/ folder and it will be automatically available for download."
+      );
+    };
+
+    downloadCV();
+  };
+
   return (
     <>
       <CursorFollower />
@@ -340,9 +396,19 @@ export default function HeroSection() {
                     Ansari
                   </span>
                   <br />
-                  <span className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                    {shouldReduceAnimations ? "Developer" : mainTitle}
-                  </span>
+                  <div className="mt-4 flex items-center">
+                    <span className="text-green-400 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-mono mr-2">
+                      $
+                    </span>
+                    <span className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-mono text-green-300 bg-black/20 px-4 py-2 rounded-lg border border-green-400/30 backdrop-blur-sm">
+                      {shouldReduceAnimations
+                        ? "Software Developer"
+                        : `${mainTitle.replace(
+                            "Creative Developer",
+                            "Software Developer"
+                          )}`}
+                    </span>
+                  </div>
                   {!shouldReduceAnimations && (
                     <motion.span
                       className="inline-block w-1.5 h-12 md:h-16 lg:h-20 bg-gradient-to-b from-blue-400 to-purple-400 ml-3"
@@ -446,7 +512,7 @@ export default function HeroSection() {
                   className="relative group"
                 >
                   <Button
-                    onClick={() => scrollToSection("contact")}
+                    onClick={handleDownloadCV}
                     className="px-8 py-4 bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-semibold rounded-2xl border border-white/20 hover:border-white/40 transition-all duration-300"
                   >
                     <Download className="w-5 h-5 mr-2" />
