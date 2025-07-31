@@ -157,7 +157,7 @@ const developer = {
   name: 'Junior Developer',
   experience: skills.map(skill => ({
     name: skill,
-    proficiency: 'Advanced'
+    proficiency: 'Begineer'
   }))
 };`,
     typescript: `// TypeScript with strong typing

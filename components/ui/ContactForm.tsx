@@ -48,11 +48,23 @@ export default function ContactForm() {
         throw new Error("Validation failed");
       }
 
-      // TODO: Replace with actual email service integration
-      // For now, simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // Submit to Netlify Forms
+      const formData = new FormData();
+      formData.append("form-name", "contact");
+      formData.append("name", sanitizedData.name);
+      formData.append("email", sanitizedData.email);
+      formData.append("message", sanitizedData.message);
 
-      // Simulate success
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData as unknown as Record<string, string>).toString(),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
       setSubmissionStatus("success");
       setSubmitMessage("Thank you! Your message has been sent successfully.");
       reset();
@@ -62,7 +74,8 @@ export default function ContactForm() {
         setSubmissionStatus("idle");
         setSubmitMessage("");
       }, 5000);
-    } catch {
+    } catch (error) {
+      console.error("Form submission error:", error);
       setSubmissionStatus("error");
       setSubmitMessage(
         "Sorry, there was an error sending your message. Please try again."
@@ -99,18 +112,44 @@ export default function ContactForm() {
   const errorClasses = cn("text-red-400 mt-1", "text-sm sm:text-xs");
 
   return (
-    <motion.form
-      onSubmit={handleSubmit(onSubmit)}
-      className={cn(
-        "w-full max-w-2xl mx-auto space-y-6",
-        prefersReducedMotion && "motion-reduce-scroll"
-      )}
-      initial={
-        prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
-      }
-      animate={{ opacity: 1, y: 0 }}
-      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6 }}
-    >
+    <>
+      {/* Static form for Netlify detection - hidden from users */}
+      <form 
+        name="contact" 
+        data-netlify="true" 
+        data-netlify-honeypot="bot-field" 
+        hidden
+      >
+        <input type="text" name="name" />
+        <input type="email" name="email" />
+        <textarea name="message"></textarea>
+      </form>
+
+      {/* Actual React form that users interact with */}
+      <motion.form
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        data-netlify-honeypot="bot-field"
+        onSubmit={handleSubmit(onSubmit)}
+        className={cn(
+          "w-full max-w-2xl mx-auto space-y-6",
+          prefersReducedMotion && "motion-reduce-scroll"
+        )}
+        initial={
+          prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
+        }
+        animate={{ opacity: 1, y: 0 }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6 }}
+      >
+      {/* Hidden honeypot field for spam protection */}
+      <input type="hidden" name="form-name" value="contact" />
+      <div style={{ display: "none" }}>
+        <label>
+          Don&apos;t fill this out if you&apos;re human: <input name="bot-field" />
+        </label>
+      </div>
+
       <h3 className="text-2xl font-bold text-white mb-8 text-center">
         Send me a message
       </h3>
@@ -285,5 +324,6 @@ export default function ContactForm() {
         </div>
       )}
     </motion.form>
+    </>
   );
 }

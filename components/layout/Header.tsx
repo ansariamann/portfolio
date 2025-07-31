@@ -173,7 +173,7 @@ export default function Header() {
               <div className="md:hidden fixed top-16 left-0 right-0 bg-white/95 backdrop-blur-md shadow-xl border-t border-gray-200 max-h-[calc(100vh-4rem)] overflow-y-auto">
                 <div className="px-4 py-6">
                   <div className="space-y-2">
-                    {navigationItems.map((item, index) => (
+                    {navigationItems.map((item) => (
                       <button
                         key={item.href}
                         onClick={() => handleScrollToSection(item.href)}

@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
+import Image from "next/image";
 
 import { timelineData, achievementsData } from "@/data/about";
 import { TimelineItem, Achievement } from "@/types";
@@ -414,15 +415,18 @@ export default function AboutSection() {
                   transition={{ duration: 0.3 }}
                 >
                   {/* About Section Profile Image */}
-                  <img
+                  <Image
                     src="/images/about-photo.jpg"
                     alt="Aman Ansari - About Me"
-                    className="absolute inset-0 w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                     onError={(e) => {
                       // Fallback to placeholder if image fails to load
                       const target = e.target as HTMLImageElement;
                       target.style.display = "none";
-                      const fallback = target.nextElementSibling as HTMLElement;
+                      const fallback = target.parentElement?.querySelector(
+                        ".fallback-placeholder"
+                      ) as HTMLElement;
                       if (fallback) fallback.style.display = "flex";
                     }}
                   />

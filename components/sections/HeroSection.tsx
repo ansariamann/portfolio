@@ -8,6 +8,7 @@ import {
   useSpring,
 } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { useMobileOptimizedAnimation } from "@/lib/hooks";
 import { Github as GitHubIcon, Linkedin, Mail, Download } from "lucide-react";
@@ -577,15 +578,19 @@ export default function HeroSection() {
                   transition={{ duration: 0.3 }}
                 >
                   {/* Profile Image */}
-                  <img
+                  <Image
                     src="/images/profile-photo.jpg"
                     alt="Aman Ansari - Software Developer"
-                    className="absolute inset-0 w-full h-full object-cover"
+                    fill
+                    className="object-cover"
+                    priority
                     onError={(e) => {
                       // Fallback to placeholder if image fails to load
                       const target = e.target as HTMLImageElement;
                       target.style.display = "none";
-                      const fallback = target.nextElementSibling as HTMLElement;
+                      const fallback = target.parentElement?.querySelector(
+                        ".fallback-placeholder"
+                      ) as HTMLElement;
                       if (fallback) fallback.style.display = "flex";
                     }}
                   />
