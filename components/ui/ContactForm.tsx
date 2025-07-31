@@ -49,7 +49,7 @@ export default function ContactForm() {
       }
 
       // Submit to Netlify Forms
-      const formData = new FormData();
+      const formData = new URLSearchParams();
       formData.append("form-name", "contact");
       formData.append("name", sanitizedData.name);
       formData.append("email", sanitizedData.email);
@@ -58,7 +58,7 @@ export default function ContactForm() {
       const response = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData as unknown as Record<string, string>).toString(),
+        body: formData.toString(),
       });
 
       if (!response.ok) {
@@ -114,10 +114,10 @@ export default function ContactForm() {
   return (
     <>
       {/* Static form for Netlify detection - hidden from users */}
-      <form 
-        name="contact" 
-        data-netlify="true" 
-        data-netlify-honeypot="bot-field" 
+      <form
+        name="contact"
+        data-netlify="true"
+        data-netlify-honeypot="bot-field"
         hidden
       >
         <input type="text" name="name" />
@@ -142,188 +142,189 @@ export default function ContactForm() {
         animate={{ opacity: 1, y: 0 }}
         transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6 }}
       >
-      {/* Hidden honeypot field for spam protection */}
-      <input type="hidden" name="form-name" value="contact" />
-      <div style={{ display: "none" }}>
-        <label>
-          Don&apos;t fill this out if you&apos;re human: <input name="bot-field" />
-        </label>
-      </div>
-
-      <h3 className="text-2xl font-bold text-white mb-8 text-center">
-        Send me a message
-      </h3>
-
-      {/* Name Field */}
-      <motion.div
-        className="space-y-2"
-        initial={
-          prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
-        }
-        animate={{ opacity: 1, x: 0 }}
-        transition={
-          prefersReducedMotion
-            ? { duration: 0 }
-            : { delay: 0.1, ...transition.default }
-        }
-      >
-        <label
-          htmlFor="name"
-          className="block text-sm font-medium text-gray-300"
-        >
-          Name *
-        </label>
-        <input
-          {...register("name")}
-          type="text"
-          id="name"
-          className={inputClasses}
-          placeholder="Your full name"
-        />
-        {errors.name && (
-          <motion.p
-            className={errorClasses}
-            initial={
-              prefersReducedMotion
-                ? { opacity: 1, y: 0 }
-                : { opacity: 0, y: -10 }
-            }
-            animate={{ opacity: 1, y: 0 }}
-            transition={
-              prefersReducedMotion ? { duration: 0 } : transition.fast
-            }
-          >
-            {errors.name.message}
-          </motion.p>
-        )}
-      </motion.div>
-
-      {/* Email Field */}
-      <motion.div
-        className="space-y-2"
-        initial={
-          prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
-        }
-        animate={{ opacity: 1, x: 0 }}
-        transition={
-          prefersReducedMotion
-            ? { duration: 0 }
-            : { delay: 0.2, ...transition.default }
-        }
-      >
-        <label
-          htmlFor="email"
-          className="block text-sm font-medium text-gray-300"
-        >
-          Email *
-        </label>
-        <input
-          {...register("email")}
-          type="email"
-          id="email"
-          className={inputClasses}
-          placeholder="your.email@example.com"
-        />
-        {errors.email && (
-          <motion.p
-            className={errorClasses}
-            initial={
-              prefersReducedMotion
-                ? { opacity: 1, y: 0 }
-                : { opacity: 0, y: -10 }
-            }
-            animate={{ opacity: 1, y: 0 }}
-            transition={
-              prefersReducedMotion ? { duration: 0 } : transition.fast
-            }
-          >
-            {errors.email.message}
-          </motion.p>
-        )}
-      </motion.div>
-
-      {/* Message Field */}
-      <motion.div
-        className="space-y-2"
-        initial={
-          prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
-        }
-        animate={{ opacity: 1, x: 0 }}
-        transition={
-          prefersReducedMotion
-            ? { duration: 0 }
-            : { delay: 0.3, ...transition.default }
-        }
-      >
-        <label
-          htmlFor="message"
-          className="block text-sm font-medium text-gray-300"
-        >
-          Message *
-        </label>
-        <textarea
-          {...register("message")}
-          id="message"
-          rows={6}
-          className={inputClasses}
-          placeholder="Tell me about your project, question, or just say hello!"
-        />
-        {errors.message && (
-          <motion.p
-            className={errorClasses}
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            {errors.message.message}
-          </motion.p>
-        )}
-      </motion.div>
-
-      {/* Submit Button */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
-      >
-        <Button
-          type="submit"
-          variant="primary"
-          size="lg"
-          disabled={!isValid || !isDirty || submissionStatus === "submitting"}
-          className="w-full"
-        >
-          {submissionStatus === "submitting" ? (
-            <div className="flex items-center justify-center">
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
-              <span className="ml-2">Sending...</span>
-            </div>
-          ) : (
-            <>
-              <Send size={18} className="mr-2" />
-              Send Message
-            </>
-          )}
-        </Button>
-      </motion.div>
-
-      {/* Status Messages */}
-      {submitMessage && (
-        <div
-          className={`flex items-center p-4 rounded-lg ${
-            submissionStatus === "success"
-              ? "bg-green-900/50 border border-green-500 text-green-300"
-              : "bg-red-900/50 border border-red-500 text-red-300"
-          }`}
-        >
-          {submissionStatus === "success" ? (
-            <CheckCircle size={20} className="mr-3 flex-shrink-0" />
-          ) : (
-            <AlertCircle size={20} className="mr-3 flex-shrink-0" />
-          )}
-          <p>{submitMessage}</p>
+        {/* Hidden honeypot field for spam protection */}
+        <input type="hidden" name="form-name" value="contact" />
+        <div style={{ display: "none" }}>
+          <label>
+            Don&apos;t fill this out if you&apos;re human:{" "}
+            <input name="bot-field" />
+          </label>
         </div>
-      )}
-    </motion.form>
+
+        <h3 className="text-2xl font-bold text-white mb-8 text-center">
+          Send me a message
+        </h3>
+
+        {/* Name Field */}
+        <motion.div
+          className="space-y-2"
+          initial={
+            prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
+          }
+          animate={{ opacity: 1, x: 0 }}
+          transition={
+            prefersReducedMotion
+              ? { duration: 0 }
+              : { delay: 0.1, ...transition.default }
+          }
+        >
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-gray-300"
+          >
+            Name *
+          </label>
+          <input
+            {...register("name")}
+            type="text"
+            id="name"
+            className={inputClasses}
+            placeholder="Your full name"
+          />
+          {errors.name && (
+            <motion.p
+              className={errorClasses}
+              initial={
+                prefersReducedMotion
+                  ? { opacity: 1, y: 0 }
+                  : { opacity: 0, y: -10 }
+              }
+              animate={{ opacity: 1, y: 0 }}
+              transition={
+                prefersReducedMotion ? { duration: 0 } : transition.fast
+              }
+            >
+              {errors.name.message}
+            </motion.p>
+          )}
+        </motion.div>
+
+        {/* Email Field */}
+        <motion.div
+          className="space-y-2"
+          initial={
+            prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
+          }
+          animate={{ opacity: 1, x: 0 }}
+          transition={
+            prefersReducedMotion
+              ? { duration: 0 }
+              : { delay: 0.2, ...transition.default }
+          }
+        >
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-300"
+          >
+            Email *
+          </label>
+          <input
+            {...register("email")}
+            type="email"
+            id="email"
+            className={inputClasses}
+            placeholder="your.email@example.com"
+          />
+          {errors.email && (
+            <motion.p
+              className={errorClasses}
+              initial={
+                prefersReducedMotion
+                  ? { opacity: 1, y: 0 }
+                  : { opacity: 0, y: -10 }
+              }
+              animate={{ opacity: 1, y: 0 }}
+              transition={
+                prefersReducedMotion ? { duration: 0 } : transition.fast
+              }
+            >
+              {errors.email.message}
+            </motion.p>
+          )}
+        </motion.div>
+
+        {/* Message Field */}
+        <motion.div
+          className="space-y-2"
+          initial={
+            prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
+          }
+          animate={{ opacity: 1, x: 0 }}
+          transition={
+            prefersReducedMotion
+              ? { duration: 0 }
+              : { delay: 0.3, ...transition.default }
+          }
+        >
+          <label
+            htmlFor="message"
+            className="block text-sm font-medium text-gray-300"
+          >
+            Message *
+          </label>
+          <textarea
+            {...register("message")}
+            id="message"
+            rows={6}
+            className={inputClasses}
+            placeholder="Tell me about your project, question, or just say hello!"
+          />
+          {errors.message && (
+            <motion.p
+              className={errorClasses}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              {errors.message.message}
+            </motion.p>
+          )}
+        </motion.div>
+
+        {/* Submit Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+        >
+          <Button
+            type="submit"
+            variant="primary"
+            size="lg"
+            disabled={!isValid || !isDirty || submissionStatus === "submitting"}
+            className="w-full"
+          >
+            {submissionStatus === "submitting" ? (
+              <div className="flex items-center justify-center">
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
+                <span className="ml-2">Sending...</span>
+              </div>
+            ) : (
+              <>
+                <Send size={18} className="mr-2" />
+                Send Message
+              </>
+            )}
+          </Button>
+        </motion.div>
+
+        {/* Status Messages */}
+        {submitMessage && (
+          <div
+            className={`flex items-center p-4 rounded-lg ${
+              submissionStatus === "success"
+                ? "bg-green-900/50 border border-green-500 text-green-300"
+                : "bg-red-900/50 border border-red-500 text-red-300"
+            }`}
+          >
+            {submissionStatus === "success" ? (
+              <CheckCircle size={20} className="mr-3 flex-shrink-0" />
+            ) : (
+              <AlertCircle size={20} className="mr-3 flex-shrink-0" />
+            )}
+            <p>{submitMessage}</p>
+          </div>
+        )}
+      </motion.form>
     </>
   );
 }
