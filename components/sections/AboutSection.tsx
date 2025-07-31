@@ -293,7 +293,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="min-h-screen py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 relative overflow-hidden"
+      className="min-h-screen py-20 bg-gradient-to-br from-blue-50 via-slate-50 to-indigo-50 relative overflow-hidden"
     >
       {/* Modern background elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -413,16 +413,30 @@ export default function AboutSection() {
                   whileHover={{ scale: 1.02, rotate: 1 }}
                   transition={{ duration: 0.3 }}
                 >
-                  {/* Photo placeholder */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
+                  {/* About Section Profile Image */}
+                  <img
+                    src="/images/about-photo.jpg"
+                    alt="Aman Ansari - About Me"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    onError={(e) => {
+                      // Fallback to placeholder if image fails to load
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = "none";
+                      const fallback = target.nextElementSibling as HTMLElement;
+                      if (fallback) fallback.style.display = "flex";
+                    }}
+                  />
+
+                  {/* Fallback placeholder (hidden by default) */}
+                  <div className="absolute inset-0 hidden items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
                     <div className="text-center">
                       <motion.div
-                        className="w-32 h-32 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto mb-6 flex items-center justify-center shadow-xl"
+                        className="w-32 h-32 bg-gradient-to-r from-vibrant-blue to-vibrant-purple rounded-full mx-auto mb-6 flex items-center justify-center shadow-xl"
                         animate={{
                           boxShadow: [
-                            "0 0 30px rgba(59, 130, 246, 0.4)",
-                            "0 0 50px rgba(147, 51, 234, 0.6)",
-                            "0 0 30px rgba(59, 130, 246, 0.4)",
+                            "0 0 30px rgba(0, 102, 255, 0.5)",
+                            "0 0 50px rgba(139, 0, 255, 0.7)",
+                            "0 0 30px rgba(0, 102, 255, 0.5)",
                           ],
                         }}
                         transition={{
@@ -435,17 +449,17 @@ export default function AboutSection() {
                       </motion.div>
                       <p className="text-slate-600 font-medium">Aman Ansari</p>
                       <p className="text-slate-500 text-sm mt-2">
-                        Add your professional photo here
+                        Software Developer
                       </p>
                     </div>
                   </div>
 
-                  {/* Overlay gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />
+                  {/* Overlay gradient for better text readability when image loads */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
 
                   {/* Decorative corner elements */}
-                  <div className="absolute top-4 right-4 w-3 h-3 bg-blue-400/60 rounded-full" />
-                  <div className="absolute bottom-4 left-4 w-2 h-2 bg-purple-400/60 rounded-full" />
+                  <div className="absolute top-4 right-4 w-3 h-3 bg-vibrant-blue/60 rounded-full" />
+                  <div className="absolute bottom-4 left-4 w-2 h-2 bg-vibrant-purple/60 rounded-full" />
                 </motion.div>
               </div>
             </motion.div>

@@ -49,6 +49,25 @@ const config: Config = {
           800: "#6b21a8",
           900: "#581c87",
         },
+        // Vibrant color palette
+        vibrant: {
+          blue: "#0066ff",
+          purple: "#8b00ff",
+          pink: "#ff0080",
+          cyan: "#00ffff",
+          green: "#00ff80",
+          orange: "#ff8000",
+          red: "#ff0040",
+          yellow: "#ffff00",
+        },
+        neon: {
+          blue: "#00d4ff",
+          purple: "#b300ff",
+          pink: "#ff0099",
+          green: "#00ff66",
+          orange: "#ff6600",
+          cyan: "#00ffcc",
+        },
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],

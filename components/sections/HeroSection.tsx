@@ -10,15 +10,15 @@ import {
 import { useEffect, useState, useRef } from "react";
 import { Button } from "@/components/ui/Button";
 import { useMobileOptimizedAnimation } from "@/lib/hooks";
-import { Github, Linkedin, Mail, Download } from "lucide-react";
+import { Github as GitHubIcon, Linkedin, Mail, Download } from "lucide-react";
 
 // Advanced animated background with sophisticated graphics
 const AdvancedAnimatedBackground = () => {
   return (
     <div className="absolute inset-0 overflow-hidden">
-      {/* Animated gradient orbs */}
+      {/* Deep blue gradient orbs matching the reference */}
       <motion.div
-        className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400/20 to-purple-600/20 rounded-full blur-3xl"
+        className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-blue-600/20 to-indigo-700/20 rounded-full blur-3xl"
         animate={{
           scale: [1, 1.2, 1],
           opacity: [0.3, 0.6, 0.3],
@@ -30,7 +30,7 @@ const AdvancedAnimatedBackground = () => {
         }}
       />
       <motion.div
-        className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-purple-400/20 to-pink-600/20 rounded-full blur-3xl"
+        className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-tr from-indigo-700/20 to-purple-800/20 rounded-full blur-3xl"
         animate={{
           scale: [1.2, 1, 1.2],
           opacity: [0.4, 0.2, 0.4],
@@ -42,13 +42,27 @@ const AdvancedAnimatedBackground = () => {
         }}
       />
 
+      {/* Additional atmospheric elements */}
+      <motion.div
+        className="absolute top-1/3 left-1/4 w-64 h-64 bg-gradient-to-br from-blue-500/10 to-indigo-600/10 rounded-full blur-2xl"
+        animate={{
+          scale: [1, 1.1, 1],
+          opacity: [0.2, 0.4, 0.2],
+        }}
+        transition={{
+          duration: 12,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
       {/* Animated geometric network */}
       <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }}>
         <defs>
           <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="rgba(59, 130, 246, 0.3)" />
-            <stop offset="50%" stopColor="rgba(147, 51, 234, 0.3)" />
-            <stop offset="100%" stopColor="rgba(236, 72, 153, 0.3)" />
+            <stop offset="0%" stopColor="rgba(0, 102, 255, 0.5)" />
+            <stop offset="50%" stopColor="rgba(139, 0, 255, 0.5)" />
+            <stop offset="100%" stopColor="rgba(255, 0, 128, 0.5)" />
           </linearGradient>
         </defs>
 
@@ -89,7 +103,7 @@ const AdvancedAnimatedBackground = () => {
             cx={`${15 + i * 12}%`}
             cy={`${30 + Math.sin(i * 0.5) * 40}%`}
             r="3"
-            fill="rgba(59, 130, 246, 0.4)"
+            fill="rgba(0, 102, 255, 0.6)"
             initial={{ scale: 0, opacity: 0 }}
             animate={{
               scale: [0, 1, 1.5, 1, 0],
@@ -114,7 +128,7 @@ const AdvancedAnimatedBackground = () => {
       {[...Array(6)].map((_, i) => (
         <motion.div
           key={`code-${i}`}
-          className="absolute text-blue-400/20 font-mono text-sm select-none"
+          className="absolute text-vibrant-cyan/40 font-mono text-sm select-none"
           style={{
             top: `${20 + i * 15}%`,
             left: `${10 + i * 15}%`,
@@ -139,7 +153,7 @@ const AdvancedAnimatedBackground = () => {
       {[...Array(4)].map((_, i) => (
         <motion.div
           key={`hex-${i}`}
-          className="absolute w-16 h-16 border border-purple-400/20"
+          className="absolute w-16 h-16 border border-vibrant-purple/40"
           style={{
             top: `${25 + i * 20}%`,
             right: `${10 + i * 8}%`,
@@ -163,7 +177,7 @@ const AdvancedAnimatedBackground = () => {
       {[...Array(20)].map((_, i) => (
         <motion.div
           key={`particle-${i}`}
-          className="absolute w-1 h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"
+          className="absolute w-1 h-1 bg-gradient-to-r from-vibrant-blue to-vibrant-purple rounded-full"
           style={{
             top: `${Math.random() * 100}%`,
             left: `${Math.random() * 100}%`,
@@ -350,7 +364,7 @@ export default function HeroSection() {
       <section
         ref={containerRef}
         id="hero"
-        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-indigo-900 via-blue-800 to-purple-900"
       >
         {/* Advanced animated background */}
         <motion.div
@@ -444,7 +458,11 @@ export default function HeroSection() {
                 className="flex space-x-6 mb-12"
               >
                 {[
-                  { icon: Github, href: "https://github.com", label: "GitHub" },
+                  {
+                    icon: GitHubIcon,
+                    href: "https://github.com",
+                    label: "GitHub",
+                  },
                   {
                     icon: Linkedin,
                     href: "https://linkedin.com",
@@ -543,37 +561,45 @@ export default function HeroSection() {
                   }}
                 />
 
-                {/* Rotating border animation */}
-                <motion.div
-                  className="absolute -inset-2 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-3xl"
-                  animate={{ rotate: 360 }}
-                  transition={{
-                    duration: 20,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
+                {/* Static vibrant border */}
+                <div
+                  className="absolute -inset-2 rounded-3xl"
                   style={{
                     background:
-                      "conic-gradient(from 0deg, #3B82F6, #8B5CF6, #EC4899, #3B82F6)",
+                      "linear-gradient(45deg, #0066ff, #8b00ff, #ff0080, #00ffff)",
                   }}
                 />
 
-                {/* Photo placeholder with sophisticated styling */}
+                {/* Professional photo with sophisticated styling */}
                 <motion.div
                   className="relative w-80 h-96 lg:w-96 lg:h-[28rem] bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl overflow-hidden border-4 border-white/10"
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
                 >
-                  {/* Photo placeholder content */}
-                  <div className="absolute inset-0 flex items-center justify-center">
+                  {/* Profile Image */}
+                  <img
+                    src="/images/profile-photo.jpg"
+                    alt="Aman Ansari - Software Developer"
+                    className="absolute inset-0 w-full h-full object-cover"
+                    onError={(e) => {
+                      // Fallback to placeholder if image fails to load
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = "none";
+                      const fallback = target.nextElementSibling as HTMLElement;
+                      if (fallback) fallback.style.display = "flex";
+                    }}
+                  />
+
+                  {/* Fallback placeholder (hidden by default) */}
+                  <div className="absolute inset-0 hidden items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900">
                     <div className="text-center">
                       <motion.div
-                        className="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto mb-4 flex items-center justify-center"
+                        className="w-24 h-24 bg-gradient-to-r from-vibrant-blue to-vibrant-purple rounded-full mx-auto mb-4 flex items-center justify-center"
                         animate={{
                           boxShadow: [
-                            "0 0 20px rgba(59, 130, 246, 0.3)",
-                            "0 0 40px rgba(147, 51, 234, 0.5)",
-                            "0 0 20px rgba(59, 130, 246, 0.3)",
+                            "0 0 20px rgba(0, 102, 255, 0.4)",
+                            "0 0 40px rgba(139, 0, 255, 0.6)",
+                            "0 0 20px rgba(0, 102, 255, 0.4)",
                           ],
                         }}
                         transition={{
@@ -584,21 +610,21 @@ export default function HeroSection() {
                       >
                         <span className="text-3xl font-bold text-white">A</span>
                       </motion.div>
-                      <p className="text-gray-400 text-sm">Your Photo Here</p>
+                      <p className="text-gray-400 text-sm">Aman Ansari</p>
                       <p className="text-gray-500 text-xs mt-2">
-                        Replace with your professional photo
+                        Software Developer
                       </p>
                     </div>
                   </div>
 
                   {/* Overlay effects */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
 
                   {/* Floating particles around photo */}
                   {[...Array(6)].map((_, i) => (
                     <motion.div
                       key={`photo-particle-${i}`}
-                      className="absolute w-2 h-2 bg-blue-400/60 rounded-full"
+                      className="absolute w-2 h-2 bg-vibrant-cyan/60 rounded-full"
                       style={{
                         top: `${20 + i * 15}%`,
                         left: `${10 + i * 15}%`,

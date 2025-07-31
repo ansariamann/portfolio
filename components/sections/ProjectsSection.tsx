@@ -79,7 +79,7 @@ export default function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="min-h-screen py-20 bg-gradient-to-br from-indigo-50 via-white to-cyan-50 relative overflow-hidden"
+      className="min-h-screen py-20 bg-gradient-to-br from-blue-50 via-slate-50 to-sky-50 relative overflow-hidden"
     >
       {/* Modern background elements */}
       <div className="absolute inset-0 overflow-hidden">
