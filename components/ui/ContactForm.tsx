@@ -48,21 +48,41 @@ export default function ContactForm() {
         throw new Error("Validation failed");
       }
 
-      // Submit to Netlify Forms
-      const formData = new URLSearchParams();
-      formData.append("form-name", "contact");
-      formData.append("name", sanitizedData.name);
-      formData.append("email", sanitizedData.email);
-      formData.append("message", sanitizedData.message);
+      // Encode form data for Netlify
+      const encode = (data: Record<string, string>) => {
+        return Object.keys(data)
+          .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+          .join("&");
+      };
+
+      const formData = {
+        "form-name": "contact",
+        "name": sanitizedData.name,
+        "email": sanitizedData.email,
+        "message": sanitizedData.message,
+      };
+
+      console.log('Submitting form data:', {
+        name: sanitizedData.name,
+        email: sanitizedData.email,
+        message: sanitizedData.message.substring(0, 50) + '...'
+      });
 
       const response = await fetch("/", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: formData.toString(),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: encode(formData),
       });
 
+      console.log('Response status:', response.status);
+      console.log('Response headers:', response.headers);
+
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        const errorText = await response.text();
+        console.error('Response error text:', errorText);
+        throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
       }
 
       setSubmissionStatus("success");

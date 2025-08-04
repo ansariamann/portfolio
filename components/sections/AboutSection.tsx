@@ -101,11 +101,11 @@ function AchievementCounter({
             {count}
           </motion.div>
 
-          <h3 className="text-xl font-semibold text-slate-700 mb-2">
+          <h3 className="text-xl font-semibold text-slate-800 mb-2">
             {achievement.title}
           </h3>
 
-          <p className="text-slate-600 leading-relaxed">
+          <p className="text-slate-700 leading-relaxed">
             {achievement.description}
           </p>
         </div>
@@ -294,7 +294,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="min-h-screen py-20 bg-gradient-to-br from-blue-50 via-slate-50 to-indigo-50 relative overflow-hidden"
+      className="min-h-screen py-20 bg-gradient-to-br from-slate-50 via-white via-gray-50 to-slate-100 relative overflow-hidden"
     >
       {/* Modern background elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -341,7 +341,7 @@ export default function AboutSection() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="inline-block mb-6"
             >
-              <span className="px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full text-sm font-medium text-slate-600 border border-white/40">
+              <span className="px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-sm font-medium text-slate-800 border border-white/60">
                 Get to know me
               </span>
             </motion.div>
@@ -478,17 +478,17 @@ export default function AboutSection() {
               {/* Main description */}
               <div className="space-y-6">
                 <motion.p
-                  className="text-xl text-slate-700 leading-relaxed"
+                  className="text-xl text-slate-800 leading-relaxed"
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.8, delay: 0.8 }}
                 >
                   Hi! I&apos;m{" "}
-                  <span className="font-semibold text-blue-600">
+                  <span className="font-semibold text-blue-700">
                     Aman Ansari
                   </span>
                   , a passionate junior software developer who loves crafting
-                  <span className="text-purple-600 font-medium">
+                  <span className="text-purple-700 font-medium">
                     {" "}
                     digital experiences
                   </span>
@@ -496,7 +496,7 @@ export default function AboutSection() {
                 </motion.p>
 
                 <motion.p
-                  className="text-lg text-slate-600 leading-relaxed"
+                  className="text-lg text-slate-700 leading-relaxed"
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.8, delay: 0.9 }}

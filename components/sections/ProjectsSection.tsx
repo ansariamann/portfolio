@@ -79,7 +79,7 @@ export default function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="min-h-screen py-20 bg-gradient-to-br from-blue-50 via-slate-50 to-sky-50 relative overflow-hidden"
+      className="min-h-screen py-20 bg-gradient-to-br from-slate-50 via-white via-blue-50 via-gray-50 to-slate-100 relative overflow-hidden"
     >
       {/* Modern background elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -125,7 +125,7 @@ export default function ProjectsSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="inline-block mb-6"
           >
-            <span className="px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full text-sm font-medium text-slate-600 border border-white/40">
+            <span className="px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-sm font-medium text-slate-800 border border-white/60">
               My work
             </span>
           </motion.div>
@@ -143,7 +143,7 @@ export default function ProjectsSection() {
           </motion.h2>
 
           <motion.p
-            className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-light"
+            className="text-xl text-slate-700 max-w-3xl mx-auto leading-relaxed font-light"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

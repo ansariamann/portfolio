@@ -365,7 +365,7 @@ export default function HeroSection() {
       <section
         ref={containerRef}
         id="hero"
-        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-indigo-900 via-blue-800 to-purple-900"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-gray-900 via-slate-800 to-gray-900"
       >
         {/* Advanced animated background */}
         <motion.div
@@ -546,28 +546,53 @@ export default function HeroSection() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, delay: 0.8 }}
             >
-              {/* Animated photo container */}
+              {/* Enhanced photo container with professional styling */}
               <div className="relative">
-                {/* Animated background elements for photo */}
+                {/* Outer glow effect */}
                 <motion.div
-                  className="absolute -inset-4 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-3xl blur-2xl"
+                  className="absolute -inset-8 bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-cyan-500/30 rounded-[2rem] blur-3xl"
                   animate={{
-                    scale: [1, 1.05, 1],
-                    opacity: [0.5, 0.8, 0.5],
+                    scale: [1, 1.1, 1],
+                    rotate: [0, 5, -5, 0],
+                    opacity: [0.3, 0.6, 0.3],
                   }}
                   transition={{
-                    duration: 4,
+                    duration: 8,
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
                 />
 
-                {/* Static vibrant border */}
-                <div
-                  className="absolute -inset-2 rounded-3xl"
+                {/* Animated rotating border */}
+                <motion.div
+                  className="absolute -inset-3 rounded-[1.75rem] p-[3px]"
                   style={{
-                    background:
-                      "linear-gradient(45deg, #0066ff, #8b00ff, #ff0080, #00ffff)",
+                    background: "linear-gradient(45deg, #0066ff, #8b00ff, #ff0080, #00ffff, #0066ff)",
+                    backgroundSize: "400% 400%",
+                  }}
+                  animate={{
+                    backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
+                  }}
+                  transition={{
+                    duration: 6,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                >
+                  <div className="w-full h-full bg-slate-900 rounded-[1.5rem]" />
+                </motion.div>
+
+                {/* Inner animated accent */}
+                <motion.div
+                  className="absolute -inset-1 bg-gradient-to-br from-blue-400/40 to-purple-400/40 rounded-3xl blur-sm"
+                  animate={{
+                    scale: [1, 1.02, 1],
+                    opacity: [0.4, 0.7, 0.4],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
                   }}
                 />
 

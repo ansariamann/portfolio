@@ -327,7 +327,7 @@ export default function SkillsSection() {
   return (
     <section
       id="skills"
-      className="min-h-screen py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50 relative overflow-hidden"
+      className="min-h-screen py-20 bg-gradient-to-br from-gray-900 via-slate-900 via-gray-800 to-slate-900 relative overflow-hidden"
     >
       {/* Modern background elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -373,7 +373,7 @@ export default function SkillsSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="inline-block mb-6"
           >
-            <span className="px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full text-sm font-medium text-slate-600 border border-white/40">
+            <span className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium text-blue-200 border border-white/30">
               What I work with
             </span>
           </motion.div>
@@ -385,13 +385,13 @@ export default function SkillsSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
               My Skills
             </span>
           </motion.h2>
 
           <motion.p
-            className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-light"
+            className="text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed font-light"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

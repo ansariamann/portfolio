@@ -30,7 +30,10 @@ import {
 } from "react-icons/si";
 
 // Icon mapping for skills
-export const skillIconMap: Record<string, React.ComponentType<any>> = {
+export const skillIconMap: Record<
+  string,
+  React.ComponentType<{ size?: number; color?: string; className?: string }>
+> = {
   react: SiReact,
   nextjs: SiNextdotjs,
   typescript: SiTypescript,

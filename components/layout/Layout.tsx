@@ -2,9 +2,9 @@
 
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/components/ui/ThemeProvider";
 
 import Header from "./Header";
-import Footer from "./Footer";
 
 interface LayoutProps {
   children: ReactNode;
@@ -13,12 +13,13 @@ interface LayoutProps {
 
 export default function Layout({ children, className = "" }: LayoutProps) {
   return (
-    <div
-      className={cn("min-h-screen flex flex-col", "scroll-smooth", className)}
-    >
-      <Header />
-      <main className="flex-1">{children}</main>
-      <Footer />
-    </div>
+    <ThemeProvider>
+      <div
+        className={cn("min-h-screen flex flex-col", "scroll-smooth", className)}
+      >
+        <Header />
+        <main className="flex-1">{children}</main>
+      </div>
+    </ThemeProvider>
   );
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import ContactForm from "@/components/ui/ContactForm";
 import { StaggeredList } from "@/components/ui";
 
 export default function Footer() {
@@ -90,11 +89,11 @@ export default function Footer() {
       </div>
 
       <div className="container mx-auto px-6 py-20 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
+        <div className="max-w-4xl mx-auto text-center">
           {/* Modern Contact Information */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
@@ -127,7 +126,7 @@ export default function Footer() {
             </motion.h2>
 
             <motion.p
-              className="text-xl text-gray-300 mb-8 leading-relaxed font-light"
+              className="text-xl text-gray-300 mb-8 leading-relaxed font-light max-w-2xl mx-auto"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -138,13 +137,13 @@ export default function Footer() {
             </motion.p>
 
             <StaggeredList
-              className="space-y-4 mb-8"
+              className="flex flex-col sm:flex-row justify-center items-center gap-6 mb-8"
               staggerDelay={0.1}
-              direction="left"
+              direction="up"
             >
               <motion.div
                 className="flex items-center space-x-3"
-                whileHover={{ x: 5 }}
+                whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               >
                 <svg
@@ -167,7 +166,7 @@ export default function Footer() {
 
               <motion.div
                 className="flex items-center space-x-3"
-                whileHover={{ x: 5 }}
+                whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.2 }}
               >
                 <svg
@@ -195,7 +194,7 @@ export default function Footer() {
 
             {/* Modern Social Links */}
             <motion.div
-              className="flex space-x-6 mb-8"
+              className="flex justify-center space-x-6 mb-8"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -227,16 +226,6 @@ export default function Footer() {
                 </motion.a>
               ))}
             </motion.div>
-          </motion.div>
-
-          {/* Modern Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <ContactForm />
           </motion.div>
         </div>
 

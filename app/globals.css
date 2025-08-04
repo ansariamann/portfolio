@@ -5,10 +5,66 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-variant-ligatures: common-ligatures;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
-    @apply text-gray-900 bg-white dark:text-gray-100 dark:bg-gray-900;
+    @apply text-gray-900 bg-white dark:text-gray-100 dark:bg-gray-900 transition-colors duration-300;
+    line-height: 1.6;
+    font-synthesis: none;
+  }
+
+  /* Enhanced focus styles */
+  *:focus {
+    outline: 2px solid rgb(59 130 246);
+    outline-offset: 2px;
+  }
+
+  *:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Improve text selection */
+  ::selection {
+    background-color: rgb(59 130 246 / 0.3);
+    color: inherit;
+  }
+
+  /* Modern scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgb(241 245 249);
+    border-radius: 4px;
+  }
+
+  .dark ::-webkit-scrollbar-track {
+    background: rgb(30 41 59);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgb(148 163 184);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(100 116 139);
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background: rgb(71 85 105);
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: rgb(100 116 139);
   }
 }
 

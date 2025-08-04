@@ -1,5 +1,11 @@
 import { useEffect, useState, useRef, RefObject, useCallback } from "react";
-import { useInView, useScroll, useTransform, MotionValue } from "framer-motion";
+import {
+  useInView,
+  useScroll,
+  useTransform,
+  MotionValue,
+  type UseInViewOptions,
+} from "framer-motion";
 import { throttle } from "@/lib/utils";
 
 // Animation constants for consistent configuration
@@ -38,10 +44,9 @@ export function useScrollAnimation(options?: ScrollAnimationOptions): {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, {
     amount: options?.threshold || ANIMATION_CONSTANTS.DEFAULT_THRESHOLD,
-    margin: (options?.rootMargin ||
-      ANIMATION_CONSTANTS.DEFAULT_ROOT_MARGIN) as any,
+    margin: options?.rootMargin || ANIMATION_CONSTANTS.DEFAULT_ROOT_MARGIN,
     once: options?.triggerOnce ?? true,
-  });
+  } as UseInViewOptions);
 
   return { ref, isInView };
 }
@@ -61,10 +66,9 @@ export function useStaggeredAnimation(
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, {
     amount: options?.threshold || ANIMATION_CONSTANTS.DEFAULT_THRESHOLD,
-    margin: (options?.rootMargin ||
-      ANIMATION_CONSTANTS.STAGGER_ROOT_MARGIN) as any,
+    margin: options?.rootMargin || ANIMATION_CONSTANTS.STAGGER_ROOT_MARGIN,
     once: true,
-  });
+  } as UseInViewOptions);
 
   const getItemDelay = (index: number): number => {
     return isInView ? index * delay : 0;
@@ -164,7 +168,7 @@ export function useReducedMotion(): boolean {
  * Hook that returns animation variants based on reduced motion preference
  * Returns reduced variants if user prefers reduced motion, full variants otherwise
  */
-export function useMotionVariants<T extends Record<string, any>>(
+export function useMotionVariants<T extends Record<string, unknown>>(
   fullVariants: T,
   reducedVariants?: Partial<T>
 ): T {
@@ -182,7 +186,9 @@ export function useMotionVariants<T extends Record<string, any>>(
       const variant = fullVariants[key];
       if (typeof variant === "object" && variant !== null) {
         // Remove animation properties but keep final state
-        const { transition, animate, initial, exit, ...finalState } = variant;
+        const variantObj = variant as Record<string, unknown>;
+        const { transition, animate, initial, exit, ...finalState } =
+          variantObj;
         // Suppress unused variable warnings for destructured properties
         void transition;
         void animate;
@@ -194,7 +200,7 @@ export function useMotionVariants<T extends Record<string, any>>(
           transition: { duration: 0 },
         } as T[keyof T];
       } else {
-        reduced[key as keyof T] = variant;
+        reduced[key as keyof T] = variant as T[keyof T];
       }
     });
 
@@ -374,7 +380,8 @@ export function useMobileOptimizedAnimation(): {
       setTouchDevice(
         "ontouchstart" in window ||
           navigator.maxTouchPoints > 0 ||
-          (navigator as any).msMaxTouchPoints > 0
+          ((navigator as Navigator & { msMaxTouchPoints?: number })
+            .msMaxTouchPoints || 0) > 0
       );
     };
 

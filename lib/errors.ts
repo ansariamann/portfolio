@@ -105,7 +105,7 @@ export class ErrorHandler {
    * @param error - Error to log
    * @param context - Additional context information
    */
-  static logError(error: Error, context?: Record<string, any>): void {
+  static logError(error: Error, context?: Record<string, unknown>): void {
     const errorInfo = {
       name: error.name,
       message: error.message,
