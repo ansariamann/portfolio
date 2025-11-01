@@ -1,12 +1,12 @@
 "use client";
 
 import React, { Component, ErrorInfo, ReactNode } from "react";
-import { createErrorBoundaryError, ErrorHandler } from "@/lib/errors";
-import { Button } from "./Button";
+import { motion } from "framer-motion";
+import { AlertTriangle, RefreshCw, Home } from "lucide-react";
 
 interface Props {
   children: ReactNode;
-  fallback?: ReactNode;
+  fallback?: React.ComponentType<{ error: Error; retry: () => void }>;
   onError?: (error: Error, errorInfo: ErrorInfo) => void;
 }
 
@@ -14,180 +14,187 @@ interface State {
   hasError: boolean;
   error: Error | null;
   errorInfo: ErrorInfo | null;
+  retryCount: number;
 }
 
 /**
- * Error Boundary component that catches JavaScript errors anywhere in the child component tree
- * and displays a fallback UI instead of crashing the entire application
+ * ErrorBoundary Component
+ *
+ * Catches JavaScript errors anywhere in the child component tree and displays
+ * a fallback UI with retry functionality for coding platform components.
  */
-export class ErrorBoundary extends Component<Props, State> {
-  private retryTimeoutId: NodeJS.Timeout | null = null;
+class ErrorBoundary extends Component<Props, State> {
+  private maxRetries = 3;
 
   constructor(props: Props) {
     super(props);
-    this.state = { hasError: false, error: null, errorInfo: null };
-  }
-
-  componentWillUnmount() {
-    if (this.retryTimeoutId) {
-      clearTimeout(this.retryTimeoutId);
-    }
+    this.state = {
+      hasError: false,
+      error: null,
+      errorInfo: null,
+      retryCount: 0,
+    };
   }
 
   static getDerivedStateFromError(error: Error): Partial<State> {
-    // Update state so the next render will show the fallback UI
-    return { hasError: true, error };
+    return {
+      hasError: true,
+      error,
+    };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // Update state with error info for debugging
-    this.setState({ errorInfo });
-
-    // Create a more descriptive error for the boundary
-    const boundaryError = createErrorBoundaryError("ErrorBoundary", error);
-
-    // Log the error with context
-    ErrorHandler.logError(boundaryError, {
-      componentStack: errorInfo.componentStack,
-      errorBoundary: true,
+    this.setState({
+      error,
+      errorInfo,
     });
 
-    // Call custom error handler if provided
+    // Call the onError callback if provided
     if (this.props.onError) {
       this.props.onError(error, errorInfo);
     }
 
-    // Report to external service if needed
-    if (ErrorHandler.shouldReport(boundaryError)) {
-      // Here you could integrate with error reporting services like Sentry
-      console.error("Error reported to monitoring service:", boundaryError);
+    // Log error to console in development
+    if (process.env.NODE_ENV === "development") {
+      console.error("ErrorBoundary caught an error:", error, errorInfo);
     }
   }
 
-  /**
-   * Categorizes errors and returns user-friendly error messages
-   * @param error - The error object to categorize
-   * @returns A user-friendly error message string
-   */
-  private getErrorMessage = (error: Error): string => {
-    // Categorize errors and provide user-friendly messages
-    if (
-      error.name === "ChunkLoadError" ||
-      error.message.includes("Loading chunk")
-    ) {
-      return "Failed to load application resources. Please refresh the page.";
+  handleRetry = () => {
+    if (this.state.retryCount < this.maxRetries) {
+      this.setState({
+        hasError: false,
+        error: null,
+        errorInfo: null,
+        retryCount: this.state.retryCount + 1,
+      });
     }
-
-    if (error.name === "NetworkError" || error.message.includes("fetch")) {
-      return "Network connection issue. Please check your internet connection and try again.";
-    }
-
-    if (
-      error.message.includes("hydration") ||
-      error.message.includes("Hydration")
-    ) {
-      return "Application loading issue. Please refresh the page.";
-    }
-
-    // Use ErrorHandler for other cases or fallback to generic message
-    return ErrorHandler.formatUserError
-      ? ErrorHandler.formatUserError(error)
-      : "An unexpected error occurred. Please try again.";
   };
 
-  handleRetry = () => {
-    this.setState({ hasError: false, error: null, errorInfo: null });
+  handleReset = () => {
+    this.setState({
+      hasError: false,
+      error: null,
+      errorInfo: null,
+      retryCount: 0,
+    });
   };
 
   render() {
     if (this.state.hasError) {
-      // Custom fallback UI
+      // Use custom fallback if provided
       if (this.props.fallback) {
-        return this.props.fallback;
+        const FallbackComponent = this.props.fallback;
+        return (
+          <FallbackComponent
+            error={this.state.error!}
+            retry={this.handleRetry}
+          />
+        );
       }
 
-      // Default fallback UI
+      // Default error UI
       return (
-        <div
-          className="flex flex-col items-center justify-center min-h-[200px] p-8 text-center"
-          role="alert"
-          aria-live="assertive"
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="flex flex-col items-center justify-center p-6 sm:p-8 bg-white/80 backdrop-blur-sm rounded-2xl border border-red-200 shadow-lg max-w-md mx-auto"
         >
-          <div className="max-w-md mx-auto">
-            <div className="mb-4">
-              <svg
-                className="w-16 h-16 mx-auto text-red-500"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
-                />
-              </svg>
-            </div>
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+            className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4"
+          >
+            <AlertTriangle className="w-8 h-8 text-red-600" />
+          </motion.div>
 
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
-              Something went wrong
-            </h2>
+          <motion.h3
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="text-lg font-semibold text-gray-900 mb-2 text-center"
+          >
+            Something went wrong
+          </motion.h3>
 
-            <p className="text-gray-600 dark:text-gray-400 mb-6">
-              {this.state.error
-                ? this.getErrorMessage(this.state.error)
-                : "An unexpected error occurred. Please try again."}
-            </p>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="text-sm text-gray-600 text-center mb-6 leading-relaxed"
+          >
+            We encountered an error while loading the coding platform data.
+            {this.state.retryCount < this.maxRetries
+              ? " Please try again."
+              : " Please refresh the page or contact support if the problem persists."}
+          </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Button
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="flex flex-col sm:flex-row gap-3 w-full"
+          >
+            {this.state.retryCount < this.maxRetries ? (
+              <motion.button
                 onClick={this.handleRetry}
-                variant="primary"
-                className="min-w-[120px]"
+                className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors duration-200 flex-1"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                Try Again
-              </Button>
-
-              <Button
+                <RefreshCw className="w-4 h-4" />
+                Try Again ({this.maxRetries - this.state.retryCount} left)
+              </motion.button>
+            ) : (
+              <motion.button
                 onClick={() => window.location.reload()}
-                variant="secondary"
-                className="min-w-[120px]"
+                className="flex items-center justify-center gap-2 px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-lg font-medium transition-colors duration-200 flex-1"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-                Reload Page
-              </Button>
-            </div>
-
-            {process.env.NODE_ENV === "development" && this.state.error && (
-              <details className="mt-6 text-left">
-                <summary className="cursor-pointer text-sm text-gray-500 hover:text-gray-700">
-                  Error Details (Development)
-                </summary>
-                <div className="mt-2 space-y-3">
-                  <div>
-                    <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      Error Stack:
-                    </h4>
-                    <pre className="p-3 bg-gray-100 dark:bg-gray-800 rounded text-xs overflow-auto max-h-32">
-                      {this.state.error.stack}
-                    </pre>
-                  </div>
-                  {this.state.errorInfo?.componentStack && (
-                    <div>
-                      <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                        Component Stack:
-                      </h4>
-                      <pre className="p-3 bg-gray-100 dark:bg-gray-800 rounded text-xs overflow-auto max-h-32">
-                        {this.state.errorInfo.componentStack}
-                      </pre>
-                    </div>
-                  )}
-                </div>
-              </details>
+                <RefreshCw className="w-4 h-4" />
+                Refresh Page
+              </motion.button>
             )}
-          </div>
-        </div>
+
+            <motion.button
+              onClick={this.handleReset}
+              className="flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-medium transition-colors duration-200 flex-1"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Home className="w-4 h-4" />
+              Reset
+            </motion.button>
+          </motion.div>
+
+          {/* Error details in development */}
+          {process.env.NODE_ENV === "development" && this.state.error && (
+            <motion.details
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6 }}
+              className="mt-6 w-full"
+            >
+              <summary className="text-xs text-gray-500 cursor-pointer hover:text-gray-700 transition-colors">
+                Error Details (Development)
+              </summary>
+              <div className="mt-2 p-3 bg-gray-50 rounded-lg text-xs text-gray-700 font-mono overflow-auto max-h-32">
+                <div className="font-semibold mb-1">Error:</div>
+                <div className="mb-2">{this.state.error.message}</div>
+                {this.state.error.stack && (
+                  <>
+                    <div className="font-semibold mb-1">Stack:</div>
+                    <div className="whitespace-pre-wrap">
+                      {this.state.error.stack}
+                    </div>
+                  </>
+                )}
+              </div>
+            </motion.details>
+          )}
+        </motion.div>
       );
     }
 
@@ -195,35 +202,28 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 }
 
-/**
- * Higher-order component that wraps a component with an error boundary
- */
-export function withErrorBoundary<P extends object>(
+// Higher-order component for wrapping components with error boundary
+export const withErrorBoundary = <P extends object>(
   Component: React.ComponentType<P>,
-  fallback?: ReactNode,
-  onError?: (error: Error, errorInfo: ErrorInfo) => void
-) {
-  const WrappedComponent = React.memo((props: P) => (
-    <ErrorBoundary fallback={fallback} onError={onError}>
+  fallback?: React.ComponentType<{ error: Error; retry: () => void }>
+) => {
+  const WrappedComponent = (props: P) => (
+    <ErrorBoundary fallback={fallback}>
       <Component {...props} />
     </ErrorBoundary>
-  ));
+  );
 
   WrappedComponent.displayName = `withErrorBoundary(${
     Component.displayName || Component.name
   })`;
-
   return WrappedComponent;
-}
+};
 
-/**
- * Hook for handling async errors in functional components
- */
-export function useErrorHandler() {
+// Hook for error handling in functional components
+export const useErrorHandler = () => {
   const [error, setError] = React.useState<Error | null>(null);
 
   const handleError = React.useCallback((error: Error) => {
-    ErrorHandler.logError(error);
     setError(error);
   }, []);
 
@@ -231,10 +231,14 @@ export function useErrorHandler() {
     setError(null);
   }, []);
 
-  // Throw error to be caught by error boundary
-  if (error) {
-    throw error;
-  }
+  React.useEffect(() => {
+    if (error) {
+      throw error;
+    }
+  }, [error]);
 
   return { handleError, clearError };
-}
+};
+
+export { ErrorBoundary };
+export default ErrorBoundary;

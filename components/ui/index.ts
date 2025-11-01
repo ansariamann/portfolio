@@ -6,6 +6,13 @@ export { default as ProjectModal } from "./ProjectModal";
 export { default as ProjectImage } from "./ProjectImage";
 export { default as DigitalClock, HeaderClock } from "./DigitalClock";
 
+// Coding Platforms Components
+export { default as ActivityHeatmap } from "./ActivityHeatmap";
+export { default as StatisticsVisualization } from "./StatisticsVisualization";
+export { default as AchievementsBadges } from "./AchievementsBadges";
+export { default as PlatformCard } from "./PlatformCard";
+export { default as RecentActivity } from "./RecentActivity";
+
 // Image and Performance Components
 export { default as OptimizedImage } from "./OptimizedImage";
 export { default as ImageGallery } from "./ImageGallery";
@@ -31,7 +38,7 @@ export { default as ScrollReveal } from "./ScrollReveal";
 
 // Error Handling and Accessibility Components
 export {
-  ErrorBoundary,
+  default as ErrorBoundary,
   withErrorBoundary,
   useErrorHandler,
 } from "./ErrorBoundary";

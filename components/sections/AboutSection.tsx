@@ -54,7 +54,7 @@ function AchievementCounter({
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const { count, startAnimation } = useCountAnimation(
-    achievement.value.toString()
+    achievement.value?.toString() || "0"
   );
 
   useEffect(() => {

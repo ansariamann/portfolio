@@ -68,6 +68,8 @@ export const achievementsData: Achievement[] = [
     value: "12+",
     icon: "🚀",
     color: "#3B82F6",
+    date: new Date("2024-01-01"),
+    category: "milestone",
   },
   {
     id: "2",
@@ -76,6 +78,8 @@ export const achievementsData: Achievement[] = [
     value: "15+",
     icon: "💻",
     color: "#8B5CF6",
+    date: new Date("2024-01-01"),
+    category: "milestone",
   },
   {
     id: "3",
@@ -84,6 +88,8 @@ export const achievementsData: Achievement[] = [
     value: "500+",
     icon: "📊",
     color: "#10B981",
+    date: new Date("2024-01-01"),
+    category: "milestone",
   },
   {
     id: "4",
@@ -92,5 +98,7 @@ export const achievementsData: Achievement[] = [
     value: "1000+",
     icon: "⏰",
     color: "#F59E0B",
+    date: new Date("2024-01-01"),
+    category: "milestone",
   },
 ];

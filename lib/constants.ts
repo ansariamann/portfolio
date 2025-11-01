@@ -1,9 +1,38 @@
-// Re-export animation constants from types/animations for consistency
-export {
-  ANIMATION_PRESETS,
-  ANIMATION_DURATION,
-  ANIMATION_EASE,
-} from "@/types/animations";
+// Animation constants defined locally to avoid circular imports
+export const ANIMATION_PRESETS = {
+  fadeIn: {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    transition: { duration: 0.6 },
+  },
+  fadeInUp: {
+    initial: { opacity: 0, y: 30 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.6 },
+  },
+  scaleIn: {
+    initial: { opacity: 0, scale: 0.8 },
+    animate: { opacity: 1, scale: 1 },
+    transition: { duration: 0.6 },
+  },
+  stagger: {
+    delayChildren: 0.1,
+    staggerChildren: 0.1,
+  },
+} as const;
+
+export const ANIMATION_DURATION = {
+  fast: 0.3,
+  normal: 0.6,
+  slow: 1.0,
+} as const;
+
+export const ANIMATION_EASE = {
+  easeInOut: "easeInOut",
+  easeIn: "easeIn",
+  easeOut: "easeOut",
+  spring: "spring",
+} as const;
 
 // Z-index layers for consistent layering
 export const Z_INDEX = {

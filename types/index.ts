@@ -1,75 +1,201 @@
-// Re-export all types from organized modules
-export * from "./core";
-export * from "./components";
-export * from "./animations";
+/**
+ * Central export file for all type definitions
+ * Re-exports types from individual modules for easy importing
+ */
 
-// Theme configuration
-export interface ThemeConfig {
-  colors: {
-    primary: string;
-    secondary: string;
-    accent: string;
-    background: string;
-    surface: string;
-    text: {
-      primary: string;
-      secondary: string;
-      muted: string;
-    };
-    border: string;
-    success: string;
-    warning: string;
-    error: string;
-  };
-  fonts: {
-    heading: string;
-    body: string;
-    mono: string;
-  };
-  spacing: {
-    section: string;
-    container: string;
-  };
-  breakpoints: {
-    sm: string;
-    md: string;
-    lg: string;
-    xl: string;
-  };
+// Coding platforms types
+export * from "./coding-platforms";
+
+// Navigation types
+export interface NavigationItem {
+  label: string;
+  href: string;
+  icon?: string;
 }
 
-// Breakpoint constants
-export const BREAKPOINTS = {
-  sm: 640,
-  md: 768,
-  lg: 1024,
-  xl: 1280,
-  "2xl": 1536,
-} as const;
+// Project types
+export interface Project {
+  id: string;
+  title: string;
+  description: string;
+  longDescription?: string;
+  technologies: string[];
+  category: "web" | "mobile" | "desktop" | "other";
+  images: string[];
+  liveUrl?: string;
+  githubUrl: string;
+  featured: boolean;
+  highlights?: string[];
+  challenges?: string[];
+  learnings?: string[];
+  status?: "completed" | "in-progress" | "planned";
+  startDate?: Date;
+  endDate?: Date;
+  completedDate: Date;
+}
 
-// Section IDs for navigation
-export const SECTION_IDS = {
-  hero: "hero",
-  about: "about",
-  skills: "skills",
-  projects: "projects",
-  contact: "contact",
-} as const;
+// Skills types
+export interface Skill {
+  id: string;
+  name: string;
+  category:
+    | "frontend"
+    | "backend"
+    | "tools"
+    | "languages"
+    | "databases"
+    | "cloud";
+  proficiency: 1 | 2 | 3 | 4 | 5;
+  icon: string;
+  description?: string;
+  yearsOfExperience?: number;
+  projects?: string[];
+  color?: string;
+  relatedSkills?: string[];
+}
 
-// Skill categories with display names
 export const SKILL_CATEGORIES = {
   frontend: "Frontend",
   backend: "Backend",
-  languages: "Languages",
+  tools: "Tools & Technologies",
+  languages: "Programming Languages",
   databases: "Databases",
-  tools: "Tools",
   cloud: "Cloud & DevOps",
 } as const;
 
-// Project categories with display names
-export const PROJECT_CATEGORIES = {
-  web: "Web Applications",
-  mobile: "Mobile Apps",
-  desktop: "Desktop Applications",
-  other: "Other Projects",
-} as const;
+// About/Timeline types
+export interface TimelineItem {
+  id: string;
+  title: string;
+  company?: string;
+  location?: string;
+  startDate?: Date;
+  endDate?: Date;
+  description: string;
+  technologies?: string[];
+  type: "education" | "work" | "project" | "achievement";
+  current?: boolean;
+  period?: string;
+}
+
+export interface Achievement {
+  id: string;
+  title: string;
+  description: string;
+  date: Date;
+  category: "award" | "certification" | "milestone" | "recognition";
+  icon?: string;
+  url?: string;
+  value?: string | number;
+  color?: string;
+}
+
+// UI Component types
+export interface ButtonProps {
+  variant?: "primary" | "secondary" | "outline" | "ghost";
+  size?: "sm" | "md" | "lg";
+  className?: string;
+  children: React.ReactNode;
+  onClick?: () => void;
+  disabled?: boolean;
+  type?: "button" | "submit" | "reset";
+  href?: string;
+  target?: string;
+}
+
+export interface CardProps {
+  className?: string;
+  children: React.ReactNode;
+  hover?: boolean;
+  padding?: "sm" | "md" | "lg";
+  onClick?: () => void;
+}
+
+export interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title?: string;
+  children: React.ReactNode;
+  size?: "sm" | "md" | "lg" | "xl";
+  className?: string;
+}
+
+// Core application types
+export interface BaseComponent {
+  className?: string;
+  children?: React.ReactNode;
+}
+
+export interface AnimationConfig {
+  duration?: number;
+  delay?: number;
+  ease?: string;
+}
+
+export interface ResponsiveConfig {
+  mobile?: any;
+  tablet?: any;
+  desktop?: any;
+}
+
+// SEO and metadata types
+export interface SEOConfig {
+  title: string;
+  description: string;
+  keywords?: string[];
+  author?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+  structuredData?: any;
+}
+
+// Site configuration
+export interface SiteConfig {
+  name: string;
+  title?: string;
+  description?: string;
+  url: string;
+  author?: {
+    name: string;
+    email: string;
+    title: string;
+    bio: string;
+    image: string;
+  };
+  seo: SEOConfig;
+  contact?: {
+    email?: string;
+    phone?: string;
+    location?: string;
+    availability?: string;
+    social?: Record<string, string>;
+    socialLinks?: Array<{
+      name: string;
+      url: string;
+      icon: string;
+      color?: string;
+    }>;
+  };
+}
+
+// Performance monitoring
+export interface PerformanceMetrics {
+  fcp?: number; // First Contentful Paint
+  lcp?: number; // Largest Contentful Paint
+  cls?: number; // Cumulative Layout Shift
+  fid?: number; // First Input Delay
+  ttfb?: number; // Time to First Byte
+}
+
+// Error handling
+export interface ErrorInfo {
+  componentStack: string;
+  errorBoundary?: string;
+  eventId?: string;
+}
+
+export interface CustomError extends Error {
+  code?: string;
+  statusCode?: number;
+  context?: Record<string, any>;
+}

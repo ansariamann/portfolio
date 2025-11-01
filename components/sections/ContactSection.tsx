@@ -10,27 +10,27 @@ export default function ContactSection() {
     {
       icon: Mail,
       label: "Email",
-      value: siteConfig.contact.email,
-      href: `mailto:${siteConfig.contact.email}`,
+      value: siteConfig.contact?.email || "",
+      href: `mailto:${siteConfig.contact?.email || ""}`,
       color: "text-blue-400",
     },
     {
       icon: Phone,
       label: "Phone",
-      value: siteConfig.contact.phone,
-      href: `tel:${siteConfig.contact.phone}`,
+      value: siteConfig.contact?.phone || "",
+      href: `tel:${siteConfig.contact?.phone || ""}`,
       color: "text-green-400",
     },
     {
       icon: MapPin,
       label: "Location",
-      value: siteConfig.contact.location,
+      value: siteConfig.contact?.location || "",
       href: "#",
       color: "text-purple-400",
     },
-  ];
+  ].filter((item) => item.value); // Filter out empty values
 
-  const socialLinks = siteConfig.contact.socialLinks.map((link) => {
+  const socialLinks = (siteConfig.contact?.socialLinks || []).map((link) => {
     const iconMap: Record<
       string,
       React.ComponentType<React.ComponentProps<"svg">>
@@ -139,7 +139,8 @@ export default function ContactSection() {
                 Contact Information
               </h3>
               <p className="text-gray-300 text-lg mb-8">
-                {siteConfig.contact.availability}
+                {siteConfig.contact?.availability ||
+                  "Available for opportunities"}
               </p>
             </div>
 
@@ -227,7 +228,7 @@ export default function ContactSection() {
             Prefer a more direct approach?
           </p>
           <motion.a
-            href={`mailto:${siteConfig.contact.email}`}
+            href={`mailto:${siteConfig.contact?.email || ""}`}
             className="inline-flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-2xl transition-all duration-300 shadow-xl"
             whileHover={{ y: -2, scale: 1.05 }}
             whileTap={{ scale: 0.98 }}

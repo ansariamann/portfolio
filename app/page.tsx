@@ -3,6 +3,7 @@ import {
   HeroSection,
   AboutSection,
   SkillsSection,
+  CodingPlatformsSection,
   ProjectsSection,
   ContactSection,
 } from "@/components/sections";
@@ -21,9 +22,10 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <SkillsSection />
+      <CodingPlatformsSection />
       <ProjectsSection />
       <ContactSection />
-      
+
       {/* Copyright Section */}
       <div className="bg-slate-900 text-center py-8 border-t border-gray-800">
         <p className="text-gray-400 font-light">

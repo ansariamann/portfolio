@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import { ErrorBoundary } from "@/components/ui/ErrorBoundary";
+import ErrorBoundary from "@/components/ui/ErrorBoundary";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import { siteConfig } from "@/data/site-config";
 import { Suspense } from "react";
@@ -25,7 +25,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.seo.canonicalUrl || siteConfig.url || 'https://localhost:3000'),
+  metadataBase: new URL(
+    siteConfig.seo.canonicalUrl || siteConfig.url || "https://localhost:3000"
+  ),
   title: {
     default: siteConfig.seo.title,
     template: `%s | ${siteConfig.name}`,
