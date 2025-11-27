@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="hospitalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1E40AF;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#hospitalGrad)"/>
+  <rect x="50" y="50" width="300" height="200" fill="white" opacity="0.1" rx="10"/>
+  <circle cx="200" cy="120" r="40" fill="white" opacity="0.9"/>
+  <path d="M185 120 L215 120 M200 105 L200 135" stroke="#3B82F6" stroke-width="6" stroke-linecap="round"/>
+  <text x="200" y="180" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="18" font-weight="bold">Hospital System</text>
+  <text x="200" y="200" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12" opacity="0.8">Healthcare Management</text>
+</svg>

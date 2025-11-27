@@ -89,7 +89,48 @@ export function usePlatformStyles() {
   const { branding, tailwindClasses } = usePlatformBranding();
 
   return useMemo(() => {
-    if (!branding) return {};
+    if (!branding) {
+      // Return default styles when no branding is available
+      const defaultColors = {
+        primary: "#6366f1",
+        secondary: "#8b5cf6",
+        accent: "#06b6d4",
+        surface: "#f8fafc",
+        text: {
+          primary: "#1e293b",
+          secondary: "#64748b",
+          inverse: "#ffffff",
+        },
+      };
+
+      return {
+        styles: {
+          primary: { color: defaultColors.primary },
+          secondary: { color: defaultColors.secondary },
+          accent: { color: defaultColors.accent },
+          primaryBg: { backgroundColor: defaultColors.primary },
+          secondaryBg: { backgroundColor: defaultColors.secondary },
+          accentBg: { backgroundColor: defaultColors.accent },
+          surfaceBg: { backgroundColor: defaultColors.surface },
+          primaryGradient: {
+            background: `linear-gradient(135deg, ${defaultColors.primary}, ${defaultColors.accent})`,
+          },
+          secondaryGradient: {
+            background: `linear-gradient(135deg, ${defaultColors.secondary}, ${defaultColors.primary})`,
+          },
+          accentGradient: {
+            background: `linear-gradient(135deg, ${defaultColors.accent}, ${defaultColors.secondary})`,
+          },
+          backgroundGradient: {
+            background: `linear-gradient(135deg, ${defaultColors.surface}, #e2e8f0)`,
+          },
+          primaryShadow: { boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)" },
+          largeShadow: { boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)" },
+        },
+        colors: defaultColors,
+        tailwindClasses,
+      };
+    }
 
     return {
       // CSS-in-JS styles
@@ -279,7 +320,6 @@ export function PlatformButton({
       `}
       style={{
         ...getVariantStyles(),
-        focusRingColor: colors.primary,
       }}
     >
       {loading ? (

@@ -722,9 +722,25 @@ export function generatePlatformCSSVariables(platformId: string): string {
  * Tailwind CSS Class Generator
  * Generates Tailwind-compatible classes for platform branding
  */
-export function generatePlatformTailwindClasses(platformId: string) {
+export function generatePlatformTailwindClasses(
+  platformId: string
+): Record<string, string> {
   const branding = getPlatformBranding(platformId);
-  if (!branding) return {};
+  if (!branding) {
+    return {
+      bgPrimary: "bg-gray-500",
+      bgSecondary: "bg-gray-400",
+      bgAccent: "bg-gray-600",
+      bgSurface: "bg-gray-100",
+      textPrimary: "text-gray-900",
+      textSecondary: "text-gray-600",
+      textInverse: "text-white",
+      borderPrimary: "border-gray-500",
+      borderSecondary: "border-gray-400",
+      gradientPrimary: "bg-gradient-to-r from-gray-500 to-gray-600",
+      gradientSecondary: "bg-gradient-to-r from-gray-400 to-gray-500",
+    };
+  }
 
   return {
     // Background classes

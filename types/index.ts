@@ -6,6 +6,29 @@
 // Coding platforms types
 export * from "./coding-platforms";
 
+// Certification types
+export interface Certification {
+  id: string;
+  title: string;
+  issuer: string;
+  issueDate: string;
+  expiryDate?: string;
+  credentialId: string;
+  verificationUrl?: string;
+  badgeImage: string;
+  category: "technical" | "professional" | "academic" | "cloud";
+  skills: string[];
+  description: string;
+  featured: boolean;
+}
+
+export const CERTIFICATION_CATEGORIES = {
+  technical: "Technical",
+  professional: "Professional",
+  academic: "Academic",
+  cloud: "Cloud & DevOps",
+} as const;
+
 // Navigation types
 export interface NavigationItem {
   label: string;
@@ -130,6 +153,24 @@ export interface AnimationConfig {
   duration?: number;
   delay?: number;
   ease?: string;
+}
+
+export interface CertificationAnimationConfig {
+  staggeredText: {
+    letterDelay: number;
+    waveAmplitude: number;
+    duration: number;
+  };
+  cinematic: {
+    transitionDuration: number;
+    speedLineCount: number;
+    blurIntensity: number;
+  };
+  vectors: {
+    particleCount: number;
+    glowIntensity: number;
+    parallaxStrength: number;
+  };
 }
 
 export interface ResponsiveConfig {

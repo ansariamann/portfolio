@@ -36,6 +36,12 @@ export default function Modal({
       document.addEventListener("keydown", handleEscape);
       document.body.style.overflow = "hidden";
 
+      // Add aria-hidden to main content to hide it from screen readers
+      const mainContent = document.querySelector("main");
+      if (mainContent) {
+        mainContent.setAttribute("aria-hidden", "true");
+      }
+
       // Focus the modal for accessibility
       setTimeout(() => {
         modalRef.current?.focus();
@@ -45,6 +51,12 @@ export default function Modal({
     return () => {
       document.removeEventListener("keydown", handleEscape);
       document.body.style.overflow = "unset";
+
+      // Remove aria-hidden from main content
+      const mainContent = document.querySelector("main");
+      if (mainContent) {
+        mainContent.removeAttribute("aria-hidden");
+      }
 
       // Restore focus to the previously focused element
       if (previousActiveElement.current) {
@@ -102,7 +114,7 @@ export default function Modal({
           <motion.div
             ref={modalRef}
             className={cn(
-              "relative w-full max-w-4xl max-h-[90vh] bg-white rounded-2xl shadow-2xl overflow-hidden",
+              "relative w-full max-w-4xl max-h-[90vh] bg-white rounded-2xl shadow-2xl overflow-hidden focus:outline-none",
               className
             )}
             variants={modalVariants}
@@ -126,10 +138,10 @@ export default function Modal({
                 </h2>
                 <button
                   onClick={onClose}
-                  className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors"
+                  className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 focus:text-gray-600 focus:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 rounded-full transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                   aria-label="Close modal"
                 >
-                  <X size={24} />
+                  <X size={24} aria-hidden="true" />
                 </button>
               </div>
             )}
@@ -138,10 +150,10 @@ export default function Modal({
             {!title && (
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 z-10 p-2 text-gray-400 hover:text-gray-600 hover:bg-white/80 rounded-full transition-colors backdrop-blur-sm"
+                className="absolute top-4 right-4 z-10 p-2 text-gray-400 hover:text-gray-600 hover:bg-white/80 focus:text-gray-600 focus:bg-white/80 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 rounded-full transition-colors backdrop-blur-sm min-h-[44px] min-w-[44px] flex items-center justify-center"
                 aria-label="Close modal"
               >
-                <X size={24} />
+                <X size={24} aria-hidden="true" />
               </button>
             )}
 

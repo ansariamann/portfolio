@@ -7,9 +7,10 @@ import { scrollToSection } from "@/lib/utils";
 import { HeaderClock } from "@/components/ui/DigitalClock";
 
 const navigationItems: NavigationItem[] = [
-  { label: "Home", href: "#home" },
+  { label: "Home", href: "#hero" },
   { label: "About", href: "#about" },
   { label: "Skills", href: "#skills" },
+  { label: "Certifications", href: "#certifications" },
   { label: "Coding", href: "#coding-platforms" },
   { label: "Projects", href: "#projects" },
   { label: "Contact", href: "#contact" },
@@ -77,13 +78,13 @@ export default function Header() {
             whileTap={{ scale: 0.95 }}
           >
             <div
-              onClick={() => handleScrollToSection("#home")}
+              onClick={() => handleScrollToSection("#hero")}
               className="cursor-pointer"
               role="button"
               tabIndex={0}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
-                  handleScrollToSection("#home");
+                  handleScrollToSection("#hero");
                 }
               }}
               aria-label="Go to home section"

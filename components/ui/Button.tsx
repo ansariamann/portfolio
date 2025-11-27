@@ -21,6 +21,9 @@ export function Button({
 
   const baseClasses = cn(
     "inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed",
+    // Enhanced accessibility
+    "focus-visible:ring-4 focus-visible:ring-offset-2",
+    "disabled:pointer-events-none disabled:select-none",
     // Mobile-specific enhancements
     "mobile-tap-highlight",
     touchDevice && "touch-target",
@@ -85,6 +88,15 @@ export function Button({
         target={target}
         className={classes}
         {...animationProps}
+        rel={target === "_blank" ? "noopener noreferrer" : undefined}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            window.open(href, target);
+          }
+        }}
       >
         {children}
       </motion.a>
@@ -98,6 +110,8 @@ export function Button({
       disabled={disabled}
       className={classes}
       {...animationProps}
+      aria-disabled={disabled}
+      tabIndex={disabled ? -1 : 0}
     >
       {children}
     </MotionComponent>

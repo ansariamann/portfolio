@@ -10,6 +10,9 @@ import LazySection from "@/components/ui/LazySection";
 import { ProjectCardSkeleton } from "@/components/ui/SkeletonLoader";
 import { cn } from "@/lib/utils";
 import { useMobileOptimizedAnimation } from "@/lib/hooks";
+import AnimatedSectionHeading, {
+  headingPresets,
+} from "@/components/ui/AnimatedSectionHeading";
 
 type FilterCategory = "all" | Project["category"];
 
@@ -130,17 +133,18 @@ export default function ProjectsSection() {
             </span>
           </motion.div>
 
-          <motion.h2
+          <AnimatedSectionHeading
+            text="Featured Projects"
             className="text-5xl md:text-7xl font-bold mb-8 tracking-tight"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            <span className="bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent">
-              Featured Projects
-            </span>
-          </motion.h2>
+            gradientClassName="bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent"
+            animationConfig={headingPresets.section.animationConfig}
+            motionProps={{
+              initial: { opacity: 0, y: 30 },
+              whileInView: { opacity: 1, y: 0 },
+              viewport: { once: true },
+              transition: { duration: 0.8, delay: 0.3 },
+            }}
+          />
 
           <motion.p
             className="text-xl text-slate-700 max-w-3xl mx-auto leading-relaxed font-light"

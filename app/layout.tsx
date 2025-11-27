@@ -3,8 +3,9 @@ import { Inter } from "next/font/google";
 import ErrorBoundary from "@/components/ui/ErrorBoundary";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import { siteConfig } from "@/data/site-config";
-import { Suspense } from "react";
+
 import "./globals.css";
+import "../styles/certification-compatibility.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -78,18 +79,6 @@ export const metadata: Metadata = {
   },
 };
 
-// Loading component for Suspense fallbacks
-function LoadingFallback() {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-blue-800 to-purple-900 flex items-center justify-center">
-      <div className="text-center">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto mb-4"></div>
-        <p className="text-white text-lg">Loading amazing content...</p>
-      </div>
-    </div>
-  );
-}
-
 export default function RootLayout({
   children,
 }: {
@@ -98,6 +87,20 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
+        {/* Critical resource preloads */}
+        <link
+          rel="preload"
+          href="/images/profile-photo.webp"
+          as="image"
+          type="image/webp"
+        />
+        <link
+          rel="preload"
+          href="/images/profile-photo.jpg"
+          as="image"
+          type="image/jpeg"
+        />
+
         {/* Preconnect to external domains */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -105,9 +108,32 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
+
         {/* DNS prefetch for performance */}
         <link rel="dns-prefetch" href="https://github.com" />
         <link rel="dns-prefetch" href="https://linkedin.com" />
+
+        {/* Prefetch critical images */}
+        <link
+          rel="prefetch"
+          href="/images/platforms/leetcode-logo.svg"
+          as="image"
+        />
+        <link
+          rel="prefetch"
+          href="/images/platforms/hackerrank-logo.svg"
+          as="image"
+        />
+
+        {/* Resource hints for better performance */}
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta
+          name="apple-mobile-web-app-status-bar-style"
+          content="black-translucent"
+        />
+
         {/* Structured data for SEO */}
         <script
           type="application/ld+json"
@@ -117,11 +143,61 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} antialiased`}>
+        {/* Skip to main content link for keyboard navigation */}
+        <a href="#main-content" className="skip-to-main">
+          Skip to main content
+        </a>
+
         <ThemeProvider>
-          <ErrorBoundary>
-            <Suspense fallback={<LoadingFallback />}>{children}</Suspense>
-          </ErrorBoundary>
+          <ErrorBoundary>{children}</ErrorBoundary>
         </ThemeProvider>
+        {/* Browser Compatibility Initialization */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Early browser compatibility detection
+              (function() {
+                var html = document.documentElement;
+                var classes = [];
+                
+                // Feature detection
+                if (!window.CSS || !window.CSS.supports || !window.CSS.supports('backdrop-filter', 'blur(10px)')) {
+                  classes.push('no-backdrop-filter');
+                }
+                if (!window.CSS || !window.CSS.supports || !window.CSS.supports('display', 'grid')) {
+                  classes.push('no-css-grid');
+                }
+                if (!window.CSS || !window.CSS.supports || !window.CSS.supports('transform', 'translateX(0)')) {
+                  classes.push('no-transforms');
+                }
+                
+                // Browser detection
+                var ua = navigator.userAgent;
+                if (/Chrome/.test(ua) && /Google Inc/.test(navigator.vendor)) classes.push('browser-chrome');
+                else if (/Firefox/.test(ua)) classes.push('browser-firefox');
+                else if (/Safari/.test(ua) && !/Chrome/.test(ua)) classes.push('browser-safari');
+                else if (/Edge/.test(ua) || /Edg/.test(ua)) classes.push('browser-edge');
+                else if (/MSIE|Trident/.test(ua)) classes.push('browser-ie');
+                
+                // Device detection
+                if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+                  classes.push('touch-device');
+                } else {
+                  classes.push('no-touch');
+                }
+                
+                // Reduced motion
+                if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                  classes.push('prefers-reduced-motion');
+                }
+                
+                // Apply classes
+                html.className += ' ' + classes.join(' ');
+              })();
+            `,
+          }}
+        />
+
         {/* Service Worker Registration */}
         <script
           dangerouslySetInnerHTML={{

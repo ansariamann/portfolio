@@ -18,7 +18,7 @@
     font-synthesis: none;
   }
 
-  /* Enhanced focus styles */
+  /* Enhanced focus styles for accessibility */
   *:focus {
     outline: 2px solid rgb(59 130 246);
     outline-offset: 2px;
@@ -26,6 +26,67 @@
 
   *:focus:not(:focus-visible) {
     outline: none;
+  }
+
+  /* Enhanced focus-visible styles for keyboard navigation */
+  *:focus-visible {
+    outline: 3px solid rgb(59 130 246);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3);
+  }
+
+  /* Skip to main content link for screen readers */
+  .skip-to-main {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: rgb(59 130 246);
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 10000;
+    transition: top 0.3s;
+  }
+
+  .skip-to-main:focus {
+    top: 6px;
+  }
+
+  /* Screen reader only content */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    * {
+      border-color: currentColor !important;
+    }
+
+    .text-gray-300 {
+      color: rgb(229 231 235) !important;
+    }
+
+    .text-gray-400 {
+      color: rgb(209 213 219) !important;
+    }
+
+    .bg-white\/10 {
+      background-color: rgba(255, 255, 255, 0.2) !important;
+    }
+
+    .border-white\/20 {
+      border-color: rgba(255, 255, 255, 0.4) !important;
+    }
   }
 
   /* Improve text selection */
@@ -567,7 +628,7 @@
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Mobile-first focus utilities */
+  /* Enhanced accessibility utilities */
   .focus-mobile-visible {
     @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
   }
@@ -576,5 +637,221 @@
     .focus-mobile-visible {
       @apply focus:ring-offset-1;
     }
+  }
+
+  /* High contrast text utilities for accessibility compliance */
+  .text-high-contrast {
+    color: rgb(255 255 255) !important;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+  }
+
+  .text-high-contrast-secondary {
+    color: rgb(229 231 235) !important;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.6);
+  }
+
+  /* Enhanced keyboard navigation utilities */
+  .keyboard-focusable {
+    @apply focus:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2;
+  }
+
+  .keyboard-focusable-light {
+    @apply focus:outline-none focus-visible:ring-4 focus-visible:ring-white/50 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900;
+  }
+
+  /* ARIA live region utilities */
+  .live-region {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  /* Color contrast compliant utilities */
+  .contrast-compliant-text {
+    color: rgb(255 255 255);
+    background-color: transparent;
+  }
+
+  .contrast-compliant-secondary {
+    color: rgb(229 231 235);
+    background-color: transparent;
+  }
+
+  .contrast-compliant-muted {
+    color: rgb(209 213 219);
+    background-color: transparent;
+  }
+
+  /* Enhanced button accessibility */
+  .btn-accessible {
+    @apply min-h-[44px] min-w-[44px] focus:outline-none focus-visible:ring-4 focus-visible:ring-offset-2;
+    touch-action: manipulation;
+    user-select: none;
+  }
+
+  /* Link accessibility enhancements */
+  .link-accessible {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    transition: text-decoration-color 0.2s ease;
+  }
+
+  .link-accessible:hover,
+  .link-accessible:focus {
+    text-decoration-color: currentColor;
+  }
+
+  /* Reduced motion safe animations */
+  @media (prefers-reduced-motion: reduce) {
+    .motion-safe-scale {
+      transform: none !important;
+    }
+
+    .motion-safe-translate {
+      transform: none !important;
+    }
+
+    .motion-safe-rotate {
+      transform: none !important;
+    }
+  }
+}
+/* Mobile viewport optimization utilities */
+.mobile-viewport-fix {
+  width: 100vw;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.mobile-content-width {
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
+}
+
+/* Prevent horizontal scroll on mobile */
+.mobile-no-scroll {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Mobile-first container with proper padding */
+.mobile-container {
+  width: 100%;
+  max-width: 100vw;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .mobile-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Mobile-optimized text sizing with minimum readability */
+.mobile-text-readable {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+@media (max-width: 374px) {
+  .mobile-text-readable {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+}
+
+/* Mobile-first hero section utilities */
+.hero-mobile-height {
+  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport height */
+}
+
+@supports not (height: 100dvh) {
+  .hero-mobile-height {
+    min-height: calc(100vh - env(keyboard-inset-height, 0px));
+  }
+}
+
+/* Mobile-optimized grid that prevents overflow */
+.mobile-safe-grid {
+  display: grid;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Touch-friendly interactive elements with proper feedback */
+.mobile-touch-element {
+  -webkit-tap-highlight-color: rgba(59, 130, 246, 0.1);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.mobile-touch-element:active {
+  transform: scale(0.98);
+  transition: transform 0.1s ease;
+}
+
+/* Mobile-first responsive spacing that scales properly */
+.mobile-spacing-xs {
+  margin: 0.5rem;
+}
+
+.mobile-spacing-sm {
+  margin: 0.75rem;
+}
+
+.mobile-spacing-md {
+  margin: 1rem;
+}
+
+.mobile-spacing-lg {
+  margin: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .mobile-spacing-xs {
+    margin: 0.75rem;
+  }
+  .mobile-spacing-sm {
+    margin: 1rem;
+  }
+  .mobile-spacing-md {
+    margin: 1.5rem;
+  }
+  .mobile-spacing-lg {
+    margin: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile-spacing-xs {
+    margin: 1rem;
+  }
+  .mobile-spacing-sm {
+    margin: 1.5rem;
+  }
+  .mobile-spacing-md {
+    margin: 2rem;
+  }
+  .mobile-spacing-lg {
+    margin: 3rem;
   }
 }

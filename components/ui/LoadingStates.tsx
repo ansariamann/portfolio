@@ -323,6 +323,63 @@ export const SectionLoadingSkeleton: React.FC = () => (
   </motion.div>
 );
 
+// Component-specific loading states for lazy loading
+export const ComponentLoadingSkeleton: React.FC<{
+  type?: "chart" | "grid" | "heatmap" | "list" | "card";
+  className?: string;
+}> = ({ type = "card", className = "" }) => {
+  switch (type) {
+    case "chart":
+      return <StatisticsVisualizationSkeleton />;
+    case "grid":
+      return <AchievementsSkeleton />;
+    case "heatmap":
+      return <ActivityHeatmapSkeleton />;
+    case "list":
+      return <RecentActivitySkeleton />;
+    case "card":
+    default:
+      return <PlatformCardSkeleton />;
+  }
+};
+
+// Progressive loading skeleton that adapts based on content
+export const ProgressiveLoadingSkeleton: React.FC<{
+  stage: "initial" | "partial" | "complete";
+  children?: React.ReactNode;
+}> = ({ stage, children }) => {
+  switch (stage) {
+    case "initial":
+      return <LoadingSpinner size="lg" className="mx-auto" />;
+    case "partial":
+      return (
+        <div className="space-y-4">
+          <ComponentLoadingSkeleton type="card" />
+          {children}
+        </div>
+      );
+    case "complete":
+    default:
+      return <>{children}</>;
+  }
+};
+
+// Performance-optimized skeleton with reduced animations
+export const MinimalLoadingSkeleton: React.FC<{
+  lines?: number;
+  className?: string;
+}> = ({ lines = 3, className = "" }) => (
+  <div className={`space-y-2 ${className}`}>
+    {Array.from({ length: lines }).map((_, i) => (
+      <div
+        key={i}
+        className="h-4 bg-gray-200 rounded animate-pulse"
+        style={{ width: `${100 - i * 10}%` }}
+      />
+    ))}
+  </div>
+);
+
 export default {
   PlatformCardSkeleton,
   StatisticsVisualizationSkeleton,
@@ -331,4 +388,7 @@ export default {
   RecentActivitySkeleton,
   LoadingSpinner,
   SectionLoadingSkeleton,
+  ComponentLoadingSkeleton,
+  ProgressiveLoadingSkeleton,
+  MinimalLoadingSkeleton,
 };

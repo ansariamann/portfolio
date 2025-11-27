@@ -1,0 +1,4 @@
+// This is a placeholder for the WebP version of profile-photo.jpg
+// In a real implementation, you would convert the JPEG to WebP format
+// using tools like imagemin, sharp, or online converters
+// WebP typically provides 25-35% better compression than JPEG

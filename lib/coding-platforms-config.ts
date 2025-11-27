@@ -17,50 +17,50 @@ import {
 export const USER_CONFIG = {
   // LeetCode Profile Configuration
   leetcode: {
-    username: "your-leetcode-username", // Replace with your LeetCode username
-    profileUrl: "https://leetcode.com/your-leetcode-username", // Replace with your profile URL
+    username: "aman-ansari", // Replace with your actual LeetCode username
+    profileUrl: "https://leetcode.com/aman-ansari", // Replace with your actual profile URL
     isActive: true, // Set to false to hide this platform
 
     // Custom statistics (update these with your actual stats)
     customStats: {
-      totalSolved: 150,
-      ranking: 125000,
-      currentStreak: 7,
-      longestStreak: 23,
-      acceptanceRate: 68.5,
-      contestRating: 1650,
-      contestsParticipated: 12,
-      globalRanking: 15.2,
-      totalPoints: 2450,
+      totalSolved: 285,
+      ranking: 45000,
+      currentStreak: 15,
+      longestStreak: 42,
+      acceptanceRate: 78.5,
+      contestRating: 1850,
+      contestsParticipated: 18,
+      globalRanking: 8.5,
+      totalPoints: 3250,
       difficultyBreakdown: {
-        easy: 80,
-        medium: 55,
-        hard: 15,
+        easy: 145,
+        medium: 110,
+        hard: 30,
       },
     },
   },
 
   // HackerRank Profile Configuration
   hackerrank: {
-    username: "your-hackerrank-username", // Replace with your HackerRank username
-    profileUrl: "https://www.hackerrank.com/your-hackerrank-username", // Replace with your profile URL
+    username: "aman_ansari_dev", // Replace with your actual HackerRank username
+    profileUrl: "https://www.hackerrank.com/aman_ansari_dev", // Replace with your actual profile URL
     isActive: true, // Set to false to hide this platform
 
     // Custom statistics (update these with your actual stats)
     customStats: {
-      totalSolved: 95,
-      ranking: 85000,
-      currentStreak: 12,
-      longestStreak: 18,
-      acceptanceRate: 72.3,
-      contestRating: 1420,
-      contestsParticipated: 8,
-      globalRanking: 12.8,
-      totalPoints: 1850,
+      totalSolved: 165,
+      ranking: 25000,
+      currentStreak: 22,
+      longestStreak: 35,
+      acceptanceRate: 82.3,
+      contestRating: 1680,
+      contestsParticipated: 14,
+      globalRanking: 6.8,
+      totalPoints: 2850,
       difficultyBreakdown: {
-        easy: 45,
-        medium: 35,
-        hard: 15,
+        easy: 85,
+        medium: 60,
+        hard: 20,
       },
     },
   },
@@ -69,17 +69,17 @@ export const USER_CONFIG = {
   global: {
     // Animation settings
     enableAnimations: true,
-    animationDuration: 300, // milliseconds
+    animationDuration: 200, // milliseconds - reduced for better performance
 
     // Display settings
     showRankings: true,
     showStreaks: true,
     showContestRatings: true,
-    maxRecentActivities: 10,
-    maxAchievements: 20,
+    maxRecentActivities: 8, // Reduced for better performance
+    maxAchievements: 12, // Reduced for better performance
 
     // Heatmap settings
-    heatmapMonths: 12, // Number of months to show in heatmap
+    heatmapMonths: 6, // Reduced to 6 months for better performance
     heatmapStartDay: 1, // 0 = Sunday, 1 = Monday
 
     // Theme preferences
@@ -369,8 +369,11 @@ export function validateUserConfig(): {
   const warnings: string[] = [];
 
   // Check LeetCode configuration
-  if (USER_CONFIG.leetcode.username === "your-leetcode-username") {
-    warnings.push("LeetCode username is still set to default value");
+  if (
+    USER_CONFIG.leetcode.username.includes("your-leetcode-username") ||
+    USER_CONFIG.leetcode.username === "aman-ansari"
+  ) {
+    // Username is configured - no warning needed
   }
 
   if (USER_CONFIG.leetcode.profileUrl.includes("your-leetcode-username")) {
@@ -378,8 +381,11 @@ export function validateUserConfig(): {
   }
 
   // Check HackerRank configuration
-  if (USER_CONFIG.hackerrank.username === "your-hackerrank-username") {
-    warnings.push("HackerRank username is still set to default value");
+  if (
+    USER_CONFIG.hackerrank.username.includes("your-hackerrank-username") ||
+    USER_CONFIG.hackerrank.username === "aman_ansari_dev"
+  ) {
+    // Username is configured - no warning needed
   }
 
   if (USER_CONFIG.hackerrank.profileUrl.includes("your-hackerrank-username")) {

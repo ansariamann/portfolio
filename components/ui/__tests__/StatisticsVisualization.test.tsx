@@ -31,6 +31,9 @@ const mockStatistics: PlatformStatistics = {
   },
   acceptanceRate: 68.5,
   ranking: 125000,
+  contestsParticipated: 5,
+  globalRanking: 125000,
+  totalPoints: 1250,
 };
 
 describe("StatisticsVisualization", () => {
@@ -78,6 +81,10 @@ describe("StatisticsVisualization", () => {
         medium: 15,
         hard: 5,
       },
+      acceptanceRate: 75.0,
+      contestsParticipated: 0,
+      globalRanking: 0,
+      totalPoints: 500,
     };
 
     render(

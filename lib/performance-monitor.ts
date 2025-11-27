@@ -2,7 +2,7 @@
  * Performance monitoring and Core Web Vitals tracking
  */
 
-import { getCLS, getFID, getFCP, getLCP, getTTFB, Metric } from "web-vitals";
+import { onCLS, onINP, onFCP, onLCP, onTTFB, Metric } from "web-vitals";
 
 export interface PerformanceMetrics {
   cls: number;
@@ -25,17 +25,21 @@ class PerformanceMonitor {
   private initializeWebVitals() {
     if (typeof window === "undefined") return;
 
-    const handleMetric = (metric: Metric) => {
-      this.metrics[metric.name.toLowerCase() as keyof PerformanceMetrics] =
-        metric.value;
-      this.reportMetric(metric);
-    };
+    try {
+      const handleMetric = (metric: Metric) => {
+        this.metrics[metric.name.toLowerCase() as keyof PerformanceMetrics] =
+          metric.value;
+        this.reportMetric(metric);
+      };
 
-    getCLS(handleMetric);
-    getFID(handleMetric);
-    getFCP(handleMetric);
-    getLCP(handleMetric);
-    getTTFB(handleMetric);
+      onCLS(handleMetric);
+      onINP(handleMetric);
+      onFCP(handleMetric);
+      onLCP(handleMetric);
+      onTTFB(handleMetric);
+    } catch (error) {
+      console.warn("Web Vitals initialization failed:", error);
+    }
   }
 
   private initializeCustomMetrics() {

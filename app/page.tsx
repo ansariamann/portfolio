@@ -3,13 +3,12 @@ import {
   HeroSection,
   AboutSection,
   SkillsSection,
-  CodingPlatformsSection,
+  CertificationsSection,
   ProjectsSection,
   ContactSection,
 } from "@/components/sections";
+import CodingPlatformsSectionOptimized from "@/components/sections/CodingPlatformsSectionOptimized";
 import { ScrollProgressIndicator } from "@/components/ui";
-import PerformanceMonitor from "@/components/ui/PerformanceMonitor";
-import PerformanceToggle from "@/components/ui/PerformanceToggle";
 
 export default function Home() {
   const currentYear = new Date().getFullYear();
@@ -17,14 +16,15 @@ export default function Home() {
   return (
     <Layout>
       <ScrollProgressIndicator />
-      <PerformanceMonitor />
-      <PerformanceToggle />
-      <HeroSection />
-      <AboutSection />
-      <SkillsSection />
-      <CodingPlatformsSection />
-      <ProjectsSection />
-      <ContactSection />
+      <main id="main-content" role="main">
+        <HeroSection />
+        <AboutSection />
+        <SkillsSection />
+        <CertificationsSection />
+        <CodingPlatformsSectionOptimized />
+        <ProjectsSection />
+        <ContactSection />
+      </main>
 
       {/* Copyright Section */}
       <div className="bg-slate-900 text-center py-8 border-t border-gray-800">

@@ -1,8 +1,13 @@
 // UI Components exports
 export { default as Modal } from "./Modal";
 export { Button } from "./Button";
+export { ValueProposition } from "./ValueProposition";
+export { CTAButtons } from "./CTAButtons";
+export { TechStack } from "./TechStack";
+export { SocialProof } from "./SocialProof";
 export { default as ProjectCard } from "./ProjectCard";
 export { default as ProjectModal } from "./ProjectModal";
+export { default as CertificationModal } from "./CertificationModal";
 export { default as ProjectImage } from "./ProjectImage";
 export { default as DigitalClock, HeaderClock } from "./DigitalClock";
 
@@ -26,6 +31,14 @@ export {
 
 // Scroll Animation Components
 export { default as ScrollProgressIndicator } from "./ScrollProgressIndicator";
+export { default as StaggeredTextWave } from "./StaggeredTextWave";
+export { default as AnimatedSectionHeading } from "./AnimatedSectionHeading";
+export { default as CinematicLoader } from "./CinematicLoader";
+
+// Vector Animation Components
+export { default as FloatingParticles } from "./FloatingParticles";
+export { default as GlowingAccents } from "./GlowingAccents";
+export { default as GeometricShapes } from "./GeometricShapes";
 
 // Responsive layout components
 export { default as ResponsiveContainer } from "./ResponsiveContainer";

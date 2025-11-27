@@ -176,24 +176,35 @@ import { AchievementBadgeImage } from "@/components/ui/PlatformImage";
 
 ### Image Optimization
 
-- All images are SVG format for optimal scalability and performance
-- Minimal file sizes (typically < 2KB per badge)
-- No external dependencies or fonts
-- Optimized for both light and dark themes
+- **SVG Format**: All logos and badges use SVG for optimal scalability and performance
+- **WebP Conversion**: Profile photos automatically converted to WebP with JPEG fallbacks
+- **File Sizes**: Badges typically < 2KB, photos optimized to < 100KB
+- **No Dependencies**: No external fonts or resources required
+- **Theme Support**: Optimized for both light and dark themes
 
 ### Loading Strategy
 
-- Platform logos are loaded with high priority
-- Achievement badges use lazy loading
-- Fallback placeholders for failed loads
-- Progressive enhancement approach
+- **Critical Images**: Profile photos preloaded with `<link rel="preload">`
+- **Platform Logos**: High priority loading for immediate visibility
+- **Achievement Badges**: Lazy loading with intersection observer
+- **Fallback System**: Graceful degradation with placeholder images
+- **Progressive Enhancement**: Works without JavaScript
+
+### Performance Optimizations
+
+- **Service Worker Caching**: Critical images cached offline
+- **Responsive Images**: Multiple sizes generated automatically
+- **Blur Placeholders**: Smooth loading transitions
+- **Format Detection**: Automatic WebP/AVIF support detection
+- **Bundle Splitting**: Images loaded separately from main bundle
 
 ### Accessibility
 
-- All images include proper alt text
-- Color contrast ratios meet WCAG guidelines
-- Screen reader compatible descriptions
-- Keyboard navigation support
+- **Alt Text**: Descriptive alternative text for all images
+- **ARIA Labels**: Proper labeling for interactive elements
+- **Color Contrast**: WCAG AA compliance (4.5:1 ratio minimum)
+- **Screen Readers**: Compatible descriptions and navigation
+- **Reduced Motion**: Respects user motion preferences
 
 ## Maintenance
 
