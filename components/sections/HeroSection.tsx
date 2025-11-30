@@ -305,8 +305,8 @@ export default function HeroSection() {
             >
               <CTAButtons
                 primaryAction={{
-                  label: "View My Work",
-                  onClick: () => scrollToSection("projects"),
+                  label: "Download CV",
+                  onClick: handleDownloadCV,
                 }}
                 secondaryAction={{
                   label: "Let's Talk",
