@@ -1,122 +1,58 @@
 import { z } from "zod";
 
-/**
- * Validation constants for contact form fields
- * Centralized configuration for easy maintenance
- */
-export const CONTACT_VALIDATION = {
-  NAME: {
-    MIN_LENGTH: 2,
-    MAX_LENGTH: 50,
-    PATTERN: /^[a-zA-Z\s'-]+$/,
-  },
-  EMAIL: {
-    MAX_LENGTH: 100,
-  },
-  COMPANY: {
-    MAX_LENGTH: 100,
-  },
-  SUBJECT: {
-    MIN_LENGTH: 5,
-    MAX_LENGTH: 100,
-  },
-  MESSAGE: {
-    MIN_LENGTH: 10,
-    MAX_LENGTH: 1000,
-  },
-} as const;
-
-/**
- * Zod validation schema for the contact form
- * Simplified schema with just name, email, and message
- */
+// Contact form validation schema
 export const contactFormSchema = z.object({
   name: z
     .string()
-    .trim()
-    .min(
-      CONTACT_VALIDATION.NAME.MIN_LENGTH,
-      `Name must be at least ${CONTACT_VALIDATION.NAME.MIN_LENGTH} characters`
-    )
-    .max(
-      CONTACT_VALIDATION.NAME.MAX_LENGTH,
-      `Name must be less than ${CONTACT_VALIDATION.NAME.MAX_LENGTH} characters`
-    )
-    .regex(
-      CONTACT_VALIDATION.NAME.PATTERN,
-      "Name can only contain letters, spaces, hyphens, and apostrophes"
-    ),
-
+    .min(2, "Name must be at least 2 characters")
+    .max(50, "Name must be less than 50 characters")
+    .regex(/^[a-zA-Z\s]+$/, "Name can only contain letters and spaces"),
   email: z
     .string()
-    .trim()
-    .toLowerCase()
-    .min(1, "Email is required")
     .email("Please enter a valid email address")
-    .max(
-      CONTACT_VALIDATION.EMAIL.MAX_LENGTH,
-      `Email must be less than ${CONTACT_VALIDATION.EMAIL.MAX_LENGTH} characters`
-    ),
-
+    .max(100, "Email must be less than 100 characters"),
+  subject: z
+    .string()
+    .min(5, "Subject must be at least 5 characters")
+    .max(100, "Subject must be less than 100 characters"),
   message: z
     .string()
-    .trim()
-    .min(
-      CONTACT_VALIDATION.MESSAGE.MIN_LENGTH,
-      `Message must be at least ${CONTACT_VALIDATION.MESSAGE.MIN_LENGTH} characters`
-    )
-    .max(
-      CONTACT_VALIDATION.MESSAGE.MAX_LENGTH,
-      `Message must be less than ${CONTACT_VALIDATION.MESSAGE.MAX_LENGTH} characters`
-    ),
+    .min(10, "Message must be at least 10 characters")
+    .max(1000, "Message must be less than 1000 characters"),
 });
 
-/**
- * Type inference from the Zod schema
- * Ensures type safety throughout the application
- */
+// TypeScript type for form data
 export type ContactFormData = z.infer<typeof contactFormSchema>;
 
-/**
- * Default form values for initialization
- */
+// Default form values
 export const defaultContactFormValues: ContactFormData = {
   name: "",
   email: "",
+  subject: "",
   message: "",
 };
 
-/**
- * Validates contact form data and returns formatted errors
- * @param data - Form data to validate
- * @returns Validation result with formatted errors
- */
-export const validateContactForm = (data: unknown) => {
-  const result = contactFormSchema.safeParse(data);
-
-  if (!result.success) {
-    const formattedErrors: Record<string, string> = {};
-    result.error.issues.forEach((issue) => {
-      const path = issue.path.join(".");
-      formattedErrors[path] = issue.message;
-    });
-    return { success: false, errors: formattedErrors, data: null };
+// Validation function
+export const validateContactForm = (data: ContactFormData) => {
+  try {
+    contactFormSchema.parse(data);
+    return { success: true, errors: null };
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return { success: false, errors: error.errors };
+    }
+    return { success: false, errors: [{ message: "Validation failed" }] };
   }
-
-  return { success: true, errors: {}, data: result.data };
 };
 
-/**
- * Sanitizes form data for safe processing
- * @param data - Raw form data
- * @returns Sanitized form data
- */
+// Sanitize form data
 export const sanitizeContactFormData = (
   data: ContactFormData
 ): ContactFormData => {
   return {
     name: data.name.trim(),
-    email: data.email.toLowerCase().trim(),
+    email: data.email.trim().toLowerCase(),
+    subject: data.subject.trim(),
     message: data.message.trim(),
   };
 };

@@ -6,14 +6,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { useMobileOptimizedAnimation } from "@/lib/hooks";
 
-import {
-  getOptimizedImageUrl,
-  generateBlurDataURL,
-  generateSrcSet,
-  getBestImageFormat,
-  imagePresets,
-  createImageLazyLoader,
-} from "@/lib/image-optimization";
+// Image optimization utilities removed - using Next.js Image component directly
 
 interface VisualAnchorProps {
   primaryImage: {
@@ -60,8 +53,9 @@ export function VisualAnchor({
       try {
         setOptimizedSrc(primaryImage.src);
 
-        // Generate blur placeholder
-        const blurPlaceholder = generateBlurDataURL(10, 13, "#1e293b");
+        // Simple blur placeholder
+        const blurPlaceholder =
+          "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTMiIHZpZXdCb3g9IjAgMCAxMCAxMyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjEwIiBoZWlnaHQ9IjEzIiBmaWxsPSIjMWUyOTNiIi8+Cjwvc3ZnPgo=";
         setBlurDataURL(blurPlaceholder);
       } catch (error) {
         console.warn("Failed to optimize image, using original:", error);

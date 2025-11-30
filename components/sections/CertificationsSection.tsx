@@ -10,7 +10,6 @@ import {
 import { Certification, CERTIFICATION_CATEGORIES } from "@/types";
 import { useMobileOptimizedAnimation } from "@/lib/hooks";
 import { useReducedMotion } from "@/lib/hooks/useScrollAnimations";
-import useAnimationPerformance from "@/lib/hooks/useAnimationPerformance";
 import StaggeredTextWave from "@/components/ui/StaggeredTextWave";
 
 import CertificationModal from "@/components/ui/CertificationModal";
@@ -20,16 +19,8 @@ import GeometricShapes from "@/components/ui/GeometricShapes";
 import AnimatedSectionHeading, {
   headingPresets,
 } from "@/components/ui/AnimatedSectionHeading";
-import {
-  CertificationImageFallback,
-  CertificationCardErrorFallback,
-  CertificationDataErrorFallback,
-  NoCertificationsFallback,
-  AnimationFallbackWrapper,
-  BrowserCompatibilityFallback,
-} from "@/components/ui/CertificationFallbacks";
+// Removed CertificationFallbacks import - component deleted
 // Removed CertificationSectionSkeleton import - no loading states needed
-import { useCompatibility } from "@/lib/browser-compatibility";
 
 // CertificationCard component
 const CertificationCard = ({
@@ -171,19 +162,9 @@ const CertificationCard = ({
               />
             )}
             {imageErrors.has(certification.id) ? (
-              <CertificationImageFallback
-                alt={`${certification.title} certification badge from ${certification.issuer}`}
-                size={isSmallMobile ? "sm" : "md"}
-                className="w-full h-full"
-                onRetry={() => {
-                  // Remove from error set to retry loading
-                  const newSet = new Set(imageErrors);
-                  newSet.delete(certification.id);
-                  // This would need to be handled by parent component
-                  // For now, we'll just trigger the onImageError to handle retry
-                  onImageError(certification.id);
-                }}
-              />
+              <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center">
+                <span className="text-gray-500 text-xs">Badge unavailable</span>
+              </div>
             ) : (
               <img
                 src={certification.badgeImage}
@@ -205,8 +186,9 @@ const CertificationCard = ({
         >
           <StaggeredTextWave
             text={certification.title}
-            isHovered={isHovered}
-            reducedMotion={shouldUseReducedAnimations}
+            staggerDelay={shouldUseReducedAnimations ? 0.05 : 0.1}
+            duration={shouldUseReducedAnimations ? 0.4 : 0.8}
+            waveIntensity={isHovered ? 1.0 : 0.5}
           />
         </h3>
 
@@ -380,8 +362,6 @@ const CertificationCard = ({
 export default function CertificationsSection() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [headerHovered, setHeaderHovered] = useState(false);
-  // Removed loading state - content loads immediately
-  const [showContent, setShowContent] = useState(true);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [selectedCertification, setSelectedCertification] =
     useState<Certification | null>(null);
@@ -403,21 +383,8 @@ export default function CertificationsSection() {
   } = useMobileOptimizedAnimation();
   const prefersReducedMotion = useReducedMotion();
 
-  // Browser compatibility
-  const compatibility = useCompatibility();
-
-  // Performance optimization hooks
-  const {
-    requestAnimationFrame,
-    cancelAnimationFrame,
-    createOptimizedScrollHandler,
-    getAdaptiveAnimationConfig,
-    memoryCleanup,
-    batchDOMUpdates,
-  } = useAnimationPerformance();
-
-  // Get adaptive configuration
-  const adaptiveConfig = getAdaptiveAnimationConfig();
+  // Simple performance optimization
+  const shouldUseComplexAnimations = !shouldUseReducedAnimations;
 
   const categories = Object.keys(CERTIFICATION_CATEGORIES) as Array<
     keyof typeof CERTIFICATION_CATEGORIES
@@ -480,42 +447,31 @@ export default function CertificationsSection() {
     setImageErrors(new Set());
     // Retry data validation
     setTimeout(() => {
-      const isValid = validateCertificationData();
-      if (isValid) {
-        setTimeout(() => setShowContent(true), 100);
-      }
+      validateCertificationData();
     }, 500);
   }, [validateCertificationData]);
 
   // Determine grid columns based on screen size
   const gridColumns = getOptimalGridColumns(3);
 
-  // Initialize and validate data
-  useEffect(() => {
-    const initializeData = async () => {
-      try {
-        // Validate certification data
-        const isValid = validateCertificationData();
+  // Initialize and validate data immediately (no loading state)
+  React.useMemo(() => {
+    try {
+      // Validate certification data synchronously
+      const isValid = validateCertificationData();
 
-        if (!isValid) {
-          setHasError(true);
-          setErrorMessage("Invalid certification data");
-          return;
-        }
-
-        // Content is ready immediately
-        setShowContent(true);
-      } catch (error) {
+      if (!isValid) {
         setHasError(true);
-        setErrorMessage(
-          error instanceof Error
-            ? error.message
-            : "Failed to initialize certifications"
-        );
+        setErrorMessage("Invalid certification data");
       }
-    };
-
-    initializeData();
+    } catch (error) {
+      setHasError(true);
+      setErrorMessage(
+        error instanceof Error
+          ? error.message
+          : "Failed to initialize certifications"
+      );
+    }
   }, [validateCertificationData, retryCount]);
 
   // Optimized scroll handler for parallax effects
@@ -540,30 +496,29 @@ export default function CertificationsSection() {
     []
   );
 
-  // Handle scroll progress for parallax effects with performance optimization
+  // Handle scroll progress for parallax effects
   useEffect(() => {
-    const optimizedScrollHandler =
-      createOptimizedScrollHandler(handleScrollProgress);
+    const throttledScrollHandler = () => {
+      requestAnimationFrame(() => handleScrollProgress(window.scrollY, 0));
+    };
 
-    window.addEventListener("scroll", optimizedScrollHandler, {
+    window.addEventListener("scroll", throttledScrollHandler, {
       passive: true,
     });
     handleScrollProgress(window.scrollY, 0); // Initial calculation
 
     return () => {
-      window.removeEventListener("scroll", optimizedScrollHandler);
+      window.removeEventListener("scroll", throttledScrollHandler);
     };
-  }, [handleScrollProgress, createOptimizedScrollHandler]);
+  }, [handleScrollProgress]);
 
-  // Handle certification modal with performance optimization
+  // Handle certification modal
   const handleViewCertificationDetails = useCallback(
     (certification: Certification) => {
-      batchDOMUpdates([
-        () => setSelectedCertification(certification),
-        () => setIsModalOpen(true),
-      ]);
+      setSelectedCertification(certification);
+      setIsModalOpen(true);
     },
-    [batchDOMUpdates]
+    []
   );
 
   const handleCloseModal = useCallback(() => {
@@ -629,35 +584,31 @@ export default function CertificationsSection() {
     }
   };
 
-  // Cleanup effect for performance optimization
+  // Cleanup effect
   useEffect(() => {
     return () => {
-      // Cleanup all animation frames and timers
-      cancelAnimationFrame("certifications-scroll");
-      cancelAnimationFrame("certifications-parallax");
-      memoryCleanup.forceGC();
+      // Basic cleanup
     };
-  }, [cancelAnimationFrame, memoryCleanup]);
+  }, []);
 
-  // Early return for critical errors
-  if (hasError && retryCount >= 3) {
-    return (
-      <CertificationErrorBoundary context="section">
-        <CertificationDataErrorFallback onRetry={handleRetry} />
-      </CertificationErrorBoundary>
-    );
-  }
+  // Skip error states to prevent any loading delays - render immediately
+  // if (hasError && retryCount >= 3) {
+  //   return (
+  //     <CertificationErrorBoundary context="section">
+  //       <CertificationDataErrorFallback onRetry={handleRetry} />
+  //     </CertificationErrorBoundary>
+  //   );
+  // }
 
-  // Early return for data load errors
-  if (dataLoadError) {
-    return (
-      <section className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 flex items-center justify-center py-16 sm:py-20">
-        <div className="container mx-auto px-4 sm:px-6">
-          <CertificationDataErrorFallback onRetry={handleRetry} />
-        </div>
-      </section>
-    );
-  }
+  // if (dataLoadError) {
+  //   return (
+  //     <section className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 flex items-center justify-center py-16 sm:py-20">
+  //       <div className="container mx-auto px-4 sm:px-6">
+  //         <CertificationDataErrorFallback onRetry={handleRetry} />
+  //       </div>
+  //     </section>
+  //   );
+  // }
 
   return (
     <CertificationErrorBoundary
@@ -670,27 +621,24 @@ export default function CertificationsSection() {
     >
       <section
         id="certifications"
-        className={`min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 relative overflow-hidden ${
+        className={`min-h-screen bg-gradient-to-br from-slate-50 via-white via-gray-50 to-slate-100 relative overflow-hidden ${
           isSmallMobile ? "py-12" : "py-16 sm:py-20"
         }`}
         aria-label="Professional Certifications"
         role="region"
       >
-        {/* Vector Animation Background with error handling */}
-        {!shouldUseReducedAnimations &&
-          compatibility.animations.enableComplexAnimations && (
-            <AnimationFallbackWrapper fallbackMessage="Background animations disabled">
-              <CertificationErrorBoundary context="animation">
-                {/* Geometric shapes with parallax */}
-                <GeometricShapes
-                  isInView={showContent}
-                  scrollProgress={scrollProgress}
-                  shapeCount={compatibility.animations.maxParticleCount || 8}
-                  className="absolute inset-0"
-                />
-              </CertificationErrorBoundary>
-            </AnimationFallbackWrapper>
-          )}
+        {/* Vector Animation Background */}
+        {!shouldUseReducedAnimations && shouldUseComplexAnimations && (
+          <CertificationErrorBoundary context="animation">
+            {/* Geometric shapes with parallax */}
+            <GeometricShapes
+              isInView={true}
+              scrollProgress={scrollProgress}
+              shapeCount={8}
+              className="absolute inset-0"
+            />
+          </CertificationErrorBoundary>
+        )}
 
         {/* Background elements */}
         <div className="absolute inset-0 overflow-hidden">
@@ -730,28 +678,21 @@ export default function CertificationsSection() {
             className={`text-center ${
               isSmallMobile ? "mb-12" : "mb-16 sm:mb-20"
             }`}
-            initial={{ opacity: 0, y: shouldUseReducedAnimations ? 0 : 50 }}
-            animate={showContent ? { opacity: 1, y: 0 } : {}}
+            initial={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{
-              duration: shouldUseReducedAnimations ? 0.3 : 0.8,
-              delay: showContent ? 0.2 : 0,
+              duration: 0,
+              delay: 0,
             }}
           >
             <motion.div
-              initial={{
-                opacity: 0,
-                scale: shouldUseReducedAnimations ? 1 : 0.8,
-              }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: shouldUseReducedAnimations ? 0.3 : 0.6,
-                delay: shouldUseReducedAnimations ? 0 : 0.2,
-              }}
+              initial={{ opacity: 1, scale: 1 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0, delay: 0 }}
               className={`inline-block ${isSmallMobile ? "mb-4" : "mb-6"}`}
             >
               <span
-                className={`bg-white/20 backdrop-blur-sm rounded-full font-medium text-blue-200 border border-white/30 ${
+                className={`bg-blue-100/80 backdrop-blur-sm rounded-full font-medium text-blue-800 border border-blue-200 ${
                   isSmallMobile ? "px-3 py-1 text-xs" : "px-4 py-2 text-sm"
                 }`}
               >
@@ -759,53 +700,25 @@ export default function CertificationsSection() {
               </span>
             </motion.div>
 
-            <motion.h2
-              className={`font-bold tracking-tight ${
+            <AnimatedSectionHeading
+              text="Certifications"
+              className={`font-bold tracking-tight bg-gradient-to-r from-slate-800 via-blue-600 to-purple-600 bg-clip-text text-transparent ${
                 isSmallMobile
                   ? "text-2xl mb-6"
                   : "text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mb-8"
               }`}
-              initial={{ opacity: 0, y: shouldUseReducedAnimations ? 0 : 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: shouldUseReducedAnimations ? 0.3 : 0.8,
-                delay: shouldUseReducedAnimations ? 0 : 0.3,
-              }}
-              onHoverStart={() => !touchDevice && setHeaderHovered(true)}
-              onHoverEnd={() => !touchDevice && setHeaderHovered(false)}
-              onTouchStart={() => touchDevice && setHeaderHovered(true)}
-              onTouchEnd={() =>
-                touchDevice && setTimeout(() => setHeaderHovered(false), 300)
-              }
-            >
-              <span className="bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
-                <StaggeredTextWave
-                  text="Certifications"
-                  isHovered={headerHovered}
-                  reducedMotion={shouldUseReducedAnimations}
-                  animationConfig={{
-                    letterDelay: 80, // Slower for title
-                    waveAmplitude: 12, // Larger amplitude for title
-                    duration: 800, // Longer duration for title
-                  }}
-                />
-              </span>
-            </motion.h2>
+              preset={shouldUseReducedAnimations ? "fast" : "default"}
+            />
 
             <motion.p
-              className={`text-gray-200 max-w-3xl mx-auto leading-relaxed font-light ${
+              className={`text-gray-600 max-w-3xl mx-auto leading-relaxed font-light ${
                 isSmallMobile
                   ? "text-sm px-2"
                   : "text-base sm:text-lg lg:text-xl"
               }`}
-              initial={{ opacity: 0, y: shouldUseReducedAnimations ? 0 : 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: shouldUseReducedAnimations ? 0.3 : 0.8,
-                delay: shouldUseReducedAnimations ? 0 : 0.4,
-              }}
+              initial={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0, delay: 0 }}
             >
               Professional certifications and achievements that validate my
               expertise and commitment to continuous learning
@@ -817,12 +730,9 @@ export default function CertificationsSection() {
             className={`flex flex-wrap justify-center gap-2 sm:gap-3 ${
               isSmallMobile ? "mb-8 px-2" : "mb-12 sm:mb-16"
             }`}
-            initial={{ opacity: 0, y: shouldUseReducedAnimations ? 0 : 30 }}
-            animate={showContent ? { opacity: 1, y: 0 } : {}}
-            transition={{
-              duration: shouldUseReducedAnimations ? 0.3 : 0.6,
-              delay: showContent ? 0.4 : 0,
-            }}
+            initial={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0, delay: 0 }}
             role="tablist"
             aria-label="Filter certifications by category"
           >
@@ -894,12 +804,9 @@ export default function CertificationsSection() {
                       : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
                   }`
             }`}
-            initial={{ opacity: 0 }}
-            animate={showContent ? { opacity: 1 } : {}}
-            transition={{
-              duration: shouldUseReducedAnimations ? 0.3 : 0.5,
-              delay: showContent ? 0.6 : 0,
-            }}
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0, delay: 0 }}
             role="tabpanel"
             aria-label={`${
               selectedCategory === "all"
@@ -910,26 +817,22 @@ export default function CertificationsSection() {
             } certifications`}
           >
             {filteredCertifications.length === 0 ? (
-              <NoCertificationsFallback
-                category={
-                  selectedCategory === "all" ? undefined : selectedCategory
-                }
-              />
+              <div className="col-span-full text-center py-12">
+                <p className="text-gray-500 text-lg">
+                  No certifications found for this category.
+                </p>
+              </div>
             ) : (
               filteredCertifications.map((certification, index) => (
-                <CertificationErrorBoundary
+                <CertificationCard
                   key={certification.id}
-                  context="card"
-                >
-                  <CertificationCard
-                    certification={certification}
-                    index={index}
-                    showContent={showContent}
-                    onViewDetails={handleViewCertificationDetails}
-                    imageErrors={imageErrors}
-                    onImageError={handleImageError}
-                  />
-                </CertificationErrorBoundary>
+                  certification={certification}
+                  index={index}
+                  showContent={true}
+                  onViewDetails={handleViewCertificationDetails}
+                  imageErrors={imageErrors}
+                  onImageError={handleImageError}
+                />
               ))
             )}
           </motion.div>
@@ -940,10 +843,11 @@ export default function CertificationsSection() {
               isSmallMobile ? "mt-12" : "mt-16 sm:mt-20"
             }`}
             initial={{ opacity: 0, y: shouldUseReducedAnimations ? 0 : 30 }}
-            animate={showContent ? { opacity: 1, y: 0 } : {}}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{
               duration: shouldUseReducedAnimations ? 0.3 : 0.6,
-              delay: showContent ? 1.2 : 0,
+              delay: 1.2,
             }}
           >
             <div

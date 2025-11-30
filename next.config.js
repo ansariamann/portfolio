@@ -73,19 +73,6 @@ const nextConfig = {
           },
         ],
       },
-      {
-        source: "/sw.js",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=0, must-revalidate",
-          },
-          {
-            key: "Service-Worker-Allowed",
-            value: "/",
-          },
-        ],
-      },
     ];
   },
 
@@ -123,11 +110,6 @@ const nextConfig = {
             framerMotion: {
               test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
               name: "framer-motion",
-              chunks: "all",
-            },
-            charts: {
-              test: /[\\/]node_modules[\\/](chart\.js|react-chartjs-2)[\\/]/,
-              name: "charts",
               chunks: "all",
             },
           },

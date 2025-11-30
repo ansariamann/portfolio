@@ -15,11 +15,7 @@ import {
 } from "lucide-react";
 import { Certification, CERTIFICATION_CATEGORIES } from "@/types";
 import Modal from "./Modal";
-import {
-  CertificationImageFallback,
-  VerificationLinkFallback,
-  ExpiredCertificationFallback,
-} from "./CertificationFallbacks";
+// Removed CertificationFallbacks import - component deleted
 
 interface CertificationModalProps {
   certification: Certification | null;
@@ -94,12 +90,11 @@ export default function CertificationModal({
             <div className="flex-shrink-0">
               <div className="relative w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32">
                 {imageError ? (
-                  <CertificationImageFallback
-                    alt={`${certification.title} certification badge from ${certification.issuer}`}
-                    size="lg"
-                    className="w-full h-full shadow-lg"
-                    onRetry={() => setImageError(false)}
-                  />
+                  <div className="w-full h-full bg-gray-200 rounded-lg shadow-lg flex items-center justify-center">
+                    <span className="text-gray-500 text-sm">
+                      Badge unavailable
+                    </span>
+                  </div>
                 ) : (
                   <img
                     src={certification.badgeImage}
@@ -315,11 +310,12 @@ export default function CertificationModal({
 
         {/* Expired certification warning */}
         {isExpired && (
-          <ExpiredCertificationFallback
-            certificationTitle={certification.title}
-            expiryDate={certification.expiryDate!}
-            renewalUrl={certification.verificationUrl}
-          />
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+            <p className="text-red-800 font-medium">
+              This certification has expired on{" "}
+              {new Date(certification.expiryDate!).toLocaleDateString()}
+            </p>
+          </div>
         )}
 
         {/* Verification section */}
@@ -347,11 +343,12 @@ export default function CertificationModal({
               verification system.
             </p>
             {verificationError ? (
-              <VerificationLinkFallback
-                certificationTitle={certification.title}
-                issuer={certification.issuer}
-                originalUrl={certification.verificationUrl}
-              />
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <p className="text-yellow-800">
+                  Verification link temporarily unavailable. Please try again
+                  later.
+                </p>
+              </div>
             ) : (
               <motion.a
                 href={certification.verificationUrl}

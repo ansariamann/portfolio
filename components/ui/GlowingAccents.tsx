@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import useAnimationPerformance from "@/lib/hooks/useAnimationPerformance";
 
 interface GlowingAccentsProps {
   isHovered: boolean;
@@ -42,243 +41,109 @@ export const GlowingAccents: React.FC<GlowingAccentsProps> = ({
   className = "",
   intensity = 0.6,
 }) => {
-  const {
-    cancelAnimationFrame,
-    gpuAcceleration,
-    getAdaptiveAnimationConfig,
-    memoryCleanup,
-  } = useAnimationPerformance();
-
   const colors = CATEGORY_COLORS[category];
-  const adaptiveConfig = getAdaptiveAnimationConfig();
   const baseIntensity = isHovered ? intensity : intensity * 0.3;
 
-  // Cleanup on unmount
-  useEffect(() => {
-    return () => {
-      cancelAnimationFrame(`glowing-accents-${category}`);
-    };
-  }, [category, cancelAnimationFrame]);
-
-  // Apply GPU acceleration based on performance
-  const containerStyles = adaptiveConfig.enableGPU
-    ? gpuAcceleration.getGPUStyles()
-    : gpuAcceleration.removeGPUStyles();
-
   return (
-    <div
-      className={`absolute inset-0 pointer-events-none ${className}`}
-      style={{
-        width: size,
-        height: size,
-        ...containerStyles,
-      }}
-    >
-      {/* Outer glow ring */}
+    <div className={`absolute inset-0 pointer-events-none ${className}`}>
+      {/* Primary glow */}
       <motion.div
-        className="absolute inset-0 rounded-full"
-        style={{
-          background: `radial-gradient(circle, transparent 60%, ${colors.primary}20 70%, transparent 100%)`,
-          filter: adaptiveConfig.blurIntensity > 0 ? `blur(8px)` : "none",
-          ...containerStyles,
+        className="absolute inset-0"
+        animate={{
+          opacity: baseIntensity,
         }}
-        animate={
-          adaptiveConfig.enableComplexAnimations
-            ? {
-                scale: isHovered ? [1, 1.3, 1.1] : [1, 1.05, 1],
-                opacity: isHovered
-                  ? [baseIntensity, baseIntensity * 1.5, baseIntensity * 1.2]
-                  : [
-                      baseIntensity * 0.5,
-                      baseIntensity * 0.7,
-                      baseIntensity * 0.5,
-                    ],
-              }
-            : {}
-        }
-        transition={
-          adaptiveConfig.enableComplexAnimations
-            ? {
-                duration:
-                  (isHovered ? 2 : 4) * adaptiveConfig.animationDuration,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }
-            : {}
-        }
-      />
+        transition={{
+          duration: isHovered ? 0.3 : 0.6,
+        }}
+      >
+        <motion.div
+          className="absolute inset-0 rounded-full"
+          style={{
+            background: `radial-gradient(circle at center, ${colors.primary}40, ${colors.primary}20, transparent 70%)`,
+            width: `${size}%`,
+            height: `${size}%`,
+            left: "50%",
+            top: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+          animate={{
+            scale: isHovered ? [1, 1.2, 1] : [1, 1.05, 1],
+          }}
+          transition={{
+            duration: isHovered ? 2 : 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </motion.div>
 
-      {/* Middle glow ring */}
+      {/* Secondary glow */}
       <motion.div
-        className="absolute inset-2 rounded-full"
+        className="absolute inset-0"
         style={{
-          background: `radial-gradient(circle, transparent 50%, ${colors.secondary}30 65%, transparent 100%)`,
-          filter: adaptiveConfig.blurIntensity > 0 ? `blur(4px)` : "none",
-          ...containerStyles,
+          filter: "blur(4px)",
         }}
-        animate={
-          adaptiveConfig.enableComplexAnimations
-            ? {
-                scale: isHovered ? [1, 1.2, 1.05] : [1, 1.03, 1],
-                opacity: isHovered
-                  ? [baseIntensity * 0.8, baseIntensity * 1.3, baseIntensity]
-                  : [
-                      baseIntensity * 0.4,
-                      baseIntensity * 0.6,
-                      baseIntensity * 0.4,
-                    ],
-                rotate: [0, 180, 360],
-              }
-            : {}
-        }
-        transition={
-          adaptiveConfig.enableComplexAnimations
-            ? {
-                duration:
-                  (isHovered ? 3 : 6) * adaptiveConfig.animationDuration,
-                repeat: Infinity,
-                ease: "linear",
-              }
-            : {}
-        }
-      />
+        animate={{
+          opacity: baseIntensity * 0.7,
+        }}
+        transition={{
+          duration: 0.4,
+        }}
+      >
+        <motion.div
+          className="absolute inset-0 rounded-full"
+          style={{
+            background: `radial-gradient(circle at center, ${colors.secondary}30, ${colors.secondary}15, transparent 60%)`,
+            width: `${size * 0.8}%`,
+            height: `${size * 0.8}%`,
+            left: "50%",
+            top: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+          animate={{
+            scale: isHovered ? [1, 1.15, 1] : [1, 1.03, 1],
+          }}
+          transition={{
+            duration: isHovered ? 3 : 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </motion.div>
 
-      {/* Inner accent ring */}
+      {/* Accent glow */}
       <motion.div
-        className="absolute inset-4 rounded-full"
+        className="absolute inset-0"
         style={{
-          background: `radial-gradient(circle, transparent 40%, ${colors.accent}40 55%, transparent 100%)`,
-          filter: adaptiveConfig.blurIntensity > 0 ? `blur(2px)` : "none",
-          ...containerStyles,
+          filter: "blur(2px)",
         }}
-        animate={
-          adaptiveConfig.enableComplexAnimations
-            ? {
-                scale: isHovered ? [1, 1.15, 1.02] : [1, 1.02, 1],
-                opacity: isHovered
-                  ? [
-                      baseIntensity * 0.6,
-                      baseIntensity * 1.1,
-                      baseIntensity * 0.8,
-                    ]
-                  : [
-                      baseIntensity * 0.3,
-                      baseIntensity * 0.5,
-                      baseIntensity * 0.3,
-                    ],
-                rotate: [0, -120, -240, -360],
-              }
-            : {}
-        }
-        transition={
-          adaptiveConfig.enableComplexAnimations
-            ? {
-                duration:
-                  (isHovered ? 2.5 : 5) * adaptiveConfig.animationDuration,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }
-            : {}
-        }
-      />
-
-      {/* Pulsing core */}
-      <motion.div
-        className="absolute inset-6 rounded-full"
-        style={{
-          background: `radial-gradient(circle, ${colors.primary}50 0%, ${colors.secondary}30 30%, transparent 70%)`,
-          filter: adaptiveConfig.blurIntensity > 0 ? `blur(1px)` : "none",
-          ...containerStyles,
+        animate={{
+          opacity: baseIntensity * 0.5,
         }}
-        animate={
-          adaptiveConfig.enableComplexAnimations
-            ? {
-                scale: isHovered ? [1, 1.4, 1.1] : [1, 1.1, 1],
-                opacity: isHovered
-                  ? [
-                      baseIntensity * 0.4,
-                      baseIntensity * 0.9,
-                      baseIntensity * 0.6,
-                    ]
-                  : [
-                      baseIntensity * 0.2,
-                      baseIntensity * 0.4,
-                      baseIntensity * 0.2,
-                    ],
-              }
-            : {}
-        }
-        transition={
-          adaptiveConfig.enableComplexAnimations
-            ? {
-                duration:
-                  (isHovered ? 1.5 : 3) * adaptiveConfig.animationDuration,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }
-            : {}
-        }
-      />
-
-      {/* Sparkle effects on hover - Only render if performance allows */}
-      {isHovered && adaptiveConfig.enableComplexAnimations && (
-        <>
-          {Array.from({ length: 6 }).map((_, index) => (
-            <motion.div
-              key={`sparkle-${index}`}
-              className="absolute w-1 h-1 rounded-full"
-              style={{
-                background: colors.accent,
-                filter:
-                  adaptiveConfig.blurIntensity > 0 ? `blur(0.5px)` : "none",
-                left: `${20 + Math.cos((index * 60 * Math.PI) / 180) * 25}%`,
-                top: `${20 + Math.sin((index * 60 * Math.PI) / 180) * 25}%`,
-                ...containerStyles,
-              }}
-              animate={{
-                scale: [0, 1.5, 0],
-                opacity: [0, 1, 0],
-                rotate: [0, 180],
-              }}
-              transition={{
-                duration: 1 * adaptiveConfig.animationDuration,
-                repeat: Infinity,
-                delay: index * 0.1,
-                ease: "easeInOut",
-              }}
-            />
-          ))}
-        </>
-      )}
-
-      {/* Border highlight */}
-      <motion.div
-        className="absolute inset-0 rounded-full border"
-        style={{
-          borderColor: colors.primary,
-          borderWidth: "1px",
-          opacity: 0,
-          ...containerStyles,
+        transition={{
+          duration: 0.2,
         }}
-        animate={
-          adaptiveConfig.enableComplexAnimations
-            ? {
-                opacity: isHovered ? [0, 0.6, 0.3] : [0, 0.2, 0],
-                scale: isHovered ? [1, 1.05, 1.02] : [1, 1.01, 1],
-              }
-            : {}
-        }
-        transition={
-          adaptiveConfig.enableComplexAnimations
-            ? {
-                duration:
-                  (isHovered ? 2 : 4) * adaptiveConfig.animationDuration,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }
-            : {}
-        }
-      />
+      >
+        <motion.div
+          className="absolute inset-0 rounded-full"
+          style={{
+            background: `radial-gradient(circle at center, ${colors.accent}25, ${colors.accent}10, transparent 50%)`,
+            width: `${size * 0.6}%`,
+            height: `${size * 0.6}%`,
+            left: "50%",
+            top: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+          animate={{
+            scale: isHovered ? [1, 1.1, 1] : [1, 1.02, 1],
+          }}
+          transition={{
+            duration: isHovered ? 2.5 : 5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </motion.div>
     </div>
   );
 };

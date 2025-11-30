@@ -1,11 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import ErrorBoundary from "@/components/ui/ErrorBoundary";
-import { ThemeProvider } from "@/components/ui/ThemeProvider";
+// Removed ThemeProvider import - component doesn't exist
 import { siteConfig } from "@/data/site-config";
 
 import "./globals.css";
-import "../styles/certification-compatibility.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -148,9 +147,7 @@ export default function RootLayout({
           Skip to main content
         </a>
 
-        <ThemeProvider>
-          <ErrorBoundary>{children}</ErrorBoundary>
-        </ThemeProvider>
+        <ErrorBoundary>{children}</ErrorBoundary>
         {/* Browser Compatibility Initialization */}
         <script
           dangerouslySetInnerHTML={{
@@ -194,25 +191,6 @@ export default function RootLayout({
                 // Apply classes
                 html.className += ' ' + classes.join(' ');
               })();
-            `,
-          }}
-        />
-
-        {/* Service Worker Registration */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              if ('serviceWorker' in navigator) {
-                window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/sw.js')
-                    .then(function(registration) {
-                      console.log('SW registered: ', registration);
-                    })
-                    .catch(function(registrationError) {
-                      console.log('SW registration failed: ', registrationError);
-                    });
-                });
-              }
             `,
           }}
         />

@@ -3,8 +3,7 @@
  * Re-exports types from individual modules for easy importing
  */
 
-// Coding platforms types
-export * from "./coding-platforms";
+// Coding platforms types removed - feature not implemented
 
 // Certification types
 export interface Certification {

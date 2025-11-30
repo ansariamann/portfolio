@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NavigationItem } from "@/types";
 import { scrollToSection } from "@/lib/utils";
-import { HeaderClock } from "@/components/ui/DigitalClock";
+// Removed DigitalClock import - component doesn't exist
 
 const navigationItems: NavigationItem[] = [
   { label: "Home", href: "#hero" },
@@ -89,7 +89,13 @@ export default function Header() {
               }}
               aria-label="Go to home section"
             >
-              <HeaderClock isScrolled={isScrolled} />
+              <span
+                className={`font-bold text-xl transition-colors duration-300 ${
+                  isScrolled ? "text-gray-900" : "text-white"
+                }`}
+              >
+                Portfolio
+              </span>
             </div>
           </motion.div>
 

@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { Button } from "@/components/ui/Button";
-import { ErrorHandler } from "@/lib/errors";
 
 interface ErrorPageProps {
   error: Error & { digest?: string };
@@ -16,16 +15,11 @@ interface ErrorPageProps {
 export default function Error({ error, reset }: ErrorPageProps) {
   useEffect(() => {
     // Log the error when the component mounts
-    ErrorHandler.logError(error, {
+    console.error("Error occurred:", error, {
       page: "error-page",
       digest: error.digest,
       timestamp: new Date().toISOString(),
     });
-
-    // Report to external service if needed
-    if (ErrorHandler.shouldReport(error)) {
-      console.error("Error reported to monitoring service:", error);
-    }
   }, [error]);
 
   return (
@@ -62,7 +56,7 @@ export default function Error({ error, reset }: ErrorPageProps) {
         </h1>
 
         <p className="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
-          {ErrorHandler.formatUserError(error)}
+          {error.message || "An unexpected error occurred. Please try again."}
         </p>
 
         {/* Action Buttons */}

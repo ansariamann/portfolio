@@ -49,7 +49,7 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
         style={{ transformStyle: "preserve-3d" }}
       >
         {/* Front of card */}
-        <div className="absolute inset-0 backface-hidden bg-white rounded-lg sm:rounded-xl shadow-responsive hover:shadow-responsive-hover transition-shadow duration-300 p-3 sm:p-4 flex flex-col items-center justify-center border border-gray-100">
+        <div className="absolute inset-0 backface-hidden bg-gradient-to-br from-blue-50 to-indigo-100 rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-3 sm:p-4 flex flex-col items-center justify-center border border-blue-200">
           <div className="w-8 h-8 sm:w-12 sm:h-12 mb-2 sm:mb-3 flex items-center justify-center">
             <SkillIcon
               skillId={skill.id}
@@ -58,7 +58,7 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
               className="sm:w-12 sm:h-12 w-8 h-8"
             />
           </div>
-          <h3 className="font-semibold text-gray-800 text-center text-xs sm:text-sm leading-tight">
+          <h3 className="font-semibold text-slate-700 text-center text-xs sm:text-sm leading-tight">
             {skill.name}
           </h3>
           <div className="flex mt-1 sm:mt-2">
@@ -78,7 +78,7 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
 
         {/* Back of card */}
         <div
-          className="absolute inset-0 backface-hidden bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg sm:rounded-xl shadow-responsive p-3 sm:p-4 flex flex-col justify-center text-white"
+          className="absolute inset-0 backface-hidden bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg sm:rounded-xl shadow-lg p-3 sm:p-4 flex flex-col justify-center text-white"
           style={{ transform: "rotateY(180deg)" }}
         >
           <p className="text-xs sm:text-sm text-center mb-1 sm:mb-2 leading-tight">
@@ -330,26 +330,26 @@ export default function SkillsSection() {
   return (
     <section
       id="skills"
-      className="min-h-screen py-20 bg-gradient-to-br from-gray-900 via-slate-900 via-gray-800 to-slate-900 relative overflow-hidden"
+      className="min-h-screen py-20 bg-gradient-to-br from-slate-50 via-white via-gray-50 to-slate-100 relative overflow-hidden"
     >
       {/* Modern background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
-          className="absolute top-40 left-20 w-96 h-96 bg-gradient-to-br from-purple-200/20 to-blue-200/20 rounded-full blur-3xl"
+          className="absolute top-20 right-20 w-72 h-72 bg-gradient-to-br from-blue-200/30 to-purple-200/30 rounded-full blur-3xl"
           animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3],
+            scale: [1, 1.1, 1],
+            opacity: [0.3, 0.5, 0.3],
           }}
           transition={{
-            duration: 12,
+            duration: 8,
             repeat: Infinity,
             ease: "easeInOut",
           }}
         />
         <motion.div
-          className="absolute bottom-40 right-20 w-80 h-80 bg-gradient-to-tr from-indigo-200/20 to-purple-200/20 rounded-full blur-3xl"
+          className="absolute bottom-20 left-20 w-64 h-64 bg-gradient-to-tr from-purple-200/30 to-pink-200/30 rounded-full blur-3xl"
           animate={{
-            scale: [1.2, 1, 1.2],
+            scale: [1.1, 1, 1.1],
             opacity: [0.4, 0.2, 0.4],
           }}
           transition={{
@@ -381,18 +381,9 @@ export default function SkillsSection() {
             </span>
           </motion.div>
 
-          <AnimatedSectionHeading
-            text="My Skills"
-            className="text-5xl md:text-7xl font-bold mb-8 tracking-tight"
-            gradientClassName="bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent"
-            animationConfig={headingPresets.section.animationConfig}
-            motionProps={{
-              initial: { opacity: 0, y: 30 },
-              whileInView: { opacity: 1, y: 0 },
-              viewport: { once: true },
-              transition: { duration: 0.8, delay: 0.3 },
-            }}
-          />
+          <h2 className="text-5xl md:text-7xl font-bold mb-8 tracking-tight bg-gradient-to-r from-slate-800 via-blue-600 to-purple-600 bg-clip-text text-transparent">
+            My Skills
+          </h2>
 
           <motion.p
             className="text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed font-light"
@@ -457,7 +448,7 @@ export default function SkillsSection() {
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
               selectedCategory === "all"
                 ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg scale-105"
-                : "bg-white/70 backdrop-blur-sm text-slate-600 hover:bg-white/90 shadow-md"
+                : "bg-white/80 backdrop-blur-sm text-slate-600 hover:bg-white/95 shadow-md border border-gray-200"
             }`}
             whileHover={{ y: -1 }}
             whileTap={{ scale: 0.98 }}
@@ -471,7 +462,7 @@ export default function SkillsSection() {
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                 selectedCategory === category
                   ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg scale-105"
-                  : "bg-white/70 backdrop-blur-sm text-slate-600 hover:bg-white/90 shadow-md"
+                  : "bg-white/80 backdrop-blur-sm text-slate-600 hover:bg-white/95 shadow-md border border-gray-200"
               }`}
               whileHover={{ y: -1 }}
               whileTap={{ scale: 0.98 }}

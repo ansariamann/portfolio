@@ -6,11 +6,7 @@ import Image from "next/image";
 
 import { timelineData, achievementsData } from "@/data/about";
 import { TimelineItem, Achievement } from "@/types";
-import {
-  StaggeredList,
-  ScrollReveal,
-  ParallaxContainer,
-} from "@/components/ui";
+import { StaggeredList, ScrollReveal } from "@/components/ui";
 import { useMobileOptimizedAnimation } from "@/lib/hooks";
 import AnimatedSectionHeading, {
   headingPresets,
@@ -351,14 +347,8 @@ export default function AboutSection() {
 
             <AnimatedSectionHeading
               text="About Me"
-              className="text-5xl md:text-7xl font-bold mb-8 tracking-tight"
-              gradientClassName="bg-gradient-to-r from-slate-800 via-blue-600 to-purple-600 bg-clip-text text-transparent"
-              animationConfig={headingPresets.section.animationConfig}
-              motionProps={{
-                initial: { opacity: 0, y: 30 },
-                animate: isInView ? { opacity: 1, y: 0 } : {},
-                transition: { duration: 0.8, delay: 0.3 },
-              }}
+              className="text-5xl md:text-7xl font-bold mb-8 tracking-tight bg-gradient-to-r from-slate-800 via-blue-600 to-purple-600 bg-clip-text text-transparent"
+              preset="default"
             />
           </div>
 

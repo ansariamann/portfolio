@@ -106,15 +106,8 @@ export default function ContactSection() {
 
           <AnimatedSectionHeading
             text="Let's Work Together"
-            className="text-5xl md:text-7xl font-bold mb-8 tracking-tight"
-            gradientClassName="bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent"
-            animationConfig={headingPresets.section.animationConfig}
-            motionProps={{
-              initial: { opacity: 0, y: 30 },
-              whileInView: { opacity: 1, y: 0 },
-              viewport: { once: true },
-              transition: { duration: 0.8, delay: 0.3 },
-            }}
+            className="text-5xl md:text-7xl font-bold mb-8 tracking-tight bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent"
+            preset="default"
           />
 
           <motion.p

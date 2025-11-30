@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X, ZoomIn } from "lucide-react";
-import OptimizedImage from "./OptimizedImage";
+import Image from "next/image";
 import Modal from "./Modal";
 
 interface ImageGalleryProps {
@@ -62,7 +62,7 @@ export default function ImageGallery({
       <div className={`relative ${className}`}>
         {/* Main image */}
         <div className="relative h-64 md:h-80 rounded-lg overflow-hidden group cursor-pointer">
-          <OptimizedImage
+          <Image
             src={images[currentIndex]}
             alt={`${alt} - Image ${currentIndex + 1}`}
             fill
@@ -129,7 +129,7 @@ export default function ImageGallery({
                     : "border-gray-200 hover:border-gray-300"
                 }`}
               >
-                <OptimizedImage
+                <Image
                   src={image}
                   alt={`${alt} - Thumbnail ${index + 1}`}
                   width={64}
@@ -162,7 +162,7 @@ export default function ImageGallery({
             className="relative h-[70vh] rounded-lg overflow-hidden cursor-zoom-in"
             onClick={() => setIsZoomed(!isZoomed)}
           >
-            <OptimizedImage
+            <Image
               src={images[currentIndex]}
               alt={`${alt} - Full size ${currentIndex + 1}`}
               fill
@@ -205,7 +205,7 @@ export default function ImageGallery({
                       : "border-gray-300 hover:border-gray-400"
                   }`}
                 >
-                  <OptimizedImage
+                  <Image
                     src={image}
                     alt={`${alt} - Modal thumbnail ${index + 1}`}
                     width={48}

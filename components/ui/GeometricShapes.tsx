@@ -2,8 +2,7 @@
 
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import { motion, useTransform, useScroll } from "framer-motion";
-import useAnimationPerformance from "@/lib/hooks/useAnimationPerformance";
-import { PERFORMANCE_CONFIG } from "@/lib/certification-animation-config";
+// Removed performance optimization imports
 
 interface Shape {
   id: string;
@@ -44,22 +43,8 @@ export const GeometricShapes: React.FC<GeometricShapesProps> = ({
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const cleanupTimersRef = useRef<NodeJS.Timeout[]>([]);
 
-  const {
-    requestAnimationFrame,
-    cancelAnimationFrame,
-    throttledAnimationFrame,
-    gpuAcceleration,
-    getAdaptiveAnimationConfig,
-    memoryCleanup,
-    createOptimizedResizeHandler,
-  } = useAnimationPerformance();
-
-  // Get adaptive configuration
-  const adaptiveConfig = getAdaptiveAnimationConfig();
-  const optimizedShapeCount = Math.min(
-    shapeCount,
-    adaptiveConfig.quality === "low" ? 4 : shapeCount
-  );
+  // Simple shape count optimization
+  const optimizedShapeCount = Math.min(shapeCount, 8);
 
   // Initialize shapes with performance optimization
   useEffect(() => {
@@ -95,36 +80,36 @@ export const GeometricShapes: React.FC<GeometricShapesProps> = ({
     setDimensions({ width: window.innerWidth, height: window.innerHeight });
   }, []);
 
-  // Handle resize with performance optimization
+  // Handle resize
   useEffect(() => {
-    const optimizedResizeHandler = createOptimizedResizeHandler(handleResize);
-    window.addEventListener("resize", optimizedResizeHandler);
+    const throttledResizeHandler = () => {
+      requestAnimationFrame(handleResize);
+    };
+    window.addEventListener("resize", throttledResizeHandler);
 
     return () => {
-      window.removeEventListener("resize", optimizedResizeHandler);
+      window.removeEventListener("resize", throttledResizeHandler);
     };
-  }, [handleResize, createOptimizedResizeHandler]);
+  }, [handleResize]);
 
   // Cleanup on unmount
   useEffect(() => {
     return () => {
-      memoryCleanup.cleanupTimers(cleanupTimersRef.current);
+      cleanupTimersRef.current.forEach(clearTimeout);
       cleanupTimersRef.current = [];
     };
-  }, [memoryCleanup]);
+  }, []);
 
   const renderShape = useCallback(
     (shape: Shape) => {
-      // Reduce parallax effect for low performance
-      const parallaxStrength = adaptiveConfig.quality === "low" ? 0.5 : 1;
-      const parallaxY =
-        scrollProgress * 100 * shape.parallaxStrength * parallaxStrength;
-      const parallaxX =
-        scrollProgress * 50 * shape.parallaxStrength * 0.5 * parallaxStrength;
+      // Simple parallax effect
+      const parallaxY = scrollProgress * 100 * shape.parallaxStrength;
+      const parallaxX = scrollProgress * 50 * shape.parallaxStrength * 0.5;
 
-      const gpuStyles = adaptiveConfig.enableGPU
-        ? gpuAcceleration.getGPUStyles()
-        : gpuAcceleration.removeGPUStyles();
+      const gpuStyles = {
+        willChange: "transform",
+        transform: "translateZ(0)",
+      };
 
       const shapeProps = {
         style: {
@@ -133,21 +118,16 @@ export const GeometricShapes: React.FC<GeometricShapesProps> = ({
             shape.y + parallaxY
           }px)`,
         },
-        animate: adaptiveConfig.enableComplexAnimations
-          ? {
-              rotate: [shape.rotation, shape.rotation + 360],
-              scale: [1, 1.1, 1],
-              opacity: [shape.opacity, shape.opacity * 1.5, shape.opacity],
-            }
-          : {},
-        transition: adaptiveConfig.enableComplexAnimations
-          ? {
-              duration:
-                (8 + Math.random() * 4) * adaptiveConfig.animationDuration, // 8-12 seconds
-              repeat: Infinity,
-              ease: "linear" as const,
-            }
-          : {},
+        animate: {
+          rotate: [shape.rotation, shape.rotation + 360],
+          scale: [1, 1.1, 1],
+          opacity: [shape.opacity, shape.opacity * 1.5, shape.opacity],
+        },
+        transition: {
+          duration: 8 + Math.random() * 4, // 8-12 seconds
+          repeat: Infinity,
+          ease: "linear" as const,
+        },
       };
 
       switch (shape.type) {
@@ -222,15 +202,16 @@ export const GeometricShapes: React.FC<GeometricShapesProps> = ({
           return null;
       }
     },
-    [adaptiveConfig, gpuAcceleration, scrollProgress]
+    [scrollProgress]
   );
 
   if (!isInView) return null;
 
-  // Apply GPU acceleration based on performance
-  const containerStyles = adaptiveConfig.enableGPU
-    ? gpuAcceleration.getGPUStyles()
-    : gpuAcceleration.removeGPUStyles();
+  // Apply GPU acceleration
+  const containerStyles = {
+    willChange: "transform",
+    transform: "translateZ(0)",
+  };
 
   return (
     <div

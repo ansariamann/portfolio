@@ -2,7 +2,7 @@
 
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import { ThemeProvider } from "@/components/ui/ThemeProvider";
+// Removed ThemeProvider import - component doesn't exist
 
 import Header from "./Header";
 
@@ -13,13 +13,11 @@ interface LayoutProps {
 
 export default function Layout({ children, className = "" }: LayoutProps) {
   return (
-    <ThemeProvider>
-      <div
-        className={cn("min-h-screen flex flex-col", "scroll-smooth", className)}
-      >
-        <Header />
-        <main className="flex-1">{children}</main>
-      </div>
-    </ThemeProvider>
+    <div
+      className={cn("min-h-screen flex flex-col", "scroll-smooth", className)}
+    >
+      <Header />
+      <main className="flex-1">{children}</main>
+    </div>
   );
 }

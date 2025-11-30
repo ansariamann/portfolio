@@ -1,7 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { ANIMATION_PRESETS } from "./constants";
-
 /**
  * Utility function to merge Tailwind CSS classes intelligently
  * Combines clsx for conditional classes and tailwind-merge for deduplication
@@ -12,11 +10,32 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// Animation variants for consistent animations (re-exported from constants)
-export const fadeInUp = ANIMATION_PRESETS.fadeInUp;
-export const fadeIn = ANIMATION_PRESETS.fadeIn;
-export const scaleIn = ANIMATION_PRESETS.scaleIn;
-export const staggerContainer = ANIMATION_PRESETS.stagger;
+// Animation variants for consistent animations
+export const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6 },
+};
+
+export const fadeIn = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  transition: { duration: 0.6 },
+};
+
+export const scaleIn = {
+  initial: { opacity: 0, scale: 0.8 },
+  animate: { opacity: 1, scale: 1 },
+  transition: { duration: 0.6 },
+};
+
+export const staggerContainer = {
+  animate: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
 
 // Navigation utilities
 
