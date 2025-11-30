@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useEffect, useState, useCallback, useRef } from "react";
-import { motion, useTransform, useScroll } from "framer-motion";
-// Removed performance optimization imports
+import React, { useEffect, useState, useRef } from "react";
+import { motion } from "framer-motion";
 
 interface Shape {
   id: string;
@@ -40,20 +39,24 @@ export const GeometricShapes: React.FC<GeometricShapesProps> = ({
   colors = DEFAULT_COLORS,
 }) => {
   const [shapes, setShapes] = useState<Shape[]>([]);
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [isMounted, setIsMounted] = useState(false);
   const cleanupTimersRef = useRef<NodeJS.Timeout[]>([]);
 
   // Simple shape count optimization
   const optimizedShapeCount = Math.min(shapeCount, 8);
 
+  // Set mounted state
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   // Initialize shapes with performance optimization
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView || !isMounted) return;
 
     // Get viewport dimensions
     const width = window.innerWidth;
     const height = window.innerHeight;
-    setDimensions({ width, height });
 
     const initialShapes: Shape[] = Array.from(
       { length: optimizedShapeCount },
@@ -73,24 +76,7 @@ export const GeometricShapes: React.FC<GeometricShapesProps> = ({
     );
 
     setShapes(initialShapes);
-  }, [isInView, optimizedShapeCount, colors]);
-
-  // Optimized resize handler
-  const handleResize = useCallback(() => {
-    setDimensions({ width: window.innerWidth, height: window.innerHeight });
-  }, []);
-
-  // Handle resize
-  useEffect(() => {
-    const throttledResizeHandler = () => {
-      requestAnimationFrame(handleResize);
-    };
-    window.addEventListener("resize", throttledResizeHandler);
-
-    return () => {
-      window.removeEventListener("resize", throttledResizeHandler);
-    };
-  }, [handleResize]);
+  }, [isInView, isMounted, optimizedShapeCount, colors]);
 
   // Cleanup on unmount
   useEffect(() => {
@@ -100,112 +86,109 @@ export const GeometricShapes: React.FC<GeometricShapesProps> = ({
     };
   }, []);
 
-  const renderShape = useCallback(
-    (shape: Shape) => {
-      // Simple parallax effect
-      const parallaxY = scrollProgress * 100 * shape.parallaxStrength;
-      const parallaxX = scrollProgress * 50 * shape.parallaxStrength * 0.5;
+  const renderShape = (shape: Shape) => {
+    // Simple parallax effect
+    const parallaxY = scrollProgress * 100 * shape.parallaxStrength;
+    const parallaxX = scrollProgress * 50 * shape.parallaxStrength * 0.5;
 
-      const gpuStyles = {
-        willChange: "transform",
-        transform: "translateZ(0)",
-      };
+    const gpuStyles = {
+      willChange: "transform",
+      transform: "translateZ(0)",
+    };
 
-      const shapeProps = {
-        style: {
-          ...gpuStyles,
-          transform: `translate(${shape.x + parallaxX}px, ${
-            shape.y + parallaxY
-          }px)`,
-        },
-        animate: {
-          rotate: [shape.rotation, shape.rotation + 360],
-          scale: [1, 1.1, 1],
-          opacity: [shape.opacity, shape.opacity * 1.5, shape.opacity],
-        },
-        transition: {
-          duration: 8 + Math.random() * 4, // 8-12 seconds
-          repeat: Infinity,
-          ease: "linear" as const,
-        },
-      };
+    const shapeProps = {
+      style: {
+        ...gpuStyles,
+        transform: `translate(${shape.x + parallaxX}px, ${
+          shape.y + parallaxY
+        }px)`,
+      },
+      animate: {
+        rotate: [shape.rotation, shape.rotation + 360],
+        scale: [1, 1.1, 1],
+        opacity: [shape.opacity, shape.opacity * 1.5, shape.opacity],
+      },
+      transition: {
+        duration: 8 + Math.random() * 4, // 8-12 seconds
+        repeat: Infinity,
+        ease: "linear" as const,
+      },
+    };
 
-      switch (shape.type) {
-        case "triangle":
-          return (
-            <motion.div key={shape.id} className="absolute" {...shapeProps}>
-              <svg width={shape.size} height={shape.size} viewBox="0 0 100 100">
-                <polygon
-                  points="50,10 90,90 10,90"
-                  fill={shape.color}
-                  stroke={shape.color.replace("20", "40")}
-                  strokeWidth="1"
-                />
-              </svg>
-            </motion.div>
-          );
+    switch (shape.type) {
+      case "triangle":
+        return (
+          <motion.div key={shape.id} className="absolute" {...shapeProps}>
+            <svg width={shape.size} height={shape.size} viewBox="0 0 100 100">
+              <polygon
+                points="50,10 90,90 10,90"
+                fill={shape.color}
+                stroke={shape.color.replace("20", "40")}
+                strokeWidth="1"
+              />
+            </svg>
+          </motion.div>
+        );
 
-        case "circle":
-          return (
-            <motion.div
-              key={shape.id}
-              className="absolute rounded-full border"
-              style={{
-                ...shapeProps.style,
-                width: shape.size,
-                height: shape.size,
-                backgroundColor: shape.color,
-                borderColor: shape.color.replace("20", "40"),
-                borderWidth: "1px",
-              }}
-              animate={shapeProps.animate}
-              transition={shapeProps.transition}
-            />
-          );
+      case "circle":
+        return (
+          <motion.div
+            key={shape.id}
+            className="absolute rounded-full border"
+            style={{
+              ...shapeProps.style,
+              width: shape.size,
+              height: shape.size,
+              backgroundColor: shape.color,
+              borderColor: shape.color.replace("20", "40"),
+              borderWidth: "1px",
+            }}
+            animate={shapeProps.animate}
+            transition={shapeProps.transition}
+          />
+        );
 
-        case "line":
-          return (
-            <motion.div key={shape.id} className="absolute" {...shapeProps}>
-              <svg width={shape.size} height="2" viewBox="0 0 100 2">
-                <line
-                  x1="0"
-                  y1="1"
-                  x2="100"
-                  y2="1"
-                  stroke={shape.color.replace("20", "60")}
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </motion.div>
-          );
+      case "line":
+        return (
+          <motion.div key={shape.id} className="absolute" {...shapeProps}>
+            <svg width={shape.size} height="2" viewBox="0 0 100 2">
+              <line
+                x1="0"
+                y1="1"
+                x2="100"
+                y2="1"
+                stroke={shape.color.replace("20", "60")}
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
+            </svg>
+          </motion.div>
+        );
 
-        case "square":
-          return (
-            <motion.div
-              key={shape.id}
-              className="absolute border"
-              style={{
-                ...shapeProps.style,
-                width: shape.size,
-                height: shape.size,
-                backgroundColor: shape.color,
-                borderColor: shape.color.replace("20", "40"),
-                borderWidth: "1px",
-              }}
-              animate={shapeProps.animate}
-              transition={shapeProps.transition}
-            />
-          );
+      case "square":
+        return (
+          <motion.div
+            key={shape.id}
+            className="absolute border"
+            style={{
+              ...shapeProps.style,
+              width: shape.size,
+              height: shape.size,
+              backgroundColor: shape.color,
+              borderColor: shape.color.replace("20", "40"),
+              borderWidth: "1px",
+            }}
+            animate={shapeProps.animate}
+            transition={shapeProps.transition}
+          />
+        );
 
-        default:
-          return null;
-      }
-    },
-    [scrollProgress]
-  );
+      default:
+        return null;
+    }
+  };
 
-  if (!isInView) return null;
+  if (!isInView || !isMounted) return null;
 
   // Apply GPU acceleration
   const containerStyles = {

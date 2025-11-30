@@ -594,14 +594,9 @@ export default function AboutSection() {
             My Journey
           </h3>
           <div className="relative max-w-4xl mx-auto">
-            {/* Timeline line with parallax effect - desktop only */}
+            {/* Timeline line - desktop only */}
             {!isMobile && !shouldReduceAnimations && (
-              <ParallaxContainer
-                speed={0.2}
-                className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-blue-400 via-purple-500 to-blue-400 hidden md:block"
-              >
-                <div />
-              </ParallaxContainer>
+              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-blue-400 via-purple-500 to-blue-400 hidden md:block" />
             )}
 
             <StaggeredList

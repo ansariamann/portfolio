@@ -39,7 +39,7 @@ export const validateContactForm = (data: ContactFormData) => {
     return { success: true, errors: null };
   } catch (error) {
     if (error instanceof z.ZodError) {
-      return { success: false, errors: error.errors };
+      return { success: false, errors: error.issues };
     }
     return { success: false, errors: [{ message: "Validation failed" }] };
   }
