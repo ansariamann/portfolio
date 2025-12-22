@@ -128,7 +128,7 @@ export default function ProjectsSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="inline-block mb-6"
           >
-            <span className="px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-sm font-medium text-slate-800 border border-white/60">
+            <span className="px-4 py-2 bg-slate-800/90 backdrop-blur-sm rounded-full text-sm font-medium text-slate-100 border border-slate-700/60">
               My work
             </span>
           </motion.div>
@@ -169,8 +169,8 @@ export default function ProjectsSection() {
                 onClick={() => setActiveFilter(category)}
                 className={`relative px-6 py-3 rounded-2xl font-medium transition-all duration-300 flex items-center gap-2 ${
                   isActive
-                    ? "bg-white/90 backdrop-blur-sm text-indigo-600 shadow-xl scale-105"
-                    : "bg-white/60 backdrop-blur-sm text-slate-600 hover:bg-white/80 shadow-lg"
+                    ? "bg-slate-800/90 backdrop-blur-sm text-indigo-400 shadow-xl scale-105 border border-indigo-500/50"
+                    : "bg-slate-800/60 backdrop-blur-sm text-slate-200 hover:bg-slate-800/80 shadow-lg border border-slate-700/50"
                 }`}
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}
@@ -265,7 +265,7 @@ export default function ProjectsSection() {
         >
           <div
             className={cn(
-              "bg-white rounded-responsive shadow-responsive",
+              "bg-slate-800/80 backdrop-blur-sm rounded-responsive shadow-responsive border border-slate-700/50",
               // Mobile-first layout
               "flex flex-col sm:flex-row items-center justify-center",
               "p-4 sm:p-6 gap-4 sm:gap-6 lg:gap-8",

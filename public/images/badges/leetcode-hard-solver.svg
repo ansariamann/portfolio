@@ -1,0 +1,13 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="24" cy="24" r="22" fill="url(#gradient11)" stroke="#DC2626" stroke-width="2"/>
+  <circle cx="24" cy="24" r="16" fill="white" opacity="0.9"/>
+  <path d="M18 20h12v2H18v-2zm0 4h12v2H18v-2zm0 4h8v2h-8v-2z" fill="#DC2626"/>
+  <circle cx="28" cy="26" r="1.5" fill="#DC2626"/>
+  <text x="24" y="36" text-anchor="middle" font-family="Arial, sans-serif" font-size="4" fill="#DC2626">HARD SOLVER</text>
+  <defs>
+    <linearGradient id="gradient11" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#DC2626;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#991B1B;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>

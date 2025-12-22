@@ -122,7 +122,7 @@ class CertificationErrorBoundary extends Component<Props, State> {
               Certifications Section Unavailable
             </h3>
             <p className="text-gray-600 text-center mb-6 max-w-md leading-relaxed">
-              We're having trouble loading the certifications section. This
+              We&apos;re having trouble loading the certifications section. This
               might be due to a temporary issue with the data or animations.
             </p>
 

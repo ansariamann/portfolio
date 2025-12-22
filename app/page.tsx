@@ -4,6 +4,7 @@ import {
   AboutSection,
   SkillsSection,
   CertificationsSection,
+  CodingPlatformsSection,
   ProjectsSection,
   ContactSection,
 } from "@/components/sections";
@@ -18,6 +19,7 @@ export default function Home() {
         <AboutSection />
         <SkillsSection />
         <CertificationsSection />
+        <CodingPlatformsSection />
         <ProjectsSection />
         <ContactSection />
       </main>

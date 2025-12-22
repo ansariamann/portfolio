@@ -158,40 +158,17 @@ export default function HeroSection() {
 
   // Download CV function
   const handleDownloadCV = () => {
-    const cvFiles = ["/cv/Aman_Ansari_CV.pdf", "/cv/resume.pdf", "/cv/cv.pdf"];
+    // Direct path to the CV file
+    const cvPath = "/cv/Aman_Ansari_CV.pdf";
 
-    const tryDownload = async (filePath: string): Promise<boolean> => {
-      try {
-        const response = await fetch(filePath, { method: "HEAD" });
-        if (response.ok) {
-          const link = document.createElement("a");
-          link.href = filePath;
-          link.download = filePath.split("/").pop() || "Aman_Ansari_CV";
-          link.target = "_blank";
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          return true;
-        }
-        return false;
-      } catch {
-        return false;
-      }
-    };
-
-    const downloadCV = async () => {
-      for (const filePath of cvFiles) {
-        const success = await tryDownload(filePath);
-        if (success) {
-          return;
-        }
-      }
-      alert(
-        "CV file not found. Please add your CV file to the /public/cv/ directory."
-      );
-    };
-
-    downloadCV();
+    // Create a temporary anchor element and trigger download
+    const link = document.createElement("a");
+    link.href = cvPath;
+    link.download = "Aman_Ansari_CV.pdf";
+    link.setAttribute("target", "_blank");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -251,8 +228,8 @@ export default function HeroSection() {
             {/* Greeting - Mobile optimized */}
             <motion.div
               initial={{
-                opacity: 0,
-                y: shouldReduceAnimations ? 0 : 20,
+                opacity: showContent ? 0 : 1,
+                y: shouldReduceAnimations || !showContent ? 0 : 20,
               }}
               animate={{ opacity: 1, y: 0 }}
               transition={
@@ -327,8 +304,8 @@ export default function HeroSection() {
               }
             `}
             initial={{
-              opacity: 0,
-              x: shouldReduceAnimations ? 0 : isMobile ? 0 : 30,
+              opacity: showContent ? 0 : 1,
+              x: shouldReduceAnimations || !showContent ? 0 : isMobile ? 0 : 30,
             }}
             animate={{ opacity: 1, x: 0 }}
             transition={
@@ -348,7 +325,7 @@ export default function HeroSection() {
           >
             <VisualAnchor
               primaryImage={{
-                src: "/images/profile-photo.webp",
+                src: "/images/profile-photo.jpg",
                 alt: "Aman Ansari - Software Developer",
                 width: isMobile ? 240 : 320,
                 height: isMobile ? 320 : 427,

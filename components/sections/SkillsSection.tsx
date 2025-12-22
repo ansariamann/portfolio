@@ -114,7 +114,7 @@ const SkillBubbles = ({ skills }: { skills: Skill[] }) => {
         return (
           <motion.div
             key={skill.id}
-            className="absolute rounded-full flex flex-col items-center justify-center cursor-pointer shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white border-2"
+            className="absolute rounded-full flex flex-col items-center justify-center cursor-pointer shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-slate-800/90 backdrop-blur-sm border-2"
             style={{
               width: size,
               height: size,
@@ -136,7 +136,7 @@ const SkillBubbles = ({ skills }: { skills: Skill[] }) => {
               color={skill.color}
               className="mb-1"
             />
-            <span className="text-xs text-center px-1 text-gray-700 font-medium">
+            <span className="text-xs text-center px-1 text-slate-100 font-medium">
               {skill.name}
             </span>
           </motion.div>
@@ -246,7 +246,7 @@ const ProgressRing = ({ skill, index }: { skill: Skill; index: number }) => {
 
   return (
     <motion.div
-      className="flex flex-col items-center p-4 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer"
+      className="flex flex-col items-center p-4 bg-slate-800/90 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer border border-slate-700/50"
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: index * 0.1, duration: 0.5 }}
@@ -411,8 +411,8 @@ export default function SkillsSection() {
               onClick={() => setActiveMode(mode.id)}
               className={`relative px-6 py-3 rounded-2xl font-medium transition-all duration-300 ${
                 activeMode === mode.id
-                  ? "bg-white/90 backdrop-blur-sm text-purple-600 shadow-xl scale-105"
-                  : "bg-white/60 backdrop-blur-sm text-slate-600 hover:bg-white/80 shadow-lg"
+                  ? "bg-slate-800/90 backdrop-blur-sm text-purple-400 shadow-xl scale-105 border border-purple-500/50"
+                  : "bg-slate-800/60 backdrop-blur-sm text-slate-200 hover:bg-slate-800/80 shadow-lg border border-slate-700/50"
               }`}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.98 }}
@@ -448,7 +448,7 @@ export default function SkillsSection() {
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
               selectedCategory === "all"
                 ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg scale-105"
-                : "bg-white/80 backdrop-blur-sm text-slate-600 hover:bg-white/95 shadow-md border border-gray-200"
+                : "bg-slate-800/80 backdrop-blur-sm text-slate-200 hover:bg-slate-800/95 shadow-md border border-slate-700/50"
             }`}
             whileHover={{ y: -1 }}
             whileTap={{ scale: 0.98 }}
@@ -462,7 +462,7 @@ export default function SkillsSection() {
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                 selectedCategory === category
                   ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg scale-105"
-                  : "bg-white/80 backdrop-blur-sm text-slate-600 hover:bg-white/95 shadow-md border border-gray-200"
+                  : "bg-slate-800/80 backdrop-blur-sm text-slate-200 hover:bg-slate-800/95 shadow-md border border-slate-700/50"
               }`}
               whileHover={{ y: -1 }}
               whileTap={{ scale: 0.98 }}
@@ -513,7 +513,7 @@ export default function SkillsSection() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.5 }}
-                className="bg-white rounded-2xl shadow-2xl p-8"
+                className="bg-slate-800/80 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-slate-700/50"
               >
                 <SkillBubbles skills={filteredSkills} />
               </motion.div>
@@ -550,8 +550,8 @@ export default function SkillsSection() {
 
         {/* Skills summary */}
         <ScrollReveal delay={600} className="mt-16 text-center">
-          <div className="bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto">
-            <h3 className="text-2xl font-bold text-gray-800 mb-6">
+          <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl shadow-xl p-8 max-w-4xl mx-auto border border-slate-700/50">
+            <h3 className="text-2xl font-bold text-slate-100 mb-6">
               Skills Overview
             </h3>
             <StaggeredList

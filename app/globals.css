@@ -719,6 +719,22 @@
     }
   }
 }
+
+/* Fallback visibility for sections when JS fails to load */
+@media (prefers-reduced-motion: reduce) {
+  section,
+  header,
+  main {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Ensure sections are visible by default in case of hydration issues */
+section {
+  min-height: fit-content;
+}
+
 /* Mobile viewport optimization utilities */
 .mobile-viewport-fix {
   width: 100vw;

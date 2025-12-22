@@ -455,7 +455,7 @@ export default function CertificationsSection() {
   const gridColumns = getOptimalGridColumns(3);
 
   // Initialize and validate data immediately (no loading state)
-  React.useMemo(() => {
+  React.useEffect(() => {
     try {
       // Validate certification data synchronously
       const isValid = validateCertificationData();

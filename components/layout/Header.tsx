@@ -64,9 +64,9 @@ export default function Header() {
           ? "bg-white/80 backdrop-blur-xl shadow-xl border-b border-white/20"
           : "bg-transparent"
       }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1], delay: 0.1 }}
     >
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">

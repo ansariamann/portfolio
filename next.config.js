@@ -7,7 +7,7 @@ const nextConfig = {
 
   // Image optimization
   images: {
-    formats: ["image/avif", "image/webp"],
+    // Removed formats to use default JPEG fallback without WebP/AVIF conversion
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 31536000, // 1 year
@@ -44,7 +44,7 @@ const nextConfig = {
           {
             key: "Link",
             value: [
-              "</images/profile-photo.webp>; rel=preload; as=image",
+              "</images/profile-photo.jpg>; rel=preload; as=image",
               "<https://fonts.googleapis.com>; rel=preconnect",
               "<https://fonts.gstatic.com>; rel=preconnect; crossorigin",
             ].join(", "),

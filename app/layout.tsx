@@ -89,12 +89,6 @@ export default function RootLayout({
         {/* Critical resource preloads */}
         <link
           rel="preload"
-          href="/images/profile-photo.webp"
-          as="image"
-          type="image/webp"
-        />
-        <link
-          rel="preload"
           href="/images/profile-photo.jpg"
           as="image"
           type="image/jpeg"

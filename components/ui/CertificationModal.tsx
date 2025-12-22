@@ -339,7 +339,7 @@ export default function CertificationModal({
               </h3>
             </div>
             <p className="text-gray-700 mb-4">
-              This certification can be verified through the issuer's official
+              This certification can be verified through the issuer&apos;s official
               verification system.
             </p>
             {verificationError ? (
