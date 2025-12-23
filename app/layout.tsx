@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import ErrorBoundary from "@/components/ui/ErrorBoundary";
-// Removed ThemeProvider import - component doesn't exist
 import { siteConfig } from "@/data/site-config";
 
 import "./globals.css";

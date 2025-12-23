@@ -52,7 +52,7 @@ export interface AchievementMetadata {
   rank?: number;
   participants?: number;
   skills?: string[];
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 // Individual coding achievement
@@ -196,7 +196,7 @@ export interface LoadingState {
 export interface ErrorBoundaryProps {
   children: React.ReactNode;
   fallback?: React.ComponentType<{ error: Error; retry: () => void }>;
-  onError?: (error: Error, errorInfo: any) => void;
+  onError?: (error: Error, errorInfo?: unknown) => void;
 }
 
 // Props for platform card component

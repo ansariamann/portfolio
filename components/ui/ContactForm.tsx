@@ -14,7 +14,7 @@ import {
 } from "@/lib/contact-schema";
 import { useMobileOptimizedAnimation } from "@/lib/hooks";
 import { useReducedMotion } from "@/lib/hooks/useScrollAnimations";
-import { cn } from "@/lib/utils";
+import { cn, debugLog } from "@/lib/utils";
 import { Button } from "./Button";
 
 type SubmissionStatus = "idle" | "submitting" | "success" | "error";
@@ -51,21 +51,24 @@ export default function ContactForm() {
       // Encode form data for Netlify
       const encode = (data: Record<string, string>) => {
         return Object.keys(data)
-          .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+          .map(
+            (key) =>
+              encodeURIComponent(key) + "=" + encodeURIComponent(data[key])
+          )
           .join("&");
       };
 
       const formData = {
         "form-name": "contact",
-        "name": sanitizedData.name,
-        "email": sanitizedData.email,
-        "message": sanitizedData.message,
-      };
-
-      console.log('Submitting form data:', {
         name: sanitizedData.name,
         email: sanitizedData.email,
-        message: sanitizedData.message.substring(0, 50) + '...'
+        message: sanitizedData.message,
+      };
+
+      debugLog("Submitting form data:", {
+        name: sanitizedData.name,
+        email: sanitizedData.email,
+        message: sanitizedData.message.substring(0, 50) + "...",
       });
 
       const response = await fetch("/", {
@@ -76,13 +79,15 @@ export default function ContactForm() {
         body: encode(formData),
       });
 
-      console.log('Response status:', response.status);
-      console.log('Response headers:', response.headers);
+      debugLog("Response status:", response.status);
+      debugLog("Response headers:", response.headers);
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error('Response error text:', errorText);
-        throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
+        debugLog("Response error text:", errorText);
+        throw new Error(
+          `Network response was not ok: ${response.status} ${response.statusText}`
+        );
       }
 
       setSubmissionStatus("success");

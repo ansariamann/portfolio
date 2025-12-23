@@ -1,13 +1,13 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, type Easing } from "framer-motion";
 import StaggeredTextWave from "./StaggeredTextWave";
 
 interface AnimationConfig {
   staggerDelay?: number;
   duration?: number;
-  ease?: string;
+  ease?: Easing;
   enableWave?: boolean;
   waveIntensity?: number;
 }
@@ -78,7 +78,7 @@ const AnimatedSectionHeading: React.FC<AnimatedSectionHeadingProps> = ({
       animate={{ opacity: 1, y: 0 }}
       transition={{
         duration: config.duration,
-        ease: config.ease as any,
+        ease: config.ease,
       }}
     >
       {text}

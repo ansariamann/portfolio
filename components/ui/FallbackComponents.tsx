@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   AlertCircle,
   Wifi,
@@ -165,14 +166,18 @@ export const FallbackImage: React.FC<{
       {isLoading && (
         <div className="absolute inset-0 bg-gray-100 animate-pulse rounded" />
       )}
-      <img
-        src={src}
+      <Image
+        src={src || ""}
         alt={alt}
         className={`${className} ${
           isLoading ? "opacity-0" : "opacity-100"
         } transition-opacity duration-300`}
+        fill
         onError={handleError}
-        onLoad={handleLoad}
+        onLoadingComplete={handleLoad}
+        unoptimized={
+          typeof src === "string" ? (src.startsWith("data:") || src.endsWith(".svg")) : false
+        }
       />
     </div>
   );
@@ -201,8 +206,8 @@ export const PlatformUnavailableFallback: React.FC<{
       {platformName} Data Unavailable
     </h3>
     <p className="text-blue-700 mb-4 max-w-md mx-auto">
-      We&apos;re currently unable to load data from {platformName}. The platform may
-      be temporarily unavailable.
+      We&apos;re currently unable to load data from {platformName}. The platform
+      may be temporarily unavailable.
     </p>
 
     {profileUrl && (
@@ -299,7 +304,7 @@ export const BrokenLinkFallback: React.FC<{
   </span>
 );
 
-export default {
+const FallbackComponents = {
   ErrorFallback,
   NetworkErrorFallback,
   MissingDataFallback,
@@ -310,3 +315,5 @@ export default {
   ActivityUnavailableFallback,
   BrokenLinkFallback,
 };
+
+export default FallbackComponents;

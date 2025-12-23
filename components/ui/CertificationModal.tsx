@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   ExternalLink,
   Calendar,
@@ -15,7 +16,6 @@ import {
 } from "lucide-react";
 import { Certification, CERTIFICATION_CATEGORIES } from "@/types";
 import Modal from "./Modal";
-// Removed CertificationFallbacks import - component deleted
 
 interface CertificationModalProps {
   certification: Certification | null;
@@ -96,13 +96,17 @@ export default function CertificationModal({
                     </span>
                   </div>
                 ) : (
-                  <img
+                  <Image
                     src={certification.badgeImage}
                     alt={`${certification.title} certification badge from ${certification.issuer}`}
                     className="w-full h-full object-contain rounded-lg shadow-lg"
-                    loading="lazy"
-                    decoding="async"
+                    fill
+                    sizes="96px"
                     onError={() => setImageError(true)}
+                    unoptimized={
+                      certification.badgeImage.startsWith("data:") ||
+                      certification.badgeImage.endsWith(".svg")
+                    }
                   />
                 )}
               </div>
@@ -339,8 +343,8 @@ export default function CertificationModal({
               </h3>
             </div>
             <p className="text-gray-700 mb-4">
-              This certification can be verified through the issuer&apos;s official
-              verification system.
+              This certification can be verified through the issuer&apos;s
+              official verification system.
             </p>
             {verificationError ? (
               <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">

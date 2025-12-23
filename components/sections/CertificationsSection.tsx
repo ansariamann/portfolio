@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState, useEffect, useCallback } from "react";
 import {
@@ -19,8 +20,6 @@ import GeometricShapes from "@/components/ui/GeometricShapes";
 import AnimatedSectionHeading, {
   headingPresets,
 } from "@/components/ui/AnimatedSectionHeading";
-// Removed CertificationFallbacks import - component deleted
-// Removed CertificationSectionSkeleton import - no loading states needed
 
 // CertificationCard component
 const CertificationCard = ({
@@ -166,13 +165,17 @@ const CertificationCard = ({
                 <span className="text-gray-500 text-xs">Badge unavailable</span>
               </div>
             ) : (
-              <img
+              <Image
                 src={certification.badgeImage}
                 alt={`${certification.title} certification badge from ${certification.issuer}`}
                 className="w-full h-full object-contain rounded-lg relative z-10"
-                loading="lazy"
-                decoding="async"
+                fill
+                sizes="64px"
                 onError={() => onImageError(certification.id)}
+                unoptimized={
+                  certification.badgeImage.startsWith("data:") ||
+                  certification.badgeImage.endsWith(".svg")
+                }
               />
             )}
           </div>

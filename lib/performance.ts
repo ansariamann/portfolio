@@ -3,6 +3,7 @@
  */
 
 import { lazy } from "react";
+import { debugLog } from "@/lib/utils";
 
 // Lazy load heavy components for better performance
 export const LazyStatisticsVisualization = lazy(
@@ -27,7 +28,7 @@ export const measurePerformance = (name: string, fn: () => void) => {
     const start = performance.now();
     fn();
     const end = performance.now();
-    console.log(`${name} took ${end - start} milliseconds`);
+    debugLog(`${name} took ${end - start} milliseconds`);
   } else {
     fn();
   }
@@ -37,11 +38,11 @@ export const measurePerformance = (name: string, fn: () => void) => {
 export const trackWebVitals = () => {
   if (typeof window !== "undefined" && "web-vitals" in window) {
     import("web-vitals").then(({ onCLS, onINP, onFCP, onLCP, onTTFB }) => {
-      onCLS(console.log);
-      onINP(console.log);
-      onFCP(console.log);
-      onLCP(console.log);
-      onTTFB(console.log);
+      onCLS(debugLog);
+      onINP(debugLog);
+      onFCP(debugLog);
+      onLCP(debugLog);
+      onTTFB(debugLog);
     });
   }
 };

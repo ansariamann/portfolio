@@ -288,8 +288,10 @@ export const useImageLoading = (src?: string): UseImageLoadingReturn => {
   };
 };
 
-export default {
+const PlatformDataHooks = {
   usePlatformData,
   useMultiplePlatformData,
   useImageLoading,
 };
+
+export default PlatformDataHooks;

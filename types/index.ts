@@ -174,9 +174,9 @@ export interface CertificationAnimationConfig {
 }
 
 export interface ResponsiveConfig {
-  mobile?: any;
-  tablet?: any;
-  desktop?: any;
+  mobile?: Record<string, unknown>;
+  tablet?: Record<string, unknown>;
+  desktop?: Record<string, unknown>;
 }
 
 // SEO and metadata types
@@ -187,7 +187,7 @@ export interface SEOConfig {
   author?: string;
   canonicalUrl?: string;
   ogImage?: string;
-  structuredData?: any;
+  structuredData?: Record<string, unknown>;
 }
 
 // Site configuration
@@ -238,5 +238,5 @@ export interface ErrorInfo {
 export interface CustomError extends Error {
   code?: string;
   statusCode?: number;
-  context?: Record<string, any>;
+  context?: Record<string, unknown>;
 }

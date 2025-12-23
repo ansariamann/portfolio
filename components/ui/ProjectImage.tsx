@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
+import { cn, debugLog } from "@/lib/utils";
 
 interface ProjectImageProps {
   src: string;
@@ -27,7 +27,7 @@ export default function ProjectImage({
   };
 
   const handleError = () => {
-    console.log(`Failed to load image: ${currentSrc}`);
+    debugLog(`Failed to load image: ${currentSrc}`);
     if (currentSrc !== "/images/placeholder.svg") {
       // Try fallback to placeholder
       setCurrentSrc("/images/placeholder.svg");

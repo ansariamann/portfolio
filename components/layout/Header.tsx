@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NavigationItem } from "@/types";
 import { scrollToSection } from "@/lib/utils";
-// Removed DigitalClock import - component doesn't exist
 
 const navigationItems: NavigationItem[] = [
   { label: "Home", href: "#hero" },

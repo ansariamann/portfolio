@@ -3,6 +3,7 @@
  */
 
 import { onCLS, onINP, onFCP, onLCP, onTTFB, type Metric } from "web-vitals";
+import { debugLog } from "@/lib/utils";
 
 export interface PerformanceMetrics {
   cls: number;
@@ -62,7 +63,7 @@ class PerformanceMonitor {
       const layoutShiftObserver = new PerformanceObserver((list) => {
         list.getEntries().forEach((entry: any) => {
           if (entry.hadRecentInput) return;
-          console.log("Layout shift detected:", entry.value);
+          debugLog("Layout shift detected:", entry.value);
         });
       });
       layoutShiftObserver.observe({ entryTypes: ["layout-shift"] });
@@ -92,7 +93,7 @@ class PerformanceMonitor {
   private reportMetric(metric: Metric) {
     // In production, send to analytics service
     if (process.env.NODE_ENV === "development") {
-      console.log(`Performance metric - ${metric.name}:`, metric.value);
+      debugLog(`Performance metric - ${metric.name}:`, metric.value);
     }
 
     // Example: Send to Google Analytics
@@ -134,7 +135,7 @@ class PerformanceMonitor {
       const endTime = performance.now();
       const duration = endTime - startTime;
 
-      console.log(`${operationName} completed in ${duration.toFixed(2)}ms`);
+      debugLog(`${operationName} completed in ${duration.toFixed(2)}ms`);
       return result;
     });
   }

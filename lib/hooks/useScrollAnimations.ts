@@ -32,8 +32,6 @@ interface StaggeredAnimationOptions {
   rootMargin?: string;
 }
 
-// Removed unused AnimationVariant interface
-
 /**
  * Hook for managing scroll-triggered animations with Intersection Observer
  */

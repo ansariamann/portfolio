@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from "react";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
+import { cn, debugLog } from "@/lib/utils";
 
 interface PlatformImageProps {
   src: string;
@@ -57,7 +57,7 @@ export default function PlatformImage({
 
   // Handle image load error with fallback
   const handleError = useCallback(() => {
-    console.log(`Failed to load platform image: ${currentSrc}`);
+    debugLog(`Failed to load platform image: ${currentSrc}`);
     setIsLoading(false);
     setHasError(true);
 
@@ -94,6 +94,10 @@ export default function PlatformImage({
 
   const optimizedSrc = getOptimizedSrc(currentSrc);
 
+  // Determine if we should bypass Next.js optimizer (SVG or data URLs)
+  const isUnoptimized =
+    optimizedSrc.startsWith("data:") || optimizedSrc.endsWith(".svg");
+
   // Common image props
   const imageProps = {
     src: optimizedSrc,
@@ -105,6 +109,7 @@ export default function PlatformImage({
     placeholder,
     blurDataURL,
     sizes,
+    unoptimized: isUnoptimized,
     className: cn(
       "transition-opacity duration-300",
       isLoading && "opacity-0",

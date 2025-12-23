@@ -10,6 +10,17 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+/**
+ * Development-only debug logger. No-op in production.
+ */
+export function debugLog(...args: unknown[]): void {
+  if (process.env.NODE_ENV === "development") {
+    // Use console.debug for development-only logs
+    // eslint-disable-next-line no-console
+    console.debug(...args);
+  }
+}
+
 // Animation variants for consistent animations
 export const fadeInUp = {
   initial: { opacity: 0, y: 20 },

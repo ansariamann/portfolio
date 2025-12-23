@@ -2,7 +2,6 @@
 
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
-// Removed ThemeProvider import - component doesn't exist
 
 import Header from "./Header";
 

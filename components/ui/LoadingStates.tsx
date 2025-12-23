@@ -323,7 +323,7 @@ export const SectionLoadingSkeleton: React.FC = () => (
   </motion.div>
 );
 
-export default {
+const LoadingStates = {
   PlatformCardSkeleton,
   StatisticsVisualizationSkeleton,
   AchievementsSkeleton,
@@ -332,3 +332,5 @@ export default {
   LoadingSpinner,
   SectionLoadingSkeleton,
 };
+
+export default LoadingStates;
