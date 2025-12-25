@@ -3,6 +3,7 @@
 import { useState, useCallback } from "react";
 import Image from "next/image";
 import { cn, debugLog } from "@/lib/utils";
+import { ensureBlurForSrc } from "@/lib/image-optimization";
 
 interface PlatformImageProps {
   src: string;
@@ -98,6 +99,10 @@ export default function PlatformImage({
   const isUnoptimized =
     optimizedSrc.startsWith("data:") || optimizedSrc.endsWith(".svg");
 
+  // Ensure blur support for raster images (maps .jpg -> jpeg)
+  const { placeholder: finalPlaceholder, blurDataURL: finalBlur } =
+    ensureBlurForSrc(optimizedSrc, blurDataURL);
+
   // Common image props
   const imageProps = {
     src: optimizedSrc,
@@ -106,8 +111,8 @@ export default function PlatformImage({
     onError: handleError,
     priority,
     quality,
-    placeholder,
-    blurDataURL,
+    placeholder: finalPlaceholder,
+    blurDataURL: finalBlur,
     sizes,
     unoptimized: isUnoptimized,
     className: cn(

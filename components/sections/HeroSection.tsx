@@ -177,14 +177,12 @@ export default function HeroSection() {
       id="hero"
       className={cn(
         "relative flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800",
-        // Mobile-first height management
-        "min-h-screen-mobile",
         // Prevent horizontal scrolling
         "mobile-no-scroll"
       )}
       style={{
-        // Ensure minimum height accounts for mobile viewport variations
-        minHeight: isMobile ? `${Math.max(screenHeight, 667)}px` : "100vh",
+        // Ensure minimum height is always viewport height
+        minHeight: "100vh",
       }}
       role="banner"
       aria-label="Hero section - Introduction and main call-to-action"

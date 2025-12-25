@@ -35,7 +35,7 @@ const defaultTechnologies: Technology[] = [
   {
     name: "Next.js",
     icon: SiNextdotjs,
-    color: "#000000",
+    color: "#FFFFFF",
     proficiency: "advanced",
   },
   {
@@ -168,7 +168,7 @@ export function TechStack({
                           (tech.proficiency === "advanced" && level <= 2) ||
                           (tech.proficiency === "intermediate" && level <= 1)
                           ? "bg-blue-400"
-                          : "bg-gray-600"
+                          : "bg-gray-400"
                       )}
                     />
                   ))}

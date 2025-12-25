@@ -30,7 +30,7 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
 
   return (
     <motion.div
-      className="relative h-28 sm:h-32 w-full cursor-pointer perspective-1000"
+      className="relative h-28 sm:h-32 w-full cursor-pointer perspective-1000 select-none"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
@@ -44,9 +44,14 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
       whileTap={{ scale: 0.98 }}
     >
       <motion.div
-        className="relative w-full h-full preserve-3d transition-transform duration-700"
+        className="relative w-full h-full preserve-3d"
         animate={{ rotateY: isFlipped ? 180 : 0 }}
-        style={{ transformStyle: "preserve-3d" }}
+        style={{
+          transformStyle: "preserve-3d",
+          transition: shouldReduceAnimations
+            ? "none"
+            : "transform 700ms ease-in-out",
+        }}
       >
         {/* Front of card */}
         <div className="absolute inset-0 backface-hidden bg-gradient-to-br from-blue-50 to-indigo-100 rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-3 sm:p-4 flex flex-col items-center justify-center border border-blue-200">
@@ -246,7 +251,7 @@ const ProgressRing = ({ skill, index }: { skill: Skill; index: number }) => {
 
   return (
     <motion.div
-      className="flex flex-col items-center p-4 bg-slate-800/90 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer border border-slate-700/50"
+      className="flex flex-col items-center p-4 bg-white backdrop-blur-sm rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer border border-gray-200"
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: index * 0.1, duration: 0.5 }}
@@ -330,10 +335,10 @@ export default function SkillsSection() {
   return (
     <section
       id="skills"
-      className="min-h-screen py-20 bg-gradient-to-br from-slate-50 via-white via-gray-50 to-slate-100 relative overflow-hidden"
+      className="min-h-screen py-20 bg-gradient-to-br from-slate-50 via-white via-gray-50 to-slate-100 relative"
     >
       {/* Modern background elements */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           className="absolute top-20 right-20 w-72 h-72 bg-gradient-to-br from-blue-200/30 to-purple-200/30 rounded-full blur-3xl"
           animate={{
@@ -376,7 +381,7 @@ export default function SkillsSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="inline-block mb-6"
           >
-            <span className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium text-blue-200 border border-white/30">
+            <span className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium text-blue-800 border border-white/30">
               What I work with
             </span>
           </motion.div>
@@ -386,7 +391,7 @@ export default function SkillsSection() {
           </h2>
 
           <motion.p
-            className="text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed font-light"
+            className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -569,13 +574,13 @@ export default function SkillsSection() {
 
                 return (
                   <div key={category} className="text-center">
-                    <div className="text-3xl font-bold text-blue-600 mb-2">
+                    <div className="text-3xl font-bold text-blue-400 mb-2">
                       {categorySkills.length}
                     </div>
-                    <div className="text-sm text-gray-600 mb-1">
+                    <div className="text-sm text-gray-300 mb-1">
                       {SKILL_CATEGORIES[category]}
                     </div>
-                    <div className="text-xs text-gray-500">
+                    <div className="text-xs text-gray-400">
                       Avg: {avgProficiency.toFixed(1)}/5
                     </div>
                   </div>

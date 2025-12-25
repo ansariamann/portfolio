@@ -92,7 +92,43 @@ export function generateBlurDataURL(
     </svg>
   `;
 
-  return `data:image/svg+xml;base64,${btoa(svg)}`;
+  // Use browser btoa when available, fallback to Buffer for SSR environments
+  const encode =
+    typeof btoa !== "undefined"
+      ? (s: string) => btoa(s)
+      : (s: string) => Buffer.from(s).toString("base64");
+  return `data:image/svg+xml;base64,${encode(svg)}`;
+}
+
+/**
+ * Ensure blur placeholder support for a given image source.
+ * - If a blurDataURL already exists, return it.
+ * - For supported raster formats (jpg/jpeg/png/webp/avif), generate a small SVG blur data URL.
+ * - For SVGs or data URLs, return no blur (placeholder empty).
+ */
+export function ensureBlurForSrc(
+  src: string,
+  blurDataURL?: string
+): { placeholder: "blur" | "empty"; blurDataURL?: string } {
+  if (blurDataURL) {
+    return { placeholder: "blur", blurDataURL };
+  }
+
+  if (!src) return { placeholder: "empty" };
+
+  // remote or data URLs - do not attempt to generate blur for SVGs
+  if (src.startsWith("data:")) return { placeholder: "empty" };
+
+  const ext = (src.split(".").pop() || "").toLowerCase();
+  const normalizedExt = ext === "jpg" ? "jpeg" : ext;
+  const supported = ["jpeg", "png", "webp", "avif"];
+
+  if (supported.includes(normalizedExt)) {
+    // generate a neutral blur placeholder
+    return { placeholder: "blur", blurDataURL: generateBlurDataURL() };
+  }
+
+  return { placeholder: "empty" };
 }
 
 /**

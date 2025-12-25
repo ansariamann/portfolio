@@ -50,7 +50,8 @@ export default function Modal({
 
     return () => {
       document.removeEventListener("keydown", handleEscape);
-      document.body.style.overflow = "unset";
+      // Clear inline style so scrolling is restored
+      document.body.style.overflow = "";
 
       // Remove aria-hidden from main content
       const mainContent = document.querySelector("main");

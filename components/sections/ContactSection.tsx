@@ -53,10 +53,10 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="min-h-screen py-20 bg-gradient-to-br from-slate-900 via-gray-900 via-slate-800 to-gray-900 relative overflow-hidden"
+      className="min-h-screen py-20 bg-gradient-to-br from-slate-900 via-gray-900 via-slate-800 to-gray-900 relative"
     >
       {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           className="absolute top-40 right-20 w-96 h-96 bg-gradient-to-br from-blue-600/10 to-purple-600/10 rounded-full blur-3xl"
           animate={{
@@ -99,7 +99,7 @@ export default function ContactSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="inline-block mb-6"
           >
-            <span className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium text-blue-200 border border-white/30">
+            <span className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium text-blue-800 border border-white/30">
               Get in touch
             </span>
           </motion.div>

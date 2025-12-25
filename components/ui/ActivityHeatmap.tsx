@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ActivityHeatmapProps, RecentActivity } from "@/types";
+import { useReducedMotion } from "@/lib/hooks/useScrollAnimations";
 
 /**
  * ActivityHeatmap Component
@@ -173,23 +174,12 @@ export const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({
       y: 0,
       transition: {
         duration: 0.6,
-        staggerChildren: 0.02,
       },
     },
   };
 
-  const cellVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { duration: 0.3 },
-    },
-    hover: {
-      scale: 1.2,
-      transition: { duration: 0.2 },
-    },
-  };
+  // Use reduced motion to avoid heavy animation work on low-powered devices
+  const prefersReducedMotion = useReducedMotion();
 
   const tooltipVariants = {
     hidden: { opacity: 0, scale: 0.9, y: 10 },
@@ -354,45 +344,51 @@ export const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({
                 key={weekIndex}
                 className="flex flex-col space-y-0.5 sm:space-y-1"
               >
-                {week.map((day) => (
-                  <motion.div
-                    key={day.dateKey}
-                    variants={cellVariants}
-                    whileHover={interactive ? "hover" : undefined}
-                    className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm transition-all duration-200 ${
-                      interactive
-                        ? "cursor-pointer hover:ring-1 sm:hover:ring-2 hover:ring-blue-400 hover:ring-opacity-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        : ""
-                    }`}
-                    style={{
-                      backgroundColor: getIntensityColor(day.count),
-                    }}
-                    onMouseEnter={() =>
-                      interactive && setHoveredDate(day.dateKey)
-                    }
-                    onMouseLeave={() => interactive && setHoveredDate(null)}
-                    onClick={() => interactive && setHoveredDate(day.dateKey)}
-                    onKeyDown={(e) => {
-                      if (interactive && (e.key === "Enter" || e.key === " ")) {
-                        e.preventDefault();
-                        setHoveredDate(day.dateKey);
+                {week.map((day) => {
+                  const isInteractive = interactive && !prefersReducedMotion;
+                  return (
+                    <div
+                      key={day.dateKey}
+                      className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-sm transition-transform duration-200 ${
+                        isInteractive
+                          ? "cursor-pointer hover:scale-110 hover:ring-1 sm:hover:ring-2 hover:ring-blue-400 hover:ring-opacity-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          : ""
+                      }`}
+                      style={{
+                        backgroundColor: getIntensityColor(day.count),
+                      }}
+                      onMouseEnter={() =>
+                        isInteractive && setHoveredDate(day.dateKey)
                       }
-                    }}
-                    tabIndex={interactive ? 0 : -1}
-                    role={interactive ? "button" : undefined}
-                    aria-label={
-                      interactive
-                        ? `${day.date.toLocaleDateString()}: ${
-                            day.count === 0
-                              ? "No problems solved"
-                              : `${day.count} problem${
-                                  day.count !== 1 ? "s" : ""
-                                } solved`
-                          }`
-                        : undefined
-                    }
-                  />
-                ))}
+                      onMouseLeave={() => isInteractive && setHoveredDate(null)}
+                      onClick={() =>
+                        isInteractive && setHoveredDate(day.dateKey)
+                      }
+                      onKeyDown={(e) => {
+                        if (
+                          isInteractive &&
+                          (e.key === "Enter" || e.key === " ")
+                        ) {
+                          e.preventDefault();
+                          setHoveredDate(day.dateKey);
+                        }
+                      }}
+                      tabIndex={isInteractive ? 0 : -1}
+                      role={isInteractive ? "button" : undefined}
+                      aria-label={
+                        isInteractive
+                          ? `${day.date.toLocaleDateString()}: ${
+                              day.count === 0
+                                ? "No problems solved"
+                                : `${day.count} problem${
+                                    day.count !== 1 ? "s" : ""
+                                  } solved`
+                            }`
+                          : undefined
+                      }
+                    />
+                  );
+                })}
               </div>
             ))}
           </div>

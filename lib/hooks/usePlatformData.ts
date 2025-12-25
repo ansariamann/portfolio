@@ -135,38 +135,41 @@ export const useMultiplePlatformData = (
     const loadedPlatforms: CodingPlatform[] = [];
     const loadErrors: Record<string, Error> = {};
 
-    await Promise.allSettled(
-      platformIds.map(async (platformId) => {
-        try {
-          // Simulate API call delay
-          await new Promise((resolve) =>
-            setTimeout(resolve, 300 + Math.random() * 400)
-          );
+    // Set a timeout to force completion after 2 seconds
+    const timeoutId = setTimeout(() => {
+      setPlatforms(loadedPlatforms);
+      setErrors(loadErrors);
+      setIsLoading(false);
+    }, 2000);
 
-          const { getPlatformData } = await import("@/data/coding-platforms");
-          const platformData = getPlatformData(platformId);
+    try {
+      await Promise.allSettled(
+        platformIds.map(async (platformId) => {
+          try {
+            // Minimal delay
+            const { getPlatformData } = await import("@/data/coding-platforms");
+            const platformData = getPlatformData(platformId);
 
-          if (!platformData) {
-            throw new Error(`Platform data not found for: ${platformId}`);
+            if (platformData) {
+              loadedPlatforms.push(platformData);
+            }
+          } catch (err) {
+            const error =
+              err instanceof Error ? err : new Error("Unknown error occurred");
+            loadErrors[platformId] = error;
           }
+        })
+      );
 
-          // Simulate potential errors
-          if (process.env.NODE_ENV === "development" && Math.random() < 0.05) {
-            throw new Error(`Simulated error for ${platformId}`);
-          }
-
-          loadedPlatforms.push(platformData);
-        } catch (err) {
-          const error =
-            err instanceof Error ? err : new Error("Unknown error occurred");
-          loadErrors[platformId] = error;
-        }
-      })
-    );
-
-    setPlatforms(loadedPlatforms);
-    setErrors(loadErrors);
-    setIsLoading(false);
+      clearTimeout(timeoutId);
+      setPlatforms(loadedPlatforms);
+      setErrors(loadErrors);
+      setIsLoading(false);
+    } catch (err) {
+      clearTimeout(timeoutId);
+      setPlatforms(loadedPlatforms);
+      setIsLoading(false);
+    }
   }, [platformIds]);
 
   const retryPlatform = useCallback(

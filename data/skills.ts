@@ -22,7 +22,7 @@ export const skills: Skill[] = [
     icon: "nextjs",
     description: "Full-stack React framework with SSR, SSG, and API routes",
     yearsOfExperience: 0.5,
-    color: "#000000",
+    color: "#FFFFFF",
     relatedSkills: ["react", "typescript", "vercel", "tailwind"],
   },
   {
@@ -128,7 +128,7 @@ export const skills: Skill[] = [
     icon: "express",
     description: "Fast, minimalist web framework for Node.js applications",
     yearsOfExperience: 0.1,
-    color: "#000000",
+    color: "#888888",
     relatedSkills: ["nodejs", "javascript", "mongodb", "postgresql"],
   },
   {
@@ -225,7 +225,7 @@ export const skills: Skill[] = [
     icon: "vercel",
     description: "Frontend deployment platform with serverless functions",
     yearsOfExperience: 0.5,
-    color: "#000000",
+    color: "#FFFFFF",
     relatedSkills: ["nextjs", "react", "deployment"],
   },
   {

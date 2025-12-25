@@ -227,7 +227,7 @@ const CertificationCard = ({
         {/* Credential ID */}
         <div className="text-center mb-4">
           <span
-            className={`text-slate-400 font-mono ${
+            className={`text-slate-500 font-mono ${
               isSmallMobile ? "text-xs" : "text-sm"
             }`}
           >
@@ -624,7 +624,7 @@ export default function CertificationsSection() {
     >
       <section
         id="certifications"
-        className={`min-h-screen bg-gradient-to-br from-slate-50 via-white via-gray-50 to-slate-100 relative overflow-hidden ${
+        className={`min-h-screen bg-gradient-to-br from-slate-50 via-white via-gray-50 to-slate-100 relative ${
           isSmallMobile ? "py-12" : "py-16 sm:py-20"
         }`}
         aria-label="Professional Certifications"
@@ -644,7 +644,7 @@ export default function CertificationsSection() {
         )}
 
         {/* Background elements */}
-        <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <motion.div
             className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-blue-200/10 to-purple-200/10 rounded-full blur-3xl"
             animate={{

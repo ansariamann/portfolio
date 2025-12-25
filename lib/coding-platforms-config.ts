@@ -17,8 +17,8 @@ import {
 export const USER_CONFIG = {
   // LeetCode Profile Configuration
   leetcode: {
-    username: "your-leetcode-username", // Replace with your LeetCode username
-    profileUrl: "https://leetcode.com/your-leetcode-username", // Replace with your profile URL
+    username: "sample-user", 
+    profileUrl: "https://leetcode.com/sample-user", 
     isActive: true, // Set to false to hide this platform
 
     // Custom statistics (update these with your actual stats)
@@ -42,8 +42,8 @@ export const USER_CONFIG = {
 
   // HackerRank Profile Configuration
   hackerrank: {
-    username: "your-hackerrank-username", // Replace with your HackerRank username
-    profileUrl: "https://www.hackerrank.com/your-hackerrank-username", // Replace with your profile URL
+    username: "sample-user", 
+    profileUrl: "https://www.hackerrank.com/sample-user", 
     isActive: true, // Set to false to hide this platform
 
     // Custom statistics (update these with your actual stats)
@@ -370,20 +370,20 @@ export function validateUserConfig(): {
 
   // Check LeetCode configuration
   if (USER_CONFIG.leetcode.username === "your-leetcode-username") {
-    warnings.push("LeetCode username is still set to default value");
+    errors.push("LeetCode username is still set to default value");
   }
 
   if (USER_CONFIG.leetcode.profileUrl.includes("your-leetcode-username")) {
-    warnings.push("LeetCode profile URL is still set to default value");
+    errors.push("LeetCode profile URL is still set to default value");
   }
 
   // Check HackerRank configuration
   if (USER_CONFIG.hackerrank.username === "your-hackerrank-username") {
-    warnings.push("HackerRank username is still set to default value");
+    errors.push("HackerRank username is still set to default value");
   }
 
   if (USER_CONFIG.hackerrank.profileUrl.includes("your-hackerrank-username")) {
-    warnings.push("HackerRank profile URL is still set to default value");
+    errors.push("HackerRank profile URL is still set to default value");
   }
 
   // Validate statistics consistency

@@ -735,6 +735,23 @@ section {
   min-height: fit-content;
 }
 
+/* Safety fallback: in some environments animations or intersection observers
+   may not run (hydration errors, scroll locked states, etc.). Ensure any
+   elements that start hidden for animation purposes remain visible so the
+   site is usable. This targets inline opacity styles used by Framer Motion
+   entrance animations and provides a robust fallback without affecting
+   lively animations when JS works normally. */
+section [style*="opacity: 0"],
+section [style*="opacity:0"] {
+  opacity: 1 !important;
+}
+
+.motion-fallback,
+.motion-hidden {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 /* Mobile viewport optimization utilities */
 .mobile-viewport-fix {
   width: 100vw;

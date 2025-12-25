@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { ensureBlurForSrc } from "@/lib/image-optimization";
 import { useMobileOptimizedAnimation } from "@/lib/hooks";
 
 // Image optimization utilities removed - using Next.js Image component directly
@@ -30,46 +31,11 @@ export function VisualAnchor({
   fallbackContent,
   className = "",
 }: VisualAnchorProps) {
-  const { touchDevice, isMobile, isSmallMobile, shouldReduceAnimations } =
-    useMobileOptimizedAnimation();
-
+  const { touchDevice, shouldReduceAnimations } = useMobileOptimizedAnimation();
   const [imageError, setImageError] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [optimizedSrc, setOptimizedSrc] = useState(primaryImage.src);
-  const [blurDataURL, setBlurDataURL] = useState<string>();
-  const [isInView, setIsInView] = useState(false);
 
   const handleImageError = useCallback(() => {
     setImageError(true);
-  }, []);
-
-  const handleImageLoad = useCallback(() => {
-    setImageLoaded(true);
-  }, []);
-
-  // Initialize optimized image sources and blur placeholder
-  useEffect(() => {
-    const initializeImage = async () => {
-      try {
-        setOptimizedSrc(primaryImage.src);
-
-        // Simple blur placeholder
-        const blurPlaceholder =
-          "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTMiIHZpZXdCb3g9IjAgMCAxMCAxMyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjEwIiBoZWlnaHQ9IjEzIiBmaWxsPSIjMWUyOTNiIi8+Cjwvc3ZnPgo=";
-        setBlurDataURL(blurPlaceholder);
-      } catch (error) {
-        console.warn("Failed to optimize image, using original:", error);
-        setOptimizedSrc(primaryImage.src);
-      }
-    };
-
-    initializeImage();
-  }, [primaryImage.src, primaryImage.width, primaryImage.height]);
-
-  // Lazy loading intersection observer
-  // Set image as in view immediately
-  useEffect(() => {
-    setIsInView(true);
   }, []);
 
   return (
@@ -126,44 +92,19 @@ export function VisualAnchor({
         }}
       >
         {/* Professional Image - Lazy loaded */}
-        {!imageError && isInView && (
-          <>
-            <Image
-              src={optimizedSrc}
-              alt={primaryImage.alt}
-              fill
-              className={`object-cover transition-opacity duration-500 ${
-                imageLoaded ? "opacity-100" : "opacity-0"
-              }`}
-              priority
-              onError={handleImageError}
-              onLoad={handleImageLoad}
-              sizes="(max-width: 768px) 280px, 320px"
-              placeholder={blurDataURL ? "blur" : "empty"}
-              blurDataURL={blurDataURL}
-              quality={85}
-              role="img"
-              aria-describedby="profile-description"
-            />
-
-            {/* Loading placeholder while image loads */}
-            {!imageLoaded && (
-              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900">
-                <div className="animate-pulse">
-                  <div
-                    className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto mb-4 flex items-center justify-center"
-                    style={{
-                      color: fallbackContent.textColor,
-                    }}
-                  >
-                    <span className="text-2xl font-bold">
-                      {fallbackContent.initials}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            )}
-          </>
+        {!imageError && (
+          <Image
+            src={primaryImage.src}
+            alt={primaryImage.alt}
+            fill
+            className="object-cover"
+            priority
+            onError={handleImageError}
+            sizes="(max-width: 768px) 280px, 320px"
+            quality={85}
+            role="img"
+            aria-describedby="profile-description"
+          />
         )}
 
         {/* Fallback placeholder when image fails to load */}
@@ -186,7 +127,7 @@ export function VisualAnchor({
                 </p>
               )}
               {fallbackContent.role && (
-                <p className="text-gray-500 text-xs mt-1">
+                <p className="text-gray-400 text-xs mt-1">
                   {fallbackContent.role}
                 </p>
               )}

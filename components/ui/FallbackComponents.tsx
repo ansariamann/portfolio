@@ -176,7 +176,9 @@ export const FallbackImage: React.FC<{
         onError={handleError}
         onLoadingComplete={handleLoad}
         unoptimized={
-          typeof src === "string" ? (src.startsWith("data:") || src.endsWith(".svg")) : false
+          typeof src === "string"
+            ? src.startsWith("data:") || src.endsWith(".svg")
+            : false
         }
       />
     </div>

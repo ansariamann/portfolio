@@ -401,14 +401,14 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
           </div>
           <div className="text-center sm:text-left flex-1">
             <h3
-              className={`font-bold text-slate-800 ${
+              className={`font-bold text-slate-100 ${
                 isSmallMobile ? "text-lg" : "text-xl sm:text-2xl"
               }`}
             >
               {platform.name}
             </h3>
             <p
-              className={`text-slate-600 ${
+              className={`text-slate-300 ${
                 isSmallMobile ? "text-sm" : "text-base sm:text-lg"
               }`}
             >
@@ -425,6 +425,7 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
           </div>
         </div>
 
+        {platform.statistics ? (
         <div
           className={`
           grid gap-4 sm:gap-6 text-center w-full
@@ -480,6 +481,13 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
             </div>
           )}
         </div>
+        ) : (
+          <div className="text-center py-4">
+            <p className="text-gray-500 text-sm">
+              Statistics not available for this platform.
+            </p>
+          </div>
+        )}
       </motion.div>
 
       {/* Interactive Statistics Visualization */}
@@ -503,6 +511,7 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
           </div>
         )}
       >
+        {platform.statistics ? (
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -516,6 +525,7 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
             className="bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-slate-700/60 shadow-xl p-6"
           />
         </motion.div>
+      ) : null}
       </ErrorBoundary>
 
       {/* Responsive layout for achievements and recent activity */}
@@ -582,16 +592,16 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p
-                        className={`font-medium text-slate-100 truncate ${
+                        className={`font-medium text-slate-800 truncate ${
                           isSmallMobile ? "text-xs" : "text-sm"
                         }`}
                       >
                         {achievement.title}
                       </p>
-                      <p className="text-xs text-slate-300">
+                      <p className="text-xs text-slate-600">
                         {achievement.earnedDate.toLocaleDateString()}
                       </p>
-                      <p className="text-xs text-slate-400 capitalize">
+                      <p className="text-xs text-slate-500 capitalize">
                         {achievement.category}
                       </p>
                     </div>
@@ -880,6 +890,7 @@ const HeatmapView = ({ platform }: { platform: CodingPlatform }) => {
           ))}
         </div>
 
+        {platform.statistics ? (
         <div className="flex justify-center items-center mt-4 space-x-6">
           <div className="text-center">
             <div className="text-2xl font-bold text-slate-100">
@@ -900,6 +911,7 @@ const HeatmapView = ({ platform }: { platform: CodingPlatform }) => {
             <div className="text-sm text-slate-300">Longest Streak</div>
           </div>
         </div>
+        ) : null}
       </motion.div>
 
       {/* Activity Heatmap */}
@@ -1304,15 +1316,12 @@ export default function CodingPlatformsSection() {
   };
 
   // Use the platform data hook for loading and error states
-  const { platforms, isLoading, errors, retryPlatform, retryAll } =
-    useMultiplePlatformData(
-      codingPlatforms.map((p) => p.id),
-      {
-        retryAttempts: 3,
-        retryDelay: 1000,
-        enableAutoRetry: false,
-      }
-    );
+  // Since data is available synchronously, we can skip async loading
+  const platforms = codingPlatforms;
+  const isLoading = false;
+  const errors: Record<string, Error> = {};
+  const retryPlatform = () => {};
+  const retryAll = () => {};
 
   const currentPlatform =
     platforms.find((platform) => platform.id === activePlatform) ||
@@ -1370,7 +1379,7 @@ export default function CodingPlatformsSection() {
       <section
         id="coding-platforms"
         ref={sectionRef}
-        className="min-h-screen py-12 sm:py-16 md:py-20 bg-gradient-to-br from-gray-900 via-slate-900 via-gray-800 to-slate-900 relative overflow-hidden"
+        className="min-h-screen py-12 sm:py-16 md:py-20 bg-gradient-to-br from-gray-900 via-slate-900 via-gray-800 to-slate-900 relative"
       >
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <motion.div
@@ -1435,7 +1444,7 @@ export default function CodingPlatformsSection() {
       <section
         id="coding-platforms"
         ref={sectionRef}
-        className="min-h-screen py-12 sm:py-16 md:py-20 bg-gradient-to-br from-gray-900 via-slate-900 via-gray-800 to-slate-900 relative overflow-hidden"
+        className="min-h-screen py-12 sm:py-16 md:py-20 bg-gradient-to-br from-gray-900 via-slate-900 via-gray-800 to-slate-900 relative"
       >
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <motion.div
@@ -1472,11 +1481,11 @@ export default function CodingPlatformsSection() {
       <section
         id="coding-platforms"
         ref={sectionRef}
-        className="min-h-screen py-12 sm:py-16 md:py-20 bg-gradient-to-br from-gray-900 via-slate-900 via-gray-800 to-slate-900 relative overflow-hidden"
+        className="min-h-screen py-12 sm:py-16 md:py-20 bg-gradient-to-br from-gray-900 via-slate-900 via-gray-800 to-slate-900 relative"
       >
         {/* Modern background elements - reduced on mobile for performance */}
         {!shouldUseReducedAnimations && (
-          <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <motion.div
               className="absolute top-20 sm:top-40 left-10 sm:left-20 w-48 sm:w-96 h-48 sm:h-96 bg-gradient-to-br from-green-200/20 to-blue-200/20 rounded-full blur-3xl"
               animate={{

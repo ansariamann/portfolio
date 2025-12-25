@@ -82,10 +82,10 @@ export default function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="min-h-screen py-20 bg-gradient-to-br from-slate-50 via-white via-blue-50 via-gray-50 to-slate-100 relative overflow-hidden"
+      className="min-h-screen py-20 bg-gradient-to-br from-slate-50 via-white via-blue-50 via-gray-50 to-slate-100 relative"
     >
       {/* Modern background elements */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           className="absolute top-60 right-40 w-96 h-96 bg-gradient-to-br from-indigo-200/20 to-cyan-200/20 rounded-full blur-3xl"
           animate={{
@@ -231,6 +231,7 @@ export default function ProjectsSection() {
                   project={project}
                   onViewDetails={handleViewDetails}
                   index={index}
+                  isFeatured={project.featured}
                 />
               </LazySection>
             ))}
@@ -275,11 +276,11 @@ export default function ProjectsSection() {
           >
             <div className="text-center flex-1">
               <div
-                className={cn("font-bold text-blue-600", "text-xl sm:text-2xl")}
+                className={cn("font-bold text-blue-400", "text-xl sm:text-2xl")}
               >
                 {projects.length}
               </div>
-              <div className={cn("text-gray-600", "text-xs sm:text-sm")}>
+              <div className={cn("text-gray-300", "text-xs sm:text-sm")}>
                 Total Projects
               </div>
             </div>
@@ -287,13 +288,13 @@ export default function ProjectsSection() {
             <div className="text-center flex-1">
               <div
                 className={cn(
-                  "font-bold text-green-600",
+                  "font-bold text-green-400",
                   "text-xl sm:text-2xl"
                 )}
               >
                 {projects.filter((p) => p.featured).length}
               </div>
-              <div className={cn("text-gray-600", "text-xs sm:text-sm")}>
+              <div className={cn("text-gray-300", "text-xs sm:text-sm")}>
                 Featured
               </div>
             </div>
@@ -301,7 +302,7 @@ export default function ProjectsSection() {
             <div className="text-center flex-1">
               <div
                 className={cn(
-                  "font-bold text-purple-600",
+                  "font-bold text-purple-400",
                   "text-xl sm:text-2xl"
                 )}
               >
@@ -310,7 +311,7 @@ export default function ProjectsSection() {
                     .length
                 }
               </div>
-              <div className={cn("text-gray-600", "text-xs sm:text-sm")}>
+              <div className={cn("text-gray-300", "text-xs sm:text-sm")}>
                 Technologies
               </div>
             </div>

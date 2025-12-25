@@ -11,6 +11,7 @@ interface ProjectCardProps {
   project: Project;
   onViewDetails: (project: Project) => void;
   index: number;
+  isFeatured?: boolean;
 }
 
 export default function ProjectCard({
@@ -45,6 +46,8 @@ export default function ProjectCard({
   return (
     <motion.div
       className={cn(
+        // Allow featured projects to span wider on large screens
+        project.featured ? "lg:col-span-2" : "",
         "group relative bg-white rounded-responsive shadow-responsive hover:shadow-responsive-hover transition-all duration-300 overflow-hidden cursor-pointer",
         // Mobile-specific enhancements
         "mobile-tap-highlight",
@@ -68,7 +71,10 @@ export default function ProjectCard({
       <div
         className={cn(
           "relative overflow-hidden bg-gray-100",
-          "h-40 sm:h-44 md:h-48", // Responsive height
+          // Larger visual for featured projects
+          project.featured
+            ? "h-56 sm:h-64 md:h-72 lg:h-80"
+            : "h-40 sm:h-44 md:h-48",
           isMobile && "aspect-responsive-video"
         )}
       >
@@ -100,7 +106,7 @@ export default function ProjectCard({
           <h3
             className={cn(
               "font-bold text-gray-900 transition-colors leading-tight",
-              "text-lg sm:text-xl",
+              project.featured ? "text-2xl sm:text-3xl" : "text-lg sm:text-xl",
               !shouldReduceAnimations && "group-hover:text-blue-600"
             )}
           >
@@ -123,8 +129,14 @@ export default function ProjectCard({
         <p
           className={cn(
             "text-gray-600 mb-3 sm:mb-4 leading-relaxed",
-            "text-sm sm:text-base",
-            isMobile ? "line-clamp-3" : "line-clamp-2"
+            project.featured ? "text-base sm:text-lg" : "text-sm sm:text-base",
+            isMobile
+              ? project.featured
+                ? "line-clamp-5"
+                : "line-clamp-3"
+              : project.featured
+              ? "line-clamp-4"
+              : "line-clamp-2"
           )}
         >
           {project.description}
@@ -132,25 +144,46 @@ export default function ProjectCard({
 
         {/* Technologies */}
         <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4">
-          {project.technologies.slice(0, isMobile ? 2 : 3).map((tech) => (
+          {project.technologies
+            .slice(
+              0,
+              isMobile ? (project.featured ? 3 : 2) : project.featured ? 5 : 3
+            )
+            .map((tech) => (
+              <span
+                key={tech}
+                className={cn(
+                  "px-2 py-1 bg-gray-100 text-gray-700 rounded-full font-medium",
+                  "text-xs sm:text-xs"
+                )}
+              >
+                {tech}
+              </span>
+            ))}
+          {project.technologies.length >
+            (isMobile
+              ? project.featured
+                ? 3
+                : 2
+              : project.featured
+              ? 5
+              : 3) && (
             <span
-              key={tech}
               className={cn(
                 "px-2 py-1 bg-gray-100 text-gray-700 rounded-full font-medium",
                 "text-xs sm:text-xs"
               )}
             >
-              {tech}
-            </span>
-          ))}
-          {project.technologies.length > (isMobile ? 2 : 3) && (
-            <span
-              className={cn(
-                "px-2 py-1 bg-gray-100 text-gray-700 rounded-full font-medium",
-                "text-xs sm:text-xs"
-              )}
-            >
-              +{project.technologies.length - (isMobile ? 2 : 3)} more
+              +
+              {project.technologies.length -
+                (isMobile
+                  ? project.featured
+                    ? 3
+                    : 2
+                  : project.featured
+                  ? 5
+                  : 3)}{" "}
+              more
             </span>
           )}
         </div>
