@@ -104,7 +104,7 @@ export default function Footer() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="inline-block mb-6"
             >
-              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium text-blue-300 border border-white/20">
+              <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium text-white border border-white/30">
                 Get in touch
               </span>
             </motion.div>

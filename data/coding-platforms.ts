@@ -404,6 +404,20 @@ export const getAllRecentActivity = (
 };
 
 /**
+ * Simple seeded pseudo-random number generator so that
+ * activity data is deterministic across server and client.
+ * This avoids React hydration mismatches caused by Math.random().
+ */
+function createSeededRandom(seed: number) {
+  let current = seed >>> 0;
+  return () => {
+    // Linear congruential generator (LCG)
+    current = (current * 1664525 + 1013904223) % 4294967296;
+    return current / 4294967296;
+  };
+}
+
+/**
  * Generate comprehensive LeetCode activity data for heatmap visualization
  * Creates realistic activity patterns spanning multiple months
  */
@@ -414,6 +428,7 @@ function generateLeetCodeActivity(): RecentActivity[] {
   const problems = SAMPLE_PROBLEMS.leetcode;
   const languages = PROGRAMMING_LANGUAGES;
   const stats = USER_CONFIG.leetcode.customStats;
+  const random = createSeededRandom(42);
 
   let activityId = 1;
   let totalGenerated = 0;
@@ -438,14 +453,14 @@ function generateLeetCodeActivity(): RecentActivity[] {
     const activityProbability = isWeekend ? 0.3 : 0.7;
 
     // Some days have no activity, some have multiple problems
-    if (Math.random() < activityProbability && totalGenerated < targetTotal) {
+    if (random() < activityProbability && totalGenerated < targetTotal) {
       const problemsToday =
-        Math.random() < 0.3 ? Math.min(2, targetTotal - totalGenerated) : 1;
+        random() < 0.3 ? Math.min(2, targetTotal - totalGenerated) : 1;
 
       for (let i = 0; i < problemsToday && totalGenerated < targetTotal; i++) {
-        const problem = problems[Math.floor(Math.random() * problems.length)];
+        const problem = problems[Math.floor(random() * problems.length)];
         const language =
-          languages[Math.floor(Math.random() * languages.length)];
+          languages[Math.floor(random() * languages.length)];
 
         activities.push({
           id: `lc-activity-${activityId++}`,
@@ -456,10 +471,10 @@ function generateLeetCodeActivity(): RecentActivity[] {
           tags: [...problem.tags],
           language,
           timeSpent:
-            problem.estimatedTime + Math.floor(Math.random() * 20) - 10, // Add some variance
-          isAccepted: Math.random() > 0.3, // 70% first attempt success rate
+            problem.estimatedTime + Math.floor(random() * 20) - 10, // Add some variance
+          isAccepted: random() > 0.3, // 70% first attempt success rate
           attemptCount:
-            Math.random() > 0.3 ? 1 : Math.floor(Math.random() * 3) + 2,
+            random() > 0.3 ? 1 : Math.floor(random() * 3) + 2,
         });
 
         totalGenerated++;
@@ -485,8 +500,8 @@ function generateLeetCodeActivity(): RecentActivity[] {
   ) {
     const toChange =
       mediumActivities.length > targetMedium
-        ? mediumActivities[Math.floor(Math.random() * mediumActivities.length)]
-        : hardActivities[Math.floor(Math.random() * hardActivities.length)];
+        ? mediumActivities[Math.floor(random() * mediumActivities.length)]
+        : hardActivities[Math.floor(random() * hardActivities.length)];
     toChange.difficulty = "easy";
     easyActivities.push(toChange);
   }
@@ -507,6 +522,7 @@ function generateHackerRankActivity(): RecentActivity[] {
   const problems = SAMPLE_PROBLEMS.hackerrank;
   const languages = PROGRAMMING_LANGUAGES;
   const stats = USER_CONFIG.hackerrank.customStats;
+  const random = createSeededRandom(84);
 
   let activityId = 1;
   let totalGenerated = 0;
@@ -530,14 +546,14 @@ function generateHackerRankActivity(): RecentActivity[] {
     // Slightly lower activity rate than LeetCode
     const activityProbability = isWeekend ? 0.2 : 0.5;
 
-    if (Math.random() < activityProbability && totalGenerated < targetTotal) {
+    if (random() < activityProbability && totalGenerated < targetTotal) {
       const problemsToday =
-        Math.random() < 0.2 ? Math.min(2, targetTotal - totalGenerated) : 1;
+        random() < 0.2 ? Math.min(2, targetTotal - totalGenerated) : 1;
 
       for (let i = 0; i < problemsToday && totalGenerated < targetTotal; i++) {
-        const problem = problems[Math.floor(Math.random() * problems.length)];
+        const problem = problems[Math.floor(random() * problems.length)];
         const language =
-          languages[Math.floor(Math.random() * languages.length)];
+          languages[Math.floor(random() * languages.length)];
 
         activities.push({
           id: `hr-activity-${activityId++}`,
@@ -547,10 +563,10 @@ function generateHackerRankActivity(): RecentActivity[] {
           problemUrl: problem.url,
           tags: [...problem.tags],
           language,
-          timeSpent: problem.estimatedTime + Math.floor(Math.random() * 15) - 7, // Add some variance
-          isAccepted: Math.random() > 0.4, // 60% first attempt success rate
+          timeSpent: problem.estimatedTime + Math.floor(random() * 15) - 7, // Add some variance
+          isAccepted: random() > 0.4, // 60% first attempt success rate
           attemptCount:
-            Math.random() > 0.4 ? 1 : Math.floor(Math.random() * 3) + 2,
+            random() > 0.4 ? 1 : Math.floor(random() * 3) + 2,
         });
 
         totalGenerated++;
@@ -576,8 +592,8 @@ function generateHackerRankActivity(): RecentActivity[] {
   ) {
     const toChange =
       mediumActivities.length > targetMedium
-        ? mediumActivities[Math.floor(Math.random() * mediumActivities.length)]
-        : hardActivities[Math.floor(Math.random() * hardActivities.length)];
+        ? mediumActivities[Math.floor(random() * mediumActivities.length)]
+        : hardActivities[Math.floor(random() * hardActivities.length)];
     toChange.difficulty = "easy";
     easyActivities.push(toChange);
   }

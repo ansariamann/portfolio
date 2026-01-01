@@ -149,17 +149,11 @@ export default function HeroSection() {
 
   // Download CV function
   const handleDownloadCV = () => {
-    // Direct path to the CV file
     const cvPath = "/cv/Aman_Ansari_CV.pdf";
 
-    // Create a temporary anchor element and trigger download
-    const link = document.createElement("a");
-    link.href = cvPath;
-    link.download = "Aman_Ansari_CV.pdf";
-    link.setAttribute("target", "_blank");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Open the CV in a new tab. The browser will either
+    // download it or show a preview, depending on settings.
+    window.open(cvPath, "_blank");
   };
 
   return (

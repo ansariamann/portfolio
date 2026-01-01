@@ -4,8 +4,6 @@ import { useState, useEffect } from "react";
 import { NavigationItem } from "@/types";
 import { scrollToSection } from "@/lib/utils";
 
-import DigitalClock from '@/components/ui/DigitalClock';
-
 const navigationItems: NavigationItem[] = [
   { label: "Home", href: "#hero" },
   { label: "About", href: "#about" },
@@ -70,29 +68,20 @@ export default function Header() {
     >
       <nav className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          {/* Digital Clock - Fixed from left margin */}
+          {/* Site title */}
           <div
             className="relative group flex-shrink-0"
             style={{ marginLeft: "0", minWidth: "fit-content" }}
           >
-            <div
+            <button
               onClick={() => handleScrollToSection("#hero")}
-              className="cursor-pointer"
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  handleScrollToSection("#hero");
-                }
-              }}
+              className={`cursor-pointer text-2xl font-bold tracking-tight focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-md px-1 ${
+                isScrolled ? "text-gray-900" : "text-white"
+              }`}
               aria-label="Go to home section"
             >
-              <DigitalClock
-                className={`font-bold text-xl ${
-                  isScrolled ? "text-gray-900" : "text-white"
-                }`}
-              />
-            </div>
+              Portfolio
+            </button>
           </div>
 
           {/* Modern Desktop Navigation */}

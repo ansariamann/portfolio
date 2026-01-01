@@ -99,7 +99,7 @@ export default function ContactSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="inline-block mb-6"
           >
-            <span className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium text-blue-800 border border-white/30">
+            <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium text-white border border-white/40">
               Get in touch
             </span>
           </motion.div>

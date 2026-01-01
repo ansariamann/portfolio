@@ -623,8 +623,8 @@ export default function SkillsSection() {
 
         {/* Skills summary */}
         <ScrollReveal delay={600} className="mt-16 text-center">
-          <div className="bg-white/10 backdrop-blur-xl rounded-2xl shadow-xl p-8 max-w-4xl mx-auto border border-white/40">
-            <h3 className="text-2xl font-bold text-slate-100 mb-6">
+          <div className="bg-white/95 rounded-2xl shadow-2xl p-8 max-w-4xl mx-auto border border-slate-200">
+            <h3 className="text-2xl font-bold text-slate-900 mb-6">
               Skills Overview
             </h3>
             <StaggeredList
@@ -642,13 +642,13 @@ export default function SkillsSection() {
 
                 return (
                   <div key={category} className="text-center">
-                    <div className="text-3xl font-bold text-blue-400 mb-2">
+                    <div className="text-3xl font-bold text-blue-700 mb-2">
                       {categorySkills.length}
                     </div>
-                    <div className="text-sm text-gray-300 mb-1">
+                    <div className="text-sm text-slate-700 mb-1">
                       {SKILL_CATEGORIES[category]}
                     </div>
-                    <div className="text-xs text-gray-400">
+                    <div className="text-xs text-slate-600">
                       Avg: {avgProficiency.toFixed(1)}/5
                     </div>
                   </div>

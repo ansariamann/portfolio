@@ -71,7 +71,7 @@ export default function ContactForm() {
         message: sanitizedData.message.substring(0, 50) + "...",
       });
 
-      const response = await fetch("/", {
+      const response = await fetch("/__forms.html", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
