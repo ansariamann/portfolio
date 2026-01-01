@@ -115,18 +115,9 @@ export default function HeroSection() {
   );
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.95, 0.9]);
 
-  const [showContent, setShowContent] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(
-      () => {
-        setShowContent(true);
-      },
-      shouldReduceAnimations ? 50 : 300
-    );
-
-    return () => clearTimeout(timer);
-  }, [shouldReduceAnimations]);
+  // We avoid client-only state that affects the initial render to prevent
+  // React hydration mismatches between server and client.
+  // Animations are now based only on `shouldReduceAnimations`.
 
   // Scroll to section function
   const scrollToSection = (sectionId: string) => {
@@ -226,8 +217,8 @@ export default function HeroSection() {
             {/* Greeting - Mobile optimized */}
             <motion.div
               initial={{
-                opacity: showContent ? 0 : 1,
-                y: shouldReduceAnimations || !showContent ? 0 : 20,
+                opacity: shouldReduceAnimations ? 1 : 0,
+                y: shouldReduceAnimations ? 0 : 20,
               }}
               animate={{ opacity: 1, y: 0 }}
               transition={
@@ -302,8 +293,8 @@ export default function HeroSection() {
               }
             `}
             initial={{
-              opacity: showContent ? 0 : 1,
-              x: shouldReduceAnimations || !showContent ? 0 : isMobile ? 0 : 30,
+              opacity: shouldReduceAnimations ? 1 : 0,
+              x: shouldReduceAnimations ? 0 : isMobile ? 0 : 30,
             }}
             animate={{ opacity: 1, x: 0 }}
             transition={

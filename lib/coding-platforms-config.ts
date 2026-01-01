@@ -369,20 +369,20 @@ export function validateUserConfig(): {
   const warnings: string[] = [];
 
   // Check LeetCode configuration
-  if (USER_CONFIG.leetcode.username === "your-leetcode-username") {
+  if (USER_CONFIG.leetcode.username === "sample-user") {
     errors.push("LeetCode username is still set to default value");
   }
 
-  if (USER_CONFIG.leetcode.profileUrl.includes("your-leetcode-username")) {
+  if (USER_CONFIG.leetcode.profileUrl.includes("sample-user")) {
     errors.push("LeetCode profile URL is still set to default value");
   }
 
   // Check HackerRank configuration
-  if (USER_CONFIG.hackerrank.username === "your-hackerrank-username") {
+  if (USER_CONFIG.hackerrank.username === "sample-user") {
     errors.push("HackerRank username is still set to default value");
   }
 
-  if (USER_CONFIG.hackerrank.profileUrl.includes("your-hackerrank-username")) {
+  if (USER_CONFIG.hackerrank.profileUrl.includes("sample-user")) {
     errors.push("HackerRank profile URL is still set to default value");
   }
 
