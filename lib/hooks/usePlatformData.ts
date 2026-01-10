@@ -54,8 +54,48 @@ export const usePlatformData = (
         throw new Error(`Platform data not found for: ${platformId}`);
       }
 
-      // Simulate potential network errors for testing
-      if (process.env.NODE_ENV === "development" && Math.random() < 0.1) {
+      // Live Data Fetching for LeetCode
+      if (platformId === "leetcode") {
+        try {
+          // Use the username from the static config
+          const username = platformData.username;
+          const response = await fetch(`/api/leetcode?username=${username}`);
+
+          if (response.ok) {
+            const liveData = await response.json();
+
+            if (liveData?.matchedUser?.submitStats?.acSubmissionNum) {
+              const stats = liveData.matchedUser.submitStats.acSubmissionNum;
+              const profile = liveData.matchedUser.profile;
+
+              // Map API data to our format
+              const total = stats.find((s: any) => s.difficulty === "All")?.count || 0;
+              const easy = stats.find((s: any) => s.difficulty === "Easy")?.count || 0;
+              const medium = stats.find((s: any) => s.difficulty === "Medium")?.count || 0;
+              const hard = stats.find((s: any) => s.difficulty === "Hard")?.count || 0;
+
+              // Update the platform data with live stats
+              platformData.statistics = {
+                ...platformData.statistics,
+                totalSolved: total,
+                difficultyBreakdown: {
+                  easy,
+                  medium,
+                  hard
+                },
+                ranking: profile?.ranking || platformData.statistics.ranking,
+              };
+            }
+          }
+        } catch (apiError) {
+          console.warn("Failed to fetch live LeetCode data, falling back to static:", apiError);
+          // Fallback to static data is automatic since we mutated platformData or simply didn't update it
+        }
+      }
+
+      // Simulate potential network errors for testing (only in dev and low probability)
+      if (process.env.NODE_ENV === "development" && Math.random() < 0.05) {
+        // Reduced probability to 5% to be less annoying
         throw new Error("Simulated network error");
       }
 

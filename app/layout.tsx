@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import ErrorBoundary from "@/components/ui/ErrorBoundary";
+import Footer from "@/components/layout/Footer";
 import { siteConfig } from "@/data/site-config";
 
 import "./globals.css";
@@ -135,12 +136,12 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} antialiased`}>
-        {/* Skip to main content link for keyboard navigation */}
-        <a href="#main-content" className="skip-to-main">
-          Skip to main content
-        </a>
 
-        <ErrorBoundary>{children}</ErrorBoundary>
+
+        <ErrorBoundary>
+          {children}
+          <Footer />
+        </ErrorBoundary>
         {/* Browser Compatibility Initialization */}
         <script
           dangerouslySetInnerHTML={{

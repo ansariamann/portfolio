@@ -38,21 +38,20 @@ export default function ProjectCard({
   const hoverProps = shouldReduceAnimations
     ? {}
     : {
-        whileHover: touchDevice ? {} : { y: -8, scale: 1.02 },
-        whileTap: { scale: 0.98 },
-        transition: { type: "spring" as const, stiffness: 300, damping: 20 },
-      };
+      whileHover: touchDevice ? {} : { y: -8, scale: 1.02 },
+      whileTap: { scale: 0.98 },
+      transition: { type: "spring" as const, stiffness: 300, damping: 20 },
+    };
 
   return (
     <motion.div
       className={cn(
         // Allow featured projects to span wider on large screens
         project.featured ? "lg:col-span-2" : "",
-        "group relative bg-white rounded-responsive shadow-responsive hover:shadow-responsive-hover transition-all duration-300 overflow-hidden cursor-pointer",
+        "group relative bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-lg hover:border-blue-500/30 hover:shadow-2xl transition-all duration-300",
         // Mobile-specific enhancements
         "mobile-tap-highlight",
         touchDevice && "touch-target active:scale-98",
-        isMobile && "shadow-depth-1 hover:shadow-depth-2"
       )}
       variants={cardVariants}
       initial="hidden"
@@ -62,7 +61,7 @@ export default function ProjectCard({
     >
       {/* Featured badge */}
       {project.featured && (
-        <div className="absolute top-4 left-4 z-10 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
+        <div className="absolute top-4 left-4 z-10 bg-primary/90 text-primary-foreground px-3 py-1 rounded-full text-xs font-semibold shadow-lg backdrop-blur-sm">
           Featured
         </div>
       )}
@@ -70,7 +69,7 @@ export default function ProjectCard({
       {/* Project image with optimized loading */}
       <div
         className={cn(
-          "relative overflow-hidden bg-gray-100",
+          "relative overflow-hidden bg-slate-800",
           // Larger visual for featured projects
           project.featured
             ? "h-56 sm:h-64 md:h-72 lg:h-80"
@@ -82,21 +81,21 @@ export default function ProjectCard({
           src={project.images?.[0] || "/images/placeholder.svg"}
           alt={`${project.title} - Project Screenshot`}
           className={cn(
-            "w-full h-full transition-transform duration-300",
+            "w-full h-full transition-transform duration-500",
             !shouldReduceAnimations && "group-hover:scale-105"
           )}
           priority={index < 3} // Prioritize first 3 images
         />
         <div
           className={cn(
-            "absolute inset-0 bg-black/20 transition-colors duration-300",
-            !shouldReduceAnimations && "group-hover:bg-black/10"
+            "absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-60 transition-opacity duration-300",
+            !shouldReduceAnimations && "group-hover:opacity-40"
           )}
         />
       </div>
 
       {/* Content */}
-      <div className="padding-responsive-sm">
+      <div className="p-5 sm:p-6">
         <div
           className={cn(
             "flex items-start justify-between mb-2 gap-2",
@@ -105,7 +104,7 @@ export default function ProjectCard({
         >
           <h3
             className={cn(
-              "font-bold text-gray-900 transition-colors leading-tight",
+              "font-bold text-slate-900 transition-colors leading-tight",
               project.featured ? "text-2xl sm:text-3xl" : "text-lg sm:text-xl",
               !shouldReduceAnimations && "group-hover:text-blue-600"
             )}
@@ -114,7 +113,7 @@ export default function ProjectCard({
           </h3>
           <div
             className={cn(
-              "flex items-center text-gray-500 flex-shrink-0",
+              "flex items-center text-slate-500 flex-shrink-0",
               "text-xs sm:text-sm"
             )}
           >
@@ -128,22 +127,22 @@ export default function ProjectCard({
 
         <p
           className={cn(
-            "text-gray-600 mb-3 sm:mb-4 leading-relaxed",
+            "text-slate-600 mb-4 leading-relaxed",
             project.featured ? "text-base sm:text-lg" : "text-sm sm:text-base",
             isMobile
               ? project.featured
                 ? "line-clamp-5"
                 : "line-clamp-3"
               : project.featured
-              ? "line-clamp-4"
-              : "line-clamp-2"
+                ? "line-clamp-4"
+                : "line-clamp-2"
           )}
         >
           {project.description}
         </p>
 
         {/* Technologies */}
-        <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4">
+        <div className="flex flex-wrap gap-2 mb-6">
           {project.technologies
             .slice(
               0,
@@ -153,8 +152,8 @@ export default function ProjectCard({
               <span
                 key={tech}
                 className={cn(
-                  "px-2 py-1 bg-gray-100 text-gray-700 rounded-full font-medium",
-                  "text-xs sm:text-xs"
+                  "px-2.5 py-1 bg-gray-100 text-slate-700 rounded-md font-medium border border-slate-200",
+                  "text-xs"
                 )}
               >
                 {tech}
@@ -166,33 +165,31 @@ export default function ProjectCard({
                 ? 3
                 : 2
               : project.featured
-              ? 5
-              : 3) && (
-            <span
-              className={cn(
-                "px-2 py-1 bg-gray-100 text-gray-700 rounded-full font-medium",
-                "text-xs sm:text-xs"
-              )}
-            >
-              +
-              {project.technologies.length -
-                (isMobile
-                  ? project.featured
-                    ? 3
-                    : 2
-                  : project.featured
-                  ? 5
-                  : 3)}{" "}
-              more
-            </span>
-          )}
+                ? 5
+                : 3) && (
+              <span
+                className={cn(
+                  "px-2.5 py-1 bg-gray-100 text-slate-700 rounded-md font-medium border border-slate-200",
+                  "text-xs"
+                )}
+              >
+                +{project.technologies.length -
+                  (isMobile
+                    ? project.featured
+                      ? 3
+                      : 2
+                    : project.featured
+                      ? 5
+                      : 3)}
+              </span>
+            )}
         </div>
 
         {/* Action buttons */}
         <div
           className={cn(
-            "layout-mobile-center gap-3",
-            isMobile && "flex-col sm:flex-row"
+            "flex items-center justify-between mt-auto pt-4 border-t border-slate-100",
+            isMobile && "flex-col sm:flex-row gap-3"
           )}
         >
           <button
@@ -201,20 +198,20 @@ export default function ProjectCard({
               onViewDetails(project);
             }}
             className={cn(
-              "text-blue-600 hover:text-blue-700 font-medium transition-colors focus-mobile-visible",
-              "text-mobile-scale",
+              "text-blue-600 hover:text-blue-800 font-medium transition-colors focus:outline-none flex items-center gap-1",
+              "text-sm",
               touchDevice &&
-                "touch-target py-2 px-3 -mx-3 rounded-lg hover:bg-blue-50 touch-feedback",
-              isMobile && "w-responsive-full text-center"
+              "touch-target py-2 px-3 -mx-3 rounded-lg hover:bg-gray-100",
+              isMobile && "w-full justify-center"
             )}
           >
-            View Details
+            View Details <span aria-hidden="true">&rarr;</span>
           </button>
 
           <div
             className={cn(
-              "flex items-center gap-4",
-              isMobile && "justify-center sm:justify-end"
+              "flex items-center gap-3",
+              isMobile && "justify-center w-full sm:w-auto"
             )}
           >
             {project.liveUrl && (
@@ -222,47 +219,30 @@ export default function ProjectCard({
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={cn(
-                  "text-gray-500 hover:text-blue-600 transition-colors",
-                  touchDevice &&
-                    "touch-target p-2 -m-2 rounded-lg hover:bg-blue-50"
-                )}
-                {...(shouldReduceAnimations
-                  ? {}
-                  : {
-                      whileHover: { scale: touchDevice ? 1 : 1.1 },
-                      whileTap: { scale: 0.95 },
-                    })}
+                className="p-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all"
+                title="Live Demo"
                 onClick={(e) => e.stopPropagation()}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <ExternalLink size={isMobile ? 20 : 18} />
+                <ExternalLink size={18} />
               </motion.a>
             )}
             <motion.a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(
-                "text-gray-500 hover:text-blue-600 transition-colors",
-                touchDevice &&
-                  "touch-target p-2 -m-2 rounded-lg hover:bg-blue-50"
-              )}
-              {...(shouldReduceAnimations
-                ? {}
-                : {
-                    whileHover: { scale: touchDevice ? 1 : 1.1 },
-                    whileTap: { scale: 0.95 },
-                  })}
+              className="p-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all"
+              title="View Code"
               onClick={(e) => e.stopPropagation()}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <Github size={isMobile ? 20 : 18} />
+              <Github size={18} />
             </motion.a>
           </div>
         </div>
       </div>
-
-      {/* Hover overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-blue-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
     </motion.div>
   );
 }

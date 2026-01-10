@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { NavigationItem } from "@/types";
-import { scrollToSection } from "@/lib/utils";
+import { scrollToSection, cn } from "@/lib/utils";
 
 const navigationItems: NavigationItem[] = [
   { label: "Home", href: "#hero" },
@@ -17,158 +18,129 @@ const navigationItems: NavigationItem[] = [
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  
+  const [activeSection, setActiveSection] = useState("hero");
+
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+      setIsScrolled(window.scrollY > 20);
 
-  // Close mobile menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Element;
-      if (isMenuOpen && !target.closest("nav")) {
-        setIsMenuOpen(false);
+      // Simple section detection logic could be expanded
+      const sections = navigationItems.map(item => item.href.substring(1));
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top >= -200 && rect.top <= 300) {
+            // Added some buffer to detection
+            setActiveSection(section);
+            break;
+          }
+        }
       }
     };
 
-    if (isMenuOpen) {
-      document.addEventListener("click", handleClickOutside);
-      // Prevent body scroll when menu is open
-      document.body.style.overflow = "hidden";
-    } else {
-      // Clear inline value so browser uses the stylesheet/default
-      document.body.style.overflow = "";
-    }
-
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-      // Clear inline value on cleanup
-      document.body.style.overflow = "";
-    };
-  }, [isMenuOpen]);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleScrollToSection = (href: string) => {
     scrollToSection(href);
     setIsMenuOpen(false);
+    setActiveSection(href.substring(1));
   };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 ${
+    <motion.header
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
         isScrolled
-          ? "bg-white/80 backdrop-blur-xl shadow-xl border-b border-white/20"
-          : "bg-gray-900"
-      }`}
+          ? "h-16 bg-background/60 backdrop-blur-md border-b border-white/5 shadow-sm"
+          : "h-20 bg-transparent"
+      )}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
     >
-      <nav className="container mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          {/* Site title */}
-          <div
-            className="relative group flex-shrink-0"
-            style={{ marginLeft: "0", minWidth: "fit-content" }}
-          >
-            <button
-              onClick={() => handleScrollToSection("#hero")}
-              className={`cursor-pointer text-2xl font-bold tracking-tight focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-md px-1 ${
-                isScrolled ? "text-gray-900" : "text-white"
-              }`}
-              aria-label="Go to home section"
-            >
-              Portfolio
-            </button>
-          </div>
+      <nav className="container mx-auto px-6 h-full flex items-center justify-between">
+        {/* Logo / Brand */}
+        <button
+          onClick={() => handleScrollToSection("#hero")}
+          className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-violet-400 outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-sm"
+        >
+          Portfolio
+        </button>
 
-          {/* Modern Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navigationItems.map((item, index) => (
+        {/* Desktop Nav */}
+        <div className="hidden md:flex items-center space-x-1">
+          {navigationItems.map((item) => {
+            const isActive = activeSection === item.href.substring(1);
+            return (
               <button
                 key={item.href}
                 onClick={() => handleScrollToSection(item.href)}
-                className={`relative px-4 py-2 font-medium ${
-                  isScrolled
-                    ? "text-slate-700 hover:text-blue-600"
-                    : "text-white/90 hover:text-white"
-                }`}
-                aria-label={`Navigate to ${item.label} section`}
+                className={cn(
+                  "px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 relative group",
+                  isActive ? "text-white" : "text-slate-400 hover:text-white"
+                )}
               >
+                {isActive && (
+                  <motion.div
+                    layoutId="activeTab"
+                    className="absolute inset-0 bg-white/10 rounded-full"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
                 <span className="relative z-10">{item.label}</span>
               </button>
-            ))}
-          </div>
-
-          {/* Mobile Menu Button - Optimized */}
-          <button
-            className="md:hidden flex flex-col items-center justify-center w-10 h-10 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label={
-              isMenuOpen ? "Close navigation menu" : "Open navigation menu"
-            }
-            aria-expanded={isMenuOpen}
-          >
-            <span
-              className={`w-6 h-0.5 ${
-                isScrolled ? "bg-gray-800" : "bg-white"
-              } ${isMenuOpen ? "rotate-45 translate-y-1.5" : ""}`}
-            />
-            <span
-              className={`w-6 h-0.5 mt-1.5 ${
-                isScrolled ? "bg-gray-800" : "bg-white"
-              } ${isMenuOpen ? "opacity-0" : ""}`}
-            />
-            <span
-              className={`w-6 h-0.5 mt-1.5 ${
-                isScrolled ? "bg-gray-800" : "bg-white"
-              } ${isMenuOpen ? "-rotate-45 -translate-y-1.5" : ""}`}
-            />
-          </button>
+            );
+          })}
         </div>
 
-        {/* Mobile Menu - Full screen overlay */}
-        {isMenuOpen && (
-          <>
-            {/* Backdrop */}
-            <div
-              className="md:hidden fixed inset-0 bg-black/20 backdrop-blur-sm"
-              onClick={() => setIsMenuOpen(false)}
+        {/* Mobile Toggle */}
+        <button
+          className="md:hidden p-2 text-white/80 hover:text-white transition-colors"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          <div className="w-6 h-5 relative flex flex-col justify-between">
+            <motion.span
+              animate={isMenuOpen ? { rotate: 45, y: 10 } : { rotate: 0, y: 0 }}
+              className="w-full h-0.5 bg-current origin-left"
             />
-
-            {/* Menu Content - Optimized */}
-            <div className="md:hidden fixed top-16 left-0 right-0 bg-white/95 backdrop-blur-md shadow-xl border-t border-gray-200 max-h-[calc(100vh-4rem)] overflow-y-auto">
-              <div className="px-4 py-6">
-                <div className="space-y-2">
-                  {navigationItems.map((item) => (
-                    <button
-                      key={item.href}
-                      onClick={() => handleScrollToSection(item.href)}
-                      className="block w-full text-left py-3 px-4 text-lg font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 active:bg-blue-100 rounded-lg"
-                    >
-                      <span className="flex items-center justify-between">
-                        <span className="font-semibold">{item.label}</span>
-                        <span className="text-blue-600 text-xl opacity-60">
-                          →
-                        </span>
-                      </span>
-                    </button>
-                  ))}
-                </div>
-
-                {/* Mobile menu footer */}
-                <div className="mt-6 pt-4 border-t border-gray-200 text-center">
-                  <p className="text-sm text-gray-500">
-                    Tap anywhere outside to close
-                  </p>
-                </div>
-              </div>
-            </div>
-          </>
-        )}
+            <motion.span
+              animate={isMenuOpen ? { opacity: 0 } : { opacity: 1 }}
+              className="w-full h-0.5 bg-current"
+            />
+            <motion.span
+              animate={isMenuOpen ? { rotate: -45, y: -10 } : { rotate: 0, y: 0 }}
+              className="w-full h-0.5 bg-current origin-left"
+            />
+          </div>
+        </button>
       </nav>
-    </header>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-background/95 backdrop-blur-xl border-b border-white/10 overflow-hidden"
+          >
+            <div className="flex flex-col p-4 space-y-2">
+              {navigationItems.map((item) => (
+                <button
+                  key={item.href}
+                  onClick={() => handleScrollToSection(item.href)}
+                  className="px-4 py-3 text-left text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 }

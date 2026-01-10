@@ -163,13 +163,12 @@ function TimelineItemComponent({
   return (
     <motion.div
       ref={ref}
-      className={`relative mb-12 ${
-        isMobile
+      className={`relative mb-12 ${isMobile
           ? "ml-8"
           : isEven
-          ? "md:ml-0 md:mr-8 md:text-right"
-          : "md:ml-8 md:mr-0"
-      }`}
+            ? "md:ml-0 md:mr-8 md:text-right"
+            : "md:ml-8 md:mr-0"
+        }`}
       initial={{ opacity: 0, x: isEven ? -50 : 50 }}
       animate={isInView ? { opacity: 1, x: 0 } : {}}
       transition={{
@@ -258,9 +257,8 @@ function TimelineItemComponent({
       {/* Modern timeline connector */}
       {!isMobile && (
         <div
-          className={`absolute top-6 ${
-            isEven ? "right-0 mr-[-2rem]" : "left-0 ml-[-2rem]"
-          } w-8 h-8 flex items-center justify-center`}
+          className={`absolute top-6 ${isEven ? "right-0 mr-[-2rem]" : "left-0 ml-[-2rem]"
+            } w-8 h-8 flex items-center justify-center`}
         >
           <motion.div
             className={`w-4 h-4 rounded-full bg-gradient-to-r ${getTypeGradient(
@@ -590,9 +588,20 @@ export default function AboutSection() {
           delay={shouldReduceAnimations ? 200 : 400}
           className="relative"
         >
-          <h3 className="text-responsive-lg font-bold text-center text-gray-800 mb-8 sm:mb-12">
-            My Journey
-          </h3>
+          <motion.h2
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-center mb-12 sm:mb-16 tracking-tight px-4"
+            initial={{ opacity: 0, y: shouldReduceAnimations ? 0 : 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{
+              duration: shouldReduceAnimations ? 0.3 : 0.8,
+              delay: shouldReduceAnimations ? 0 : 0.3,
+            }}
+          >
+            <span className="bg-gradient-to-r from-slate-800 via-blue-600 to-purple-600 bg-clip-text text-transparent">
+              My Journey
+            </span>
+          </motion.h2>
           <div className="relative max-w-4xl mx-auto">
             {/* Timeline line - desktop only */}
             {!isMobile && !shouldReduceAnimations && (

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { codingPlatforms, getPlatformConfig } from "@/data/coding-platforms";
 import { CodingPlatform, VisualizationMode } from "@/types/coding-platforms";
 import { useMobileOptimizedAnimation } from "@/lib/hooks";
@@ -99,17 +99,15 @@ const PlatformSelector = ({
             className={`
               relative rounded-xl sm:rounded-2xl font-medium transition-all duration-300 
               flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
-              ${
-                hasError
-                  ? "bg-red-900/40 backdrop-blur-sm shadow-lg border border-red-500/50"
-                  : isActive
+              ${hasError
+                ? "bg-red-900/40 backdrop-blur-sm shadow-lg border border-red-500/50"
+                : isActive
                   ? "bg-slate-800/90 backdrop-blur-sm shadow-xl scale-105 border border-blue-500/50"
                   : "bg-slate-800/60 backdrop-blur-sm hover:bg-slate-800/80 shadow-lg border border-slate-700/50"
               }
-              ${
-                isSmallMobile
-                  ? "px-3 py-2 text-xs min-w-[44px]"
-                  : isMobile
+              ${isSmallMobile
+                ? "px-3 py-2 text-xs min-w-[44px]"
+                : isMobile
                   ? "px-4 py-2 text-sm min-w-[48px]"
                   : "px-6 py-3 text-base"
               }
@@ -118,12 +116,12 @@ const PlatformSelector = ({
               color: hasError
                 ? ensureContrast("#dc2626", "#ffffff", 4.5)
                 : isActive
-                ? ensureContrast(
+                  ? ensureContrast(
                     config?.primaryColor || "#3B82F6",
                     "#ffffff",
                     4.5
                   )
-                : ensureContrast("#64748b", "#ffffff", 4.5),
+                  : ensureContrast("#64748b", "#ffffff", 4.5),
               minHeight: `${touchTargetSize}px`,
               minWidth: touchDevice ? `${touchTargetSize}px` : "auto",
             }}
@@ -142,9 +140,8 @@ const PlatformSelector = ({
             aria-label={
               hasError
                 ? `${platform.name} platform (error: ${hasError.message}). Press Enter to retry.`
-                : `${platform.name} platform${
-                    isActive ? " (currently selected)" : ""
-                  }. Press Enter to select.`
+                : `${platform.name} platform${isActive ? " (currently selected)" : ""
+                }. Press Enter to select.`
             }
             tabIndex={isActive ? 0 : -1}
             title={
@@ -167,9 +164,8 @@ const PlatformSelector = ({
                 />
               )}
               <span
-                className={`${
-                  isSmallMobile ? "hidden" : isMobile ? "hidden xs:inline" : ""
-                } whitespace-nowrap`}
+                className={`${isSmallMobile ? "hidden" : isMobile ? "hidden xs:inline" : ""
+                  } whitespace-nowrap`}
               >
                 {platform.name}
               </span>
@@ -241,13 +237,6 @@ const VisualizationModeSelector = ({
       description: "Showcase of badges and certifications",
     },
     {
-      id: "heatmap" as const,
-      name: "Activity",
-      shortName: "Activity",
-      icon: "📈",
-      description: "Coding consistency and activity patterns",
-    },
-    {
       id: "progress" as const,
       name: "Progress",
       shortName: "Progress",
@@ -298,15 +287,13 @@ const VisualizationModeSelector = ({
           className={`
             group relative rounded-full font-medium transition-all duration-300 
             flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
-            ${
-              activeMode === mode.id
-                ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg scale-105"
-                : "bg-slate-800/70 backdrop-blur-sm text-slate-200 hover:bg-slate-800/90 shadow-md border border-slate-700/50"
+            ${activeMode === mode.id
+              ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg scale-105"
+              : "bg-slate-800/70 backdrop-blur-sm text-slate-200 hover:bg-slate-800/90 shadow-md border border-slate-700/50"
             }
-            ${
-              isSmallMobile
-                ? "px-2 py-1.5 text-xs min-w-[44px]"
-                : isMobile
+            ${isSmallMobile
+              ? "px-2 py-1.5 text-xs min-w-[44px]"
+              : isMobile
                 ? "px-3 py-2 text-xs min-w-[48px]"
                 : "px-4 py-2 text-sm"
             }
@@ -327,9 +314,8 @@ const VisualizationModeSelector = ({
           role="tab"
           aria-selected={activeMode === mode.id}
           aria-controls={`visualization-panel-${mode.id}`}
-          aria-label={`${mode.name} view: ${mode.description}${
-            activeMode === mode.id ? " (currently selected)" : ""
-          }`}
+          aria-label={`${mode.name} view: ${mode.description}${activeMode === mode.id ? " (currently selected)" : ""
+            }`}
           tabIndex={activeMode === mode.id ? 0 : -1}
           title={mode.description}
         >
@@ -338,9 +324,8 @@ const VisualizationModeSelector = ({
           </span>
           <span
             className={`
-            ${
-              isSmallMobile ? "hidden" : isMobile ? "hidden xs:inline" : ""
-            } whitespace-nowrap
+            ${isSmallMobile ? "hidden" : isMobile ? "hidden xs:inline" : ""
+              } whitespace-nowrap
           `}
           >
             {isMobile ? mode.shortName : mode.name}
@@ -388,9 +373,8 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
       >
         <div className="flex flex-col sm:flex-row items-center mb-4 sm:mb-6 w-full">
           <div
-            className={`${
-              isSmallMobile ? "mb-3 sm:mb-0 sm:mr-3" : "mb-4 sm:mb-0 sm:mr-4"
-            }`}
+            className={`${isSmallMobile ? "mb-3 sm:mb-0 sm:mr-3" : "mb-4 sm:mb-0 sm:mr-4"
+              }`}
           >
             <PlatformLogo
               platformId={platform.id}
@@ -401,16 +385,14 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
           </div>
           <div className="text-center sm:text-left flex-1">
             <h3
-              className={`font-bold text-slate-100 ${
-                isSmallMobile ? "text-lg" : "text-xl sm:text-2xl"
-              }`}
+              className={`font-bold text-slate-100 ${isSmallMobile ? "text-lg" : "text-xl sm:text-2xl"
+                }`}
             >
               {platform.name}
             </h3>
             <p
-              className={`text-slate-300 ${
-                isSmallMobile ? "text-sm" : "text-base sm:text-lg"
-              }`}
+              className={`text-slate-300 ${isSmallMobile ? "text-sm" : "text-base sm:text-lg"
+                }`}
             >
               @{platform.username}
             </p>
@@ -426,61 +408,56 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
         </div>
 
         {platform.statistics ? (
-        <div
-          className={`
+          <div
+            className={`
           grid gap-4 sm:gap-6 text-center w-full
-          ${
-            getOptimalGridColumns(3) === 1
-              ? "grid-cols-1"
-              : getOptimalGridColumns(3) === 2
-              ? "grid-cols-2"
-              : "grid-cols-3"
-          }
+          ${getOptimalGridColumns(3) === 1
+                ? "grid-cols-1"
+                : getOptimalGridColumns(3) === 2
+                  ? "grid-cols-2"
+                  : "grid-cols-3"
+              }
         `}
-        >
-          <div className="bg-slate-700/50 rounded-xl p-3 sm:p-4">
-            <div
-              className={`font-bold text-slate-100 ${
-                isSmallMobile ? "text-xl" : "text-2xl sm:text-3xl"
-              }`}
-            >
-              {platform.statistics.totalSolved}
-            </div>
-            <div className="text-xs sm:text-sm text-slate-300">
-              Problems Solved
-            </div>
-          </div>
-          <div className="bg-slate-700/50 rounded-xl p-3 sm:p-4">
-            <div
-              className={`font-bold text-slate-100 ${
-                isSmallMobile ? "text-xl" : "text-2xl sm:text-3xl"
-              }`}
-            >
-              {platform.statistics.currentStreak}
-            </div>
-            <div className="text-xs sm:text-sm text-slate-300">
-              Current Streak
-            </div>
-          </div>
-          {platform.statistics.ranking && (
-            <div
-              className={`bg-slate-700/50 rounded-xl p-3 sm:p-4 ${
-                getOptimalGridColumns(3) === 2 ? "col-span-2 sm:col-span-1" : ""
-              }`}
-            >
+          >
+            <div className="bg-slate-700/50 rounded-xl p-3 sm:p-4">
               <div
-                className={`font-bold text-slate-100 ${
-                  isSmallMobile ? "text-xl" : "text-2xl sm:text-3xl"
-                }`}
+                className={`font-bold text-slate-100 ${isSmallMobile ? "text-xl" : "text-2xl sm:text-3xl"
+                  }`}
               >
-                #{platform.statistics.ranking.toLocaleString()}
+                {platform.statistics.totalSolved}
               </div>
               <div className="text-xs sm:text-sm text-slate-300">
-                Global Ranking
+                Problems Solved
               </div>
             </div>
-          )}
-        </div>
+            <div className="bg-slate-700/50 rounded-xl p-3 sm:p-4">
+              <div
+                className={`font-bold text-slate-100 ${isSmallMobile ? "text-xl" : "text-2xl sm:text-3xl"
+                  }`}
+              >
+                {platform.statistics.currentStreak}
+              </div>
+              <div className="text-xs sm:text-sm text-slate-300">
+                Current Streak
+              </div>
+            </div>
+            {platform.statistics.ranking && (
+              <div
+                className={`bg-slate-700/50 rounded-xl p-3 sm:p-4 ${getOptimalGridColumns(3) === 2 ? "col-span-2 sm:col-span-1" : ""
+                  }`}
+              >
+                <div
+                  className={`font-bold text-slate-100 ${isSmallMobile ? "text-xl" : "text-2xl sm:text-3xl"
+                    }`}
+                >
+                  #{platform.statistics.ranking.toLocaleString()}
+                </div>
+                <div className="text-xs sm:text-sm text-slate-300">
+                  Global Ranking
+                </div>
+              </div>
+            )}
+          </div>
         ) : (
           <div className="text-center py-4">
             <p className="text-gray-500 text-sm">
@@ -512,20 +489,20 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
         )}
       >
         {platform.statistics ? (
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-        >
-          <StatisticsVisualization
-            statistics={platform.statistics}
-            primaryColor={config?.primaryColor || "#3B82F6"}
-            secondaryColor={config?.secondaryColor || "#8B5CF6"}
-            animate={true}
-            className="bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-slate-700/60 shadow-xl p-6"
-          />
-        </motion.div>
-      ) : null}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+          >
+            <StatisticsVisualization
+              statistics={platform.statistics}
+              primaryColor={config?.primaryColor || "#3B82F6"}
+              secondaryColor={config?.secondaryColor || "#8B5CF6"}
+              animate={true}
+              className="bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-slate-700/60 shadow-xl p-6"
+            />
+          </motion.div>
+        ) : null}
       </ErrorBoundary>
 
       {/* Responsive layout for achievements and recent activity */}
@@ -545,9 +522,8 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
         >
           <div className="flex items-center justify-between mb-4 sm:mb-6">
             <h4
-              className={`font-bold text-slate-100 ${
-                isSmallMobile ? "text-lg" : "text-xl"
-              }`}
+              className={`font-bold text-slate-100 ${isSmallMobile ? "text-lg" : "text-xl"
+                }`}
             >
               Recent Achievements
             </h4>
@@ -583,18 +559,16 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
                 `}
                     >
                       <span
-                        className={`text-white ${
-                          isSmallMobile ? "text-sm" : "text-lg"
-                        }`}
+                        className={`text-white ${isSmallMobile ? "text-sm" : "text-lg"
+                          }`}
                       >
                         🏆
                       </span>
                     </div>
                     <div className="flex-1 min-w-0">
                       <p
-                        className={`font-medium text-slate-800 truncate ${
-                          isSmallMobile ? "text-xs" : "text-sm"
-                        }`}
+                        className={`font-medium text-slate-800 truncate ${isSmallMobile ? "text-xs" : "text-sm"
+                          }`}
                       >
                         {achievement.title}
                       </p>
@@ -632,9 +606,8 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
         >
           <div className="flex items-center justify-between mb-4 sm:mb-6">
             <h4
-              className={`font-bold text-slate-100 ${
-                isSmallMobile ? "text-lg" : "text-xl"
-              }`}
+              className={`font-bold text-slate-100 ${isSmallMobile ? "text-lg" : "text-xl"
+                }`}
             >
               Recent Activity
             </h4>
@@ -879,11 +852,10 @@ const HeatmapView = ({ platform }: { platform: CodingPlatform }) => {
             <button
               key={period}
               onClick={() => setTimePeriod(period)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                timePeriod === period
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${timePeriod === period
                   ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg"
                   : "bg-slate-700/70 backdrop-blur-sm text-slate-200 hover:bg-slate-700/90 shadow-md border border-slate-600/50"
-              }`}
+                }`}
             >
               {period.charAt(0).toUpperCase() + period.slice(1)}
             </button>
@@ -891,26 +863,26 @@ const HeatmapView = ({ platform }: { platform: CodingPlatform }) => {
         </div>
 
         {platform.statistics ? (
-        <div className="flex justify-center items-center mt-4 space-x-6">
-          <div className="text-center">
-            <div className="text-2xl font-bold text-slate-100">
-              {platform.recentActivity.length}
+          <div className="flex justify-center items-center mt-4 space-x-6">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-slate-100">
+                {platform.recentActivity.length}
+              </div>
+              <div className="text-sm text-slate-300">Total Activities</div>
             </div>
-            <div className="text-sm text-slate-300">Total Activities</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-slate-100">
-              {platform.statistics.currentStreak}
+            <div className="text-center">
+              <div className="text-2xl font-bold text-slate-100">
+                {platform.statistics.currentStreak}
+              </div>
+              <div className="text-sm text-slate-300">Current Streak</div>
             </div>
-            <div className="text-sm text-slate-300">Current Streak</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-slate-100">
-              {platform.statistics.longestStreak}
+            <div className="text-center">
+              <div className="text-2xl font-bold text-slate-100">
+                {platform.statistics.longestStreak}
+              </div>
+              <div className="text-sm text-slate-300">Longest Streak</div>
             </div>
-            <div className="text-sm text-slate-300">Longest Streak</div>
           </div>
-        </div>
         ) : null}
       </motion.div>
 
@@ -1280,6 +1252,14 @@ export default function CodingPlatformsSection() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const sectionRef = useRef(null);
 
+  // Safety: automatically clear the "Switching view" overlay
+  // in case exit animations fail for any reason.
+  useEffect(() => {
+    if (!isTransitioning) return;
+    const timeout = setTimeout(() => setIsTransitioning(false), 1200);
+    return () => clearTimeout(timeout);
+  }, [isTransitioning]);
+
   // Handle platform change with accessibility announcements
   const handlePlatformChange = (platformId: string) => {
     const platform =
@@ -1320,8 +1300,8 @@ export default function CodingPlatformsSection() {
   const platforms = codingPlatforms;
   const isLoading = false;
   const errors: Record<string, Error> = {};
-  const retryPlatform = () => {};
-  const retryAll = () => {};
+  const retryPlatform = () => { };
+  const retryAll = () => { };
 
   const currentPlatform =
     platforms.find((platform) => platform.id === activePlatform) ||
@@ -1593,9 +1573,8 @@ export default function CodingPlatformsSection() {
             transition={{ duration: shouldUseReducedAnimations ? 0.3 : 0.5 }}
             role="main"
             aria-live="polite"
-            aria-label={`${
-              currentPlatform?.name || "Platform"
-            } ${activeMode} view`}
+            aria-label={`${currentPlatform?.name || "Platform"
+              } ${activeMode} view`}
           >
             <AnimatePresence
               mode="wait"

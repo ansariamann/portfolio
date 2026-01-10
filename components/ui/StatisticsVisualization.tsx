@@ -225,13 +225,12 @@ const TrendIndicator: React.FC<TrendIndicatorProps> = ({
       initial={{ opacity: 0, x: -10 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.3 }}
-      className={`flex items-center space-x-2 ${
-        isPositive
-          ? "text-green-600 dark:text-green-400"
-          : isNeutral
+      className={`flex items-center space-x-2 ${isPositive
+        ? "text-green-600 dark:text-green-400"
+        : isNeutral
           ? "text-gray-600 dark:text-gray-400"
           : "text-red-600 dark:text-red-400"
-      }`}
+        }`}
       role="status"
       aria-label={`${label}: ${formatValue(value)}, ${getTrendDescription()}`}
     >
@@ -256,9 +255,8 @@ const TrendIndicator: React.FC<TrendIndicatorProps> = ({
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-          className={`w-2 h-2 rounded-full ${
-            isPositive ? "bg-green-500" : "bg-red-500"
-          }`}
+          className={`w-2 h-2 rounded-full ${isPositive ? "bg-green-500" : "bg-red-500"
+            }`}
           aria-hidden="true"
         />
       )}
@@ -275,7 +273,7 @@ const StatisticsVisualization: React.FC<StatisticsVisualizationProps> = ({
 }) => {
   const [activeChart, setActiveChart] = useState<
     "difficulty" | "progress" | "trends" | "improvement"
-  >("difficulty");
+  >("trends");
 
   // Handle missing statistics data
   if (!statistics) {
@@ -593,9 +591,8 @@ const StatisticsVisualization: React.FC<StatisticsVisualizationProps> = ({
             if (previousValue > 0) {
               const change = currentValue - previousValue;
               const changePercent = ((change / previousValue) * 100).toFixed(1);
-              return `Change: ${
-                change > 0 ? "+" : ""
-              }${change} (${changePercent}%)`;
+              return `Change: ${change > 0 ? "+" : ""
+                }${change} (${changePercent}%)`;
             }
             return "";
           },
@@ -643,18 +640,8 @@ const StatisticsVisualization: React.FC<StatisticsVisualizationProps> = ({
         aria-label="Select statistics chart type"
       >
         {[
-          {
-            key: "difficulty",
-            label: "Difficulty Breakdown",
-            shortLabel: "Difficulty",
-          },
           { key: "progress", label: "Progress Bars", shortLabel: "Progress" },
           { key: "trends", label: "Key Metrics", shortLabel: "Metrics" },
-          {
-            key: "improvement",
-            label: "Improvement Trends",
-            shortLabel: "Trends",
-          },
         ].map(({ key, label, shortLabel }, index) => (
           <button
             key={key}
@@ -667,10 +654,8 @@ const StatisticsVisualization: React.FC<StatisticsVisualizationProps> = ({
               if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
                 e.preventDefault();
                 const charts = [
-                  "difficulty",
                   "progress",
                   "trends",
-                  "improvement",
                 ];
                 const currentIndex = charts.indexOf(activeChart);
                 const direction = e.key === "ArrowLeft" ? -1 : 1;
@@ -679,17 +664,15 @@ const StatisticsVisualization: React.FC<StatisticsVisualizationProps> = ({
                 setActiveChart(charts[nextIndex] as typeof activeChart);
               }
             }}
-            className={`px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 min-h-[44px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-              activeChart === key
-                ? "bg-blue-600 text-white shadow-lg"
-                : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-            }`}
+            className={`px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 min-h-[44px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${activeChart === key
+              ? "bg-blue-600 text-white shadow-lg"
+              : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+              }`}
             role="tab"
             aria-selected={activeChart === key}
             aria-controls={`chart-panel-${key}`}
-            aria-label={`${label} chart${
-              activeChart === key ? " (currently selected)" : ""
-            }`}
+            aria-label={`${label} chart${activeChart === key ? " (currently selected)" : ""
+              }`}
             tabIndex={activeChart === key ? 0 : -1}
           >
             <span className="hidden sm:inline">{label}</span>
@@ -996,7 +979,7 @@ const StatisticsVisualization: React.FC<StatisticsVisualizationProps> = ({
                           (statistics.difficultyBreakdown.medium /
                             (statistics.difficultyBreakdown.easy +
                               statistics.difficultyBreakdown.medium)) *
-                            100
+                          100
                         )}
                         %
                       </span>
@@ -1010,7 +993,7 @@ const StatisticsVisualization: React.FC<StatisticsVisualizationProps> = ({
                           (statistics.difficultyBreakdown.hard /
                             (statistics.difficultyBreakdown.medium +
                               statistics.difficultyBreakdown.hard)) *
-                            100
+                          100
                         )}
                         %
                       </span>
@@ -1058,7 +1041,7 @@ const StatisticsVisualization: React.FC<StatisticsVisualizationProps> = ({
                         value={Math.round(
                           (statistics.currentStreak /
                             statistics.longestStreak) *
-                            100
+                          100
                         )}
                         suffix="%"
                       />
@@ -1074,7 +1057,7 @@ const StatisticsVisualization: React.FC<StatisticsVisualizationProps> = ({
                           ((statistics.difficultyBreakdown.medium +
                             statistics.difficultyBreakdown.hard) /
                             statistics.totalSolved) *
-                            100
+                          100
                         )}
                         suffix="%"
                       />

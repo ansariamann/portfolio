@@ -48,47 +48,21 @@ export default function ContactForm() {
         throw new Error("Validation failed");
       }
 
-      // Encode form data for Netlify
+      // Log data for debugging/verification
+      debugLog("Form Data prepared for submission:", sanitizedData);
+
+      // Submit to Netlify
       const encode = (data: Record<string, string>) => {
         return Object.keys(data)
-          .map(
-            (key) =>
-              encodeURIComponent(key) + "=" + encodeURIComponent(data[key])
-          )
+          .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
           .join("&");
       };
 
-      const formData = {
-        "form-name": "contact",
-        name: sanitizedData.name,
-        email: sanitizedData.email,
-        message: sanitizedData.message,
-      };
-
-      debugLog("Submitting form data:", {
-        name: sanitizedData.name,
-        email: sanitizedData.email,
-        message: sanitizedData.message.substring(0, 50) + "...",
-      });
-
-      const response = await fetch("/__forms.html", {
+      await fetch("/", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: encode(formData),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encode({ "form-name": "contact", ...sanitizedData }),
       });
-
-      debugLog("Response status:", response.status);
-      debugLog("Response headers:", response.headers);
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        debugLog("Response error text:", errorText);
-        throw new Error(
-          `Network response was not ok: ${response.status} ${response.statusText}`
-        );
-      }
 
       setSubmissionStatus("success");
       setSubmitMessage("Thank you! Your message has been sent successfully.");
@@ -122,7 +96,7 @@ export default function ContactForm() {
   };
 
   const inputClasses = cn(
-    "w-full bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent",
+    "w-full bg-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all duration-300 hover:border-slate-600",
     // Conditional transition based on motion preference
     prefersReducedMotion
       ? "motion-reduce-essential"
@@ -147,6 +121,7 @@ export default function ContactForm() {
       >
         <input type="text" name="name" />
         <input type="email" name="email" />
+        <input type="text" name="subject" />
         <textarea name="message"></textarea>
       </form>
 
@@ -268,6 +243,50 @@ export default function ContactForm() {
           )}
         </motion.div>
 
+        {/* Subject Field */}
+        <motion.div
+          className="space-y-2"
+          initial={
+            prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
+          }
+          animate={{ opacity: 1, x: 0 }}
+          transition={
+            prefersReducedMotion
+              ? { duration: 0 }
+              : { delay: 0.25, ...transition.default }
+          }
+        >
+          <label
+            htmlFor="subject"
+            className="block text-sm font-medium text-gray-300"
+          >
+            Subject *
+          </label>
+          <input
+            {...register("subject")}
+            type="text"
+            id="subject"
+            className={inputClasses}
+            placeholder="Brief summary of your message"
+          />
+          {errors.subject && (
+            <motion.p
+              className={errorClasses}
+              initial={
+                prefersReducedMotion
+                  ? { opacity: 1, y: 0 }
+                  : { opacity: 0, y: -10 }
+              }
+              animate={{ opacity: 1, y: 0 }}
+              transition={
+                prefersReducedMotion ? { duration: 0 } : transition.fast
+              }
+            >
+              {errors.subject.message}
+            </motion.p>
+          )}
+        </motion.div>
+
         {/* Message Field */}
         <motion.div
           className="space-y-2"
@@ -316,7 +335,7 @@ export default function ContactForm() {
             variant="primary"
             size="lg"
             disabled={!isValid || !isDirty || submissionStatus === "submitting"}
-            className="w-full"
+            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-0 shadow-lg shadow-blue-900/20"
           >
             {submissionStatus === "submitting" ? (
               <div className="flex items-center justify-center">
@@ -335,11 +354,10 @@ export default function ContactForm() {
         {/* Status Messages */}
         {submitMessage && (
           <div
-            className={`flex items-center p-4 rounded-lg ${
-              submissionStatus === "success"
-                ? "bg-green-900/50 border border-green-500 text-green-300"
-                : "bg-red-900/50 border border-red-500 text-red-300"
-            }`}
+            className={`flex items-center p-4 rounded-lg ${submissionStatus === "success"
+              ? "bg-green-900/50 border border-green-500 text-green-300"
+              : "bg-red-900/50 border border-red-500 text-red-300"
+              }`}
           >
             {submissionStatus === "success" ? (
               <CheckCircle size={20} className="mr-3 flex-shrink-0" />

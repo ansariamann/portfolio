@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Github, Linkedin, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
 import ContactForm from "@/components/ui/ContactForm";
 import { siteConfig } from "@/data/site-config";
 import AnimatedSectionHeading, {
@@ -33,44 +33,29 @@ export default function ContactSection() {
     },
   ].filter((item) => item.value); // Filter out empty values
 
-  const socialLinks = (siteConfig.contact?.socialLinks || []).map((link) => {
-    const iconMap: Record<
-      string,
-      React.ComponentType<React.ComponentProps<"svg">>
-    > = {
-      github: Github,
-      linkedin: Linkedin,
-      twitter: Twitter,
-      mail: Mail,
-    };
 
-    return {
-      ...link,
-      icon: iconMap[link.icon as string] || Mail,
-    };
-  });
 
   return (
     <section
       id="contact"
-      className="min-h-screen py-20 bg-gradient-to-br from-slate-900 via-gray-900 via-slate-800 to-gray-900 relative"
+      className="min-h-screen py-20 bg-gradient-to-br from-gray-900 via-slate-900 via-gray-800 to-slate-900 relative"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="absolute top-40 right-20 w-96 h-96 bg-gradient-to-br from-blue-600/10 to-purple-600/10 rounded-full blur-3xl"
+          className="absolute top-20 sm:top-40 left-10 sm:left-20 w-48 sm:w-96 h-48 sm:h-96 bg-gradient-to-br from-green-200/20 to-blue-200/20 rounded-full blur-3xl"
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.3, 0.6, 0.3],
           }}
           transition={{
-            duration: 8,
+            duration: 12,
             repeat: Infinity,
             ease: "easeInOut",
           }}
         />
         <motion.div
-          className="absolute bottom-40 left-20 w-80 h-80 bg-gradient-to-tr from-purple-600/10 to-pink-600/10 rounded-full blur-3xl"
+          className="absolute bottom-20 sm:bottom-40 right-10 sm:right-20 w-32 sm:w-80 h-32 sm:h-80 bg-gradient-to-tr from-orange-200/20 to-purple-200/20 rounded-full blur-3xl"
           animate={{
             scale: [1.2, 1, 1.2],
             opacity: [0.4, 0.2, 0.4],
@@ -106,7 +91,7 @@ export default function ContactSection() {
 
           <AnimatedSectionHeading
             text="Let's Work Together"
-            className="text-5xl md:text-7xl font-bold mb-8 tracking-tight bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent"
+            className="text-5xl md:text-7xl font-bold mb-8 tracking-tight bg-gradient-to-r from-white via-green-100 to-orange-200 bg-clip-text text-transparent"
             preset="default"
           />
 
@@ -170,35 +155,7 @@ export default function ContactSection() {
               ))}
             </div>
 
-            {/* Social Links */}
-            <div className="pt-8 border-t border-white/10">
-              <h4 className="text-xl font-semibold text-white mb-6">
-                Follow Me
-              </h4>
-              <div className="flex space-x-4">
-                {socialLinks.map((social, index) => (
-                  <motion.a
-                    key={social.name}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 hover:border-blue-400/50 transition-all duration-300 group"
-                    whileHover={{ y: -2, scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.6 + index * 0.1 }}
-                  >
-                    <social.icon
-                      width={20}
-                      height={20}
-                      className="text-gray-400 group-hover:text-blue-400 transition-colors duration-300"
-                    />
-                  </motion.a>
-                ))}
-              </div>
-            </div>
+
           </motion.div>
 
           {/* Contact Form */}
@@ -213,27 +170,7 @@ export default function ContactSection() {
           </motion.div>
         </div>
 
-        {/* Bottom CTA */}
-        <motion.div
-          className="text-center mt-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <p className="text-gray-200 text-lg mb-6">
-            Prefer a more direct approach?
-          </p>
-          <motion.a
-            href={`mailto:${siteConfig.contact?.email || ""}`}
-            className="inline-flex items-center space-x-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-2xl transition-all duration-300 shadow-xl"
-            whileHover={{ y: -2, scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <Mail size={20} />
-            <span>Send Direct Email</span>
-          </motion.a>
-        </motion.div>
+
       </div>
     </section>
   );
