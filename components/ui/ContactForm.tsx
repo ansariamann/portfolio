@@ -96,19 +96,21 @@ export default function ContactForm() {
   };
 
   const inputClasses = cn(
-    "w-full bg-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all duration-300 hover:border-slate-600",
+    "w-full bg-slate-800 border-2 border-slate-300 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-transparent transition-all duration-300 hover:border-slate-400 relative group",
     // Conditional transition based on motion preference
     prefersReducedMotion
       ? "motion-reduce-essential"
       : "transition-all duration-300",
     // Mobile-first responsive sizing
-    "px-4 py-3 text-base sm:px-3 sm:py-2 sm:text-sm",
+    "px-5 py-3.5 text-base sm:px-4 sm:py-3 sm:text-sm",
     // Mobile-specific enhancements
     "mobile-tap-highlight",
     touchDevice && "min-h-[44px]",
-    isMobile && "rounded-lg text-base" // Prevent zoom on iOS
+    isMobile && "rounded-xl text-base", // Prevent zoom on iOS
+    // Gradient focus effect
+    "focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
   );
-  const errorClasses = cn("text-red-400 mt-1", "text-sm sm:text-xs");
+  const errorClasses = cn("text-red-600 mt-1.5 font-medium", "text-sm sm:text-xs");
 
   return (
     <>
@@ -151,13 +153,13 @@ export default function ContactForm() {
           </label>
         </div>
 
-        <h3 className="text-2xl font-bold text-white mb-8 text-center">
+        <h3 className="text-3xl font-bold bg-gradient-to-r from-slate-900 via-purple-700 to-amber-700 bg-clip-text text-transparent mb-10 text-center">
           Send me a message
         </h3>
 
         {/* Name Field */}
         <motion.div
-          className="space-y-2"
+          className="space-y-2.5"
           initial={
             prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
           }
@@ -170,7 +172,7 @@ export default function ContactForm() {
         >
           <label
             htmlFor="name"
-            className="block text-sm font-medium text-gray-300"
+            className="block text-sm font-semibold text-slate-700"
           >
             Name *
           </label>
@@ -201,7 +203,7 @@ export default function ContactForm() {
 
         {/* Email Field */}
         <motion.div
-          className="space-y-2"
+          className="space-y-2.5"
           initial={
             prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
           }
@@ -214,7 +216,7 @@ export default function ContactForm() {
         >
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-gray-300"
+            className="block text-sm font-semibold text-slate-700"
           >
             Email *
           </label>
@@ -245,7 +247,7 @@ export default function ContactForm() {
 
         {/* Subject Field */}
         <motion.div
-          className="space-y-2"
+          className="space-y-2.5"
           initial={
             prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
           }
@@ -258,7 +260,7 @@ export default function ContactForm() {
         >
           <label
             htmlFor="subject"
-            className="block text-sm font-medium text-gray-300"
+            className="block text-sm font-semibold text-slate-700"
           >
             Subject *
           </label>
@@ -289,7 +291,7 @@ export default function ContactForm() {
 
         {/* Message Field */}
         <motion.div
-          className="space-y-2"
+          className="space-y-2.5"
           initial={
             prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
           }
@@ -302,7 +304,7 @@ export default function ContactForm() {
         >
           <label
             htmlFor="message"
-            className="block text-sm font-medium text-gray-300"
+            className="block text-sm font-semibold text-slate-700"
           >
             Message *
           </label>
@@ -329,26 +331,31 @@ export default function ContactForm() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
+          className="pt-2"
         >
-          <Button
+          <button
             type="submit"
-            variant="primary"
-            size="lg"
             disabled={!isValid || !isDirty || submissionStatus === "submitting"}
-            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-0 shadow-lg shadow-blue-900/20"
+            className="group relative w-full px-8 py-4 bg-gradient-to-r from-purple-600 via-pink-600 to-amber-600 text-white font-bold text-lg rounded-xl shadow-xl hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
           >
-            {submissionStatus === "submitting" ? (
-              <div className="flex items-center justify-center">
-                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
-                <span className="ml-2">Sending...</span>
-              </div>
-            ) : (
-              <>
-                <Send size={18} className="mr-2" />
-                Send Message
-              </>
-            )}
-          </Button>
+            {/* Animated gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-700 via-pink-700 to-amber-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+            {/* Button content */}
+            <div className="relative flex items-center justify-center">
+              {submissionStatus === "submitting" ? (
+                <>
+                  <div className="w-5 h-5 border-3 border-white border-t-transparent rounded-full animate-spin" />
+                  <span className="ml-3">Sending...</span>
+                </>
+              ) : (
+                <>
+                  <Send size={20} className="mr-2 group-hover:translate-x-1 transition-transform duration-300" />
+                  Send Message
+                </>
+              )}
+            </div>
+          </button>
         </motion.div>
 
         {/* Status Messages */}
