@@ -15,7 +15,6 @@ import {
 import { useMobileOptimizedAnimation } from "@/lib/hooks";
 import { useReducedMotion } from "@/lib/hooks/useScrollAnimations";
 import { cn, debugLog } from "@/lib/utils";
-import { Button } from "./Button";
 
 type SubmissionStatus = "idle" | "submitting" | "success" | "error";
 
@@ -95,22 +94,17 @@ export default function ContactForm() {
     fast: { duration: 0.3 },
   };
 
+  // Apple-style input classes: clean, light bg, subtle border
   const inputClasses = cn(
-    "w-full bg-slate-800 border-2 border-slate-300 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-transparent transition-all duration-300 hover:border-slate-400 relative group",
-    // Conditional transition based on motion preference
-    prefersReducedMotion
-      ? "motion-reduce-essential"
-      : "transition-all duration-300",
-    // Mobile-first responsive sizing
-    "px-5 py-3.5 text-base sm:px-4 sm:py-3 sm:text-sm",
-    // Mobile-specific enhancements
-    "mobile-tap-highlight",
+    "w-full bg-secondary/50 border border-transparent rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:bg-background transition-all duration-300",
+    prefersReducedMotion ? "motion-reduce-essential" : "transition-all duration-300",
+    "px-5 py-4 text-base",
     touchDevice && "min-h-[44px]",
-    isMobile && "rounded-xl text-base", // Prevent zoom on iOS
-    // Gradient focus effect
-    "focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+    isMobile && "rounded-xl text-base"
   );
-  const errorClasses = cn("text-red-600 mt-1.5 font-medium", "text-sm sm:text-xs");
+
+  const labelClasses = "block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 ml-1";
+  const errorClasses = cn("text-destructive mt-2 font-medium", "text-sm sm:text-xs ml-1");
 
   return (
     <>
@@ -135,7 +129,7 @@ export default function ContactForm() {
         data-netlify-honeypot="bot-field"
         onSubmit={handleSubmit(onSubmit)}
         className={cn(
-          "w-full max-w-2xl mx-auto space-y-6",
+          "w-full space-y-6",
           prefersReducedMotion && "motion-reduce-scroll"
         )}
         initial={
@@ -153,13 +147,18 @@ export default function ContactForm() {
           </label>
         </div>
 
-        <h3 className="text-3xl font-bold bg-gradient-to-r from-slate-900 via-purple-700 to-amber-700 bg-clip-text text-transparent mb-10 text-center">
-          Send me a message
-        </h3>
+        <div className="mb-8">
+          <h3 className="text-2xl font-bold text-foreground mb-2">
+            Send a Message
+          </h3>
+          <p className="text-muted-foreground">
+            I usually respond within 24 hours.
+          </p>
+        </div>
 
         {/* Name Field */}
         <motion.div
-          className="space-y-2.5"
+          className="space-y-1"
           initial={
             prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
           }
@@ -170,31 +169,20 @@ export default function ContactForm() {
               : { delay: 0.1, ...transition.default }
           }
         >
-          <label
-            htmlFor="name"
-            className="block text-sm font-semibold text-slate-700"
-          >
-            Name *
+          <label htmlFor="name" className={labelClasses}>
+            Name
           </label>
           <input
             {...register("name")}
             type="text"
             id="name"
             className={inputClasses}
-            placeholder="Your full name"
           />
           {errors.name && (
             <motion.p
               className={errorClasses}
-              initial={
-                prefersReducedMotion
-                  ? { opacity: 1, y: 0 }
-                  : { opacity: 0, y: -10 }
-              }
+              initial={{ opacity: 0, y: -5 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={
-                prefersReducedMotion ? { duration: 0 } : transition.fast
-              }
             >
               {errors.name.message}
             </motion.p>
@@ -203,7 +191,7 @@ export default function ContactForm() {
 
         {/* Email Field */}
         <motion.div
-          className="space-y-2.5"
+          className="space-y-1"
           initial={
             prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
           }
@@ -214,31 +202,20 @@ export default function ContactForm() {
               : { delay: 0.2, ...transition.default }
           }
         >
-          <label
-            htmlFor="email"
-            className="block text-sm font-semibold text-slate-700"
-          >
-            Email *
+          <label htmlFor="email" className={labelClasses}>
+            Email
           </label>
           <input
             {...register("email")}
             type="email"
             id="email"
             className={inputClasses}
-            placeholder="your.email@example.com"
           />
           {errors.email && (
             <motion.p
               className={errorClasses}
-              initial={
-                prefersReducedMotion
-                  ? { opacity: 1, y: 0 }
-                  : { opacity: 0, y: -10 }
-              }
+              initial={{ opacity: 0, y: -5 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={
-                prefersReducedMotion ? { duration: 0 } : transition.fast
-              }
             >
               {errors.email.message}
             </motion.p>
@@ -247,7 +224,7 @@ export default function ContactForm() {
 
         {/* Subject Field */}
         <motion.div
-          className="space-y-2.5"
+          className="space-y-1"
           initial={
             prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
           }
@@ -258,31 +235,20 @@ export default function ContactForm() {
               : { delay: 0.25, ...transition.default }
           }
         >
-          <label
-            htmlFor="subject"
-            className="block text-sm font-semibold text-slate-700"
-          >
-            Subject *
+          <label htmlFor="subject" className={labelClasses}>
+            Subject
           </label>
           <input
             {...register("subject")}
             type="text"
             id="subject"
             className={inputClasses}
-            placeholder="Brief summary of your message"
           />
           {errors.subject && (
             <motion.p
               className={errorClasses}
-              initial={
-                prefersReducedMotion
-                  ? { opacity: 1, y: 0 }
-                  : { opacity: 0, y: -10 }
-              }
+              initial={{ opacity: 0, y: -5 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={
-                prefersReducedMotion ? { duration: 0 } : transition.fast
-              }
             >
               {errors.subject.message}
             </motion.p>
@@ -291,7 +257,7 @@ export default function ContactForm() {
 
         {/* Message Field */}
         <motion.div
-          className="space-y-2.5"
+          className="space-y-1"
           initial={
             prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
           }
@@ -302,23 +268,19 @@ export default function ContactForm() {
               : { delay: 0.3, ...transition.default }
           }
         >
-          <label
-            htmlFor="message"
-            className="block text-sm font-semibold text-slate-700"
-          >
-            Message *
+          <label htmlFor="message" className={labelClasses}>
+            Message
           </label>
           <textarea
             {...register("message")}
             id="message"
-            rows={6}
+            rows={5}
             className={inputClasses}
-            placeholder="Tell me about your project, question, or just say hello!"
           />
           {errors.message && (
             <motion.p
               className={errorClasses}
-              initial={{ opacity: 0, y: -10 }}
+              initial={{ opacity: 0, y: -5 }}
               animate={{ opacity: 1, y: 0 }}
             >
               {errors.message.message}
@@ -331,26 +293,22 @@ export default function ContactForm() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="pt-2"
+          className="pt-4"
         >
           <button
             type="submit"
             disabled={!isValid || !isDirty || submissionStatus === "submitting"}
-            className="group relative w-full px-8 py-4 bg-gradient-to-r from-purple-600 via-pink-600 to-amber-600 text-white font-bold text-lg rounded-xl shadow-xl hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
+            className="group relative w-full px-8 py-4 bg-primary text-primary-foreground font-semibold text-base rounded-full shadow-lg hover:shadow-xl hover:bg-primary/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden active:scale-[0.98]"
           >
-            {/* Animated gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-purple-700 via-pink-700 to-amber-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-            {/* Button content */}
             <div className="relative flex items-center justify-center">
               {submissionStatus === "submitting" ? (
                 <>
-                  <div className="w-5 h-5 border-3 border-white border-t-transparent rounded-full animate-spin" />
+                  <div className="w-5 h-5 border-2 border-white/50 border-t-white rounded-full animate-spin" />
                   <span className="ml-3">Sending...</span>
                 </>
               ) : (
                 <>
-                  <Send size={20} className="mr-2 group-hover:translate-x-1 transition-transform duration-300" />
+                  <Send size={18} className="mr-2 group-hover:translate-x-1 transition-transform duration-300" />
                   Send Message
                 </>
               )}
@@ -361,9 +319,9 @@ export default function ContactForm() {
         {/* Status Messages */}
         {submitMessage && (
           <div
-            className={`flex items-center p-4 rounded-lg ${submissionStatus === "success"
-              ? "bg-green-900/50 border border-green-500 text-green-300"
-              : "bg-red-900/50 border border-red-500 text-red-300"
+            className={`flex items-center p-4 rounded-xl mt-4 ${submissionStatus === "success"
+              ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300"
+              : "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300"
               }`}
           >
             {submissionStatus === "success" ? (
@@ -371,10 +329,11 @@ export default function ContactForm() {
             ) : (
               <AlertCircle size={20} className="mr-3 flex-shrink-0" />
             )}
-            <p>{submitMessage}</p>
+            <p className="text-sm font-medium">{submitMessage}</p>
           </div>
         )}
       </motion.form>
     </>
   );
 }
+

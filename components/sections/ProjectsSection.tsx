@@ -76,7 +76,35 @@ export default function ProjectsSection() {
   };
 
   return (
-    <section id="projects" className="min-h-screen py-20 relative bg-gray-50">
+    <section id="projects" className="min-h-screen py-20 relative bg-background overflow-hidden">
+      {/* Modern background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          className="absolute top-20 sm:top-40 left-10 sm:left-20 w-48 sm:w-96 h-48 sm:h-96 bg-primary/5 rounded-full blur-3xl"
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.3, 0.6, 0.3],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-20 sm:bottom-40 right-10 sm:right-20 w-32 sm:w-80 h-32 sm:h-80 bg-secondary/10 rounded-full blur-3xl"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            opacity: [0.4, 0.2, 0.4],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </div>
+
       <div className="container mx-auto px-6 relative z-10">
 
         {/* Header */}
@@ -94,14 +122,14 @@ export default function ProjectsSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="inline-block mb-6"
           >
-            <span className="px-4 py-2 bg-primary/10 backdrop-blur-sm rounded-full text-sm font-medium text-primary border border-primary/20">
+            <span className="px-4 py-2 bg-secondary/50 backdrop-blur-sm rounded-full text-sm font-medium text-primary border border-border/50">
               My work
             </span>
           </motion.div>
 
           <AnimatedSectionHeading
             text="Featured Projects"
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight bg-gradient-to-r from-slate-900 via-blue-800 to-purple-900 bg-clip-text text-transparent"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight text-foreground"
             preset="default"
           />
 
@@ -137,7 +165,7 @@ export default function ProjectsSection() {
                   "relative px-5 py-2.5 rounded-full font-medium transition-all duration-300 flex items-center gap-2 border",
                   isActive
                     ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/25"
-                    : "bg-background/50 backdrop-blur-sm text-muted-foreground border-border hover:bg-muted"
+                    : "bg-secondary/50 backdrop-blur-sm text-muted-foreground border-border/50 hover:bg-secondary"
                 )}
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}

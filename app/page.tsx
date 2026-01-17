@@ -11,9 +11,9 @@ const SkillsSection = dynamic(
     loading: () => (
       <section
         id="skills"
-        className="min-h-screen py-20 bg-gradient-to-br from-slate-50 via-white to-slate-100 flex items-center justify-center"
+        className="min-h-screen py-20 bg-secondary/30 flex items-center justify-center"
       >
-        <p className="text-gray-500 text-sm">Loading skills...</p>
+        <p className="text-muted-foreground text-sm">Loading skills...</p>
       </section>
     ),
   }
@@ -26,9 +26,9 @@ const CertificationsSection = dynamic(
     loading: () => (
       <section
         id="certifications"
-        className="min-h-screen py-20 bg-slate-900 flex items-center justify-center"
+        className="min-h-screen py-20 bg-secondary/30 flex items-center justify-center"
       >
-        <p className="text-gray-300 text-sm">Loading certifications...</p>
+        <p className="text-muted-foreground text-sm">Loading certifications...</p>
       </section>
     ),
   }
@@ -41,9 +41,9 @@ const CodingPlatformsSection = dynamic(
     loading: () => (
       <section
         id="coding-platforms"
-        className="min-h-screen py-20 bg-gradient-to-br from-gray-900 via-slate-900 to-gray-800 flex items-center justify-center"
+        className="min-h-screen py-20 bg-background flex items-center justify-center"
       >
-        <p className="text-gray-300 text-sm">Loading coding platforms...</p>
+        <p className="text-muted-foreground text-sm">Loading coding platforms...</p>
       </section>
     ),
   }
@@ -56,9 +56,9 @@ const ProjectsSection = dynamic(
     loading: () => (
       <section
         id="projects"
-        className="min-h-screen py-20 bg-slate-950 flex items-center justify-center"
+        className="min-h-screen py-20 bg-secondary/30 flex items-center justify-center"
       >
-        <p className="text-gray-300 text-sm">Loading projects...</p>
+        <p className="text-muted-foreground text-sm">Loading projects...</p>
       </section>
     ),
   }

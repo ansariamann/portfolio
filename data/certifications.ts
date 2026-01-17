@@ -9,7 +9,7 @@ export const certifications: Certification[] = [
     expiryDate: "2027-10-31",
     credentialId: "1OZ415192OCI25DSOCP",
     verificationUrl: "https://catalog-education.oracle.com/pls/certview/sharebadge?id=1OZ415192OCI25DSOCP",
-    badgeImage: "/images/certifications/placeholder.svg",
+    badgeImage: "/images/placeholder.svg",
     category: "cloud",
     skills: ["oracle-cloud", "data-science", "machine-learning", "ai"],
     description:

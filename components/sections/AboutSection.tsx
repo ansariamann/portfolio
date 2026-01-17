@@ -73,20 +73,20 @@ function AchievementCounter({
     >
       {/* Glassmorphism card */}
       <motion.div
-        className="relative p-8 bg-white/70 backdrop-blur-sm rounded-3xl border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden"
+        className="glass-card relative p-8 rounded-3xl transition-all duration-500 overflow-hidden"
         whileHover={{ y: -5, scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
       >
         {/* Gradient background on hover */}
         <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-blue-400/10 to-purple-400/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          className="absolute inset-0 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           initial={false}
         />
 
         {/* Content */}
         <div className="relative z-10 text-center">
           <motion.div
-            className="text-5xl mb-4"
+            className="text-5xl mb-4 text-primary"
             whileHover={{ scale: 1.1, rotate: 5 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
@@ -94,24 +94,24 @@ function AchievementCounter({
           </motion.div>
 
           <motion.div
-            className="text-4xl font-bold mb-3 bg-gradient-to-r from-slate-800 to-blue-600 bg-clip-text text-transparent"
+            className="text-4xl font-bold mb-3 text-foreground"
             whileHover={{ scale: 1.05 }}
           >
             {count}
           </motion.div>
 
-          <h3 className="text-xl font-semibold text-slate-800 mb-2">
+          <h3 className="text-xl font-semibold text-foreground mb-2">
             {achievement.title}
           </h3>
 
-          <p className="text-slate-700 leading-relaxed">
+          <p className="text-muted-foreground leading-relaxed">
             {achievement.description}
           </p>
         </div>
 
         {/* Decorative elements */}
-        <div className="absolute top-4 right-4 w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full opacity-60" />
-        <div className="absolute bottom-4 left-4 w-1 h-1 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-40" />
+        <div className="absolute top-4 right-4 w-2 h-2 bg-primary/40 rounded-full opacity-60" />
+        <div className="absolute bottom-4 left-4 w-1 h-1 bg-secondary/40 rounded-full opacity-40" />
       </motion.div>
     </motion.div>
   );
@@ -164,10 +164,10 @@ function TimelineItemComponent({
     <motion.div
       ref={ref}
       className={`relative mb-12 ${isMobile
-          ? "ml-8"
-          : isEven
-            ? "md:ml-0 md:mr-8 md:text-right"
-            : "md:ml-8 md:mr-0"
+        ? "ml-8"
+        : isEven
+          ? "md:ml-0 md:mr-8 md:text-right"
+          : "md:ml-8 md:mr-0"
         }`}
       initial={{ opacity: 0, x: isEven ? -50 : 50 }}
       animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -183,7 +183,7 @@ function TimelineItemComponent({
         transition={{ type: "spring", stiffness: 300 }}
       >
         {/* Glassmorphism card */}
-        <div className="relative p-6 bg-white/80 backdrop-blur-sm rounded-3xl border border-white/60 shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden">
+        <div className="glass-card relative p-6 rounded-3xl transition-all duration-500 overflow-hidden">
           {/* Gradient background on hover */}
           <motion.div
             className={`absolute inset-0 bg-gradient-to-br ${getTypeGradient(
@@ -211,20 +211,20 @@ function TimelineItemComponent({
               </motion.div>
 
               <div className="flex-1 min-w-0">
-                <h3 className="text-xl font-bold text-slate-800 leading-tight mb-1">
+                <h3 className="text-xl font-bold text-foreground leading-tight mb-1">
                   {item.title}
                 </h3>
                 {item.company && (
-                  <p className="text-sm font-medium text-slate-600">
+                  <p className="text-sm font-medium text-muted-foreground">
                     {item.company}
                   </p>
                 )}
-                <p className="text-sm text-slate-500 mt-1">{item.period}</p>
+                <p className="text-sm text-muted-foreground/80 mt-1">{item.period}</p>
               </div>
             </div>
 
             {/* Description */}
-            <p className="text-slate-700 leading-relaxed mb-4">
+            <p className="text-muted-foreground leading-relaxed mb-4">
               {item.description}
             </p>
 
@@ -234,7 +234,7 @@ function TimelineItemComponent({
                 {item.technologies.map((tech, techIndex) => (
                   <motion.span
                     key={techIndex}
-                    className="px-3 py-1 bg-slate-100/80 backdrop-blur-sm text-slate-700 text-sm rounded-full border border-slate-200/50"
+                    className="px-3 py-1 bg-secondary/50 backdrop-blur-sm text-secondary-foreground text-sm rounded-full border border-border/50"
                     whileHover={{ scale: 1.05, y: -1 }}
                     transition={{ type: "spring", stiffness: 400 }}
                   >
@@ -291,7 +291,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="min-h-screen py-20 bg-gradient-to-br from-slate-50 via-white via-gray-50 to-slate-100 relative overflow-hidden"
+      className="min-h-screen py-20 bg-secondary/30 relative overflow-hidden"
     >
       {/* Modern background elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -338,14 +338,14 @@ export default function AboutSection() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="inline-block mb-6"
             >
-              <span className="px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-sm font-medium text-slate-800 border border-white/60">
+              <span className="px-4 py-2 bg-secondary/50 backdrop-blur-sm rounded-full text-sm font-medium text-primary border border-border/50">
                 Get to know me
               </span>
             </motion.div>
 
             <AnimatedSectionHeading
               text="About Me"
-              className="text-5xl md:text-7xl font-bold mb-8 tracking-tight bg-gradient-to-r from-slate-800 via-blue-600 to-purple-600 bg-clip-text text-transparent"
+              className="text-5xl md:text-7xl font-bold mb-8 tracking-tight text-foreground"
               preset="default"
             />
           </div>
@@ -470,17 +470,17 @@ export default function AboutSection() {
               {/* Main description */}
               <div className="space-y-6">
                 <motion.p
-                  className="text-xl text-slate-800 leading-relaxed"
+                  className="text-xl text-foreground leading-relaxed"
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.8, delay: 0.8 }}
                 >
                   Hi! I&apos;m{" "}
-                  <span className="font-semibold text-blue-700">
+                  <span className="font-semibold text-primary">
                     Aman Ansari
                   </span>
                   , a passionate junior software developer who loves crafting
-                  <span className="text-purple-700 font-medium">
+                  <span className="text-primary font-medium">
                     {" "}
                     digital experiences
                   </span>
@@ -488,7 +488,7 @@ export default function AboutSection() {
                 </motion.p>
 
                 <motion.p
-                  className="text-lg text-slate-700 leading-relaxed"
+                  className="text-lg text-muted-foreground leading-relaxed"
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.8, delay: 0.9 }}
@@ -523,38 +523,39 @@ export default function AboutSection() {
                 ].map((item, index) => (
                   <motion.div
                     key={item.label}
-                    className="p-4 bg-white/70 backdrop-blur-sm rounded-2xl border border-white/50 hover:shadow-lg transition-all duration-300"
+                    className="glass-card p-4 rounded-2xl transition-all duration-300 relative group overflow-hidden"
                     whileHover={{ y: -2, scale: 1.02 }}
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6, delay: 1.1 + index * 0.1 }}
                   >
-                    <div className="text-2xl mb-2">{item.icon}</div>
-                    <h4 className="font-semibold text-slate-800 text-sm">
+                    <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="text-2xl mb-2 relative z-10">{item.icon}</div>
+                    <h4 className="font-semibold text-foreground text-sm relative z-10">
                       {item.label}
                     </h4>
-                    <p className="text-xs text-slate-600">{item.desc}</p>
+                    <p className="text-xs text-muted-foreground relative z-10">{item.desc}</p>
                   </motion.div>
                 ))}
               </motion.div>
 
               {/* Personal touch */}
               <motion.div
-                className="p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl border border-blue-100"
+                className="p-6 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl border border-primary/10"
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: 1.2 }}
               >
-                <p className="text-slate-700 italic leading-relaxed">
+                <p className="text-muted-foreground italic leading-relaxed">
                   &quot;I believe that great software is not just about clean
                   code, but about creating meaningful experiences that connect
                   with people and solve real-world problems.&quot;
                 </p>
                 <div className="flex items-center mt-4">
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mr-3">
-                    <span className="text-white text-sm font-bold">A</span>
+                  <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mr-3">
+                    <span className="text-primary-foreground text-sm font-bold">A</span>
                   </div>
-                  <span className="text-slate-600 font-medium">-Aman</span>
+                  <span className="text-muted-foreground font-medium">-Aman</span>
                 </div>
               </motion.div>
             </motion.div>
@@ -566,7 +567,7 @@ export default function AboutSection() {
           delay={shouldReduceAnimations ? 100 : 200}
           className="mb-16 sm:mb-20"
         >
-          <h3 className="text-responsive-lg font-bold text-center text-gray-800 mb-8 sm:mb-12">
+          <h3 className="text-responsive-lg font-bold text-center text-foreground mb-8 sm:mb-12">
             Achievements & Stats
           </h3>
           <StaggeredList
@@ -598,7 +599,7 @@ export default function AboutSection() {
               delay: shouldReduceAnimations ? 0 : 0.3,
             }}
           >
-            <span className="bg-gradient-to-r from-slate-800 via-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="text-foreground">
               My Journey
             </span>
           </motion.h2>

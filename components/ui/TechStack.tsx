@@ -74,10 +74,10 @@ export function TechStack({
   const animationProps = shouldReduceAnimations
     ? {}
     : {
-        initial: { opacity: 0, y: 20 },
-        animate: { opacity: 1, y: 0 },
-        transition: { duration: 0.6, delay: 0.4 },
-      };
+      initial: { opacity: 0, y: 20 },
+      animate: { opacity: 1, y: 0 },
+      transition: { duration: 0.6, delay: 0.4 },
+    };
 
   return (
     <motion.div {...animationProps} className={`${className}`}>
@@ -95,25 +95,25 @@ export function TechStack({
           const itemAnimationProps = shouldReduceAnimations
             ? {}
             : {
-                initial: { opacity: 0, scale: 0.8 },
-                animate: { opacity: 1, scale: 1 },
-                transition: {
-                  duration: 0.4,
-                  delay: 0.5 + index * 0.1,
-                  ease: "easeOut" as const,
-                },
-              };
+              initial: { opacity: 0, scale: 0.8 },
+              animate: { opacity: 1, scale: 1 },
+              transition: {
+                duration: 0.4,
+                delay: 0.5 + index * 0.1,
+                ease: "easeOut" as const,
+              },
+            };
 
           const hoverProps =
             shouldReduceAnimations || touchDevice
               ? {}
               : {
-                  whileHover: {
-                    scale: 1.1,
-                    y: -2,
-                    transition: { duration: 0.2 },
-                  },
-                };
+                whileHover: {
+                  scale: 1.1,
+                  y: -2,
+                  transition: { duration: 0.2 },
+                },
+              };
 
           return (
             <motion.div
@@ -121,15 +121,15 @@ export function TechStack({
               {...itemAnimationProps}
               {...hoverProps}
               className={cn(
-                "group flex items-center bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 hover:border-white/20 transition-all duration-300",
+                "group flex items-center bg-white dark:bg-gray-900 rounded-lg border border-border/50 hover:border-primary/20 hover:shadow-sm transition-all duration-300",
                 // Enhanced focus styles for accessibility
-                "focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:ring-offset-1 focus:ring-offset-slate-900",
+                "focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-1 focus:ring-offset-background",
                 // Mobile-optimized spacing and sizing
                 isMobile
                   ? [
-                      "gap-1.5 px-2 py-1.5",
-                      touchDevice && "active:scale-95 active:bg-white/10",
-                    ]
+                    "gap-1.5 px-2 py-1.5",
+                    touchDevice && "active:scale-95 active:bg-secondary",
+                  ]
                   : ["gap-2 px-3 py-2"],
                 isSmallMobile && "gap-1 px-2 py-1"
               )}
@@ -140,14 +140,15 @@ export function TechStack({
               <IconComponent
                 className={cn(
                   "transition-colors duration-300",
-                  isMobile ? "w-4 h-4" : "w-5 h-5"
+                  isMobile ? "w-4 h-4" : "w-5 h-5",
+                  "text-muted-foreground group-hover:text-primary"
                 )}
-                style={{ color: tech.color }}
+                style={{ color: tech.color }} // Keep original color if preferred, or remove style to rely on class
                 aria-hidden="true"
               />
               <span
                 className={cn(
-                  "font-medium text-gray-300 group-hover:text-white transition-colors duration-300",
+                  "font-medium text-muted-foreground group-hover:text-foreground transition-colors duration-300",
                   isMobile ? "text-xs" : "text-sm",
                   isSmallMobile && "text-xs"
                 )}

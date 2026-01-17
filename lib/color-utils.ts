@@ -219,7 +219,7 @@ export function adjustColorForContrast(
   const step = shouldLighten ? -5 : 5; // Adjust lightness in 5% steps
 
   let iterations = 0;
-  let adjustedHsl = { ...fgHsl };
+  const adjustedHsl = { ...fgHsl };
 
   while (currentRatio < minRatio && iterations < maxIterations) {
     adjustedHsl.l += step;

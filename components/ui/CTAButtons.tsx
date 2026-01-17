@@ -35,10 +35,10 @@ export function CTAButtons({
   const animationProps = shouldReduceAnimations
     ? {}
     : {
-        initial: { opacity: 0, y: 20 },
-        animate: { opacity: 1, y: 0 },
-        transition: { duration: 0.6, delay: 0.8 },
-      };
+      initial: { opacity: 0, y: 20 },
+      animate: { opacity: 1, y: 0 },
+      transition: { duration: 0.6, delay: 0.8 },
+    };
 
   const buttonHoverProps =
     shouldReduceAnimations || touchDevice
@@ -66,11 +66,11 @@ export function CTAButtons({
             // Mobile-specific optimizations
             isMobile
               ? [
-                  "w-full px-6 py-4 text-base",
-                  `min-h-[${touchTargetSize}px]`,
-                  "active:scale-95 active:bg-blue-700",
-                  "touch-feedback-primary",
-                ]
+                "w-full px-6 py-4 text-base",
+                `min-h-[${touchTargetSize}px]`,
+                "active:scale-95 active:bg-blue-700",
+                "touch-feedback-primary",
+              ]
               : ["px-8 py-4 min-h-[44px]"],
             // Small mobile specific adjustments
             isSmallMobile && [
@@ -100,17 +100,17 @@ export function CTAButtons({
           onClick={secondaryAction.onClick}
           className={cn(
             "inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed",
-            "bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-semibold rounded-xl border-2 border-white/20 hover:border-white/40 transition-all duration-300 group",
+            "bg-secondary text-foreground hover:bg-secondary/80 font-semibold rounded-xl border-2 border-border/50 hover:border-primary/50 transition-all duration-300 group shadow-sm",
             // Enhanced focus styles for accessibility
-            "focus:outline-none focus:ring-4 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-slate-900",
+            "focus:outline-none focus:ring-4 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background",
             // Mobile-specific optimizations
             isMobile
               ? [
-                  "w-full px-6 py-4 text-base",
-                  `min-h-[${touchTargetSize}px]`,
-                  "active:scale-95 active:bg-white/30 active:border-white/50",
-                  "touch-feedback",
-                ]
+                "w-full px-6 py-4 text-base",
+                `min-h-[${touchTargetSize}px]`,
+                "active:scale-95 active:bg-secondary/60",
+                "touch-feedback",
+              ]
               : ["px-8 py-4 min-h-[44px]"],
             // Small mobile specific adjustments
             isSmallMobile && ["px-4 py-3 text-sm", "min-h-[48px]"]

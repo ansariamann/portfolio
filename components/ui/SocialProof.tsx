@@ -124,14 +124,14 @@ export function SocialProof({
               {IconComponent && (
                 <IconComponent
                   className={cn(
-                    "text-blue-400",
+                    "text-primary",
                     isMobile ? "w-3 h-3" : "w-4 h-4"
                   )}
                   aria-hidden="true"
                 />
               )}
-              <span className="font-semibold text-white">{metric.value}</span>
-              <span className="text-gray-400">{metric.label}</span>
+              <span className="font-semibold text-foreground">{metric.value}</span>
+              <span className="text-muted-foreground">{metric.label}</span>
             </motion.div>
           );
         })}

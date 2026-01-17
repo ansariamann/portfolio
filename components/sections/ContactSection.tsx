@@ -2,11 +2,10 @@
 
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin } from "lucide-react";
+
 import ContactForm from "@/components/ui/ContactForm";
 import { siteConfig } from "@/data/site-config";
-import AnimatedSectionHeading, {
-  headingPresets,
-} from "@/components/ui/AnimatedSectionHeading";
+import AnimatedSectionHeading from "@/components/ui/AnimatedSectionHeading";
 
 export default function ContactSection() {
   const contactMethods = [
@@ -15,162 +14,126 @@ export default function ContactSection() {
       label: "Email",
       value: siteConfig.contact?.email || "",
       href: `mailto:${siteConfig.contact?.email || ""}`,
-      color: "text-blue-400",
+      color: "text-blue-500",
+      bg: "bg-blue-50 dark:bg-blue-900/20",
     },
     {
       icon: Phone,
       label: "Phone",
       value: siteConfig.contact?.phone || "",
       href: `tel:${siteConfig.contact?.phone || ""}`,
-      color: "text-green-400",
+      color: "text-green-500",
+      bg: "bg-green-50 dark:bg-green-900/20",
     },
     {
       icon: MapPin,
       label: "Location",
       value: siteConfig.contact?.location || "",
       href: "#",
-      color: "text-purple-400",
+      color: "text-purple-500",
+      bg: "bg-purple-50 dark:bg-purple-900/20",
     },
-  ].filter((item) => item.value); // Filter out empty values
-
-
+  ].filter((item) => item.value);
 
   return (
     <section
       id="contact"
-      className="min-h-screen py-20 bg-white relative overflow-hidden"
+      className="min-h-screen py-24 bg-secondary/30 relative overflow-hidden"
     >
-      {/* Subtle Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-20 sm:top-40 left-10 sm:left-20 w-48 sm:w-96 h-48 sm:h-96 bg-purple-100/40 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-20 sm:bottom-40 right-10 sm:right-20 w-32 sm:w-80 h-32 sm:h-80 bg-amber-100/40 rounded-full blur-3xl"
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      </div>
+      <div className="container mx-auto px-6 relative z-10 max-w-6xl">
 
-      <div className="container mx-auto px-6 relative z-10">
-        {/* Section Header */}
-        <motion.div
-          className="text-center mb-20"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
+        {/* Header Section */}
+        <div className="flex flex-col items-center justify-center mb-16 space-y-4">
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-block mb-6"
+            className="flex items-center space-x-2 px-3 py-1 rounded-full bg-primary/10 backdrop-blur-md border border-primary/20"
           >
-            <span className="px-4 py-2 bg-gradient-to-r from-purple-100 to-amber-100 rounded-full text-sm font-semibold text-slate-800 border border-purple-200">
-              Get in touch
+            <span className="text-xs font-medium text-primary tracking-wide uppercase">
+              Let&apos;s Connect
             </span>
           </motion.div>
 
           <AnimatedSectionHeading
-            text="Let's Work Together"
-            className="text-5xl md:text-7xl font-bold mb-8 tracking-tight bg-gradient-to-r from-slate-900 via-purple-700 to-amber-700 bg-clip-text text-transparent"
+            text="Get in Touch"
+            className="text-4xl md:text-5xl font-bold tracking-tight text-foreground text-center"
             preset="default"
           />
 
           <motion.p
-            className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed font-light"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ delay: 0.2 }}
+            className="text-center text-muted-foreground text-lg max-w-2xl font-light leading-relaxed"
           >
-            Ready to bring your ideas to life? I&apos;m always excited to
-            discuss new opportunities and creative projects.
+            Have a project in mind? Let&apos;s build something extraordinary together.
           </motion.p>
-        </motion.div>
+        </div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
-          {/* Contact Information */}
-          <motion.div
-            className="space-y-8"
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <div>
-              <h3 className="text-3xl font-bold text-slate-900 mb-6">
-                Contact Information
-              </h3>
-              <p className="text-slate-600 text-lg mb-8">
-                {siteConfig.contact?.availability ||
-                  "Available for opportunities"}
-              </p>
-            </div>
+        {/* Bento Grid Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-full">
 
-            {/* Contact Methods */}
-            <div className="space-y-6">
+          {/* Left Column: Contact Info Cards */}
+          <div className="lg:col-span-5 grid grid-cols-1 gap-6 content-start">
+            {/* Availability Card */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="glass-card p-8 rounded-[2rem] flex flex-col justify-between min-h-[200px]"
+            >
+              <div>
+                <h3 className="text-2xl font-semibold text-foreground mb-2">Availability</h3>
+                <p className="text-muted-foreground">
+                  {siteConfig.contact?.availability || "Currently open for new opportunities."}
+                </p>
+              </div>
+              <div className="mt-8 flex items-center space-x-3">
+                <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-sm font-medium text-green-600 dark:text-green-400">Online Now</span>
+              </div>
+            </motion.div>
+
+            {/* Contact Methods List */}
+            <div className="grid gap-4">
               {contactMethods.map((method, index) => (
                 <motion.a
                   key={method.label}
                   href={method.href}
-                  className="flex items-center space-x-4 p-5 bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl border-2 border-slate-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300 group"
-                  whileHover={{ y: -2, scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.4 + index * 0.1 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="group flex items-center p-5 rounded-[1.5rem] bg-white dark:bg-gray-900 border border-border/50 hover:border-primary/20 hover:shadow-lg transition-all duration-300"
                 >
-                  <div
-                    className={`p-3 rounded-xl bg-gradient-to-br from-purple-500 to-amber-500 ${method.color} group-hover:scale-110 transition-transform duration-300 shadow-md`}
-                  >
-                    <method.icon size={24} className="text-white" />
+                  <div className={`p-3 rounded-full ${method.bg} mr-5 group-hover:scale-110 transition-transform`}>
+                    <method.icon size={20} className={method.color} />
                   </div>
                   <div>
-                    <p className="text-sm text-slate-500 font-medium">
-                      {method.label}
-                    </p>
-                    <p className="text-slate-900 font-semibold">{method.value}</p>
+                    <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">{method.label}</p>
+                    <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">{method.value}</p>
                   </div>
                 </motion.a>
               ))}
             </div>
+          </div>
 
-
-          </motion.div>
-
-          {/* Contact Form */}
+          {/* Right Column: Contact Form */}
           <motion.div
-            className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl border-2 border-slate-200 p-8 shadow-lg"
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ delay: 0.2 }}
+            className="lg:col-span-7"
           >
-            <ContactForm />
+            <div className="glass-card p-8 md:p-10 rounded-[2.5rem] h-full">
+              <ContactForm />
+            </div>
           </motion.div>
+
         </div>
-
-
       </div>
     </section>
   );

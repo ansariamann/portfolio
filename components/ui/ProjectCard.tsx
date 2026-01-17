@@ -48,7 +48,7 @@ export default function ProjectCard({
       className={cn(
         // Allow featured projects to span wider on large screens
         project.featured ? "lg:col-span-2" : "",
-        "group relative bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-lg hover:border-blue-500/30 hover:shadow-2xl transition-all duration-300",
+        "group relative glass-card rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300",
         // Mobile-specific enhancements
         "mobile-tap-highlight",
         touchDevice && "touch-target active:scale-98",
@@ -69,7 +69,7 @@ export default function ProjectCard({
       {/* Project image with optimized loading */}
       <div
         className={cn(
-          "relative overflow-hidden bg-slate-800",
+          "relative overflow-hidden bg-muted",
           // Larger visual for featured projects
           project.featured
             ? "h-56 sm:h-64 md:h-72 lg:h-80"
@@ -88,7 +88,7 @@ export default function ProjectCard({
         />
         <div
           className={cn(
-            "absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-60 transition-opacity duration-300",
+            "absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 transition-opacity duration-300",
             !shouldReduceAnimations && "group-hover:opacity-40"
           )}
         />
@@ -104,16 +104,16 @@ export default function ProjectCard({
         >
           <h3
             className={cn(
-              "font-bold text-slate-900 transition-colors leading-tight",
+              "font-bold text-foreground transition-colors leading-tight",
               project.featured ? "text-2xl sm:text-3xl" : "text-lg sm:text-xl",
-              !shouldReduceAnimations && "group-hover:text-blue-600"
+              !shouldReduceAnimations && "group-hover:text-primary"
             )}
           >
             {project.title}
           </h3>
           <div
             className={cn(
-              "flex items-center text-slate-500 flex-shrink-0",
+              "flex items-center text-muted-foreground flex-shrink-0",
               "text-xs sm:text-sm"
             )}
           >
@@ -127,7 +127,7 @@ export default function ProjectCard({
 
         <p
           className={cn(
-            "text-slate-600 mb-4 leading-relaxed",
+            "text-muted-foreground mb-4 leading-relaxed",
             project.featured ? "text-base sm:text-lg" : "text-sm sm:text-base",
             isMobile
               ? project.featured
@@ -152,7 +152,7 @@ export default function ProjectCard({
               <span
                 key={tech}
                 className={cn(
-                  "px-2.5 py-1 bg-gray-100 text-slate-700 rounded-md font-medium border border-slate-200",
+                  "px-2.5 py-1 bg-secondary text-secondary-foreground rounded-md font-medium border border-border/50",
                   "text-xs"
                 )}
               >
@@ -169,7 +169,7 @@ export default function ProjectCard({
                 : 3) && (
               <span
                 className={cn(
-                  "px-2.5 py-1 bg-gray-100 text-slate-700 rounded-md font-medium border border-slate-200",
+                  "px-2.5 py-1 bg-secondary text-secondary-foreground rounded-md font-medium border border-border/50",
                   "text-xs"
                 )}
               >
@@ -188,7 +188,7 @@ export default function ProjectCard({
         {/* Action buttons */}
         <div
           className={cn(
-            "flex items-center justify-between mt-auto pt-4 border-t border-slate-100",
+            "flex items-center justify-between mt-auto pt-4 border-t border-border/50",
             isMobile && "flex-col sm:flex-row gap-3"
           )}
         >
@@ -198,10 +198,10 @@ export default function ProjectCard({
               onViewDetails(project);
             }}
             className={cn(
-              "text-blue-600 hover:text-blue-800 font-medium transition-colors focus:outline-none flex items-center gap-1",
+              "text-primary hover:text-primary/80 font-medium transition-colors focus:outline-none flex items-center gap-1",
               "text-sm",
               touchDevice &&
-              "touch-target py-2 px-3 -mx-3 rounded-lg hover:bg-gray-100",
+              "touch-target py-2 px-3 -mx-3 rounded-lg hover:bg-secondary/50",
               isMobile && "w-full justify-center"
             )}
           >
@@ -219,7 +219,7 @@ export default function ProjectCard({
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all"
+                className="p-2 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-full transition-all"
                 title="Live Demo"
                 onClick={(e) => e.stopPropagation()}
                 whileHover={{ scale: 1.1 }}
@@ -232,7 +232,7 @@ export default function ProjectCard({
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all"
+              className="p-2 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-full transition-all"
               title="View Code"
               onClick={(e) => e.stopPropagation()}
               whileHover={{ scale: 1.1 }}
@@ -246,3 +246,4 @@ export default function ProjectCard({
     </motion.div>
   );
 }
+

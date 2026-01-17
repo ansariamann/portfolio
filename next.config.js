@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Performance optimizations
-  experimental: {
-    optimizePackageImports: ["framer-motion", "lucide-react", "react-icons"],
-  },
+  // experimental: {
+  //   optimizePackageImports: ["framer-motion", "lucide-react", "react-icons"],
+  // },
 
   // Image optimization
   images: {
@@ -77,48 +77,48 @@ const nextConfig = {
   },
 
   // Bundle analyzer
-  ...(process.env.ANALYZE === "true" && {
-    webpack: (config, { isServer }) => {
-      if (!isServer) {
-        const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
-        config.plugins.push(
-          new BundleAnalyzerPlugin({
-            analyzerMode: "static",
-            openAnalyzer: false,
-            reportFilename: "../bundle-analyzer-report.html",
-          })
-        );
-      }
-      return config;
-    },
-  }),
+  // ...(process.env.ANALYZE === "true" && {
+  //   webpack: (config, { isServer }) => {
+  //     if (!isServer) {
+  //       const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
+  //       config.plugins.push(
+  //         new BundleAnalyzerPlugin({
+  //           analyzerMode: "static",
+  //           openAnalyzer: false,
+  //           reportFilename: "../bundle-analyzer-report.html",
+  //         })
+  //       );
+  //     }
+  //     return config;
+  //   },
+  // }),
 
   // Webpack optimizations
-  webpack: (config, { dev, isServer }) => {
-    // Production optimizations
-    if (!dev) {
-      config.optimization = {
-        ...config.optimization,
-        splitChunks: {
-          chunks: "all",
-          cacheGroups: {
-            vendor: {
-              test: /[\\/]node_modules[\\/]/,
-              name: "vendors",
-              chunks: "all",
-            },
-            framerMotion: {
-              test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
-              name: "framer-motion",
-              chunks: "all",
-            },
-          },
-        },
-      };
-    }
+  // webpack: (config, { dev, isServer }) => {
+  //   // Production optimizations
+  //   if (!dev) {
+  //     config.optimization = {
+  //       ...config.optimization,
+  //       splitChunks: {
+  //         chunks: "all",
+  //         cacheGroups: {
+  //           vendor: {
+  //             test: /[\\/]node_modules[\\/]/,
+  //             name: "vendors",
+  //             chunks: "all",
+  //           },
+  //           framerMotion: {
+  //             test: /[\\/]node_modules[\\/]framer-motion[\\/]/,
+  //             name: "framer-motion",
+  //             chunks: "all",
+  //           },
+  //         },
+  //       },
+  //     };
+  //   }
 
-    return config;
-  },
+  //   return config;
+  // },
 
   // Output configuration
   output: "standalone",

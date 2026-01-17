@@ -91,6 +91,9 @@ const PlatformSelector = ({
         const isActive = activePlatform === platform.id;
         const hasError = errors[platform.id];
 
+        // Ensure we're using hex for contrast calculation if needed, but prefer CSS vars
+        const primaryColor = config?.primaryColor || "#3B82F6";
+
         return (
           <motion.button
             key={platform.id}
@@ -98,12 +101,12 @@ const PlatformSelector = ({
             onKeyDown={(e) => handleKeyDown(e, platform.id)}
             className={`
               relative rounded-xl sm:rounded-2xl font-medium transition-all duration-300 
-              flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+              flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
               ${hasError
-                ? "bg-red-900/40 backdrop-blur-sm shadow-lg border border-red-500/50"
+                ? "bg-destructive/10 text-destructive border border-destructive/50"
                 : isActive
-                  ? "bg-slate-800/90 backdrop-blur-sm shadow-xl scale-105 border border-blue-500/50"
-                  : "bg-slate-800/60 backdrop-blur-sm hover:bg-slate-800/80 shadow-lg border border-slate-700/50"
+                  ? "bg-primary text-primary-foreground shadow-lg scale-105 border-transparent"
+                  : "bg-secondary/50 text-muted-foreground hover:bg-secondary/80 border border-border/50"
               }
               ${isSmallMobile
                 ? "px-3 py-2 text-xs min-w-[44px]"
@@ -113,15 +116,6 @@ const PlatformSelector = ({
               }
             `}
             style={{
-              color: hasError
-                ? ensureContrast("#dc2626", "#ffffff", 4.5)
-                : isActive
-                  ? ensureContrast(
-                    config?.primaryColor || "#3B82F6",
-                    "#ffffff",
-                    4.5
-                  )
-                  : ensureContrast("#64748b", "#ffffff", 4.5),
               minHeight: `${touchTargetSize}px`,
               minWidth: touchDevice ? `${touchTargetSize}px` : "auto",
             }}
@@ -152,7 +146,7 @@ const PlatformSelector = ({
           >
             <div className="flex items-center space-x-1 sm:space-x-2">
               {hasError ? (
-                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-white font-bold bg-red-500">
+                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center text-white font-bold bg-destructive">
                   !
                 </div>
               ) : (
@@ -172,10 +166,7 @@ const PlatformSelector = ({
             </div>
             {isActive && !shouldUseReducedAnimations && !hasError && (
               <motion.div
-                className="absolute inset-0 rounded-xl sm:rounded-2xl"
-                style={{
-                  background: `linear-gradient(135deg, ${config?.primaryColor}20, ${config?.secondaryColor}20)`,
-                }}
+                className="absolute inset-0 rounded-xl sm:rounded-2xl bg-white/10"
                 layoutId="activePlatform"
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               />
@@ -188,7 +179,7 @@ const PlatformSelector = ({
                   e.stopPropagation();
                   onRetryPlatform(platform.id);
                 }}
-                className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full text-xs flex items-center justify-center hover:bg-red-600 transition-colors"
+                className="absolute -top-1 -right-1 w-4 h-4 bg-destructive text-destructive-foreground rounded-full text-xs flex items-center justify-center hover:bg-destructive/90 transition-colors"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 title="Retry loading this platform"
@@ -286,10 +277,10 @@ const VisualizationModeSelector = ({
           onKeyDown={(e) => handleKeyDown(e, mode.id)}
           className={`
             group relative rounded-full font-medium transition-all duration-300 
-            flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+            flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
             ${activeMode === mode.id
-              ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg scale-105"
-              : "bg-slate-800/70 backdrop-blur-sm text-slate-200 hover:bg-slate-800/90 shadow-md border border-slate-700/50"
+              ? "bg-primary text-primary-foreground shadow-md scale-105"
+              : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border/50"
             }
             ${isSmallMobile
               ? "px-2 py-1.5 text-xs min-w-[44px]"
@@ -333,13 +324,11 @@ const VisualizationModeSelector = ({
 
           {/* Enhanced tooltip for mobile and touch devices */}
           {(isMobile || touchDevice) && (
-            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-slate-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-20 shadow-lg">
+            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-popover text-popover-foreground text-xs rounded-lg opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-20 shadow-lg border border-border">
               <div className="font-medium">{mode.name}</div>
-              <div className="text-slate-300 text-xs mt-1">
+              <div className="text-muted-foreground text-xs mt-1">
                 {mode.description}
               </div>
-              {/* Tooltip arrow */}
-              <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-slate-800" />
             </div>
           )}
         </motion.button>
@@ -367,7 +356,7 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
     <div className="space-y-6 sm:space-y-8">
       {/* Platform Overview Header */}
       <motion.div
-        className="flex flex-col items-center justify-between p-4 sm:p-6 bg-slate-800/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl border border-slate-700/60 shadow-xl"
+        className="glass-card flex flex-col items-center justify-between p-4 sm:p-6 rounded-[1.5rem]"
         whileHover={shouldUseReducedAnimations ? {} : { y: -2 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
@@ -385,13 +374,13 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
           </div>
           <div className="text-center sm:text-left flex-1">
             <h3
-              className={`font-bold text-slate-100 ${isSmallMobile ? "text-lg" : "text-xl sm:text-2xl"
+              className={`font-bold text-foreground ${isSmallMobile ? "text-lg" : "text-xl sm:text-2xl"
                 }`}
             >
               {platform.name}
             </h3>
             <p
-              className={`text-slate-300 ${isSmallMobile ? "text-sm" : "text-base sm:text-lg"
+              className={`text-muted-foreground ${isSmallMobile ? "text-sm" : "text-base sm:text-lg"
                 }`}
             >
               @{platform.username}
@@ -400,7 +389,7 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
               href={platform.profileUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs sm:text-sm text-blue-600 hover:text-blue-800 transition-colors inline-flex items-center gap-1 mt-1"
+              className="text-xs sm:text-sm text-primary hover:text-primary/80 transition-colors inline-flex items-center gap-1 mt-1"
             >
               View Profile →
             </a>
@@ -419,40 +408,40 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
               }
         `}
           >
-            <div className="bg-slate-700/50 rounded-xl p-3 sm:p-4">
+            <div className="bg-secondary/30 rounded-xl p-3 sm:p-4">
               <div
-                className={`font-bold text-slate-100 ${isSmallMobile ? "text-xl" : "text-2xl sm:text-3xl"
+                className={`font-bold text-foreground ${isSmallMobile ? "text-xl" : "text-2xl sm:text-3xl"
                   }`}
               >
                 {platform.statistics.totalSolved}
               </div>
-              <div className="text-xs sm:text-sm text-slate-300">
+              <div className="text-xs sm:text-sm text-muted-foreground">
                 Problems Solved
               </div>
             </div>
-            <div className="bg-slate-700/50 rounded-xl p-3 sm:p-4">
+            <div className="bg-secondary/30 rounded-xl p-3 sm:p-4">
               <div
-                className={`font-bold text-slate-100 ${isSmallMobile ? "text-xl" : "text-2xl sm:text-3xl"
+                className={`font-bold text-foreground ${isSmallMobile ? "text-xl" : "text-2xl sm:text-3xl"
                   }`}
               >
                 {platform.statistics.currentStreak}
               </div>
-              <div className="text-xs sm:text-sm text-slate-300">
+              <div className="text-xs sm:text-sm text-muted-foreground">
                 Current Streak
               </div>
             </div>
             {platform.statistics.ranking && (
               <div
-                className={`bg-slate-700/50 rounded-xl p-3 sm:p-4 ${getOptimalGridColumns(3) === 2 ? "col-span-2 sm:col-span-1" : ""
+                className={`bg-secondary/30 rounded-xl p-3 sm:p-4 ${getOptimalGridColumns(3) === 2 ? "col-span-2 sm:col-span-1" : ""
                   }`}
               >
                 <div
-                  className={`font-bold text-slate-100 ${isSmallMobile ? "text-xl" : "text-2xl sm:text-3xl"
+                  className={`font-bold text-foreground ${isSmallMobile ? "text-xl" : "text-2xl sm:text-3xl"
                     }`}
                 >
                   #{platform.statistics.ranking.toLocaleString()}
                 </div>
-                <div className="text-xs sm:text-sm text-slate-300">
+                <div className="text-xs sm:text-sm text-muted-foreground">
                   Global Ranking
                 </div>
               </div>
@@ -460,7 +449,7 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
           </div>
         ) : (
           <div className="text-center py-4">
-            <p className="text-gray-500 text-sm">
+            <p className="text-muted-foreground text-sm">
               Statistics not available for this platform.
             </p>
           </div>
@@ -470,17 +459,17 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
       {/* Interactive Statistics Visualization */}
       <ErrorBoundary
         fallback={({ error, retry }) => (
-          <div className="bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-red-500/50 shadow-xl p-6">
+          <div className="bg-destructive/10 rounded-3xl border border-destructive/20 p-6">
             <div className="text-center">
-              <h3 className="text-lg font-semibold text-red-400 mb-2">
+              <h3 className="text-lg font-semibold text-destructive mb-2">
                 Statistics Error
               </h3>
-              <p className="text-red-300 mb-4">
+              <p className="text-destructive/80 mb-4">
                 Failed to load statistics visualization.
               </p>
               <button
                 onClick={retry}
-                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors"
+                className="px-4 py-2 bg-destructive text-destructive-foreground rounded-lg font-medium transition-colors"
               >
                 Retry
               </button>
@@ -499,7 +488,7 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
               primaryColor={config?.primaryColor || "#3B82F6"}
               secondaryColor={config?.secondaryColor || "#8B5CF6"}
               animate={true}
-              className="bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-slate-700/60 shadow-xl p-6"
+              className="glass-card rounded-[1.5rem] p-6"
             />
           </motion.div>
         ) : null}
@@ -509,7 +498,7 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
         {/* Achievements Preview Card */}
         <motion.div
-          className="p-4 sm:p-6 bg-slate-800/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl border border-slate-700/60 shadow-xl"
+          className="p-4 sm:p-6 glass-card rounded-[1.5rem]"
           whileHover={shouldUseReducedAnimations ? {} : { y: -2 }}
           initial={{ opacity: 0, y: shouldUseReducedAnimations ? 0 : 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -522,12 +511,12 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
         >
           <div className="flex items-center justify-between mb-4 sm:mb-6">
             <h4
-              className={`font-bold text-slate-100 ${isSmallMobile ? "text-lg" : "text-xl"
+              className={`font-bold text-foreground ${isSmallMobile ? "text-lg" : "text-xl"
                 }`}
             >
               Recent Achievements
             </h4>
-            <span className="text-xs sm:text-sm text-slate-300">
+            <span className="text-xs sm:text-sm text-muted-foreground">
               {platform.achievements.length} total
             </span>
           </div>
@@ -538,7 +527,7 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
                 .map((achievement, index) => (
                   <motion.div
                     key={achievement.id}
-                    className="flex items-center space-x-2 sm:space-x-3 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 hover:from-gray-100 hover:to-gray-200 transition-all duration-200"
+                    className="flex items-center space-x-2 sm:space-x-3 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-secondary/30 hover:bg-secondary/50 transition-all duration-200"
                     whileHover={
                       shouldUseReducedAnimations ? {} : { scale: 1.02 }
                     }
@@ -567,15 +556,15 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p
-                        className={`font-medium text-slate-800 truncate ${isSmallMobile ? "text-xs" : "text-sm"
+                        className={`font-medium text-foreground truncate ${isSmallMobile ? "text-xs" : "text-sm"
                           }`}
                       >
                         {achievement.title}
                       </p>
-                      <p className="text-xs text-slate-600">
+                      <p className="text-xs text-muted-foreground">
                         {achievement.earnedDate.toLocaleDateString()}
                       </p>
-                      <p className="text-xs text-slate-500 capitalize">
+                      <p className="text-xs text-muted-foreground/80 capitalize">
                         {achievement.category}
                       </p>
                     </div>
@@ -583,7 +572,7 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
                 ))
             ) : (
               <div className="text-center py-4">
-                <p className="text-gray-500 text-sm">
+                <p className="text-muted-foreground text-sm">
                   No achievements available
                 </p>
               </div>
@@ -593,7 +582,7 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
 
         {/* Recent Activity Timeline */}
         <motion.div
-          className="p-4 sm:p-6 bg-slate-800/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl border border-slate-700/60 shadow-xl"
+          className="p-4 sm:p-6 glass-card rounded-[1.5rem]"
           whileHover={shouldUseReducedAnimations ? {} : { y: -2 }}
           initial={{ opacity: 0, y: shouldUseReducedAnimations ? 0 : 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -606,12 +595,12 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
         >
           <div className="flex items-center justify-between mb-4 sm:mb-6">
             <h4
-              className={`font-bold text-slate-100 ${isSmallMobile ? "text-lg" : "text-xl"
+              className={`font-bold text-foreground ${isSmallMobile ? "text-lg" : "text-xl"
                 }`}
             >
               Recent Activity
             </h4>
-            <span className="text-xs sm:text-sm text-slate-300">
+            <span className="text-xs sm:text-sm text-muted-foreground">
               {platform.recentActivity.length} problems
             </span>
           </div>
@@ -621,12 +610,12 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
             <ErrorBoundary
               fallback={({ error, retry }) => (
                 <div className="text-center py-4">
-                  <p className="text-red-600 text-sm mb-2">
+                  <p className="text-destructive text-sm mb-2">
                     Failed to load recent activity
                   </p>
                   <button
                     onClick={retry}
-                    className="text-xs px-3 py-1 bg-red-100 hover:bg-red-200 text-red-700 rounded transition-colors"
+                    className="text-xs px-3 py-1 bg-destructive/10 hover:bg-destructive/20 text-destructive rounded transition-colors"
                   >
                     Retry
                   </button>
@@ -642,7 +631,7 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
                 />
               ) : (
                 <div className="text-center py-4">
-                  <p className="text-gray-500 text-sm">
+                  <p className="text-muted-foreground text-sm">
                     No recent activity available
                   </p>
                 </div>
@@ -666,7 +655,7 @@ const AchievementsView = ({ platform }: { platform: CodingPlatform }) => {
     return (
       <div className="space-y-8">
         <motion.div
-          className="text-center p-6 bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-slate-700/60 shadow-xl"
+          className="text-center p-6 glass-card rounded-[1.5rem]"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
@@ -680,11 +669,11 @@ const AchievementsView = ({ platform }: { platform: CodingPlatform }) => {
             >
               🏆
             </div>
-            <h3 className="text-3xl font-bold text-slate-100">
+            <h3 className="text-3xl font-bold text-foreground">
               {platform.name} Achievements
             </h3>
           </div>
-          <p className="text-slate-300 text-lg mb-6">
+          <p className="text-muted-foreground text-lg mb-6">
             No achievements available for {platform.name} at the moment.
           </p>
         </motion.div>
@@ -696,7 +685,7 @@ const AchievementsView = ({ platform }: { platform: CodingPlatform }) => {
     <div className="space-y-8">
       {/* Achievements Header */}
       <motion.div
-        className="text-center p-6 bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-slate-700/60 shadow-xl"
+        className="text-center p-6 glass-card rounded-[1.5rem]"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1, duration: 0.6 }}
@@ -710,43 +699,43 @@ const AchievementsView = ({ platform }: { platform: CodingPlatform }) => {
           >
             🏆
           </div>
-          <h3 className="text-3xl font-bold text-slate-100">
+          <h3 className="text-3xl font-bold text-foreground">
             {platform.name} Achievements
           </h3>
         </div>
-        <p className="text-slate-300 text-lg">
+        <p className="text-muted-foreground text-lg">
           Explore badges, certifications, and milestones earned on{" "}
           {platform.name}
         </p>
         <div className="flex justify-center items-center mt-4 space-x-6">
           <div className="text-center">
-            <div className="text-2xl font-bold text-slate-100">
+            <div className="text-2xl font-bold text-foreground">
               {platform.achievements.length}
             </div>
-            <div className="text-sm text-slate-300">Total Achievements</div>
+            <div className="text-sm text-muted-foreground">Total Achievements</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-slate-100">
+            <div className="text-2xl font-bold text-foreground">
               {
                 platform.achievements.filter(
                   (a) => a.rarity === "legendary" || a.rarity === "epic"
                 ).length
               }
             </div>
-            <div className="text-sm text-slate-300">Rare & Epic</div>
+            <div className="text-sm text-muted-foreground">Rare & Epic</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-slate-100">
+            <div className="text-2xl font-bold text-foreground">
               {new Set(platform.achievements.map((a) => a.category)).size}
             </div>
-            <div className="text-sm text-slate-300">Categories</div>
+            <div className="text-sm text-muted-foreground">Categories</div>
           </div>
         </div>
       </motion.div>
 
       {/* Interactive Achievements Gallery */}
       <motion.div
-        className="p-6 bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-slate-700/60 shadow-xl"
+        className="p-6 glass-card rounded-[1.5rem]"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.6 }}
@@ -754,15 +743,15 @@ const AchievementsView = ({ platform }: { platform: CodingPlatform }) => {
         <ErrorBoundary
           fallback={({ error, retry }) => (
             <div className="text-center py-8">
-              <h3 className="text-lg font-semibold text-red-900 mb-2">
+              <h3 className="text-lg font-semibold text-destructive mb-2">
                 Achievements Error
               </h3>
-              <p className="text-red-700 mb-4">
+              <p className="text-destructive/80 mb-4">
                 Failed to load achievements gallery.
               </p>
               <button
                 onClick={retry}
-                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors"
+                className="px-4 py-2 bg-destructive text-destructive-foreground rounded-lg font-medium transition-colors"
               >
                 Retry
               </button>
@@ -780,6 +769,8 @@ const AchievementsView = ({ platform }: { platform: CodingPlatform }) => {
   );
 };
 
+
+
 const HeatmapView = ({ platform }: { platform: CodingPlatform }) => {
   const config = getPlatformConfig(platform.id);
   const [timePeriod, setTimePeriod] = useState<"month" | "quarter" | "year">(
@@ -794,7 +785,7 @@ const HeatmapView = ({ platform }: { platform: CodingPlatform }) => {
     return (
       <div className="space-y-8">
         <motion.div
-          className="text-center p-6 bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-slate-700/60 shadow-xl"
+          className="text-center p-6 glass-card rounded-[1.5rem]"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
@@ -808,11 +799,11 @@ const HeatmapView = ({ platform }: { platform: CodingPlatform }) => {
             >
               📈
             </div>
-            <h3 className="text-3xl font-bold text-slate-100">
+            <h3 className="text-3xl font-bold text-foreground">
               {platform.name} Activity Heatmap
             </h3>
           </div>
-          <p className="text-slate-300 text-lg">
+          <p className="text-muted-foreground text-lg">
             No activity data available for heatmap visualization.
           </p>
         </motion.div>
@@ -824,7 +815,7 @@ const HeatmapView = ({ platform }: { platform: CodingPlatform }) => {
     <div className="space-y-8">
       {/* Heatmap Header */}
       <motion.div
-        className="text-center p-6 bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-slate-700/60 shadow-xl"
+        className="text-center p-6 glass-card rounded-[1.5rem]"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1, duration: 0.6 }}
@@ -838,11 +829,11 @@ const HeatmapView = ({ platform }: { platform: CodingPlatform }) => {
           >
             📈
           </div>
-          <h3 className="text-3xl font-bold text-slate-100">
+          <h3 className="text-3xl font-bold text-foreground">
             {platform.name} Activity Heatmap
           </h3>
         </div>
-        <p className="text-slate-300 text-lg mb-6">
+        <p className="text-muted-foreground text-lg mb-6">
           Visualizing coding consistency and daily problem-solving patterns
         </p>
 
@@ -853,8 +844,8 @@ const HeatmapView = ({ platform }: { platform: CodingPlatform }) => {
               key={period}
               onClick={() => setTimePeriod(period)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${timePeriod === period
-                  ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg"
-                  : "bg-slate-700/70 backdrop-blur-sm text-slate-200 hover:bg-slate-700/90 shadow-md border border-slate-600/50"
+                ? "bg-primary text-primary-foreground shadow-lg"
+                : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border/50"
                 }`}
             >
               {period.charAt(0).toUpperCase() + period.slice(1)}
@@ -865,22 +856,22 @@ const HeatmapView = ({ platform }: { platform: CodingPlatform }) => {
         {platform.statistics ? (
           <div className="flex justify-center items-center mt-4 space-x-6">
             <div className="text-center">
-              <div className="text-2xl font-bold text-slate-100">
+              <div className="text-2xl font-bold text-foreground">
                 {platform.recentActivity.length}
               </div>
-              <div className="text-sm text-slate-300">Total Activities</div>
+              <div className="text-sm text-muted-foreground">Total Activities</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-slate-100">
+              <div className="text-2xl font-bold text-foreground">
                 {platform.statistics.currentStreak}
               </div>
-              <div className="text-sm text-slate-300">Current Streak</div>
+              <div className="text-sm text-muted-foreground">Current Streak</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-slate-100">
+              <div className="text-2xl font-bold text-foreground">
                 {platform.statistics.longestStreak}
               </div>
-              <div className="text-sm text-slate-300">Longest Streak</div>
+              <div className="text-sm text-muted-foreground">Longest Streak</div>
             </div>
           </div>
         ) : null}
@@ -888,7 +879,7 @@ const HeatmapView = ({ platform }: { platform: CodingPlatform }) => {
 
       {/* Activity Heatmap */}
       <motion.div
-        className="p-6 bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-slate-700/60 shadow-xl"
+        className="p-6 glass-card rounded-[1.5rem]"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.6 }}
@@ -896,15 +887,15 @@ const HeatmapView = ({ platform }: { platform: CodingPlatform }) => {
         <ErrorBoundary
           fallback={({ error, retry }) => (
             <div className="text-center py-8">
-              <h3 className="text-lg font-semibold text-red-900 mb-2">
+              <h3 className="text-lg font-semibold text-destructive mb-2">
                 Heatmap Error
               </h3>
-              <p className="text-red-700 mb-4">
+              <p className="text-destructive/80 mb-4">
                 Failed to load activity heatmap.
               </p>
               <button
                 onClick={retry}
-                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors"
+                className="px-4 py-2 bg-destructive text-destructive-foreground rounded-lg font-medium transition-colors"
               >
                 Retry
               </button>
@@ -915,14 +906,14 @@ const HeatmapView = ({ platform }: { platform: CodingPlatform }) => {
             activities={platform.recentActivity}
             timePeriod={timePeriod}
             colorScale={{
-              empty: "#f3f4f6",
+              empty: "var(--secondary)",
               low: config?.primaryColor
                 ? `${config.primaryColor}30`
-                : "#dcfce7",
+                : "var(--primary-20)",
               medium: config?.primaryColor
                 ? `${config.primaryColor}60`
-                : "#86efac",
-              high: config?.primaryColor || "#22c55e",
+                : "var(--primary-60)",
+              high: config?.primaryColor || "var(--primary)",
             }}
             interactive={true}
           />
@@ -943,7 +934,7 @@ const ProgressView = ({ platform }: { platform: CodingPlatform }) => {
     return (
       <div className="space-y-8">
         <motion.div
-          className="text-center p-6 bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-slate-700/60 shadow-xl"
+          className="text-center p-6 glass-card rounded-[1.5rem]"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
@@ -957,11 +948,11 @@ const ProgressView = ({ platform }: { platform: CodingPlatform }) => {
             >
               ⚡
             </div>
-            <h3 className="text-3xl font-bold text-slate-100">
+            <h3 className="text-3xl font-bold text-foreground">
               {platform.name} Progress Tracker
             </h3>
           </div>
-          <p className="text-slate-300 text-lg">
+          <p className="text-muted-foreground text-lg">
             No statistics available for progress tracking.
           </p>
         </motion.div>
@@ -1025,7 +1016,7 @@ const ProgressView = ({ platform }: { platform: CodingPlatform }) => {
     <div className="space-y-8">
       {/* Progress Header */}
       <motion.div
-        className="text-center p-6 bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-slate-700/60 shadow-xl"
+        className="text-center p-6 glass-card rounded-[1.5rem]"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1, duration: 0.6 }}
@@ -1039,11 +1030,11 @@ const ProgressView = ({ platform }: { platform: CodingPlatform }) => {
           >
             ⚡
           </div>
-          <h3 className="text-3xl font-bold text-slate-100">
+          <h3 className="text-3xl font-bold text-foreground">
             {platform.name} Progress Tracker
           </h3>
         </div>
-        <p className="text-slate-300 text-lg">
+        <p className="text-muted-foreground text-lg">
           Track improvement trends and achieve coding goals
         </p>
       </motion.div>
@@ -1059,7 +1050,7 @@ const ProgressView = ({ platform }: { platform: CodingPlatform }) => {
           return (
             <motion.div
               key={goal.title}
-              className="p-6 bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-slate-700/60 shadow-xl"
+              className="p-6 glass-card rounded-[1.5rem]"
               whileHover={{ y: -2, scale: 1.02 }}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -1067,17 +1058,17 @@ const ProgressView = ({ platform }: { platform: CodingPlatform }) => {
             >
               <div className="flex items-center justify-between mb-4">
                 <span className="text-2xl">{goal.icon}</span>
-                <span className="text-sm font-medium text-slate-300">
+                <span className="text-sm font-medium text-muted-foreground">
                   {progressPercentage.toFixed(0)}%
                 </span>
               </div>
 
-              <h4 className="text-lg font-bold text-slate-100 mb-2">
+              <h4 className="text-lg font-bold text-foreground mb-2">
                 {goal.title}
               </h4>
 
               <div className="mb-4">
-                <div className="flex justify-between text-sm text-slate-300 mb-2">
+                <div className="flex justify-between text-sm text-muted-foreground mb-2">
                   <span>
                     {goal.current} {goal.unit}
                   </span>
@@ -1085,7 +1076,7 @@ const ProgressView = ({ platform }: { platform: CodingPlatform }) => {
                     {goal.target} {goal.unit}
                   </span>
                 </div>
-                <div className="w-full bg-slate-700 rounded-full h-3">
+                <div className="w-full bg-secondary/50 rounded-full h-3">
                   <motion.div
                     className="h-3 rounded-full"
                     style={{
@@ -1102,7 +1093,7 @@ const ProgressView = ({ platform }: { platform: CodingPlatform }) => {
                 </div>
               </div>
 
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-muted-foreground/80">
                 {goal.target - goal.current > 0
                   ? `${goal.target - goal.current} ${goal.unit} to go`
                   : "Goal achieved! 🎉"}
@@ -1114,12 +1105,12 @@ const ProgressView = ({ platform }: { platform: CodingPlatform }) => {
 
       {/* Difficulty Distribution Progress */}
       <motion.div
-        className="p-6 bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-slate-700/60 shadow-xl"
+        className="p-6 glass-card rounded-[1.5rem]"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6, duration: 0.6 }}
       >
-        <h4 className="text-xl font-bold text-slate-100 mb-6">
+        <h4 className="text-xl font-bold text-foreground mb-6">
           Difficulty Distribution Progress
         </h4>
 
@@ -1149,20 +1140,20 @@ const ProgressView = ({ platform }: { platform: CodingPlatform }) => {
           ].map((difficulty, index) => (
             <div key={difficulty.level} className="space-y-2">
               <div className="flex justify-between items-center">
-                <span className="font-medium text-slate-200">
+                <span className="font-medium text-foreground">
                   {difficulty.level} Problems
                 </span>
                 <div className="text-right">
-                  <span className="text-lg font-bold text-slate-100">
+                  <span className="text-lg font-bold text-foreground">
                     {difficulty.count}
                   </span>
-                  <span className="text-sm text-slate-300 ml-2">
+                  <span className="text-sm text-muted-foreground ml-2">
                     ({difficulty.percentage.toFixed(1)}%)
                   </span>
                 </div>
               </div>
 
-              <div className="w-full bg-slate-700 rounded-full h-4">
+              <div className="w-full bg-secondary/50 rounded-full h-4">
                 <motion.div
                   className="h-4 rounded-full flex items-center justify-end pr-2"
                   style={{ backgroundColor: difficulty.color }}
@@ -1186,12 +1177,12 @@ const ProgressView = ({ platform }: { platform: CodingPlatform }) => {
 
       {/* Monthly Progress Trend */}
       <motion.div
-        className="p-6 bg-slate-800/80 backdrop-blur-sm rounded-3xl border border-slate-700/60 shadow-xl"
+        className="p-6 glass-card rounded-[1.5rem]"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.6 }}
       >
-        <h4 className="text-xl font-bold text-slate-100 mb-6">
+        <h4 className="text-xl font-bold text-foreground mb-6">
           Monthly Progress Trend
         </h4>
 
@@ -1221,7 +1212,7 @@ const ProgressView = ({ platform }: { platform: CodingPlatform }) => {
                 >
                   {month.solved}
                 </motion.div>
-                <span className="text-xs text-slate-300 mt-2 font-medium">
+                <span className="text-xs text-muted-foreground mt-2 font-medium">
                   {month.month}
                 </span>
               </div>
@@ -1239,8 +1230,8 @@ const ProgressView = ({ platform }: { platform: CodingPlatform }) => {
             problems/month
           </p>
         </div>
-      </motion.div>
-    </div>
+      </motion.div >
+    </div >
   );
 };
 
@@ -1359,7 +1350,7 @@ export default function CodingPlatformsSection() {
       <section
         id="coding-platforms"
         ref={sectionRef}
-        className="min-h-screen py-12 sm:py-16 md:py-20 bg-gradient-to-br from-gray-900 via-slate-900 via-gray-800 to-slate-900 relative"
+        className="min-h-screen py-12 sm:py-16 md:py-20 bg-secondary/30 relative"
       >
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <motion.div
@@ -1380,7 +1371,7 @@ export default function CodingPlatformsSection() {
               }}
               className="inline-block mb-4 sm:mb-6"
             >
-              <span className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/20 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-blue-200 border border-white/30">
+              <span className="px-3 sm:px-4 py-1.5 sm:py-2 bg-secondary/50 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-primary border border-border/50">
                 Competitive Programming
               </span>
             </motion.div>
@@ -1394,13 +1385,13 @@ export default function CodingPlatformsSection() {
                 delay: shouldUseReducedAnimations ? 0 : 0.3,
               }}
             >
-              <span className="bg-gradient-to-r from-white via-green-100 to-orange-200 bg-clip-text text-transparent">
+              <span className="text-foreground">
                 Coding Platforms
               </span>
             </motion.h2>
 
             <motion.p
-              className="text-base sm:text-lg md:text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed font-light px-4"
+              className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-light px-4"
               initial={{ opacity: 0, y: shouldUseReducedAnimations ? 0 : 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -1424,7 +1415,7 @@ export default function CodingPlatformsSection() {
       <section
         id="coding-platforms"
         ref={sectionRef}
-        className="min-h-screen py-12 sm:py-16 md:py-20 bg-gradient-to-br from-gray-900 via-slate-900 via-gray-800 to-slate-900 relative"
+        className="min-h-screen py-12 sm:py-16 md:py-20 bg-secondary/30 relative"
       >
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <motion.div
@@ -1442,7 +1433,7 @@ export default function CodingPlatformsSection() {
                 delay: shouldUseReducedAnimations ? 0 : 0.3,
               }}
             >
-              <span className="bg-gradient-to-r from-white via-green-100 to-orange-200 bg-clip-text text-transparent">
+              <span className="text-foreground">
                 Coding Platforms
               </span>
             </motion.h2>
@@ -1461,13 +1452,13 @@ export default function CodingPlatformsSection() {
       <section
         id="coding-platforms"
         ref={sectionRef}
-        className="min-h-screen py-12 sm:py-16 md:py-20 bg-gradient-to-br from-gray-900 via-slate-900 via-gray-800 to-slate-900 relative"
+        className="min-h-screen py-12 sm:py-16 md:py-20 bg-secondary/30 relative overflow-hidden"
       >
         {/* Modern background elements - reduced on mobile for performance */}
         {!shouldUseReducedAnimations && (
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <motion.div
-              className="absolute top-20 sm:top-40 left-10 sm:left-20 w-48 sm:w-96 h-48 sm:h-96 bg-gradient-to-br from-green-200/20 to-blue-200/20 rounded-full blur-3xl"
+              className="absolute top-20 sm:top-40 left-10 sm:left-20 w-48 sm:w-96 h-48 sm:h-96 bg-primary/5 rounded-full blur-3xl"
               animate={{
                 scale: [1, 1.2, 1],
                 opacity: [0.3, 0.6, 0.3],
@@ -1479,7 +1470,7 @@ export default function CodingPlatformsSection() {
               }}
             />
             <motion.div
-              className="absolute bottom-20 sm:bottom-40 right-10 sm:right-20 w-32 sm:w-80 h-32 sm:h-80 bg-gradient-to-tr from-orange-200/20 to-purple-200/20 rounded-full blur-3xl"
+              className="absolute bottom-20 sm:bottom-40 right-10 sm:right-20 w-32 sm:w-80 h-32 sm:h-80 bg-primary/10 rounded-full blur-3xl"
               animate={{
                 scale: [1.2, 1, 1.2],
                 opacity: [0.4, 0.2, 0.4],
@@ -1515,7 +1506,7 @@ export default function CodingPlatformsSection() {
               }}
               className="inline-block mb-4 sm:mb-6"
             >
-              <span className="px-3 sm:px-4 py-1.5 sm:py-2 bg-white/20 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-blue-200 border border-white/30">
+              <span className="px-3 sm:px-4 py-1.5 sm:py-2 bg-secondary/50 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-primary border border-border/50">
                 Competitive Programming
               </span>
             </motion.div>
@@ -1530,13 +1521,13 @@ export default function CodingPlatformsSection() {
                 delay: shouldUseReducedAnimations ? 0 : 0.3,
               }}
             >
-              <span className="bg-gradient-to-r from-white via-green-100 to-orange-200 bg-clip-text text-transparent">
+              <span className="text-foreground">
                 Coding Platforms
               </span>
             </motion.h2>
 
             <motion.p
-              className="text-base sm:text-lg md:text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed font-light px-4"
+              className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-light px-4"
               initial={{ opacity: 0, y: shouldUseReducedAnimations ? 0 : 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -1608,10 +1599,10 @@ export default function CodingPlatformsSection() {
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="bg-slate-800/90 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-slate-700/60">
+                <div className="glass-card rounded-2xl p-4 shadow-xl">
                   <div className="flex items-center space-x-3">
-                    <div className="w-6 h-6 border-2 border-purple-400 border-t-transparent rounded-full animate-spin"></div>
-                    <span className="text-slate-700 font-medium">
+                    <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+                    <span className="text-foreground font-medium">
                       Switching view...
                     </span>
                   </div>
