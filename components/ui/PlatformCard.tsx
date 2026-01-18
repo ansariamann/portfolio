@@ -218,10 +218,10 @@ export default function PlatformCard({
       ref={ref}
       className={cn(
         "relative bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden cursor-pointer",
-        "border border-gray-200 dark:border-gray-700",
+        "border border-gray-200 dark:border-white/10",
         "transition-all duration-300",
         isActive &&
-          "ring-2 ring-offset-2 ring-blue-500 dark:ring-offset-gray-900",
+        "ring-2 ring-offset-2 ring-blue-500 dark:ring-offset-gray-900",
         className
       )}
       variants={cardVariants}
@@ -236,9 +236,8 @@ export default function PlatformCard({
       <div
         className="relative h-20 flex items-center justify-between px-6 text-white"
         style={{
-          background: `linear-gradient(135deg, ${platform.primaryColor} 0%, ${
-            platform.secondaryColor || platform.primaryColor
-          } 100%)`,
+          background: `linear-gradient(135deg, ${platform.primaryColor} 0%, ${platform.secondaryColor || platform.primaryColor
+            } 100%)`,
         }}
       >
         <div className="flex items-center space-x-3">
@@ -436,9 +435,8 @@ export default function PlatformCard({
       <motion.div
         className="absolute inset-0 rounded-xl pointer-events-none"
         style={{
-          background: `linear-gradient(135deg, ${platform.primaryColor}20 0%, ${
-            platform.secondaryColor || platform.primaryColor
-          }20 100%)`,
+          background: `linear-gradient(135deg, ${platform.primaryColor}20 0%, ${platform.secondaryColor || platform.primaryColor
+            }20 100%)`,
         }}
         initial={{ opacity: 0 }}
         animate={{ opacity: isHovered ? 1 : 0 }}

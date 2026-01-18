@@ -121,7 +121,7 @@ export function TechStack({
               {...itemAnimationProps}
               {...hoverProps}
               className={cn(
-                "group flex items-center bg-white dark:bg-gray-900 rounded-lg border border-border/50 hover:border-primary/20 hover:shadow-sm transition-all duration-300",
+                "group flex items-center bg-white dark:bg-gray-900 rounded-lg border border-border/50 dark:border-white/10 hover:border-primary/20 hover:shadow-sm transition-all duration-300",
                 // Enhanced focus styles for accessibility
                 "focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-1 focus:ring-offset-background",
                 // Mobile-optimized spacing and sizing

@@ -125,7 +125,7 @@ export default function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border/50 overflow-hidden"
+            className="md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-border/50 shadow-2xl overflow-hidden"
           >
             <div className="flex flex-col p-4 space-y-2">
               {navigationItems.map((item) => (

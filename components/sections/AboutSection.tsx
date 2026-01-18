@@ -128,6 +128,7 @@ function TimelineItemComponent({
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
   const { isMobile, shouldReduceAnimations } = useMobileOptimizedAnimation();
+  const [hasHovered, setHasHovered] = useState(false);
   const isEven = index % 2 === 0;
 
   const getTypeGradient = (type: TimelineItem["type"]) => {
@@ -180,16 +181,18 @@ function TimelineItemComponent({
       <motion.div
         className="relative group"
         whileHover={{ y: -5, scale: 1.02 }}
+        onHoverStart={() => setHasHovered(true)}
         transition={{ type: "spring", stiffness: 300 }}
       >
         {/* Glassmorphism card */}
         <div className="glass-card relative p-6 rounded-3xl transition-all duration-500 overflow-hidden">
-          {/* Gradient background on hover */}
+          {/* Gradient background with persistent hover state */}
           <motion.div
             className={`absolute inset-0 bg-gradient-to-br ${getTypeGradient(
               item.type
-            )}/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
-            initial={false}
+            )}/10 transition-opacity duration-500`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: hasHovered ? 1 : 0 }}
           />
 
           {/* Content */}

@@ -48,7 +48,7 @@ export default function ProjectCard({
       className={cn(
         // Allow featured projects to span wider on large screens
         project.featured ? "lg:col-span-2" : "",
-        "group relative glass-card rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300",
+        "group relative bg-white/70 dark:bg-gray-800/50 backdrop-blur-xl rounded-[1.5rem] overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-border/50 dark:border-white/10",
         // Mobile-specific enhancements
         "mobile-tap-highlight",
         touchDevice && "touch-target active:scale-98",

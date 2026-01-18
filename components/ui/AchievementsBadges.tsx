@@ -81,9 +81,9 @@ const AchievementsBadges: React.FC<AchievementsBadgesProps> = ({
         };
       default:
         return {
-          border: "border-gray-300",
-          glow: "shadow-gray-400/10",
-          bg: "bg-gradient-to-br from-gray-50 to-slate-50",
+          border: "border-gray-300 dark:border-white/10",
+          glow: "shadow-gray-400/10 dark:shadow-white/5",
+          bg: "bg-gradient-to-br from-gray-50 to-slate-50 dark:from-gray-800/50 dark:to-gray-900/50",
         };
     }
   };
@@ -184,19 +184,16 @@ const AchievementsBadges: React.FC<AchievementsBadgesProps> = ({
                 setSelectedCategory(categories[nextIndex]);
               }
             }}
-            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 min-h-[44px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-              selectedCategory === category
+            className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 min-h-[44px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${selectedCategory === category
                 ? "bg-blue-600 text-white shadow-lg shadow-blue-600/25"
                 : "bg-white text-gray-600 border border-gray-200 hover:border-blue-300 hover:text-blue-600"
-            }`}
+              }`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             aria-pressed={selectedCategory === category}
-            aria-label={`Filter by ${
-              category === "all" ? "all categories" : category
-            } achievements${
-              selectedCategory === category ? " (currently selected)" : ""
-            }`}
+            aria-label={`Filter by ${category === "all" ? "all categories" : category
+              } achievements${selectedCategory === category ? " (currently selected)" : ""
+              }`}
           >
             {category === "all"
               ? "All"
@@ -207,18 +204,16 @@ const AchievementsBadges: React.FC<AchievementsBadgesProps> = ({
 
       {/* Achievements Grid */}
       <motion.div
-        className={`grid gap-3 sm:gap-4 ${
-          layout === "grid"
+        className={`grid gap-3 sm:gap-4 ${layout === "grid"
             ? "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
             : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-        }`}
+          }`}
         variants={containerVariants}
         initial="hidden"
         animate="visible"
         role="grid"
-        aria-label={`${filteredAchievements.length} achievements ${
-          selectedCategory !== "all" ? `in ${selectedCategory} category` : ""
-        }`}
+        aria-label={`${filteredAchievements.length} achievements ${selectedCategory !== "all" ? `in ${selectedCategory} category` : ""
+          }`}
       >
         <AnimatePresence mode="popLayout">
           {filteredAchievements.map((achievement) => {
@@ -255,13 +250,11 @@ const AchievementsBadges: React.FC<AchievementsBadgesProps> = ({
                   }}
                   role="gridcell"
                   tabIndex={0}
-                  aria-label={`${achievement.title} achievement. ${
-                    achievement.description
-                  }. Earned on ${formatDate(
-                    achievement.earnedDate
-                  )}. Category: ${achievement.category}${
-                    achievement.rarity ? `, Rarity: ${achievement.rarity}` : ""
-                  }. Press Enter to view details.`}
+                  aria-label={`${achievement.title} achievement. ${achievement.description
+                    }. Earned on ${formatDate(
+                      achievement.earnedDate
+                    )}. Category: ${achievement.category}${achievement.rarity ? `, Rarity: ${achievement.rarity}` : ""
+                    }. Press Enter to view details.`}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
                       e.preventDefault();
@@ -297,15 +290,14 @@ const AchievementsBadges: React.FC<AchievementsBadgesProps> = ({
                   {achievement.rarity && (
                     <div className="flex justify-center">
                       <div
-                        className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full ${
-                          achievement.rarity === "legendary"
+                        className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full ${achievement.rarity === "legendary"
                             ? "bg-yellow-400"
                             : achievement.rarity === "epic"
-                            ? "bg-purple-400"
-                            : achievement.rarity === "rare"
-                            ? "bg-blue-400"
-                            : "bg-gray-400"
-                        }`}
+                              ? "bg-purple-400"
+                              : achievement.rarity === "rare"
+                                ? "bg-blue-400"
+                                : "bg-gray-400"
+                          }`}
                       />
                     </div>
                   )}
@@ -378,15 +370,14 @@ const AchievementsBadges: React.FC<AchievementsBadgesProps> = ({
                       </span>
                       {selectedAchievement.rarity && (
                         <span
-                          className={`px-2 py-1 text-xs font-medium rounded-full ${
-                            selectedAchievement.rarity === "legendary"
+                          className={`px-2 py-1 text-xs font-medium rounded-full ${selectedAchievement.rarity === "legendary"
                               ? "bg-yellow-100 text-yellow-600"
                               : selectedAchievement.rarity === "epic"
-                              ? "bg-purple-100 text-purple-600"
-                              : selectedAchievement.rarity === "rare"
-                              ? "bg-blue-100 text-blue-600"
-                              : "bg-gray-100 text-gray-600"
-                          }`}
+                                ? "bg-purple-100 text-purple-600"
+                                : selectedAchievement.rarity === "rare"
+                                  ? "bg-blue-100 text-blue-600"
+                                  : "bg-gray-100 text-gray-600"
+                            }`}
                         >
                           {selectedAchievement.rarity}
                         </span>
