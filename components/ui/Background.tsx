@@ -1,72 +1,96 @@
 "use client";
-
+import React, { useMemo } from "react";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+
+const Star = ({ x, y, size, delay, hue }) => (
+  <motion.div
+    className="absolute rounded-full"
+    style={{
+      left: `${x}%`,
+      top: `${y}%`,
+      width: `${size}px`,
+      height: `${size}px`,
+      backgroundColor: `hsl(${hue}, 100%, 90%)`,
+      boxShadow: `0 0 ${size * 2}px hsl(${hue}, 100%, 80%)`,
+    }}
+    initial={{ opacity: 0, scale: 0.5 }}
+    animate={{ opacity: [0, 1, 0.7, 1, 0.9, 1], scale: 1 }}
+    transition={{
+      duration: Math.random() * 2 + 1.5,
+      delay,
+      ease: "easeInOut",
+      repeat: Infinity,
+      repeatType: "mirror",
+    }}
+  />
+);
 
 export function Background() {
-    // Use client-side only rendering to avoid hydration mismatch with random values
-    const [mounted, setMounted] = useState(false);
+  const stars = useMemo(() => {
+    return Array.from({ length: 250 }).map(() => ({
+      x: Math.random() * 100,
+      y: Math.random() * 70, // Concentrate stars in the upper 70%
+      size: Math.random() * 1.5 + 0.5,
+      delay: Math.random() * 8,
+      hue: Math.random() * 360,
+    }));
+  }, []);
 
-    useEffect(() => {
-        setMounted(true);
-    }, []);
+  return (
+    <div className="fixed inset-0 -z-10 overflow-hidden bg-gradient-to-b from-[#01000e] via-[#040024] to-[#0b0033]">
+      {stars.map((star, i) => (
+        <Star key={i} {...star} />
+      ))}
 
-    if (!mounted) return <div className="fixed inset-0 bg-background -z-50" />;
+      {/* Subtle Aurora Effects */}
+      <motion.div
+        className="absolute top-0 left-0 w-full h-2/3"
+        style={{
+          background: "radial-gradient(ellipse at 20% 30%, hsla(260, 100%, 70%, 0.1), transparent 70%)",
+        }}
+        animate={{
+          opacity: [0.4, 0.7, 0.4],
+          scale: [1, 1.05, 1],
+        }}
+        transition={{
+          duration: 25,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        className="absolute bottom-0 right-0 w-full h-1/2"
+        style={{
+          background: "radial-gradient(ellipse at 80% 70%, hsla(200, 100%, 60%, 0.15), transparent 70%)",
+        }}
+        animate={{
+          opacity: [0.5, 0.8, 0.5],
+          scale: [1.05, 1, 1.05],
+        }}
+        transition={{
+          duration: 30,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 10,
+        }}
+      />
 
-    return (
-        <div className="fixed inset-0 -z-50 overflow-hidden bg-background pointer-events-none">
-            {/* Noise Texture Overlay */}
-            <div
-                className="absolute inset-0 opacity-[0.03] mix-blend-overlay"
-                style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E")`,
-                }}
-            />
-
-            {/* Primary Gradient Orb */}
-            <motion.div
-                className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-primary/20 rounded-full blur-[120px]"
-                animate={{
-                    x: [0, 100, 0],
-                    y: [0, 50, 0],
-                    scale: [1, 1.2, 1],
-                }}
-                transition={{
-                    duration: 20,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                }}
-            />
-
-            {/* Secondary Gradient Orb */}
-            <motion.div
-                className="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-violet-600/20 rounded-full blur-[120px]"
-                animate={{
-                    x: [0, -100, 0],
-                    y: [0, -50, 0],
-                    scale: [1, 1.2, 1],
-                }}
-                transition={{
-                    duration: 25,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                }}
-            />
-
-            {/* Accent Gradient Orb */}
-            <motion.div
-                className="absolute top-[40%] left-[40%] w-[30vw] h-[30vw] bg-blue-500/10 rounded-full blur-[100px]"
-                animate={{
-                    x: [0, 50, -50, 0],
-                    y: [0, -50, 50, 0],
-                    opacity: [0.3, 0.6, 0.3],
-                }}
-                transition={{
-                    duration: 30,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                }}
-            />
-        </div>
-    );
+      {/* Mountain Landscape Silhouette */}
+      <div className="absolute bottom-0 left-0 right-0 h-1/2">
+        <div 
+          className="absolute bottom-0 left-0 right-0 h-full bg-gradient-to-t from-[#0b0033] to-transparent"
+        />
+        <div
+          className="absolute bottom-0 left-[-10%] w-[120%] h-[80%] bg-[#040024] rounded-t-[100%] transform-gpu"
+          style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 30%, 75% 50%, 50% 25%, 25% 60%, 0 40%)' }}
+        />
+        <div
+          className="absolute bottom-[-5%] left-[-10%] w-[120%] h-[70%] bg-[#01000e] rounded-t-[100%] transform-gpu"
+          style={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 40%, 80% 30%, 60% 50%, 40% 35%, 20% 55%, 0 45%)' }}
+        />
+      </div>
+    </div>
+  );
 }
+
+export default Background;

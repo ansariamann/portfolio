@@ -60,12 +60,12 @@ export default function ProjectModal({
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-3xl font-bold text-gray-900">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
               {project.title}
             </h1>
             <div className="flex items-center space-x-2">
               {getStatusIcon(project.status)}
-              <span className="text-sm font-medium text-gray-600">
+              <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 {getStatusText(project.status)}
               </span>
             </div>
@@ -95,24 +95,24 @@ export default function ProjectModal({
 
         {/* Description */}
         <div className="mb-8">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
             About This Project
           </h2>
-          <p className="text-gray-700 leading-relaxed">
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
             {project.longDescription || project.description}
           </p>
         </div>
 
         {/* Technologies */}
         <div className="mb-8">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
             Technologies Used
           </h2>
           <div className="flex flex-wrap gap-3">
             {project.technologies.map((tech) => (
               <motion.span
                 key={tech}
-                className="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg font-medium"
+                className="px-4 py-2 bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200 rounded-lg font-medium"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -125,7 +125,7 @@ export default function ProjectModal({
         {/* Highlights */}
         {project.highlights && project.highlights.length > 0 && (
           <div className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               Key Features
             </h2>
             <ul className="space-y-2">
@@ -141,7 +141,7 @@ export default function ProjectModal({
                     className="text-green-500 mr-3 mt-0.5 flex-shrink-0"
                     size={16}
                   />
-                  <span className="text-gray-700">{highlight}</span>
+                  <span className="text-gray-700 dark:text-gray-300">{highlight}</span>
                 </motion.li>
               ))}
             </ul>
@@ -151,7 +151,7 @@ export default function ProjectModal({
         {/* Challenges */}
         {project.challenges && project.challenges.length > 0 && (
           <div className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               Challenges Overcome
             </h2>
             <ul className="space-y-2">
@@ -167,7 +167,7 @@ export default function ProjectModal({
                     className="text-yellow-500 mr-3 mt-0.5 flex-shrink-0"
                     size={16}
                   />
-                  <span className="text-gray-700">{challenge}</span>
+                  <span className="text-gray-700 dark:text-gray-300">{challenge}</span>
                 </motion.li>
               ))}
             </ul>
@@ -177,7 +177,7 @@ export default function ProjectModal({
         {/* Learnings */}
         {project.learnings && project.learnings.length > 0 && (
           <div className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
               Key Learnings
             </h2>
             <ul className="space-y-2">
@@ -193,7 +193,7 @@ export default function ProjectModal({
                     className="text-blue-500 mr-3 mt-0.5 flex-shrink-0"
                     size={16}
                   />
-                  <span className="text-gray-700">{learning}</span>
+                  <span className="text-gray-700 dark:text-gray-300">{learning}</span>
                 </motion.li>
               ))}
             </ul>
@@ -220,7 +220,7 @@ export default function ProjectModal({
             href={project.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors"
+            className="flex items-center justify-center px-6 py-3 border-2 border-gray-300 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >

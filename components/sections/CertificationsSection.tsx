@@ -11,13 +11,7 @@ export default function CertificationsSection() {
   const { touchDevice } = useMobileOptimizedAnimation();
 
   return (
-    <section id="certifications" className="min-h-screen py-20 bg-secondary/30 relative overflow-hidden">
-      {/* Subtle Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-x-1/2"></div>
-        <div className="absolute bottom-20 right-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl translate-x-1/2"></div>
-      </div>
-
+    <section id="certifications" className="min-h-screen py-20 relative overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
         <AnimatedSectionHeading
           text="Certifications"
@@ -40,7 +34,7 @@ export default function CertificationsSection() {
               <div className="glass-card rounded-[1.5rem] p-6 flex flex-col h-full transition-all duration-300 relative overflow-hidden">
                 {/* Header with Badge and Featured Tag */}
                 <div className="flex items-start justify-between mb-5">
-                  <div className="relative w-20 h-20 flex-shrink-0 bg-secondary/50 rounded-2xl p-3 flex items-center justify-center">
+                  <div className="relative w-20 h-20 flex-shrink-0 bg-white/10 backdrop-blur-sm rounded-2xl p-3 flex items-center justify-center">
                     <Image
                       src={cert.badgeImage}
                       alt={cert.title}
@@ -57,24 +51,24 @@ export default function CertificationsSection() {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-all duration-300 line-clamp-2">
+                <h3 className="text-xl font-bold text-gray-200 mb-3 group-hover:text-primary transition-all duration-300 line-clamp-2">
                   {cert.title}
                 </h3>
 
                 {/* Issuer */}
-                <div className="flex items-center text-muted-foreground text-sm mb-4">
+                <div className="flex items-center text-gray-400 text-sm mb-4">
                   <Award size={16} className="mr-2 text-primary" />
                   <span className="font-semibold">{cert.issuer}</span>
                 </div>
 
                 {/* Description */}
-                <p className="text-muted-foreground text-sm mb-6 line-clamp-3 leading-relaxed">
+                <p className="text-gray-400 text-sm mb-6 line-clamp-3 leading-relaxed">
                   {cert.description}
                 </p>
 
                 {/* Footer with Date and Verify Link */}
-                <div className="mt-auto pt-5 border-t border-border/50 flex items-center justify-between text-sm">
-                  <div className="flex items-center text-muted-foreground">
+                <div className="mt-auto pt-5 border-t border-white/10 flex items-center justify-between text-sm">
+                  <div className="flex items-center text-gray-400">
                     <Calendar size={14} className="mr-2" />
                     <span className="font-medium">
                       {new Date(cert.issueDate).toLocaleDateString("en-US", {
@@ -89,7 +83,7 @@ export default function CertificationsSection() {
                       href={cert.verificationUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1 px-4 py-2 bg-secondary text-secondary-foreground font-semibold rounded-lg hover:bg-primary hover:text-primary-foreground transition-all duration-300 group/link"
+                      className="flex items-center gap-1 px-4 py-2 bg-white/10 backdrop-blur-sm text-gray-300 font-semibold rounded-lg hover:bg-white/20 transition-all duration-300 group/link border border-white/20"
                     >
                       Verify
                       <ExternalLink

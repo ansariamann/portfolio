@@ -48,7 +48,7 @@ export default function ProjectCard({
       className={cn(
         // Allow featured projects to span wider on large screens
         project.featured ? "lg:col-span-2" : "",
-        "group relative bg-white/70 dark:bg-gray-800/50 backdrop-blur-xl rounded-[1.5rem] overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-border/50 dark:border-white/10",
+        "group relative bg-black/30 backdrop-blur-2xl rounded-[1.5rem] overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-white/10",
         // Mobile-specific enhancements
         "mobile-tap-highlight",
         touchDevice && "touch-target active:scale-98",
@@ -104,7 +104,7 @@ export default function ProjectCard({
         >
           <h3
             className={cn(
-              "font-bold text-foreground transition-colors leading-tight",
+              "font-bold text-gray-200 transition-colors leading-tight",
               project.featured ? "text-2xl sm:text-3xl" : "text-lg sm:text-xl",
               !shouldReduceAnimations && "group-hover:text-primary"
             )}
@@ -113,7 +113,7 @@ export default function ProjectCard({
           </h3>
           <div
             className={cn(
-              "flex items-center text-muted-foreground flex-shrink-0",
+              "flex items-center text-gray-400 flex-shrink-0",
               "text-xs sm:text-sm"
             )}
           >
@@ -127,7 +127,7 @@ export default function ProjectCard({
 
         <p
           className={cn(
-            "text-muted-foreground mb-4 leading-relaxed",
+            "text-gray-400 mb-4 leading-relaxed",
             project.featured ? "text-base sm:text-lg" : "text-sm sm:text-base",
             isMobile
               ? project.featured
@@ -152,7 +152,7 @@ export default function ProjectCard({
               <span
                 key={tech}
                 className={cn(
-                  "px-2.5 py-1 bg-secondary text-secondary-foreground rounded-md font-medium border border-border/50",
+                  "px-2.5 py-1 bg-white/10 text-gray-300 rounded-md font-medium border border-white/20",
                   "text-xs"
                 )}
               >
@@ -169,7 +169,7 @@ export default function ProjectCard({
                 : 3) && (
               <span
                 className={cn(
-                  "px-2.5 py-1 bg-secondary text-secondary-foreground rounded-md font-medium border border-border/50",
+                  "px-2.5 py-1 bg-white/10 text-gray-300 rounded-md font-medium border border-white/20",
                   "text-xs"
                 )}
               >
@@ -188,7 +188,7 @@ export default function ProjectCard({
         {/* Action buttons */}
         <div
           className={cn(
-            "flex items-center justify-between mt-auto pt-4 border-t border-border/50",
+            "flex items-center justify-between mt-auto pt-4 border-t border-white/10",
             isMobile && "flex-col sm:flex-row gap-3"
           )}
         >
@@ -201,7 +201,7 @@ export default function ProjectCard({
               "text-primary hover:text-primary/80 font-medium transition-colors focus:outline-none flex items-center gap-1",
               "text-sm",
               touchDevice &&
-              "touch-target py-2 px-3 -mx-3 rounded-lg hover:bg-secondary/50",
+              "touch-target py-2 px-3 -mx-3 rounded-lg hover:bg-white/10",
               isMobile && "w-full justify-center"
             )}
           >
@@ -219,7 +219,7 @@ export default function ProjectCard({
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-full transition-all"
+                className="p-2 text-gray-400 hover:text-primary hover:bg-primary/10 rounded-full transition-all"
                 title="Live Demo"
                 onClick={(e) => e.stopPropagation()}
                 whileHover={{ scale: 1.1 }}
@@ -232,7 +232,7 @@ export default function ProjectCard({
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-full transition-all"
+              className="p-2 text-gray-400 hover:text-primary hover:bg-primary/10 rounded-full transition-all"
               title="View Code"
               onClick={(e) => e.stopPropagation()}
               whileHover={{ scale: 1.1 }}

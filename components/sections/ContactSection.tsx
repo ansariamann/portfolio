@@ -38,7 +38,7 @@ export default function ContactSection() {
   return (
     <section
       id="contact"
-      className="min-h-screen py-24 bg-secondary/30 relative overflow-hidden"
+      className="min-h-screen py-24 relative overflow-hidden"
     >
       <div className="container mx-auto px-6 relative z-10 max-w-6xl">
 
@@ -106,7 +106,7 @@ export default function ContactSection() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="group flex items-center p-5 rounded-[1.5rem] bg-white dark:bg-gray-900 border border-border/50 hover:border-primary/20 hover:shadow-lg transition-all duration-300"
+                  className="group flex items-center p-5 rounded-[1.5rem] bg-black/30 backdrop-blur-2xl border border-white/10 hover:border-primary/20 hover:bg-black/50 transition-all duration-300"
                 >
                   <div className={`p-3 rounded-full ${method.bg} mr-5 group-hover:scale-110 transition-transform`}>
                     <method.icon size={20} className={method.color} />

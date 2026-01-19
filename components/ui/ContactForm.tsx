@@ -50,6 +50,23 @@ export default function ContactForm() {
       // Log data for debugging/verification
       debugLog("Form Data prepared for submission:", sanitizedData);
 
+      // Simulate success for localhost/development
+      if (
+        typeof window !== "undefined" &&
+        (window.location.hostname === "localhost" ||
+          window.location.hostname === "127.0.0.1")
+      ) {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        setSubmissionStatus("success");
+        setSubmitMessage("Message sent! (Localhost mode)");
+        reset();
+        setTimeout(() => {
+          setSubmissionStatus("idle");
+          setSubmitMessage("");
+        }, 5000);
+        return;
+      }
+
       // Submit to Netlify
       const encode = (data: Record<string, string>) => {
         return Object.keys(data)
@@ -96,7 +113,7 @@ export default function ContactForm() {
 
   // Apple-style input classes: clean, light bg, subtle border
   const inputClasses = cn(
-    "w-full bg-secondary/50 border border-transparent rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:bg-background transition-all duration-300",
+    "w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:bg-white/20 transition-all duration-300",
     prefersReducedMotion ? "motion-reduce-essential" : "transition-all duration-300",
     "px-5 py-4 text-base",
     touchDevice && "min-h-[44px]",
@@ -156,38 +173,7 @@ export default function ContactForm() {
           </p>
         </div>
 
-        {/* Name Field */}
-        <motion.div
-          className="space-y-1"
-          initial={
-            prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
-          }
-          animate={{ opacity: 1, x: 0 }}
-          transition={
-            prefersReducedMotion
-              ? { duration: 0 }
-              : { delay: 0.1, ...transition.default }
-          }
-        >
-          <label htmlFor="name" className={labelClasses}>
-            Name
-          </label>
-          <input
-            {...register("name")}
-            type="text"
-            id="name"
-            className={inputClasses}
-          />
-          {errors.name && (
-            <motion.p
-              className={errorClasses}
-              initial={{ opacity: 0, y: -5 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              {errors.name.message}
-            </motion.p>
-          )}
-        </motion.div>
+
 
         {/* Email Field */}
         <motion.div

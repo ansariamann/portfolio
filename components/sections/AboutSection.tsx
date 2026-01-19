@@ -237,7 +237,7 @@ function TimelineItemComponent({
                 {item.technologies.map((tech, techIndex) => (
                   <motion.span
                     key={techIndex}
-                    className="px-3 py-1 bg-secondary/50 backdrop-blur-sm text-secondary-foreground text-sm rounded-full border border-border/50"
+                    className="px-3 py-1 bg-white/10 backdrop-blur-sm text-gray-300 text-sm rounded-full border border-white/20"
                     whileHover={{ scale: 1.05, y: -1 }}
                     transition={{ type: "spring", stiffness: 400 }}
                   >
@@ -294,36 +294,8 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="min-h-screen py-20 bg-secondary/30 relative overflow-hidden"
+      className="min-h-screen py-20 relative overflow-hidden"
     >
-      {/* Modern background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        <motion.div
-          className="absolute top-20 right-20 w-72 h-72 bg-gradient-to-br from-blue-200/30 to-purple-200/30 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.3, 0.5, 0.3],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-20 left-20 w-64 h-64 bg-gradient-to-tr from-purple-200/30 to-pink-200/30 rounded-full blur-3xl"
-          animate={{
-            scale: [1.1, 1, 1.1],
-            opacity: [0.4, 0.2, 0.4],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      </div>
-
       <div className="container mx-auto px-6 relative z-10">
         {/* Modern section header with photo */}
         <motion.div
@@ -341,7 +313,7 @@ export default function AboutSection() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="inline-block mb-6"
             >
-              <span className="px-4 py-2 bg-secondary/50 backdrop-blur-sm rounded-full text-sm font-medium text-primary border border-border/50">
+              <span className="px-4 py-2 bg-primary/10 backdrop-blur-sm rounded-full text-sm font-medium text-primary border border-primary/20">
                 Get to know me
               </span>
             </motion.div>
@@ -405,7 +377,7 @@ export default function AboutSection() {
 
                 {/* Photo container */}
                 <motion.div
-                  className="relative w-80 h-96 bg-gradient-to-br from-slate-100 to-slate-200 rounded-3xl overflow-hidden shadow-2xl border-4 border-white/50"
+                  className="relative w-80 h-96 bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl overflow-hidden shadow-2xl border-4 border-white/10"
                   whileHover={{ scale: 1.02, rotate: 1 }}
                   transition={{ duration: 0.3 }}
                 >
@@ -544,7 +516,7 @@ export default function AboutSection() {
 
               {/* Personal touch */}
               <motion.div
-                className="p-6 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl border border-primary/10"
+                className="p-6 bg-gradient-to-r from-blue-900/50 to-purple-900/50 rounded-2xl border border-white/10"
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: 1.2 }}

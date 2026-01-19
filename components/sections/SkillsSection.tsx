@@ -15,13 +15,13 @@ import { cn } from "@/lib/utils";
 const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
   return (
     <motion.div
-      className="group flex flex-col items-center justify-center p-6 h-full rounded-[1.5rem] bg-white dark:bg-gray-900 border border-border/50 hover:border-primary/20 hover:shadow-lg transition-all duration-300 relative overflow-hidden"
+      className="group flex flex-col items-center justify-center p-6 h-full rounded-[1.5rem] bg-gradient-to-br from-gray-900/80 to-gray-800/70 backdrop-blur-lg border border-white/10 hover:bg-gray-800/80 transition-all duration-300 relative overflow-hidden"
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: index * 0.05 }}
       whileHover={{ y: -5, scale: 1.02 }}
     >
-      <div className="w-12 h-12 mb-3 flex items-center justify-center p-2.5 bg-secondary/50 rounded-xl group-hover:bg-primary/10 transition-colors">
+      <div className="w-12 h-12 mb-3 flex items-center justify-center p-2.5 bg-white/10 rounded-xl group-hover:bg-white/20 transition-colors">
         <SkillIcon
           skillId={skill.id}
           size={28}
@@ -30,12 +30,12 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
         />
       </div>
 
-      <h3 className="font-semibold text-foreground text-sm mb-1 text-center">
+      <h3 className="font-semibold text-gray-200 text-sm mb-1 text-center">
         {skill.name}
       </h3>
 
       {/* Percentage Bar */}
-      <div className="w-full h-1.5 bg-secondary rounded-full overflow-hidden mt-2">
+      <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden mt-2">
         <motion.div
           className="h-full bg-primary/80 rounded-full"
           initial={{ width: 0 }}
@@ -45,7 +45,7 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
         />
       </div>
 
-      <div className="mt-2 text-xs text-muted-foreground group-hover:text-foreground transition-colors">
+      <div className="mt-2 text-xs text-gray-400 group-hover:text-gray-200 transition-colors">
         {skill.yearsOfExperience ? `${skill.yearsOfExperience}y exp` : "Competent"}
       </div>
     </motion.div>
@@ -66,34 +66,7 @@ export default function SkillsSection() {
       : getSkillsByCategory(selectedCategory as Skill["category"]);
 
   return (
-    <section id="skills" className="min-h-screen py-20 relative bg-secondary/30 overflow-hidden">
-      {/* Modern background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-20 sm:top-40 left-10 sm:left-20 w-48 sm:w-96 h-48 sm:h-96 bg-primary/5 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-20 sm:bottom-40 right-10 sm:right-20 w-32 sm:w-80 h-32 sm:h-80 bg-secondary/10 rounded-full blur-3xl"
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.4, 0.2, 0.4],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      </div>
+    <section id="skills" className="min-h-screen py-20 relative overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
 
         {/* Header */}
@@ -104,7 +77,7 @@ export default function SkillsSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <span className="px-4 py-2 bg-secondary/50 backdrop-blur-sm rounded-full text-sm font-medium text-primary border border-border/50 inline-block mb-6">
+          <span className="px-4 py-2 bg-primary/10 backdrop-blur-sm rounded-full text-sm font-medium text-primary border border-primary/20 inline-block mb-6">
             Expertise
           </span>
 
@@ -131,8 +104,8 @@ export default function SkillsSection() {
             className={cn(
               "px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border",
               selectedCategory === "all"
-                ? "bg-primary text-primary-foreground border-primary"
-                : "bg-secondary/50 text-muted-foreground border-border/50 hover:bg-secondary"
+                ? "bg-white/10 border border-white/20 text-white"
+                : "text-gray-300 hover:text-white border-gray-700"
             )}
           >
             All Skills
@@ -145,8 +118,8 @@ export default function SkillsSection() {
               className={cn(
                 "px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border",
                 selectedCategory === category
-                  ? "bg-primary text-primary-foreground border-primary"
-                  : "bg-secondary/50 text-muted-foreground border-border/50 hover:bg-secondary"
+                  ? "bg-white/10 border border-white/20 text-white"
+                  : "text-gray-300 hover:text-white border-gray-700"
               )}
             >
               {SKILL_CATEGORIES[category]}

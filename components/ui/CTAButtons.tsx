@@ -60,7 +60,7 @@ export function CTAButtons({
           onClick={primaryAction.onClick}
           className={cn(
             "inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed",
-            "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl border-0 shadow-lg hover:shadow-xl transition-all duration-300 group",
+            "bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-semibold rounded-xl border border-blue-400 shadow-lg hover:shadow-xl transition-all duration-300 group",
             // Enhanced focus styles for accessibility
             "focus:outline-none focus:ring-4 focus:ring-blue-500/50 focus:ring-offset-2 focus:ring-offset-slate-900",
             // Mobile-specific optimizations
@@ -100,7 +100,7 @@ export function CTAButtons({
           onClick={secondaryAction.onClick}
           className={cn(
             "inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed",
-            "bg-secondary text-foreground hover:bg-secondary/80 font-semibold rounded-xl border-2 border-border/50 hover:border-primary/50 transition-all duration-300 group shadow-sm",
+            "bg-gray-800/50 backdrop-blur-sm text-gray-200 hover:bg-gray-700/50 font-semibold rounded-xl border border-gray-700 hover:border-gray-600 transition-all duration-300 group shadow-sm",
             // Enhanced focus styles for accessibility
             "focus:outline-none focus:ring-4 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background",
             // Mobile-specific optimizations
@@ -108,7 +108,7 @@ export function CTAButtons({
               ? [
                 "w-full px-6 py-4 text-base",
                 `min-h-[${touchTargetSize}px]`,
-                "active:scale-95 active:bg-secondary/60",
+                "active:scale-95 active:bg-gray-700/60",
                 "touch-feedback",
               ]
               : ["px-8 py-4 min-h-[44px]"],

@@ -219,7 +219,7 @@ export default function ImageGallery({
           )}
 
           {/* Image info */}
-          <div className="text-center mt-4 text-gray-600">
+          <div className="text-center mt-4 text-gray-600 dark:text-gray-400">
             <p className="text-sm">
               Image {currentIndex + 1} of {images.length}
             </p>

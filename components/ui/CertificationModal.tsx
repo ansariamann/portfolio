@@ -73,12 +73,12 @@ export default function CertificationModal({
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
             <div className="flex-1">
               <h1
-                className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2"
+                className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2"
                 id="modal-certification-title"
               >
                 {certification.title}
               </h1>
-              <div className="flex items-center text-gray-600 mb-4">
+              <div className="flex items-center text-gray-600 dark:text-gray-400 mb-4">
                 <User size={18} className="mr-2" aria-hidden="true" />
                 <span className="text-base sm:text-lg font-medium">
                   {certification.issuer}
@@ -173,25 +173,25 @@ export default function CertificationModal({
           <div className="space-y-4 sm:space-y-6">
             {/* Issue date */}
             <div
-              className="bg-gray-50 rounded-lg p-4"
+              className="bg-white/5 backdrop-blur-sm rounded-lg p-4"
               role="group"
               aria-labelledby="issue-date-heading"
             >
               <div className="flex items-center mb-2">
                 <Calendar
                   size={18}
-                  className="text-gray-600 mr-2"
+                  className="text-gray-600 dark:text-gray-400 mr-2"
                   aria-hidden="true"
                 />
                 <h3
                   id="issue-date-heading"
-                  className="font-semibold text-gray-900"
+                  className="font-semibold text-gray-900 dark:text-white"
                 >
                   Issue Date
                 </h3>
               </div>
               <p
-                className="text-gray-700"
+                className="text-gray-700 dark:text-gray-300"
                 aria-label={`Issued on ${formatDate(certification.issueDate)}`}
               >
                 {formatDate(certification.issueDate)}
@@ -201,25 +201,25 @@ export default function CertificationModal({
             {/* Expiry date */}
             {certification.expiryDate && (
               <div
-                className="bg-gray-50 rounded-lg p-4"
+                className="bg-white/5 backdrop-blur-sm rounded-lg p-4"
                 role="group"
                 aria-labelledby="expiry-date-heading"
               >
                 <div className="flex items-center mb-2">
                   <Clock
                     size={18}
-                    className="text-gray-600 mr-2"
+                    className="text-gray-600 dark:text-gray-400 mr-2"
                     aria-hidden="true"
                   />
                   <h3
                     id="expiry-date-heading"
-                    className="font-semibold text-gray-900"
+                    className="font-semibold text-gray-900 dark:text-white"
                   >
                     Expiry Date
                   </h3>
                 </div>
                 <p
-                  className={`${isExpired ? "text-red-600" : "text-gray-700"}`}
+                  className={`${isExpired ? "text-red-600" : "text-gray-700 dark:text-gray-300"}`}
                   aria-label={`${
                     isExpired ? "Expired on" : "Expires on"
                   } ${formatDate(certification.expiryDate)}`}
@@ -231,25 +231,25 @@ export default function CertificationModal({
 
             {/* Credential ID */}
             <div
-              className="bg-gray-50 rounded-lg p-4"
+              className="bg-white/5 backdrop-blur-sm rounded-lg p-4"
               role="group"
               aria-labelledby="credential-id-heading"
             >
               <div className="flex items-center mb-2">
                 <Hash
                   size={18}
-                  className="text-gray-600 mr-2"
+                  className="text-gray-600 dark:text-gray-400 mr-2"
                   aria-hidden="true"
                 />
                 <h3
                   id="credential-id-heading"
-                  className="font-semibold text-gray-900"
+                  className="font-semibold text-gray-900 dark:text-white"
                 >
                   Credential ID
                 </h3>
               </div>
               <p
-                className="text-gray-700 font-mono text-sm break-all"
+                className="text-gray-700 dark:text-gray-300 font-mono text-sm break-all"
                 aria-label={`Credential ID: ${certification.credentialId}`}
               >
                 {certification.credentialId}
@@ -261,30 +261,30 @@ export default function CertificationModal({
           <div className="space-y-4 sm:space-y-6">
             {/* Description */}
             <div
-              className="bg-gray-50 rounded-lg p-4"
+              className="bg-white/5 backdrop-blur-sm rounded-lg p-4"
               role="group"
               aria-labelledby="description-heading"
             >
               <h3
                 id="description-heading"
-                className="font-semibold text-gray-900 mb-3"
+                className="font-semibold text-gray-900 dark:text-white mb-3"
               >
                 Description
               </h3>
-              <p className="text-gray-700 leading-relaxed">
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                 {certification.description}
               </p>
             </div>
 
             {/* Skills covered */}
             <div
-              className="bg-gray-50 rounded-lg p-4"
+              className="bg-white/5 backdrop-blur-sm rounded-lg p-4"
               role="group"
               aria-labelledby="skills-heading"
             >
               <h3
                 id="skills-heading"
-                className="font-semibold text-gray-900 mb-3"
+                className="font-semibold text-gray-900 dark:text-white mb-3"
               >
                 Skills Covered
               </h3>
@@ -296,7 +296,7 @@ export default function CertificationModal({
                 {certification.skills.map((skill, index) => (
                   <motion.span
                     key={skill}
-                    className="px-3 py-1 bg-white text-gray-700 rounded-full text-sm font-medium border border-gray-200 shadow-sm"
+                    className="px-3 py-1 bg-white text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium border border-gray-200 shadow-sm"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: index * 0.05 }}
@@ -337,12 +337,12 @@ export default function CertificationModal({
               />
               <h3
                 id="verification-heading"
-                className="font-semibold text-gray-900"
+                className="font-semibold text-gray-900 dark:text-white"
               >
                 Verification
               </h3>
             </div>
-            <p className="text-gray-700 mb-4">
+            <p className="text-gray-700 dark:text-gray-300 mb-4">
               This certification can be verified through the issuer&apos;s
               official verification system.
             </p>
@@ -387,19 +387,19 @@ export default function CertificationModal({
         >
           <h3
             id="additional-info-heading"
-            className="font-semibold text-gray-900 mb-4"
+            className="font-semibold text-gray-900 dark:text-white mb-4"
           >
             Additional Information
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
             <div>
-              <span className="font-medium text-gray-600">Category:</span>
-              <span className="ml-2 text-gray-800">
+              <span className="font-medium text-gray-600 dark:text-gray-400">Category:</span>
+              <span className="ml-2 text-gray-800 dark:text-gray-200">
                 {CERTIFICATION_CATEGORIES[certification.category]}
               </span>
             </div>
             <div>
-              <span className="font-medium text-gray-600">Status:</span>
+              <span className="font-medium text-gray-600 dark:text-gray-400">Status:</span>
               <span
                 className={`ml-2 font-medium ${
                   isExpired ? "text-red-600" : "text-green-600"
@@ -411,9 +411,9 @@ export default function CertificationModal({
             </div>
             {certification.expiryDate && (
               <div>
-                <span className="font-medium text-gray-600">Valid Until:</span>
+                <span className="font-medium text-gray-600 dark:text-gray-400">Valid Until:</span>
                 <span
-                  className="ml-2 text-gray-800"
+                  className="ml-2 text-gray-800 dark:text-gray-200"
                   aria-label={`Valid until ${formatDate(
                     certification.expiryDate
                   )}`}
@@ -423,9 +423,9 @@ export default function CertificationModal({
               </div>
             )}
             <div>
-              <span className="font-medium text-gray-600">Skills Count:</span>
+              <span className="font-medium text-gray-600 dark:text-gray-400">Skills Count:</span>
               <span
-                className="ml-2 text-gray-800"
+                className="ml-2 text-gray-800 dark:text-gray-200"
                 aria-label={`${certification.skills.length} skills covered`}
               >
                 {certification.skills.length} skills

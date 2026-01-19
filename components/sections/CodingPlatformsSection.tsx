@@ -105,8 +105,8 @@ const PlatformSelector = ({
               ${hasError
                 ? "bg-destructive/10 text-destructive border border-destructive/50"
                 : isActive
-                  ? "bg-primary text-primary-foreground shadow-lg scale-105 border-transparent"
-                  : "bg-secondary/50 text-muted-foreground hover:bg-secondary/80 border border-border/50"
+                  ? "bg-white/10 border border-white/20 text-white shadow-lg scale-105"
+                  : "text-gray-300 hover:text-white"
               }
               ${isSmallMobile
                 ? "px-3 py-2 text-xs min-w-[44px]"
@@ -279,8 +279,8 @@ const VisualizationModeSelector = ({
             group relative rounded-full font-medium transition-all duration-300 
             flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
             ${activeMode === mode.id
-              ? "bg-primary text-primary-foreground shadow-md scale-105"
-              : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border/50"
+              ? "bg-white/10 border border-white/20 text-white shadow-md scale-105"
+              : "text-gray-300 hover:text-white"
             }
             ${isSmallMobile
               ? "px-2 py-1.5 text-xs min-w-[44px]"
@@ -408,7 +408,7 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
               }
         `}
           >
-            <div className="bg-secondary/30 rounded-xl p-3 sm:p-4">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 sm:p-4">
               <div
                 className={`font-bold text-foreground ${isSmallMobile ? "text-xl" : "text-2xl sm:text-3xl"
                   }`}
@@ -419,7 +419,7 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
                 Problems Solved
               </div>
             </div>
-            <div className="bg-secondary/30 rounded-xl p-3 sm:p-4">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-3 sm:p-4">
               <div
                 className={`font-bold text-foreground ${isSmallMobile ? "text-xl" : "text-2xl sm:text-3xl"
                   }`}
@@ -432,7 +432,7 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
             </div>
             {platform.statistics.ranking && (
               <div
-                className={`bg-secondary/30 rounded-xl p-3 sm:p-4 ${getOptimalGridColumns(3) === 2 ? "col-span-2 sm:col-span-1" : ""
+                className={`bg-white/10 backdrop-blur-sm rounded-xl p-3 sm:p-4 ${getOptimalGridColumns(3) === 2 ? "col-span-2 sm:col-span-1" : ""
                   }`}
               >
                 <div
@@ -527,7 +527,7 @@ const DashboardView = ({ platform }: { platform: CodingPlatform }) => {
                 .map((achievement, index) => (
                   <motion.div
                     key={achievement.id}
-                    className="flex items-center space-x-2 sm:space-x-3 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-secondary/30 hover:bg-secondary/50 transition-all duration-200"
+                    className="flex items-center space-x-2 sm:space-x-3 p-2 sm:p-3 rounded-lg sm:rounded-xl bg-white/10 hover:bg-white/20 transition-all duration-200"
                     whileHover={
                       shouldUseReducedAnimations ? {} : { scale: 1.02 }
                     }
@@ -844,8 +844,8 @@ const HeatmapView = ({ platform }: { platform: CodingPlatform }) => {
               key={period}
               onClick={() => setTimePeriod(period)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${timePeriod === period
-                ? "bg-primary text-primary-foreground shadow-lg"
-                : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border/50"
+                ? "bg-white/10 border border-white/20 text-white shadow-lg"
+                : "text-gray-300 hover:text-white"
                 }`}
             >
               {period.charAt(0).toUpperCase() + period.slice(1)}
@@ -1076,7 +1076,7 @@ const ProgressView = ({ platform }: { platform: CodingPlatform }) => {
                     {goal.target} {goal.unit}
                   </span>
                 </div>
-                <div className="w-full bg-secondary/50 rounded-full h-3">
+                <div className="w-full bg-white/10 rounded-full h-3">
                   <motion.div
                     className="h-3 rounded-full"
                     style={{
@@ -1452,38 +1452,8 @@ export default function CodingPlatformsSection() {
       <section
         id="coding-platforms"
         ref={sectionRef}
-        className="min-h-screen py-12 sm:py-16 md:py-20 bg-secondary/30 relative overflow-hidden"
+        className="min-h-screen py-12 sm:py-16 md:py-20 relative overflow-hidden"
       >
-        {/* Modern background elements - reduced on mobile for performance */}
-        {!shouldUseReducedAnimations && (
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <motion.div
-              className="absolute top-20 sm:top-40 left-10 sm:left-20 w-48 sm:w-96 h-48 sm:h-96 bg-primary/5 rounded-full blur-3xl"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.3, 0.6, 0.3],
-              }}
-              transition={{
-                duration: 12,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-            <motion.div
-              className="absolute bottom-20 sm:bottom-40 right-10 sm:right-20 w-32 sm:w-80 h-32 sm:h-80 bg-primary/10 rounded-full blur-3xl"
-              animate={{
-                scale: [1.2, 1, 1.2],
-                opacity: [0.4, 0.2, 0.4],
-              }}
-              transition={{
-                duration: 10,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-          </div>
-        )}
-
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           {/* Modern section header */}
           <motion.div

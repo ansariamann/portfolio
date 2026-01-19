@@ -2,11 +2,7 @@ import { z } from "zod";
 
 // Contact form validation schema
 export const contactFormSchema = z.object({
-  name: z
-    .string()
-    .min(2, "Name must be at least 2 characters")
-    .max(50, "Name must be less than 50 characters")
-    .regex(/^[a-zA-Z\s]+$/, "Name can only contain letters and spaces"),
+
   email: z
     .string()
     .email("Please enter a valid email address")
@@ -26,7 +22,7 @@ export type ContactFormData = z.infer<typeof contactFormSchema>;
 
 // Default form values
 export const defaultContactFormValues: ContactFormData = {
-  name: "",
+
   email: "",
   subject: "",
   message: "",
@@ -50,7 +46,7 @@ export const sanitizeContactFormData = (
   data: ContactFormData
 ): ContactFormData => {
   return {
-    name: data.name.trim(),
+
     email: data.email.trim().toLowerCase(),
     subject: data.subject.trim(),
     message: data.message.trim(),

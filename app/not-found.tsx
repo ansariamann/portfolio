@@ -28,7 +28,7 @@ export default function NotFound() {
         >
           <div className="relative">
             <motion.h1
-              className="text-6xl sm:text-8xl md:text-9xl font-bold text-gray-200 dark:text-gray-800 select-none"
+              className="text-6xl sm:text-8xl md:text-9xl font-bold text-gray-200 dark:text-gray-200 select-none"
               animate={
                 shouldReduceAnimations
                   ? {}

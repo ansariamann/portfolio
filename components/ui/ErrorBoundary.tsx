@@ -113,7 +113,7 @@ class ErrorBoundary extends Component<Props, State> {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-lg font-semibold text-gray-900 mb-2 text-center"
+            className="text-lg font-semibold text-gray-900 dark:text-white mb-2 text-center"
           >
             Something went wrong
           </motion.h3>
@@ -122,7 +122,7 @@ class ErrorBoundary extends Component<Props, State> {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="text-sm text-gray-600 text-center mb-6 leading-relaxed"
+            className="text-sm text-gray-600 dark:text-gray-400 text-center mb-6 leading-relaxed"
           >
             We encountered an error while loading the coding platform data.
             {this.state.retryCount < this.maxRetries
@@ -160,7 +160,7 @@ class ErrorBoundary extends Component<Props, State> {
 
             <motion.button
               onClick={this.handleReset}
-              className="flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-medium transition-colors duration-200 flex-1"
+              className="flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 dark:text-gray-300 rounded-lg font-medium transition-colors duration-200 flex-1"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -177,10 +177,10 @@ class ErrorBoundary extends Component<Props, State> {
               transition={{ delay: 0.6 }}
               className="mt-6 w-full"
             >
-              <summary className="text-xs text-gray-500 cursor-pointer hover:text-gray-700 transition-colors">
+              <summary className="text-xs text-gray-500 cursor-pointer hover:text-gray-700 dark:text-gray-300 transition-colors">
                 Error Details (Development)
               </summary>
-              <div className="mt-2 p-3 bg-gray-50 rounded-lg text-xs text-gray-700 font-mono overflow-auto max-h-32">
+              <div className="mt-2 p-3 bg-gray-50 rounded-lg text-xs text-gray-700 dark:text-gray-300 font-mono overflow-auto max-h-32">
                 <div className="font-semibold mb-1">Error:</div>
                 <div className="mb-2">{this.state.error.message}</div>
                 {this.state.error.stack && (

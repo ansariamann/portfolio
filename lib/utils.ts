@@ -57,9 +57,14 @@ export const staggerContainer = {
 export function scrollToSection(sectionId: string): void {
   const element = document.querySelector(sectionId);
   if (element) {
-    element.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
+    // Fallback calculation for more precise offset control
+    const headerOffset = 80; // approximate header height in px
+    const elementPosition = element.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth"
     });
   }
 }
@@ -77,7 +82,7 @@ export function isInViewport(element: Element): boolean {
     rect.top >= 0 &&
     rect.left >= 0 &&
     rect.bottom <=
-      (window.innerHeight || document.documentElement.clientHeight) &&
+    (window.innerHeight || document.documentElement.clientHeight) &&
     rect.right <= (window.innerWidth || document.documentElement.clientWidth)
   );
 }

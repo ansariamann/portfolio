@@ -19,15 +19,9 @@ export {
   SkillCardSkeleton,
   HeroSkeleton,
 } from "./SkeletonLoader";
-
-// Scroll Animation Components
-export { default as ScrollProgressIndicator } from "./ScrollProgressIndicator";
+// Animation Components
 export { default as StaggeredTextWave } from "./StaggeredTextWave";
 export { default as AnimatedSectionHeading } from "./AnimatedSectionHeading";
-
-// Vector Animation Components
-export { default as GlowingAccents } from "./GlowingAccents";
-export { default as GeometricShapes } from "./GeometricShapes";
 
 // Layout Components
 export { default as StaggeredList } from "./StaggeredList";

@@ -133,13 +133,13 @@ export default function Modal({
               <div className="flex items-center justify-between p-6 border-b border-gray-200">
                 <h2
                   id="modal-title"
-                  className="text-2xl font-bold text-gray-900"
+                  className="text-2xl font-bold text-gray-900 dark:text-white"
                 >
                   {title}
                 </h2>
                 <button
                   onClick={onClose}
-                  className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 focus:text-gray-600 focus:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 rounded-full transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  className="p-2 text-gray-400 hover:text-gray-600 dark:text-gray-400 hover:bg-gray-100 focus:text-gray-600 dark:text-gray-400 focus:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 rounded-full transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
                   aria-label="Close modal"
                 >
                   <X size={24} aria-hidden="true" />
@@ -151,7 +151,7 @@ export default function Modal({
             {!title && (
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 z-10 p-2 text-gray-400 hover:text-gray-600 hover:bg-white/80 focus:text-gray-600 focus:bg-white/80 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 rounded-full transition-colors backdrop-blur-sm min-h-[44px] min-w-[44px] flex items-center justify-center"
+                className="absolute top-4 right-4 z-10 p-2 text-gray-400 hover:text-gray-600 dark:text-gray-400 hover:bg-white/80 focus:text-gray-600 dark:text-gray-400 focus:bg-white/80 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 rounded-full transition-colors backdrop-blur-sm min-h-[44px] min-w-[44px] flex items-center justify-center"
                 aria-label="Close modal"
               >
                 <X size={24} aria-hidden="true" />

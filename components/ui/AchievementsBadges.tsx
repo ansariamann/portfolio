@@ -152,10 +152,10 @@ const AchievementsBadges: React.FC<AchievementsBadgesProps> = ({
             />
           </svg>
         </div>
-        <h3 className="text-lg font-semibold text-gray-800 mb-2">
+        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
           No achievements available
         </h3>
-        <p className="text-gray-600">
+        <p className="text-gray-600 dark:text-gray-400">
           No achievements have been earned yet. Keep solving problems to unlock
           achievements!
         </p>
@@ -186,7 +186,7 @@ const AchievementsBadges: React.FC<AchievementsBadgesProps> = ({
             }}
             className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 min-h-[44px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${selectedCategory === category
                 ? "bg-blue-600 text-white shadow-lg shadow-blue-600/25"
-                : "bg-white text-gray-600 border border-gray-200 hover:border-blue-300 hover:text-blue-600"
+                : "bg-white text-gray-600 dark:text-gray-400 border border-gray-200 hover:border-blue-300 hover:text-blue-600"
               }`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -275,13 +275,13 @@ const AchievementsBadges: React.FC<AchievementsBadgesProps> = ({
                   </div>
 
                   {/* Achievement Title */}
-                  <h3 className="text-xs sm:text-sm font-semibold text-gray-800 text-center mb-1 sm:mb-2 line-clamp-2 leading-tight">
+                  <h3 className="text-xs sm:text-sm font-semibold text-gray-800 dark:text-gray-200 text-center mb-1 sm:mb-2 line-clamp-2 leading-tight">
                     {achievement.title}
                   </h3>
 
                   {/* Achievement Category Badge */}
                   <div className="flex justify-center mb-1 sm:mb-2">
-                    <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 text-xs font-medium bg-white/70 text-gray-600 rounded-full">
+                    <span className="px-1.5 sm:px-2 py-0.5 sm:py-1 text-xs font-medium bg-white/70 text-gray-600 dark:text-gray-400 rounded-full">
                       {achievement.category}
                     </span>
                   </div>
@@ -361,7 +361,7 @@ const AchievementsBadges: React.FC<AchievementsBadgesProps> = ({
                     </span>
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold text-gray-800">
+                    <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200">
                       {selectedAchievement.title}
                     </h2>
                     <div className="flex items-center gap-2 mt-1">
@@ -376,7 +376,7 @@ const AchievementsBadges: React.FC<AchievementsBadgesProps> = ({
                                 ? "bg-purple-100 text-purple-600"
                                 : selectedAchievement.rarity === "rare"
                                   ? "bg-blue-100 text-blue-600"
-                                  : "bg-gray-100 text-gray-600"
+                                  : "bg-gray-100 text-gray-600 dark:text-gray-400"
                             }`}
                         >
                           {selectedAchievement.rarity}
@@ -387,7 +387,7 @@ const AchievementsBadges: React.FC<AchievementsBadgesProps> = ({
                 </div>
                 <button
                   onClick={() => setSelectedAchievement(null)}
-                  className="text-gray-400 hover:text-gray-600 transition-colors"
+                  className="text-gray-400 hover:text-gray-600 dark:text-gray-400 transition-colors"
                   aria-label="Close modal"
                 >
                   <svg
@@ -409,19 +409,19 @@ const AchievementsBadges: React.FC<AchievementsBadgesProps> = ({
               {/* Modal Content */}
               <div className="space-y-4">
                 <div>
-                  <h3 className="font-semibold text-gray-800 mb-2">
+                  <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">
                     Description
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 dark:text-gray-400">
                     {selectedAchievement.description}
                   </p>
                 </div>
 
                 <div>
-                  <h3 className="font-semibold text-gray-800 mb-2">
+                  <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">
                     Earned Date
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 dark:text-gray-400">
                     {formatDate(selectedAchievement.earnedDate)}
                   </p>
                 </div>
@@ -429,13 +429,13 @@ const AchievementsBadges: React.FC<AchievementsBadgesProps> = ({
                 {/* Metadata */}
                 {selectedAchievement.metadata && (
                   <div>
-                    <h3 className="font-semibold text-gray-800 mb-2">
+                    <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-2">
                       Details
                     </h3>
                     <div className="space-y-2">
                       {selectedAchievement.metadata.contestName && (
                         <div className="flex justify-between">
-                          <span className="text-gray-600">Contest:</span>
+                          <span className="text-gray-600 dark:text-gray-400">Contest:</span>
                           <span className="font-medium">
                             {selectedAchievement.metadata.contestName}
                           </span>
@@ -444,7 +444,7 @@ const AchievementsBadges: React.FC<AchievementsBadgesProps> = ({
                       {selectedAchievement.metadata.rank &&
                         selectedAchievement.metadata.participants && (
                           <div className="flex justify-between">
-                            <span className="text-gray-600">Rank:</span>
+                            <span className="text-gray-600 dark:text-gray-400">Rank:</span>
                             <span className="font-medium">
                               {selectedAchievement.metadata.rank} /{" "}
                               {selectedAchievement.metadata.participants}
@@ -453,7 +453,7 @@ const AchievementsBadges: React.FC<AchievementsBadgesProps> = ({
                         )}
                       {selectedAchievement.metadata.streakLength && (
                         <div className="flex justify-between">
-                          <span className="text-gray-600">Streak Length:</span>
+                          <span className="text-gray-600 dark:text-gray-400">Streak Length:</span>
                           <span className="font-medium">
                             {selectedAchievement.metadata.streakLength} days
                           </span>
@@ -490,10 +490,10 @@ const AchievementsBadges: React.FC<AchievementsBadgesProps> = ({
               />
             </svg>
           </div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">
+          <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
             No achievements found
           </h3>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-400">
             {selectedCategory === "all"
               ? "No achievements available to display."
               : `No ${selectedCategory} achievements found. Try selecting a different category.`}

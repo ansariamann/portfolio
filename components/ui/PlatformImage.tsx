@@ -222,7 +222,7 @@ export function PlatformLogo({
           priority={priority}
           className="flex-shrink-0"
         />
-        <span className={cn("font-medium text-gray-900", textSize)}>
+        <span className={cn("font-medium text-gray-900 dark:text-white", textSize)}>
           {platformName}
         </span>
       </div>

@@ -45,7 +45,7 @@ export function Button({
       isMobile && "active:bg-blue-700 active:border-blue-700"
     ),
     ghost: cn(
-      "text-gray-700 hover:bg-gray-100 focus:ring-gray-500",
+      "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:ring-gray-500",
       isMobile && "active:bg-gray-200"
     ),
   };

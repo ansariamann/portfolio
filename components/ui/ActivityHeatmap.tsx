@@ -214,7 +214,7 @@ export const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({
             />
           </svg>
         </div>
-        <h3 className="text-lg font-semibold text-gray-800 mb-2">
+        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
           No Activity Data
         </h3>
         <p className="text-gray-600">

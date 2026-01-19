@@ -122,11 +122,11 @@ export const MissingDataFallback: React.FC<{
       transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
       className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-4"
     >
-      {icon || <FileX className="w-6 h-6 text-gray-600" />}
+      {icon || <FileX className="w-6 h-6 text-gray-600 dark:text-gray-400" />}
     </motion.div>
 
-    <h3 className="text-lg font-semibold text-gray-900 mb-2">{title}</h3>
-    <p className="text-gray-600 max-w-md">{message}</p>
+    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{title}</h3>
+    <p className="text-gray-600 dark:text-gray-400 max-w-md">{message}</p>
   </motion.div>
 );
 
@@ -241,10 +241,10 @@ export const StatisticsUnavailableFallback: React.FC<{
       <AlertCircle className="w-8 h-8 text-gray-400" />
     </div>
 
-    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
       Statistics Unavailable
     </h3>
-    <p className="text-gray-600 max-w-md mx-auto">
+    <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
       Unable to load statistics for {platformName}. Please try again later.
     </p>
   </motion.div>
@@ -263,10 +263,10 @@ export const AchievementsUnavailableFallback: React.FC<{
       <FileX className="w-8 h-8 text-gray-400" />
     </div>
 
-    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
       No Achievements Found
     </h3>
-    <p className="text-gray-600 max-w-md mx-auto">
+    <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
       No achievements are available for {platformName} at the moment.
     </p>
   </motion.div>
@@ -285,10 +285,10 @@ export const ActivityUnavailableFallback: React.FC<{
       <FileX className="w-8 h-8 text-gray-400" />
     </div>
 
-    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
       No Recent Activity
     </h3>
-    <p className="text-gray-600 max-w-md mx-auto">
+    <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
       No recent activity data is available for {platformName}.
     </p>
   </motion.div>

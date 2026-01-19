@@ -117,44 +117,44 @@ export function TechStack({
 
           return (
             <motion.div
-              key={tech.name}
-              {...itemAnimationProps}
-              {...hoverProps}
-              className={cn(
-                "group flex items-center bg-white dark:bg-gray-900 rounded-lg border border-border/50 dark:border-white/10 hover:border-primary/20 hover:shadow-sm transition-all duration-300",
-                // Enhanced focus styles for accessibility
-                "focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-1 focus:ring-offset-background",
-                // Mobile-optimized spacing and sizing
-                isMobile
-                  ? [
-                    "gap-1.5 px-2 py-1.5",
-                    touchDevice && "active:scale-95 active:bg-secondary",
-                  ]
-                  : ["gap-2 px-3 py-2"],
-                isSmallMobile && "gap-1 px-2 py-1"
-              )}
-              role="listitem"
-              aria-label={`${tech.name} - ${tech.proficiency} proficiency level`}
-              tabIndex={0}
-            >
-              <IconComponent
-                className={cn(
-                  "transition-colors duration-300",
-                  isMobile ? "w-4 h-4" : "w-5 h-5",
-                  "text-muted-foreground group-hover:text-primary"
-                )}
-                style={{ color: tech.color }} // Keep original color if preferred, or remove style to rely on class
-                aria-hidden="true"
-              />
-              <span
-                className={cn(
-                  "font-medium text-muted-foreground group-hover:text-foreground transition-colors duration-300",
-                  isMobile ? "text-xs" : "text-sm",
-                  isSmallMobile && "text-xs"
-                )}
-              >
-                {tech.name}
-              </span>
+                          key={tech.name}
+                          {...itemAnimationProps}
+                          {...hoverProps}
+                          className={cn(
+                            "group flex items-center bg-gradient-to-br from-gray-900/80 to-gray-800/70 backdrop-blur-lg rounded-lg border border-white/10 hover:border-primary/40 hover:bg-gray-800/80 transition-all duration-300",
+                            // Enhanced focus styles for accessibility
+                            "focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-1 focus:ring-offset-background",
+                            // Mobile-optimized spacing and sizing
+                            isMobile
+                              ? [
+                                "gap-1.5 px-2 py-1.5",
+                                touchDevice && "active:scale-95 active:bg-secondary",
+                              ]
+                              : ["gap-2 px-3 py-2"],
+                            isSmallMobile && "gap-1 px-2 py-1"
+                          )}
+                          role="listitem"
+                          aria-label={`${tech.name} - ${tech.proficiency} proficiency level`}
+                          tabIndex={0}
+                        >
+                          <IconComponent
+                            className={cn(
+                              "transition-colors duration-300",
+                              isMobile ? "w-4 h-4" : "w-5 h-5",
+                              "text-gray-300 group-hover:text-white"
+                            )}
+                            style={{ color: tech.color }} // Keep original color if preferred, or remove style to rely on class
+                            aria-hidden="true"
+                          />
+                          <span
+                            className={cn(
+                              "font-medium text-gray-300 group-hover:text-white transition-colors duration-300",
+                              isMobile ? "text-xs" : "text-sm",
+                              isSmallMobile && "text-xs"
+                            )}
+                          >
+                            {tech.name}
+                          </span>
 
               {/* Proficiency indicator - Hidden on small mobile to save space */}
               {!isSmallMobile && (
