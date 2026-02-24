@@ -134,6 +134,28 @@ export default function ContactSection() {
           </motion.div>
 
         </div>
+
+        {/* Back to Top */}
+        <motion.div
+          className="flex justify-center mt-16"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+        >
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="group flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <span>Back to Top</span>
+            <div className="p-1.5 rounded-full border border-border/50 group-hover:border-primary/40 group-hover:bg-primary/10 group-hover:text-primary transition-all">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="18 15 12 9 6 15" />
+              </svg>
+            </div>
+          </button>
+        </motion.div>
+
       </div>
     </section>
   );

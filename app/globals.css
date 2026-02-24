@@ -104,4 +104,36 @@
   .text-gradient-gold {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-yellow-600;
   }
+
+  /* ML / Case Studies gradient */
+  .text-gradient-ml {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-violet-500 to-pink-500;
+  }
+
+  /* Animated gradient shift for hero elements */
+  .animate-gradient-shift {
+    background-size: 200% 200%;
+    animation: gradient-shift 6s ease infinite;
+  }
+
+  /* Floating orb pulse */
+  .animate-orb-float {
+    animation: orb-float 8s ease-in-out infinite;
+  }
+
+  .animate-orb-float-slow {
+    animation: orb-float 12s ease-in-out infinite reverse;
+  }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes orb-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.05); }
+  66% { transform: translate(-20px, 15px) scale(0.97); }
 }

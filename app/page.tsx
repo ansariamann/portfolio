@@ -2,8 +2,7 @@ import dynamic from "next/dynamic";
 import { Layout } from "@/components/layout";
 import { HeroSection, AboutSection, ContactSection } from "@/components/sections";
 
-// Lazy-load heavy, below-the-fold sections on the client to
-// reduce initial bundle size and improve first interaction time.
+// Lazy-load heavy, below-the-fold sections
 const SkillsSection = dynamic(
   () => import("@/components/sections/SkillsSection"),
   {
@@ -49,36 +48,20 @@ const CodingPlatformsSection = dynamic(
   }
 );
 
-const ProjectsSection = dynamic(
-  () => import("@/components/sections/ProjectsSection"),
-  {
-    ssr: false,
-    loading: () => (
-      <section
-        id="projects"
-        className="min-h-screen py-20 bg-secondary/30 flex items-center justify-center"
-      >
-        <p className="text-muted-foreground text-sm">Loading projects...</p>
-      </section>
-    ),
-  }
-);
-
 export default function Home() {
   return (
     <Layout>
       <main id="main-content" role="main">
-        {/* Above-the-fold sections are rendered on the server for fast first paint */}
+        {/* Above-the-fold — server rendered */}
         <HeroSection />
         <AboutSection />
 
-        {/* Heavy sections load progressively on the client */}
+        {/* Heavy sections load progressively */}
         <SkillsSection />
         <CertificationsSection />
         <CodingPlatformsSection />
-        <ProjectsSection />
 
-        {/* Contact section remains server-rendered for accessibility/SEO */}
+        {/* Contact — server rendered */}
         <ContactSection />
       </main>
     </Layout>

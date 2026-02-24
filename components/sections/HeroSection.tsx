@@ -23,11 +23,22 @@ export default function HeroSection() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-secondary/30"
       role="banner"
     >
-      {/* Subtle Background Elements */}
+      {/* Animated gradient orbs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-secondary/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-orb-float" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-violet-500/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2 animate-orb-float-slow" />
+        <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] bg-cyan-500/8 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-orb-float" style={{ animationDelay: "3s" }} />
+        {/* Subtle grid overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage:
+              "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
+        />
       </div>
+
       <div className="container max-w-6xl mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
 
@@ -90,7 +101,6 @@ export default function HeroSection() {
             <div className="relative">
               {/* Glow effect behind visual anchor */}
               <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-purple-500/20 rounded-full blur-3xl -z-10 transform scale-110" />
-
               <VisualAnchor
                 primaryImage={{
                   src: "/images/profile-photo.jpg",

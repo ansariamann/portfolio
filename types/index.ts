@@ -240,3 +240,40 @@ export interface CustomError extends Error {
   statusCode?: number;
   context?: Record<string, unknown>;
 }
+
+// ML Case Study types
+export interface MLMetric {
+  label: string;
+  value: string;
+  description?: string;
+  icon?: string;
+}
+
+export interface MLPipelineStep {
+  step: number;
+  title: string;
+  description: string;
+  tools: string[];
+}
+
+export interface CaseStudy {
+  id: string;
+  title: string;
+  domain: string;
+  tagline: string;
+  summary: string;
+  problem: string;
+  approach: string;
+  results: string;
+  keyTakeaways: string[];
+  metrics: MLMetric[];
+  pipeline: MLPipelineStep[];
+  technologies: string[];
+  dataset?: string;
+  githubUrl?: string;
+  featured: boolean;
+  completedDate: string;
+  color: string;
+  icon: string;
+}
+

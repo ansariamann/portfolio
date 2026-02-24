@@ -38,52 +38,38 @@ export default function ContactForm() {
     setSubmissionStatus("submitting");
 
     try {
-      // Sanitize the data before submission
       const sanitizedData = sanitizeContactFormData(data);
-
-      // Validate one more time before submission
       const validation = validateContactForm(sanitizedData);
-      if (!validation.success) {
-        throw new Error("Validation failed");
-      }
+      if (!validation.success) throw new Error("Validation failed");
 
-      // Log data for debugging/verification
       debugLog("Form Data prepared for submission:", sanitizedData);
 
-      // Submit to Netlify
-      const encode = (data: Record<string, string>) => {
-        return Object.keys(data)
-          .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-          .join("&");
-      };
+      // Build a mailto: link pre-filled with the form data
+      const recipient = "iamamanansari786a@gmail.com";
+      const subject = encodeURIComponent(`[Portfolio Contact] ${sanitizedData.subject}`);
+      const body = encodeURIComponent(
+        `Name: ${sanitizedData.name}\nEmail: ${sanitizedData.email}\n\n${sanitizedData.message}`
+      );
 
-      await fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encode({ "form-name": "contact", ...sanitizedData }),
-      });
+      window.open(`mailto:${recipient}?subject=${subject}&body=${body}`, "_blank");
 
       setSubmissionStatus("success");
-      setSubmitMessage("Thank you! Your message has been sent successfully.");
+      setSubmitMessage("Your email client has opened — just hit Send! ✉️");
       reset();
 
-      // Reset status after 5 seconds
       setTimeout(() => {
         setSubmissionStatus("idle");
         setSubmitMessage("");
-      }, 5000);
+      }, 6000);
     } catch (error) {
       console.error("Form submission error:", error);
       setSubmissionStatus("error");
-      setSubmitMessage(
-        "Sorry, there was an error sending your message. Please try again."
-      );
+      setSubmitMessage("Something went wrong. Please email directly: iamamanansari786a@gmail.com");
 
-      // Reset error status after 5 seconds
       setTimeout(() => {
         setSubmissionStatus("idle");
         setSubmitMessage("");
-      }, 5000);
+      }, 6000);
     }
   };
 
