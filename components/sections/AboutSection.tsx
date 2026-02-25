@@ -6,8 +6,6 @@ import Image from "next/image";
 import { useMobileOptimizedAnimation } from "@/lib/hooks";
 import AnimatedSectionHeading from "@/components/ui/AnimatedSectionHeading";
 
-
-
 export default function AboutSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -41,6 +39,15 @@ export default function AboutSection() {
             duration: 10,
             repeat: Infinity,
             ease: "easeInOut",
+          }}
+        />
+        {/* Subtle grid overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage:
+              "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
           }}
         />
       </div>
@@ -254,11 +261,15 @@ export default function AboutSection() {
                     transition={{ duration: 0.6, delay: 1.1 + index * 0.1 }}
                   >
                     <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="text-2xl mb-2 relative z-10">{item.icon}</div>
+                    <div className="text-2xl mb-2 relative z-10">
+                      {item.icon}
+                    </div>
                     <h4 className="font-semibold text-foreground text-sm relative z-10">
                       {item.label}
                     </h4>
-                    <p className="text-xs text-muted-foreground relative z-10">{item.desc}</p>
+                    <p className="text-xs text-muted-foreground relative z-10">
+                      {item.desc}
+                    </p>
                   </motion.div>
                 ))}
               </motion.div>
@@ -277,15 +288,18 @@ export default function AboutSection() {
                 </p>
                 <div className="flex items-center mt-4">
                   <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mr-3">
-                    <span className="text-primary-foreground text-sm font-bold">A</span>
+                    <span className="text-primary-foreground text-sm font-bold">
+                      A
+                    </span>
                   </div>
-                  <span className="text-muted-foreground font-medium">-Aman</span>
+                  <span className="text-muted-foreground font-medium">
+                    -Aman
+                  </span>
                 </div>
               </motion.div>
             </motion.div>
           </div>
         </motion.div>
-
       </div>
     </section>
   );

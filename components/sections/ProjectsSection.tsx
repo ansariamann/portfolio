@@ -76,7 +76,10 @@ export default function ProjectsSection() {
   };
 
   return (
-    <section id="projects" className="min-h-screen py-20 relative bg-background overflow-hidden">
+    <section
+      id="projects"
+      className="min-h-screen py-20 relative bg-background overflow-hidden"
+    >
       {/* Modern background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -103,10 +106,18 @@ export default function ProjectsSection() {
             ease: "easeInOut",
           }}
         />
+        {/* Subtle grid overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage:
+              "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
+        />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-
         {/* Header */}
         <motion.div
           className="text-center mb-20"

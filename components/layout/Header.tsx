@@ -19,9 +19,9 @@ const navigationItems: NavItem[] = [
   { label: "Skills", href: "#skills" },
   { label: "Certifications", href: "#certifications" },
   { label: "Coding", href: "#coding-platforms" },
+  { label: "Contact", href: "#contact" },
   { label: "Projects", href: "/projects", isPage: true },
   { label: "Case Studies", href: "/case-studies", isPage: true },
-  { label: "Contact", href: "#contact" },
 ];
 
 function useDarkMode() {
@@ -29,7 +29,9 @@ function useDarkMode() {
 
   useEffect(() => {
     const stored = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
     const initial = stored === "dark" || (!stored && prefersDark);
     setIsDark(initial);
     document.documentElement.classList.toggle("dark", initial);
@@ -107,8 +109,10 @@ export default function Header() {
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 will-change-transform",
-        isScrolled
+        isScrolled && !isSubPage
           ? "h-16 bg-background/80 backdrop-blur-md border-b border-border/50 shadow-sm"
+          : isSubPage
+          ? "h-20 bg-background border-b border-border/50 shadow-sm"
           : "h-20 bg-transparent"
       )}
       style={{ transform: "translateZ(0)" }} // promote to compositor layer
@@ -128,7 +132,9 @@ export default function Header() {
             const active = isItemActive(item);
             const sharedClass = cn(
               "relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200",
-              active ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+              active
+                ? "text-primary-foreground"
+                : "text-muted-foreground hover:text-foreground"
             );
 
             return item.isPage ? (
@@ -182,16 +188,16 @@ export default function Header() {
         </div>
 
         {/* Mobile: dark mode + hamburger */}
-        <div className="md:hidden flex items-center gap-2">
+        <div className="md:hidden flex items-center gap-1.5">
           <button
             onClick={toggle}
             aria-label="Toggle dark mode"
-            className="p-2 text-muted-foreground hover:text-foreground transition-colors"
+            className="p-2.5 text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-lg transition-colors active:scale-90"
           >
-            {isDark ? <Sun size={18} /> : <Moon size={18} />}
+            {isDark ? <Sun size={20} /> : <Moon size={20} />}
           </button>
           <button
-            className="p-2 text-foreground/80 hover:text-foreground transition-colors"
+            className="p-2.5 text-foreground/80 hover:text-foreground hover:bg-secondary/50 rounded-lg transition-colors"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -199,7 +205,11 @@ export default function Header() {
             <div className="w-5 h-4 relative flex flex-col justify-between">
               <span
                 className="w-full h-0.5 bg-current rounded transition-transform duration-200 origin-left"
-                style={{ transform: isMenuOpen ? "rotate(45deg) translateY(-1px)" : "none" }}
+                style={{
+                  transform: isMenuOpen
+                    ? "rotate(45deg) translateY(-1px)"
+                    : "none",
+                }}
               />
               <span
                 className="w-full h-0.5 bg-current rounded transition-opacity duration-200"
@@ -207,7 +217,11 @@ export default function Header() {
               />
               <span
                 className="w-full h-0.5 bg-current rounded transition-transform duration-200 origin-left"
-                style={{ transform: isMenuOpen ? "rotate(-45deg) translateY(1px)" : "none" }}
+                style={{
+                  transform: isMenuOpen
+                    ? "rotate(-45deg) translateY(1px)"
+                    : "none",
+                }}
               />
             </div>
           </button>
@@ -224,14 +238,14 @@ export default function Header() {
             transition={{ duration: 0.2, ease: "easeInOut" }}
             className="md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-border/50 shadow-xl overflow-hidden"
           >
-            <div className="flex flex-col p-4 space-y-1">
+            <div className="flex flex-col p-3 space-y-1.5">
               {navigationItems.map((item) =>
                 item.isPage ? (
                   <Link
                     key={item.href}
                     href={item.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className="px-4 py-3 text-left text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-lg transition-colors text-sm"
+                    className="px-4 py-3 text-left text-muted-foreground hover:text-foreground hover:bg-secondary/60 rounded-lg transition-colors text-sm font-medium"
                   >
                     {item.label}
                   </Link>
@@ -239,7 +253,7 @@ export default function Header() {
                   <button
                     key={item.href}
                     onClick={() => handleScrollToSection(item.href)}
-                    className="px-4 py-3 text-left text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-lg transition-colors text-sm"
+                    className="px-4 py-3 text-left text-muted-foreground hover:text-foreground hover:bg-secondary/60 rounded-lg transition-colors text-sm font-medium"
                   >
                     {item.label}
                   </button>

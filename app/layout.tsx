@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import ErrorBoundary from "@/components/ui/ErrorBoundary";
-import Footer from "@/components/layout/Footer";
+import Header from "@/components/layout/Header";
+import ConditionalFooter from "@/components/layout/ConditionalFooter";
 import { siteConfig } from "@/data/site-config";
 
 import "./globals.css";
@@ -136,11 +137,10 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} antialiased`}>
-
-
+        <Header />
         <ErrorBoundary>
           {children}
-          <Footer />
+          <ConditionalFooter />
         </ErrorBoundary>
         {/* Browser Compatibility Initialization */}
         <script

@@ -11,11 +11,23 @@ export default function CertificationsSection() {
   const { touchDevice } = useMobileOptimizedAnimation();
 
   return (
-    <section id="certifications" className="min-h-screen py-20 bg-secondary/30 relative overflow-hidden">
+    <section
+      id="certifications"
+      className="min-h-screen py-20 bg-secondary/30 relative overflow-hidden"
+    >
       {/* Subtle Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-x-1/2"></div>
         <div className="absolute bottom-20 right-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl translate-x-1/2"></div>
+        {/* Subtle grid overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage:
+              "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
+        />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -34,7 +46,9 @@ export default function CertificationsSection() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
               whileHover={{ y: -8, scale: 1.02 }}
-              className={`group relative flex flex-col h-full ${touchDevice ? "active:scale-95" : ""}`}
+              className={`group relative flex flex-col h-full ${
+                touchDevice ? "active:scale-95" : ""
+              }`}
             >
               {/* Card Content */}
               <div className="glass-card rounded-[1.5rem] p-6 flex flex-col h-full transition-all duration-300 relative overflow-hidden">

@@ -46,7 +46,9 @@ const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
       </div>
 
       <div className="mt-2 text-xs text-muted-foreground group-hover:text-foreground transition-colors">
-        {skill.yearsOfExperience ? `${skill.yearsOfExperience}y exp` : "Competent"}
+        {skill.yearsOfExperience
+          ? `${skill.yearsOfExperience}y exp`
+          : "Competent"}
       </div>
     </motion.div>
   );
@@ -66,7 +68,10 @@ export default function SkillsSection() {
       : getSkillsByCategory(selectedCategory as Skill["category"]);
 
   return (
-    <section id="skills" className="min-h-screen py-20 relative bg-secondary/30 overflow-hidden">
+    <section
+      id="skills"
+      className="min-h-screen py-20 relative bg-secondary/30 overflow-hidden"
+    >
       {/* Modern background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -93,9 +98,17 @@ export default function SkillsSection() {
             ease: "easeInOut",
           }}
         />
+        {/* Subtle grid overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage:
+              "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
+        />
       </div>
       <div className="container mx-auto px-6 relative z-10">
-
         {/* Header */}
         <motion.div
           className="text-center mb-16"

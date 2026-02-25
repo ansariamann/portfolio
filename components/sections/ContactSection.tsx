@@ -40,8 +40,22 @@ export default function ContactSection() {
       id="contact"
       className="min-h-screen py-24 bg-secondary/30 relative overflow-hidden"
     >
-      <div className="container mx-auto px-6 relative z-10 max-w-6xl">
+      {/* Subtle Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl translate-x-1/2"></div>
+        <div className="absolute bottom-20 left-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl -translate-x-1/2"></div>
+        {/* Subtle grid overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage:
+              "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
+        />
+      </div>
 
+      <div className="container mx-auto px-6 relative z-10 max-w-6xl">
         {/* Header Section */}
         <div className="flex flex-col items-center justify-center mb-16 space-y-4">
           <motion.div
@@ -68,13 +82,13 @@ export default function ContactSection() {
             transition={{ delay: 0.2 }}
             className="text-center text-muted-foreground text-lg max-w-2xl font-light leading-relaxed"
           >
-            Have a project in mind? Let&apos;s build something extraordinary together.
+            Have a project in mind? Let&apos;s build something extraordinary
+            together.
           </motion.p>
         </div>
 
         {/* Bento Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-full">
-
           {/* Left Column: Contact Info Cards */}
           <div className="lg:col-span-5 grid grid-cols-1 gap-6 content-start">
             {/* Availability Card */}
@@ -85,14 +99,19 @@ export default function ContactSection() {
               className="glass-card p-8 rounded-[2rem] flex flex-col justify-between min-h-[200px]"
             >
               <div>
-                <h3 className="text-2xl font-semibold text-foreground mb-2">Availability</h3>
+                <h3 className="text-2xl font-semibold text-foreground mb-2">
+                  Availability
+                </h3>
                 <p className="text-muted-foreground">
-                  {siteConfig.contact?.availability || "Currently open for new opportunities."}
+                  {siteConfig.contact?.availability ||
+                    "Currently open for new opportunities."}
                 </p>
               </div>
               <div className="mt-8 flex items-center space-x-3">
                 <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
-                <span className="text-sm font-medium text-green-600 dark:text-green-400">Online Now</span>
+                <span className="text-sm font-medium text-green-600 dark:text-green-400">
+                  Online Now
+                </span>
               </div>
             </motion.div>
 
@@ -108,12 +127,18 @@ export default function ContactSection() {
                   transition={{ delay: index * 0.1 }}
                   className="group flex items-center p-5 rounded-[1.5rem] bg-white dark:bg-gray-900 border border-border/50 hover:border-primary/20 hover:shadow-lg transition-all duration-300"
                 >
-                  <div className={`p-3 rounded-full ${method.bg} mr-5 group-hover:scale-110 transition-transform`}>
+                  <div
+                    className={`p-3 rounded-full ${method.bg} mr-5 group-hover:scale-110 transition-transform`}
+                  >
                     <method.icon size={20} className={method.color} />
                   </div>
                   <div>
-                    <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">{method.label}</p>
-                    <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">{method.value}</p>
+                    <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                      {method.label}
+                    </p>
+                    <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
+                      {method.value}
+                    </p>
                   </div>
                 </motion.a>
               ))}
@@ -132,7 +157,6 @@ export default function ContactSection() {
               <ContactForm />
             </div>
           </motion.div>
-
         </div>
 
         {/* Back to Top */}
@@ -149,13 +173,21 @@ export default function ContactSection() {
           >
             <span>Back to Top</span>
             <div className="p-1.5 rounded-full border border-border/50 group-hover:border-primary/40 group-hover:bg-primary/10 group-hover:text-primary transition-all">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <polyline points="18 15 12 9 6 15" />
               </svg>
             </div>
           </button>
         </motion.div>
-
       </div>
     </section>
   );
