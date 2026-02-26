@@ -3,13 +3,15 @@ import { Certification } from "@/types";
 export const certifications: Certification[] = [
   {
     id: "oracle-data-science-professional",
-    title: "Oracle Cloud Infrastructure 2025 Certified Data Science Professional",
+    title:
+      "Oracle Cloud Infrastructure 2025 Certified Data Science Professional",
     issuer: "Oracle University",
     issueDate: "2025-10-31",
     expiryDate: "2027-10-31",
     credentialId: "1OZ415192OCI25DSOCP",
-    verificationUrl: "https://catalog-education.oracle.com/pls/certview/sharebadge?id=1OZ415192OCI25DSOCP",
-    badgeImage: "/images/placeholder.svg",
+    verificationUrl:
+      "https://catalog-education.oracle.com/pls/certview/sharebadge?id=1OZ415192OCI25DSOCP",
+    badgeImage: "/images/certifications/datascience.png",
     category: "cloud",
     skills: ["oracle-cloud", "data-science", "machine-learning", "ai"],
     description:
@@ -23,7 +25,8 @@ export const certifications: Certification[] = [
     issueDate: "2025-10-23",
     expiryDate: "2027-10-23",
     credentialId: "1OZ415192OCID25CP",
-    verificationUrl: "https://catalog-education.oracle.com/pls/certview/sharebadge?id=1OZ415192OCID25CP",
+    verificationUrl:
+      "https://catalog-education.oracle.com/pls/certview/sharebadge?id=1OZ415192OCID25CP",
     badgeImage: "/images/certifications/developerprofessional.png",
     category: "cloud",
     skills: ["oracle-cloud", "cloud-development", "infrastructure", "devops"],
@@ -33,12 +36,14 @@ export const certifications: Certification[] = [
   },
   {
     id: "oracle-generative-ai-professional",
-    title: "Oracle Cloud Infrastructure 2025 Certified Generative AI Professional",
+    title:
+      "Oracle Cloud Infrastructure 2025 Certified Generative AI Professional",
     issuer: "Oracle University",
     issueDate: "2025-09-01",
     expiryDate: "2027-09-01",
     credentialId: "1OZ415192OCI25GAIOCP",
-    verificationUrl: "https://catalog-education.oracle.com/pls/certview/sharebadge?id=1OZ415192OCI25GAIOCP",
+    verificationUrl:
+      "https://catalog-education.oracle.com/pls/certview/sharebadge?id=1OZ415192OCI25GAIOCP",
     badgeImage: "/images/certifications/aiprofessional.png",
     category: "cloud",
     skills: ["oracle-cloud", "generative-ai", "artificial-intelligence", "llm"],

@@ -44,17 +44,39 @@ export default function ContactForm() {
 
       debugLog("Form Data prepared for submission:", sanitizedData);
 
-      // Build a mailto: link pre-filled with the form data
-      const recipient = "iamamanansari786a@gmail.com";
-      const subject = encodeURIComponent(`[Portfolio Contact] ${sanitizedData.subject}`);
-      const body = encodeURIComponent(
-        `Name: ${sanitizedData.name}\nEmail: ${sanitizedData.email}\n\n${sanitizedData.message}`
-      );
+      // Prepare FormData for Netlify
+      const formData = new FormData();
+      formData.append("form-name", "contact");
+      formData.append("name", sanitizedData.name);
+      formData.append("email", sanitizedData.email);
+      formData.append("subject", sanitizedData.subject);
+      formData.append("message", sanitizedData.message);
 
-      window.open(`mailto:${recipient}?subject=${subject}&body=${body}`, "_blank");
+      // Submit to Netlify
+      const response = await fetch("/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams(
+          Object.entries({
+            "form-name": "contact",
+            name: sanitizedData.name,
+            email: sanitizedData.email,
+            subject: sanitizedData.subject,
+            message: sanitizedData.message,
+          })
+        ).toString(),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Form submission failed: ${response.statusText}`);
+      }
 
       setSubmissionStatus("success");
-      setSubmitMessage("Your email client has opened — just hit Send! ✉️");
+      setSubmitMessage(
+        "Message sent successfully! I'll get back to you soon. ✨"
+      );
       reset();
 
       setTimeout(() => {
@@ -64,7 +86,9 @@ export default function ContactForm() {
     } catch (error) {
       console.error("Form submission error:", error);
       setSubmissionStatus("error");
-      setSubmitMessage("Something went wrong. Please email directly: iamamanansari786a@gmail.com");
+      setSubmitMessage(
+        "There was an issue sending your message. Please try again or email directly: iamamanansari786a@gmail.com"
+      );
 
       setTimeout(() => {
         setSubmissionStatus("idle");
@@ -83,14 +107,20 @@ export default function ContactForm() {
   // Apple-style input classes: clean, light bg, subtle border
   const inputClasses = cn(
     "w-full bg-secondary/50 border border-transparent rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:bg-background transition-all duration-300",
-    prefersReducedMotion ? "motion-reduce-essential" : "transition-all duration-300",
+    prefersReducedMotion
+      ? "motion-reduce-essential"
+      : "transition-all duration-300",
     "px-5 py-4 text-base",
     touchDevice && "min-h-[44px]",
     isMobile && "rounded-xl text-base"
   );
 
-  const labelClasses = "block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 ml-1";
-  const errorClasses = cn("text-destructive mt-2 font-medium", "text-sm sm:text-xs ml-1");
+  const labelClasses =
+    "block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 ml-1";
+  const errorClasses = cn(
+    "text-destructive mt-2 font-medium",
+    "text-sm sm:text-xs ml-1"
+  );
 
   return (
     <>
@@ -294,7 +324,10 @@ export default function ContactForm() {
                 </>
               ) : (
                 <>
-                  <Send size={18} className="mr-2 group-hover:translate-x-1 transition-transform duration-300" />
+                  <Send
+                    size={18}
+                    className="mr-2 group-hover:translate-x-1 transition-transform duration-300"
+                  />
                   Send Message
                 </>
               )}
@@ -305,10 +338,11 @@ export default function ContactForm() {
         {/* Status Messages */}
         {submitMessage && (
           <div
-            className={`flex items-center p-4 rounded-xl mt-4 ${submissionStatus === "success"
-              ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300"
-              : "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300"
-              }`}
+            className={`flex items-center p-4 rounded-xl mt-4 ${
+              submissionStatus === "success"
+                ? "bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300"
+                : "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300"
+            }`}
           >
             {submissionStatus === "success" ? (
               <CheckCircle size={20} className="mr-3 flex-shrink-0" />
@@ -322,4 +356,3 @@ export default function ContactForm() {
     </>
   );
 }
-
