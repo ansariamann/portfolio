@@ -23,12 +23,11 @@ export default function ProjectsSection() {
   // Filter projects based on active filter
   const filteredProjects = useMemo(() => {
     if (activeFilter === "all") {
-      return projects.sort((a, b) => {
-        if (a.featured && !b.featured) return -1;
-        if (!a.featured && b.featured) return 1;
+      return [...projects].sort((a, b) => {
         return (
           new Date(b.completedDate).getTime() -
-          new Date(a.completedDate).getTime()
+          new Date(a.completedDate).getTime() ||
+          Number(b.featured) - Number(a.featured)
         );
       });
     }
@@ -83,7 +82,7 @@ export default function ProjectsSection() {
       {/* Modern background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="absolute top-20 sm:top-40 left-10 sm:left-20 w-48 sm:w-96 h-48 sm:h-96 bg-primary/5 rounded-full blur-3xl"
+          className="absolute top-20 sm:top-40 left-10 sm:left-20 w-48 sm:w-96 h-48 sm:h-96 bg-primary/7 rounded-full blur-3xl"
           animate={{
             scale: [1, 1.2, 1],
             opacity: [0.3, 0.6, 0.3],
@@ -95,7 +94,7 @@ export default function ProjectsSection() {
           }}
         />
         <motion.div
-          className="absolute bottom-20 sm:bottom-40 right-10 sm:right-20 w-32 sm:w-80 h-32 sm:h-80 bg-secondary/10 rounded-full blur-3xl"
+          className="absolute bottom-20 sm:bottom-40 right-10 sm:right-20 w-32 sm:w-80 h-32 sm:h-80 bg-secondary/12 rounded-full blur-3xl"
           animate={{
             scale: [1.2, 1, 1.2],
             opacity: [0.4, 0.2, 0.4],
@@ -106,13 +105,13 @@ export default function ProjectsSection() {
             ease: "easeInOut",
           }}
         />
-        {/* Subtle grid overlay */}
+        {/* Slightly stronger grid overlay */}
         <div
-          className="absolute inset-0 opacity-[0.025]"
+          className="absolute inset-0 opacity-[0.046]"
           style={{
             backgroundImage:
               "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
+            backgroundSize: "66px 66px",
           }}
         />
       </div>

@@ -2,6 +2,133 @@ import { Project } from "@/types";
 
 export const projects: Project[] = [
   {
+    id: "6",
+    title: "HR System / ATS Platform",
+    description:
+      "A multi-tenant HR and applicant-tracking platform for recruitment firms that source candidates and pass them to client companies.",
+    longDescription:
+      "Built a fairly serious HR operations platform centered on candidate intake, resume processing, and application tracking for staffing workflows. The backend uses FastAPI with PostgreSQL, Redis, Celery, and Alembic to support multi-tenant data isolation, background resume parsing, email-based ingestion, OCR fallbacks for scanned documents, duplicate detection, application flagging, and operational monitoring. The project also includes a separate React admin frontend for dashboards, candidate management, and recruitment workflow views, plus Docker-based environments for local, staging, and production setups.",
+    technologies: [
+      "Python",
+      "FastAPI",
+      "PostgreSQL",
+      "Redis",
+      "Celery",
+      "SQLAlchemy",
+      "Alembic",
+      "React",
+      "TypeScript",
+      "Rspack",
+      "Docker",
+    ],
+    category: "web",
+    images: ["/images/placeholder.svg"],
+    githubUrl: "https://github.com/ansariamann/hr-system",
+    featured: true,
+    completedDate: new Date("2026-03-02"),
+    status: "completed",
+    highlights: [
+      "Multi-tenant architecture with PostgreSQL Row-Level Security for strict client-wise data isolation",
+      "Email ingestion pipeline that accepts resumes from attachments and tracks processing jobs with deduplication",
+      "Resume parsing flow with OCR support for scanned PDFs and background workers for heavy processing",
+      "Candidate, application, and workflow APIs with soft deletes, flagging, status transitions, and audit-friendly behavior",
+      "Separate React admin frontend for dashboards, candidate search, and recruitment operations",
+      "Docker Compose environments, observability endpoints, monitoring docs, and operational runbooks for deployment",
+    ],
+    challenges: [
+      "Designing tenant isolation that stays secure across every query and background task",
+      "Handling messy resume inputs, scanned files, and OCR fallback paths without blocking the main API",
+      "Preventing duplicate candidate records while preserving legitimate updates and historical application data",
+      "Coordinating backend services, worker queues, database migrations, and frontend admin tooling in one system",
+    ],
+    learnings: [
+      "Building production-style backend services with FastAPI, Celery, and PostgreSQL",
+      "Using RLS, session context, and repository patterns for safer multi-tenant systems",
+      "Designing recruitment workflows around candidate pipelines instead of one-off CRUD screens",
+      "Documenting monitoring, troubleshooting, and deployment paths for a more complete product",
+    ],
+  },
+  {
+    id: "5",
+    title: "Tasbih Counter",
+    description:
+      "A polished digital tasbih app with persistent counting, progress tracking, and a live site that actually works.",
+    longDescription:
+      "Built a focused devotional utility in React and TypeScript that turns a simple tasbih counter into a smoother daily-use experience. The app persists count, total dhikr, target, multiplier, sound, and vibration preferences in localStorage, then layers on animated feedback, completion chimes, progress visualization, and a premium mobile-friendly UI. It is deployed live at tasbiy.netlify.app and designed to be fast, touch-friendly, and practical for repeated everyday use.",
+    technologies: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "Framer Motion",
+      "PWA",
+    ],
+    category: "web",
+    images: ["/images/placeholder.svg"],
+    liveUrl: "https://tasbiy.netlify.app/",
+    githubUrl: "https://github.com/ansariamann/tasbih_counter",
+    featured: true,
+    completedDate: new Date("2026-02-25"),
+    status: "completed",
+    highlights: [
+      "Persistent count, target, multiplier, sound, vibration, and total dhikr state using localStorage",
+      "Animated counter with progress ring, tap feedback, and completion chime using the Web Audio API",
+      "Touch-friendly settings flow for adjusting repetition goals without cluttering the main experience",
+      "Live production deployment at tasbiy.netlify.app",
+    ],
+    challenges: [
+      "Keeping the interaction responsive on mobile while still feeling calm and polished",
+      "Balancing lightweight functionality with enough feedback to make repeated taps feel intentional",
+      "Persisting multiple counter settings cleanly without turning the app into a settings swamp",
+    ],
+    learnings: [
+      "Designing focused utility apps where the smallest interaction details matter most",
+      "Using localStorage and motion well for a stateful, repeat-use mobile experience",
+      "Combining simple product scope with deliberate UX polish and deployment discipline",
+    ],
+  },
+  {
+    id: "4",
+    title: "Cart Calculator / QuickMart",
+    description:
+      "A simple grocery bill calculator, which is exactly why it ends up being one of the most useful things here.",
+    longDescription:
+      "Built a grocery and cart total calculator that handles the annoyingly practical stuff: itemized totals, tax, discounts, budget tracking, favorites, saved transaction history, barcode scanning, and printable receipt generation. It is a small utility project on purpose, but it solves a real day-to-day problem faster than most overengineered apps manage.",
+    technologies: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "html5-qrcode",
+      "jsPDF",
+    ],
+    category: "web",
+    images: ["/images/placeholder.svg"],
+    liveUrl: "http://dailygrocry.netlify.app/",
+    githubUrl: "https://github.com/ansariamann/cart-calculator",
+    featured: true,
+    completedDate: new Date("2026-01-01"),
+    status: "completed",
+    highlights: [
+      "Automatic subtotal, tax, discount, and final total calculation for grocery carts",
+      "Budget tracker with running spend visibility and saved transaction history",
+      "Favorites flow for commonly purchased items and a barcode scanner for quicker entry",
+      "Receipt PDF generation plus live deployment for real-world use",
+    ],
+    challenges: [
+      "Making a simple calculator feel worth keeping open instead of becoming another abandoned utility",
+      "Keeping pricing logic, saved history, and budget state consistent across user actions",
+      "Integrating barcode scanning and receipt export without bloating the core experience",
+    ],
+    learnings: [
+      "Utility products live or die on speed, clarity, and repeat usability",
+      "Even small apps benefit from thoughtful state management and export workflows",
+      "The simplest project can still be the most consistently useful one",
+    ],
+  },
+  {
     id: "1",
     title: "Hospital Management System",
     description:

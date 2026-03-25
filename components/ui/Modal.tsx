@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ModalProps } from "@/types";
@@ -15,6 +15,7 @@ export default function Modal({
 }: ModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const previousActiveElement = useRef<HTMLElement | null>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   // Memoized escape handler for better performance
   const handleEscape = useCallback(
@@ -42,10 +43,7 @@ export default function Modal({
         mainContent.setAttribute("aria-hidden", "true");
       }
 
-      // Focus the modal for accessibility
-      setTimeout(() => {
-        modalRef.current?.focus();
-      }, 100);
+      modalRef.current?.focus();
     }
 
     return () => {
@@ -68,31 +66,33 @@ export default function Modal({
 
   const overlayVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1 },
+    visible: {
+      opacity: 1,
+      transition: { duration: shouldReduceMotion ? 0 : 0.12 },
+    },
   };
 
   const modalVariants = {
     hidden: {
       opacity: 0,
-      scale: 0.8,
-      y: 50,
+      scale: shouldReduceMotion ? 1 : 0.96,
+      y: shouldReduceMotion ? 0 : 16,
     },
     visible: {
       opacity: 1,
       scale: 1,
       y: 0,
       transition: {
-        type: "spring" as const,
-        damping: 25,
-        stiffness: 300,
+        duration: shouldReduceMotion ? 0 : 0.16,
+        ease: "easeOut" as const,
       },
     },
     exit: {
       opacity: 0,
-      scale: 0.8,
-      y: 50,
+      scale: shouldReduceMotion ? 1 : 0.98,
+      y: shouldReduceMotion ? 0 : 8,
       transition: {
-        duration: 0.2,
+        duration: shouldReduceMotion ? 0 : 0.12,
       },
     },
   };

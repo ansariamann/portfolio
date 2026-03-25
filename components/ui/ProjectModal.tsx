@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   ExternalLink,
   Github,
@@ -27,6 +27,7 @@ export default function ProjectModal({
   onClose,
 }: ProjectModalProps) {
   if (!project) return null;
+  const shouldReduceMotion = useReducedMotion();
 
   const getStatusIcon = (status: Project["status"]) => {
     switch (status) {
@@ -133,9 +134,9 @@ export default function ProjectModal({
                 <motion.li
                   key={index}
                   className="flex items-start"
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={shouldReduceMotion ? false : { opacity: 0, x: -8 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.12 }}
                 >
                   <CheckCircle
                     className="text-green-500 mr-3 mt-0.5 flex-shrink-0"
@@ -159,9 +160,9 @@ export default function ProjectModal({
                 <motion.li
                   key={index}
                   className="flex items-start"
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={shouldReduceMotion ? false : { opacity: 0, x: -8 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.12 }}
                 >
                   <AlertCircle
                     className="text-yellow-500 mr-3 mt-0.5 flex-shrink-0"
@@ -185,9 +186,9 @@ export default function ProjectModal({
                 <motion.li
                   key={index}
                   className="flex items-start"
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={shouldReduceMotion ? false : { opacity: 0, x: -8 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.12 }}
                 >
                   <BookOpen
                     className="text-blue-500 mr-3 mt-0.5 flex-shrink-0"

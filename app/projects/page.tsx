@@ -23,9 +23,11 @@ export default function ProjectsPage() {
     const filteredProjects = useMemo(() => {
         if (activeFilter === "all") {
             return [...projects].sort((a, b) => {
-                if (a.featured && !b.featured) return -1;
-                if (!a.featured && b.featured) return 1;
-                return new Date(b.completedDate).getTime() - new Date(a.completedDate).getTime();
+                return (
+                    new Date(b.completedDate).getTime() -
+                    new Date(a.completedDate).getTime() ||
+                    Number(b.featured) - Number(a.featured)
+                );
             });
         }
         return projects
@@ -57,16 +59,16 @@ export default function ProjectsPage() {
             <section className="relative overflow-hidden pt-28 pb-16 min-h-[40vh] flex items-center">
                 {/* Animated gradient orbs — identical to HeroSection */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-orb-float" />
-                    <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-violet-500/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2 animate-orb-float-slow" />
-                    <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] bg-cyan-500/8 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-orb-float" style={{ animationDelay: "3s" }} />
-                    {/* Grid overlay */}
+                    <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-500/12 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-orb-float" />
+                    <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-violet-500/12 rounded-full blur-3xl translate-x-1/2 translate-y-1/2 animate-orb-float-slow" />
+                    <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] bg-cyan-500/9 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-orb-float" style={{ animationDelay: "3s" }} />
+                    {/* Slightly stronger grid overlay */}
                     <div
-                        className="absolute inset-0 opacity-[0.025]"
+                        className="absolute inset-0 opacity-[0.046]"
                         style={{
                             backgroundImage:
                                 "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
-                            backgroundSize: "60px 60px",
+                            backgroundSize: "66px 66px",
                         }}
                     />
                 </div>
