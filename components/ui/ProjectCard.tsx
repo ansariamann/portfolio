@@ -29,8 +29,8 @@ export default function ProjectCard({
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
-        duration: shouldReduceAnimations ? 0.2 : 0.45,
-        delay: index * 0.08,
+        duration: shouldReduceAnimations ? 0.15 : 0.3,
+        delay: index * 0.04,
       }}
       whileHover={shouldReduceAnimations ? {} : { y: -4 }}
       onClick={() => onViewDetails(project)}

@@ -5,8 +5,8 @@
 @layer base {
   :root {
     /* Apple-inspired Light Theme (Default) */
-    --background: 0 0% 98%;
-    /* refined off-white */
+    --background: 225 15% 95%;
+    /* slightly tinted off-white for more depth */
     --foreground: 240 10% 3.9%;
     /* deep black */
 
@@ -41,7 +41,7 @@
 
   /* Dark mode overrides if system preference is set or toggled */
   .dark {
-    --background: 240 10% 3.9%;
+    --background: 230 15% 6%;
     --foreground: 0 0% 98%;
 
     --card: 240 10% 3.9%;

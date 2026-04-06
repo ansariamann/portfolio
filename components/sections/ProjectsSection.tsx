@@ -63,51 +63,18 @@ export default function ProjectsSection() {
     setTimeout(() => setSelectedProject(null), 300);
   };
 
-  const gridVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
   return (
     <section
       id="projects"
       className="min-h-screen py-20 relative bg-background overflow-hidden"
     >
-      {/* Modern background elements */}
+      {/* Background elements — pure CSS, no JS animation overhead */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-20 sm:top-40 left-10 sm:left-20 w-48 sm:w-96 h-48 sm:h-96 bg-primary/7 rounded-full blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-20 sm:bottom-40 right-10 sm:right-20 w-32 sm:w-80 h-32 sm:h-80 bg-secondary/12 rounded-full blur-3xl"
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.4, 0.2, 0.4],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
+        <div className="absolute top-20 sm:top-40 left-10 sm:left-20 w-48 sm:w-96 h-48 sm:h-96 bg-primary/7 rounded-full blur-3xl animate-orb-float" />
+        <div className="absolute bottom-20 sm:bottom-40 right-10 sm:right-20 w-32 sm:w-80 h-32 sm:h-80 bg-secondary/12 rounded-full blur-3xl animate-orb-float-slow" />
         {/* Slightly stronger grid overlay */}
         <div
-          className="absolute inset-0 opacity-[0.046]"
+          className="absolute inset-0 opacity-[0.08]"
           style={{
             backgroundImage:
               "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
@@ -120,16 +87,16 @@ export default function ProjectsSection() {
         {/* Header */}
         <motion.div
           className="text-center mb-20"
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.5 }}
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
             className="inline-block mb-6"
           >
             <span className="px-4 py-2 bg-secondary/50 backdrop-blur-sm rounded-full text-sm font-medium text-primary border border-border/50">
@@ -140,15 +107,15 @@ export default function ProjectsSection() {
           <AnimatedSectionHeading
             text="Featured Projects"
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight text-foreground"
-            preset="default"
+            preset="fast"
           />
 
           <motion.p
             className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
           >
             A curated selection of projects that showcase my passion for
             creating meaningful digital experiences.
@@ -158,10 +125,10 @@ export default function ProjectsSection() {
         {/* Filters */}
         <motion.div
           className="flex flex-wrap justify-center gap-4 mb-16"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          transition={{ duration: 0.4, delay: 0.15 }}
         >
           {categories.map((category, index) => {
             const isActive = activeFilter === category;
@@ -179,9 +146,9 @@ export default function ProjectsSection() {
                 )}
                 whileHover={{ y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 + index * 0.1 }}
+                transition={{ delay: 0.2 + index * 0.05 }}
               >
                 <Filter size={14} />
                 <span className="capitalize text-sm">
@@ -209,40 +176,29 @@ export default function ProjectsSection() {
           })}
         </motion.div>
 
-        {/* Grid */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeFilter}
-            className={cn(
-              "grid gap-6",
-              "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
-              isMobile && "px-2 sm:px-0"
-            )}
-            variants={gridVariants}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-          >
-            {filteredProjects.map((project, index) => (
-              <LazySection
-                key={project.id}
-                fallback={<ProjectCardSkeleton />}
-                threshold={0.1}
-                rootMargin="100px"
-                delay={index * 50}
-              >
-                <div className="h-full">
-                  <ProjectCard
-                    project={project}
-                    onViewDetails={handleViewDetails}
-                    index={index}
-                    isFeatured={project.featured}
-                  />
-                </div>
-              </LazySection>
-            ))}
-          </motion.div>
-        </AnimatePresence>
+        {/* Grid — no AnimatePresence wait, instant swap */}
+        <motion.div
+          key={activeFilter}
+          className={cn(
+            "grid gap-6",
+            "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
+            isMobile && "px-2 sm:px-0"
+          )}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.25 }}
+        >
+          {filteredProjects.map((project, index) => (
+            <div key={project.id} className="h-full">
+              <ProjectCard
+                project={project}
+                onViewDetails={handleViewDetails}
+                index={index}
+                isFeatured={project.featured}
+              />
+            </div>
+          ))}
+        </motion.div>
 
         {/* Empty State */}
         {filteredProjects.length === 0 && (
@@ -250,7 +206,7 @@ export default function ProjectsSection() {
             className="text-center py-16"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.3 }}
           >
             <div className="w-16 h-16 mx-auto mb-4 bg-muted rounded-full flex items-center justify-center">
               <Grid size={24} className="text-muted-foreground" />

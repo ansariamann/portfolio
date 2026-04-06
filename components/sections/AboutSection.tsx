@@ -43,7 +43,7 @@ export default function AboutSection() {
         />
         {/* Subtle grid overlay */}
         <div
-          className="absolute inset-0 opacity-[0.025]"
+          className="absolute inset-0 opacity-[0.07]"
           style={{
             backgroundImage:
               "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
@@ -282,9 +282,7 @@ export default function AboutSection() {
                 transition={{ duration: 0.8, delay: 1.2 }}
               >
                 <p className="text-muted-foreground italic leading-relaxed">
-                  &quot;I believe that great software is not just about clean
-                  code, but about creating meaningful experiences that connect
-                  with people and solve real-world problems.&quot;
+                  &quot;I think AI is one of the biggest breakthrough for humanity.Also now one engineer can do the work of 10 engineers easily.&quot;
                 </p>
                 <div className="flex items-center mt-4">
                   <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mr-3">

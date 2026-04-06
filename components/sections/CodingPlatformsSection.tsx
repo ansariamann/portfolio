@@ -1508,7 +1508,7 @@ export default function CodingPlatformsSection() {
             />
             {/* Subtle grid overlay */}
             <div
-              className="absolute inset-0 opacity-[0.025]"
+              className="absolute inset-0 opacity-[0.07]"
               style={{
                 backgroundImage:
                   "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",

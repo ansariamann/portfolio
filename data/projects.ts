@@ -49,6 +49,47 @@ export const projects: Project[] = [
     ],
   },
   {
+    id: "7",
+    title: "Mini CRM",
+    description:
+      "A compact Laravel CRM for managing employees linked to companies, with full CRUD operations, authentication, and relational data management.",
+    longDescription:
+      "Built a small but complete CRM application in Laravel for managing employees and their associated companies. The app features login-based access control, full CRUD for both employees and companies, relational data where employees belong to companies (with cascading deletes), factory-seeded demo data, and Blade-based views. It follows RESTful conventions across all resource routes and runs on a standard LAMP/XAMPP stack with Vite for frontend asset compilation.",
+    technologies: [
+      "PHP",
+      "Laravel",
+      "MySQL",
+      "Blade",
+      "Vite",
+      "Bootstrap",
+      "Composer",
+    ],
+    category: "web",
+    images: ["/images/placeholder.svg"],
+    githubUrl: "https://github.com/ansariamann/mini-crm",
+    featured: true,
+    completedDate: new Date("2025-06-01"),
+    status: "completed",
+    highlights: [
+      "Full CRUD for both companies and employees with RESTful resource routes",
+      "Relational data model where employees belong to companies, with cascading deletes on company removal",
+      "Login-based authentication with registration disabled for controlled access",
+      "Factory and seeder support for quickly populating demo data via Artisan Tinker",
+      "Blade views for create, edit, index, and show pages across both resources",
+    ],
+    challenges: [
+      "Implementing proper cascading deletes so removing a company also removes its employees",
+      "Setting up authentication flow with registration disabled while retaining seeded admin credentials",
+      "Structuring RESTful routes and controllers cleanly for two interrelated resources",
+    ],
+    learnings: [
+      "Building complete CRUD applications with Laravel's Eloquent ORM and resource controllers",
+      "Using factories and seeders for rapid demo data generation",
+      "Working with Blade templating and Bootstrap for server-rendered UI",
+      "Managing relational database constraints and cascading behaviors in MySQL",
+    ],
+  },
+  {
     id: "5",
     title: "Tasbih Counter",
     description:
