@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { scrollToSection } from "@/lib/utils";
 import { siteConfig } from "@/data/site-config";
-import { TechStack } from "@/components/ui/TechStack";
 
 export default function HeroSection() {
   const handleContact = () => scrollToSection("#contact");
@@ -26,26 +25,32 @@ export default function HeroSection() {
             for teams that need reliable delivery without unnecessary complexity.
           </p>
 
-          <div className="mt-10">
-            <p className="section-label mb-4">Stack</p>
-            <div className="flex justify-center">
-              <TechStack />
-            </div>
-          </div>
-
           <p className="mt-10 text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
             {siteConfig.contact?.location ?? "Pune, IN"}. 2+ years shipping web apps. Open to
             full-time, contract, internship, or junior individual contributor
             roles.
           </p>
 
-          <div className="mt-12 flex flex-col sm:flex-row justify-center flex-wrap gap-4">
-            <button type="button" onClick={handleContact} className="btn-primary">
-              Hire me
-            </button>
-            <Link href="/projects" className="btn-secondary">
-              See my work
-            </Link>
+          <div className="mt-12 mx-auto flex max-w-4xl flex-col gap-6 rounded-[24px] border border-ink/10 bg-surface/80 p-4 sm:p-5 shadow-sm">
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <button type="button" onClick={handleContact} className="btn-primary flex-1">
+                Hire me
+              </button>
+              <Link
+                href="/cv/Aman_Ansari_CV.pdf"
+                target="_blank"
+                rel="noreferrer"
+                className="btn-secondary flex-1"
+              >
+                See resume
+              </Link>
+            </div>
+
+            <div className="flex justify-center">
+              <Link href="/projects" className="btn-primary w-full sm:w-auto min-w-[260px] bg-surface text-foreground border border-ink/10 hover:bg-muted">
+                See my work
+              </Link>
+            </div>
           </div>
         </div>
       </div>

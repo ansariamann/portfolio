@@ -104,15 +104,19 @@ export default function ContactForm() {
     fast: { duration: 0.3 },
   };
 
-  // Apple-style input classes: clean, light bg, subtle border
+  // Tall and spacious input and textarea classes matching hashton.dev style
   const inputClasses = cn(
-    "form-input",
-    touchDevice && "min-h-[44px]",
-    isMobile && "text-base"
+    "w-full rounded-2xl border border-ink/10 bg-background/50 px-5 py-4 text-base text-foreground placeholder:text-muted-foreground/60 transition-[box-shadow,border-color] focus:border-accent focus:outline-none focus:ring-[4px] focus:ring-accent/15",
+    "h-14"
+  );
+
+  const textareaClasses = cn(
+    "w-full rounded-2xl border border-ink/10 bg-background/50 px-5 py-4 text-base text-foreground placeholder:text-muted-foreground/60 transition-[box-shadow,border-color] focus:border-accent focus:outline-none focus:ring-[4px] focus:ring-accent/15",
+    "min-h-[160px]"
   );
 
   const labelClasses =
-    "block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2 ml-1";
+    "block text-[15px] font-bold text-foreground mb-2";
   const errorClasses = cn(
     "text-destructive mt-2 font-medium",
     "text-sm sm:text-xs ml-1"
@@ -157,10 +161,6 @@ export default function ContactForm() {
             Don&apos;t fill this out if you&apos;re human:{" "}
             <input name="bot-field" />
           </label>
-        </div>
-
-        <div className="mb-8">
-          <p className="section-label mb-2">Message</p>
         </div>
 
         {/* Name Field */}
@@ -282,7 +282,7 @@ export default function ContactForm() {
             {...register("message")}
             id="message"
             rows={5}
-            className={inputClasses}
+            className={textareaClasses}
           />
           {errors.message && (
             <motion.p
@@ -305,7 +305,7 @@ export default function ContactForm() {
           <button
             type="submit"
             disabled={!isValid || !isDirty || submissionStatus === "submitting"}
-            className="group relative w-full px-8 py-4 bg-primary text-primary-foreground font-semibold text-base rounded-full shadow-lg hover:shadow-xl hover:bg-primary/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden active:scale-[0.98]"
+            className="group relative w-full h-14 px-8 bg-primary text-primary-foreground font-bold text-base rounded-full shadow-lg hover:shadow-xl hover:bg-primary/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden active:scale-[0.98] flex items-center justify-center"
           >
             <div className="relative flex items-center justify-center">
               {submissionStatus === "submitting" ? (

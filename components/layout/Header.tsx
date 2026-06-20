@@ -116,14 +116,19 @@ export default function Header() {
 
         <div className="hidden lg:flex items-center justify-center gap-1 min-w-0">
           {homeNavItems.map((item) => (
-            <button
+            <Link
               key={item.href}
-              type="button"
-              onClick={() => handleScrollToSection(item.href)}
+              href={`/${item.href}`}
+              onClick={(e) => {
+                if (isHome) {
+                  e.preventDefault();
+                  handleScrollToSection(item.href);
+                }
+              }}
               className={cn("nav-link", isHomeItemActive(item.href) && "nav-link-active")}
             >
               {item.label}
-            </button>
+            </Link>
           ))}
           {pageNavItems.map((item) => (
             <Link
@@ -166,7 +171,7 @@ export default function Header() {
           </button>
 
           <Link
-            href={isHome ? "#contact" : "/#contact"}
+            href="/#contact"
             onClick={(e) => {
               if (isHome) {
                 e.preventDefault();
@@ -212,14 +217,21 @@ export default function Header() {
         <div className="lg:hidden border-t border-ink/10 bg-background/98 backdrop-blur-xl">
           <div className="container-wide py-3 flex flex-col gap-1">
             {homeNavItems.map((item) => (
-              <button
+              <Link
                 key={item.href}
-                type="button"
-                onClick={() => handleScrollToSection(item.href)}
-                className="nav-link w-full text-left"
+                href={`/${item.href}`}
+                onClick={(e) => {
+                  if (isHome) {
+                    e.preventDefault();
+                    handleScrollToSection(item.href);
+                  } else {
+                    setIsMenuOpen(false);
+                  }
+                }}
+                className="nav-link w-full text-left block"
               >
                 {item.label}
-              </button>
+              </Link>
             ))}
             {pageNavItems.map((item) => (
               <Link
@@ -227,20 +239,27 @@ export default function Header() {
                 href={item.href}
                 onClick={() => setIsMenuOpen(false)}
                 className={cn(
-                  "nav-link w-full text-left",
+                  "nav-link w-full text-left block",
                   isPageActive(item.href) && "nav-link-active"
                 )}
               >
                 {item.label}
               </Link>
             ))}
-            <button
-              type="button"
-              onClick={() => handleScrollToSection("#contact")}
-              className="btn-primary mt-2 w-full"
+            <Link
+              href="/#contact"
+              onClick={(e) => {
+                if (isHome) {
+                  e.preventDefault();
+                  handleScrollToSection("#contact");
+                } else {
+                  setIsMenuOpen(false);
+                }
+              }}
+              className="btn-primary mt-2 w-full text-center block"
             >
               Hire me
-            </button>
+            </Link>
           </div>
         </div>
       )}

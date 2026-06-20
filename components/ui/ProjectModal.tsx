@@ -26,8 +26,9 @@ export default function ProjectModal({
   isOpen,
   onClose,
 }: ProjectModalProps) {
-  if (!project) return null;
   const shouldReduceMotion = useReducedMotion();
+
+  if (!project) return null;
 
   const getStatusIcon = (status: Project["status"]) => {
     switch (status) {
