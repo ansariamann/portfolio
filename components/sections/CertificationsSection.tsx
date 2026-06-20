@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { certifications } from "@/data/certifications";
-import AnimatedSectionHeading from "@/components/ui/AnimatedSectionHeading";
 import { ExternalLink, Calendar, Award, Shield } from "lucide-react";
 import { useMobileOptimizedAnimation } from "@/lib/hooks";
 
@@ -11,33 +10,16 @@ export default function CertificationsSection() {
   const { touchDevice } = useMobileOptimizedAnimation();
 
   return (
-    <section
-      id="certifications"
-      className="min-h-screen py-20 bg-secondary/30 relative overflow-hidden"
-    >
-      {/* Subtle Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-x-1/2"></div>
-        <div className="absolute bottom-20 right-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl translate-x-1/2"></div>
-        {/* Subtle grid overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.07]"
-          style={{
-            backgroundImage:
-              "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
-          }}
-        />
-      </div>
+    <section id="certifications" className="section-shell border-t border-ink/10">
+      <div className="container-main">
+        <header className="mb-12 max-w-2xl mx-auto text-center">
+          <p className="section-label mb-4">Certifications</p>
+          <h2 className="text-3xl sm:text-4xl md:text-[2.75rem] font-bold tracking-tight text-foreground leading-[1.12]">
+            Verified credentials.
+          </h2>
+        </header>
 
-      <div className="container mx-auto px-6 relative z-10">
-        <AnimatedSectionHeading
-          text="Certifications"
-          className="text-4xl md:text-5xl lg:text-6xl font-bold mb-16 tracking-tight text-foreground text-center"
-          preset="default"
-        />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {certifications.map((cert, index) => (
             <motion.div
               key={cert.id}
@@ -51,7 +33,7 @@ export default function CertificationsSection() {
               }`}
             >
               {/* Card Content */}
-              <div className="glass-card rounded-[1.5rem] p-6 flex flex-col h-full transition-all duration-300 relative overflow-hidden">
+              <div className="rounded-2xl border border-ink/10 bg-surface shadow-card p-6 flex flex-col h-full transition-all hover:border-accent/30 hover:shadow-card-hover relative overflow-hidden">
                 {/* Header with Badge and Featured Tag */}
                 <div className="flex items-start justify-between mb-5">
                   <div className="relative w-20 h-20 flex-shrink-0 bg-secondary/50 rounded-2xl p-3 flex items-center justify-center">

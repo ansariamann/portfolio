@@ -106,13 +106,9 @@ export default function ContactForm() {
 
   // Apple-style input classes: clean, light bg, subtle border
   const inputClasses = cn(
-    "w-full bg-secondary/50 border border-transparent rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:bg-background transition-all duration-300",
-    prefersReducedMotion
-      ? "motion-reduce-essential"
-      : "transition-all duration-300",
-    "px-5 py-4 text-base",
+    "form-input",
     touchDevice && "min-h-[44px]",
-    isMobile && "rounded-xl text-base"
+    isMobile && "text-base"
   );
 
   const labelClasses =
@@ -164,12 +160,7 @@ export default function ContactForm() {
         </div>
 
         <div className="mb-8">
-          <h3 className="text-2xl font-bold text-foreground mb-2">
-            Send a Message
-          </h3>
-          <p className="text-muted-foreground">
-            I usually respond within 24 hours.
-          </p>
+          <p className="section-label mb-2">Message</p>
         </div>
 
         {/* Name Field */}

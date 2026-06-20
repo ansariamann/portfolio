@@ -1,9 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Performance optimizations
-  // experimental: {
-  //   optimizePackageImports: ["framer-motion", "lucide-react", "react-icons"],
-  // },
+  experimental: {
+    optimizePackageImports: ["lucide-react", "react-icons"],
+  },
 
   // Image optimization
   images: {

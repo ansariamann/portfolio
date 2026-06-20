@@ -1379,9 +1379,9 @@ export default function CodingPlatformsSection() {
       <section
         id="coding-platforms"
         ref={sectionRef}
-        className="min-h-screen py-12 sm:py-16 md:py-20 bg-secondary/30 relative"
+        className="section-shell border-t border-border/50 relative"
       >
-        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        <div className="container-main relative z-10">
           <motion.div
             className="text-center mb-12 sm:mb-16 md:mb-20"
             initial={{ opacity: 0, y: shouldUseReducedAnimations ? 0 : 50 }}
@@ -1442,9 +1442,9 @@ export default function CodingPlatformsSection() {
       <section
         id="coding-platforms"
         ref={sectionRef}
-        className="min-h-screen py-12 sm:py-16 md:py-20 bg-secondary/30 relative"
+        className="section-shell border-t border-border/50 relative"
       >
-        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        <div className="container-main relative z-10">
           <motion.div
             className="text-center mb-12 sm:mb-16 md:mb-20"
             initial={{ opacity: 0, y: shouldUseReducedAnimations ? 0 : 50 }}
@@ -1477,7 +1477,7 @@ export default function CodingPlatformsSection() {
       <section
         id="coding-platforms"
         ref={sectionRef}
-        className="min-h-screen py-12 sm:py-16 md:py-20 bg-secondary/30 relative overflow-hidden"
+        className="section-shell border-t border-border/50 relative overflow-hidden"
       >
         {/* Modern background elements - reduced on mobile for performance */}
         {!shouldUseReducedAnimations && (
@@ -1518,7 +1518,7 @@ export default function CodingPlatformsSection() {
           </div>
         )}
 
-        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        <div className="container-main relative z-10">
           {/* Modern section header */}
           <motion.div
             className="text-center mb-12 sm:mb-16 md:mb-20"

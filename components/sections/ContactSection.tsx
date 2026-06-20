@@ -1,193 +1,59 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { Mail, Phone, MapPin } from "lucide-react";
-
+import SectionHeader from "@/components/ui/SectionHeader";
 import ContactForm from "@/components/ui/ContactForm";
 import { siteConfig } from "@/data/site-config";
-import AnimatedSectionHeading from "@/components/ui/AnimatedSectionHeading";
+import { Github, Linkedin, Twitter, Mail } from "lucide-react";
+
+const socialLinks = [
+  { icon: Github, href: "https://github.com/ansariamann", label: "GitHub" },
+  {
+    icon: Linkedin,
+    href: "https://linkedin.com/in/-aman-ansari",
+    label: "LinkedIn",
+  },
+  { icon: Twitter, href: "https://twitter.com/thoht_z", label: "Twitter" },
+  {
+    icon: Mail,
+    href: `mailto:${siteConfig.contact?.email ?? ""}`,
+    label: "Email",
+  },
+];
 
 export default function ContactSection() {
-  const contactMethods = [
-    {
-      icon: Mail,
-      label: "Email",
-      value: siteConfig.contact?.email || "",
-      href: `mailto:${siteConfig.contact?.email || ""}`,
-      color: "text-blue-500",
-      bg: "bg-blue-50 dark:bg-blue-900/20",
-    },
-    {
-      icon: Phone,
-      label: "Phone",
-      value: siteConfig.contact?.phone || "",
-      href: `tel:${siteConfig.contact?.phone || ""}`,
-      color: "text-green-500",
-      bg: "bg-green-50 dark:bg-green-900/20",
-    },
-    {
-      icon: MapPin,
-      label: "Location",
-      value: siteConfig.contact?.location || "",
-      href: "#",
-      color: "text-purple-500",
-      bg: "bg-purple-50 dark:bg-purple-900/20",
-    },
-  ].filter((item) => item.value);
-
   return (
-    <section
-      id="contact"
-      className="min-h-screen py-24 bg-secondary/30 relative overflow-hidden"
-    >
-      {/* Subtle Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl translate-x-1/2"></div>
-        <div className="absolute bottom-20 left-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl -translate-x-1/2"></div>
-        {/* Subtle grid overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.07]"
-          style={{
-            backgroundImage:
-              "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
-          }}
+    <section id="contact" className="section-shell border-t border-ink/10">
+      <div className="container-main">
+        <SectionHeader
+          label="Contact"
+          title="Say hello — roles, contracts, or consulting."
+          description="Tell me what you're building, the role or engagement type, and your timeline. Short briefs beat polished vagueness."
+          align="center"
         />
-      </div>
 
-      <div className="container mx-auto px-6 relative z-10 max-w-6xl">
-        {/* Header Section */}
-        <div className="flex flex-col items-center justify-center mb-16 space-y-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex items-center space-x-2 px-3 py-1 rounded-full bg-primary/10 backdrop-blur-md border border-primary/20"
-          >
-            <span className="text-xs font-medium text-primary tracking-wide uppercase">
-              Let&apos;s Connect
-            </span>
-          </motion.div>
-
-          <AnimatedSectionHeading
-            text="Get in Touch"
-            className="text-4xl md:text-5xl font-bold tracking-tight text-foreground text-center"
-            preset="default"
-          />
-
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-center text-muted-foreground text-lg max-w-2xl font-light leading-relaxed"
-          >
-            Have a project in mind? Let&apos;s build something extraordinary
-            together.
-          </motion.p>
-        </div>
-
-        {/* Bento Grid Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-full">
-          {/* Left Column: Contact Info Cards */}
-          <div className="lg:col-span-5 grid grid-cols-1 gap-6 content-start">
-            {/* Availability Card */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="glass-card p-8 rounded-[2rem] flex flex-col justify-between min-h-[200px]"
-            >
-              <div>
-                <h3 className="text-2xl font-semibold text-foreground mb-2">
-                  Availability
-                </h3>
-                <p className="text-muted-foreground">
-                  {siteConfig.contact?.availability ||
-                    "Currently open for new opportunities."}
-                </p>
-              </div>
-              <div className="mt-8 flex items-center space-x-3">
-                <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
-                <span className="text-sm font-medium text-green-600 dark:text-green-400">
-                  Online Now
-                </span>
-              </div>
-            </motion.div>
-
-            {/* Contact Methods List */}
-            <div className="grid gap-4">
-              {contactMethods.map((method, index) => (
-                <motion.a
-                  key={method.label}
-                  href={method.href}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="group flex items-center p-5 rounded-[1.5rem] bg-white dark:bg-gray-900 border border-border/50 hover:border-primary/20 hover:shadow-lg transition-all duration-300"
-                >
-                  <div
-                    className={`p-3 rounded-full ${method.bg} mr-5 group-hover:scale-110 transition-transform`}
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start max-w-5xl mx-auto">
+          <div>
+            <div className="mt-4">
+              <p className="section-label mb-4">Social</p>
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center gap-2 rounded-xl border border-ink/10 bg-surface px-4 py-5 text-sm font-semibold text-muted-foreground transition-all hover:border-accent/40 hover:text-foreground hover:shadow-card"
                   >
-                    <method.icon size={20} className={method.color} />
-                  </div>
-                  <div>
-                    <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                      {method.label}
-                    </p>
-                    <p className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
-                      {method.value}
-                    </p>
-                  </div>
-                </motion.a>
-              ))}
+                    <social.icon size={20} aria-hidden />
+                    {social.label}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Right Column: Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="lg:col-span-7"
-          >
-            <div className="glass-card p-8 md:p-10 rounded-[2.5rem] h-full">
-              <ContactForm />
-            </div>
-          </motion.div>
+          <div className="surface-card p-6 md:p-8">
+            <ContactForm />
+          </div>
         </div>
-
-        {/* Back to Top */}
-        <motion.div
-          className="flex justify-center mt-16"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-        >
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="group flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <span>Back to Top</span>
-            <div className="p-1.5 rounded-full border border-border/50 group-hover:border-primary/40 group-hover:bg-primary/10 group-hover:text-primary transition-all">
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <polyline points="18 15 12 9 6 15" />
-              </svg>
-            </div>
-          </button>
-        </motion.div>
       </div>
     </section>
   );

@@ -1,5 +1,55 @@
 import { TimelineItem, Achievement } from "@/types";
 
+export interface ExperienceItem {
+  id: string;
+  role: string;
+  company: string;
+  period: string;
+  current?: boolean;
+}
+
+export const experienceData: ExperienceItem[] = [
+  {
+    id: "1",
+    role: "Frontend Development Intern",
+    company: "StartupCo",
+    period: "Summer 2023",
+  },
+  {
+    id: "2",
+    role: "Computer Science Student",
+    company: "Tech University",
+    period: "2022 — Present",
+    current: true,
+  },
+  {
+    id: "3",
+    role: "Open Source Contributor",
+    company: "GitHub",
+    period: "2024 — Present",
+    current: true,
+  },
+];
+
+export const profileStats = [
+  {
+    label: "Years in development",
+    value: "2+",
+  },
+  {
+    label: "Roles considered",
+    value: "Full-time · contract · internship · junior IC",
+  },
+  {
+    label: "Latest role",
+    value: "Frontend Intern, StartupCo",
+  },
+  {
+    label: "How I work",
+    value: "Pune-based, remote-friendly, async or sync.",
+  },
+];
+
 export const timelineData: TimelineItem[] = [
   {
     id: "1",

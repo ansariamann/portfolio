@@ -1,10 +1,9 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, Mail, Github, Linkedin } from "lucide-react";
 import { scrollToSection, cn } from "@/lib/utils";
 
 interface NavItem {
@@ -13,26 +12,26 @@ interface NavItem {
   isPage?: boolean;
 }
 
-const navigationItems: NavItem[] = [
+/** Homepage scroll sections only — case studies & projects are separate pages */
+const homeNavItems: NavItem[] = [
   { label: "Home", href: "#hero" },
   { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Certifications", href: "#certifications" },
-  { label: "Coding", href: "#coding-platforms" },
+  { label: "Portfolio", href: "#work" },
   { label: "Contact", href: "#contact" },
+];
+
+const pageNavItems: NavItem[] = [
   { label: "Projects", href: "/projects", isPage: true },
   { label: "Case Studies", href: "/case-studies", isPage: true },
 ];
 
 function useDarkMode() {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
 
   useEffect(() => {
     const stored = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-    const initial = stored === "dark" || (!stored && prefersDark);
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const initial = stored ? stored === "dark" : prefersDark;
     setIsDark(initial);
     document.documentElement.classList.toggle("dark", initial);
   }, []);
@@ -51,28 +50,22 @@ function useDarkMode() {
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const pathname = usePathname();
   const { isDark, toggle } = useDarkMode();
-  const isSubPage = pathname === "/case-studies" || pathname === "/projects";
+  const isHome = pathname === "/";
   const rafRef = useRef<number | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Throttle via rAF to avoid layout thrashing on scroll
       if (rafRef.current) return;
       rafRef.current = requestAnimationFrame(() => {
         rafRef.current = null;
-        setIsScrolled(window.scrollY > 20);
 
-        if (isSubPage) return;
+        if (!isHome) return;
 
-        const sectionIds = navigationItems
-          .filter((item) => !item.isPage)
-          .map((item) => item.href.substring(1));
-
-        for (const id of sectionIds) {
+        for (const item of homeNavItems) {
+          const id = item.href.substring(1);
           const el = document.getElementById(id);
           if (el) {
             const top = el.getBoundingClientRect().top;
@@ -90,137 +83,124 @@ export default function Header() {
       window.removeEventListener("scroll", handleScroll);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [isSubPage]);
+  }, [isHome]);
 
   const handleScrollToSection = (href: string) => {
+    if (!isHome) {
+      window.location.href = `/${href}`;
+      return;
+    }
     scrollToSection(href);
     setIsMenuOpen(false);
     setActiveSection(href.substring(1));
   };
 
-  const isItemActive = (item: NavItem) => {
-    if (item.isPage) return pathname === item.href;
-    return !isSubPage && activeSection === item.href.substring(1);
-  };
+  const isHomeItemActive = (href: string) =>
+    isHome && activeSection === href.substring(1);
+
+  const isPageActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    // Use a plain div + CSS transition instead of motion.header for the entry animation
-    // (motion.header triggers layout recalculations on every frame during mount)
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 will-change-transform",
-        isScrolled && !isSubPage
-          ? "h-16 bg-background/80 backdrop-blur-md border-b border-border/50 shadow-sm"
-          : isSubPage
-          ? "h-20 bg-background border-b border-border/50 shadow-sm"
-          : "h-20 bg-transparent"
+        "sticky top-0 z-50 w-full border-b border-ink/10 bg-background/95 backdrop-blur-sm transition-colors"
       )}
-      style={{ transform: "translateZ(0)" }} // promote to compositor layer
     >
-      <nav className="container mx-auto px-6 h-full flex items-center justify-between">
-        {/* Logo */}
+      <nav className="container-wide flex h-14 sm:h-16 items-center justify-between gap-3">
         <Link
           href="/"
-          className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-violet-500 outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-sm"
+          className="text-sm font-semibold tracking-tight text-foreground shrink-0 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink/30 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
-          Portfolio
+          Aman Ansari
         </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center space-x-1">
-          {navigationItems.map((item) => {
-            const active = isItemActive(item);
-            const sharedClass = cn(
-              "relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200",
-              active
-                ? "text-primary-foreground"
-                : "text-muted-foreground hover:text-foreground"
-            );
-
-            return item.isPage ? (
-              <Link key={item.href} href={item.href} className={sharedClass}>
-                {active && (
-                  <motion.div
-                    layoutId="activeTab"
-                    className="absolute inset-0 bg-primary/90 rounded-full -z-[1]"
-                    transition={{ type: "spring", stiffness: 380, damping: 36 }}
-                  />
-                )}
-                {item.label}
-              </Link>
-            ) : (
-              <button
-                key={item.href}
-                onClick={() => handleScrollToSection(item.href)}
-                className={sharedClass}
-              >
-                {active && (
-                  <motion.div
-                    layoutId="activeTab"
-                    className="absolute inset-0 bg-primary/90 rounded-full -z-[1]"
-                    transition={{ type: "spring", stiffness: 380, damping: 36 }}
-                  />
-                )}
-                {item.label}
-              </button>
-            );
-          })}
-
-          {/* Dark mode toggle — CSS-only scale, no framer on hover */}
-          <button
-            onClick={toggle}
-            aria-label="Toggle dark mode"
-            className="ml-2 p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors active:scale-90"
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.span
-                key={isDark ? "sun" : "moon"}
-                initial={{ rotate: -90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 90, opacity: 0 }}
-                transition={{ duration: 0.15 }}
-                className="block"
-              >
-                {isDark ? <Sun size={17} /> : <Moon size={17} />}
-              </motion.span>
-            </AnimatePresence>
-          </button>
+        <div className="hidden lg:flex items-center justify-center gap-1 min-w-0">
+          {homeNavItems.map((item) => (
+            <button
+              key={item.href}
+              type="button"
+              onClick={() => handleScrollToSection(item.href)}
+              className={cn("nav-link", isHomeItemActive(item.href) && "nav-link-active")}
+            >
+              {item.label}
+            </button>
+          ))}
+          {pageNavItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn("nav-link", isPageActive(item.href) && "nav-link-active")}
+            >
+              {item.label}
+            </Link>
+          ))}
         </div>
 
-        {/* Mobile: dark mode + hamburger */}
-        <div className="md:hidden flex items-center gap-1.5">
+        <div className="flex items-center gap-1.5 shrink-0">
+          <a
+            href="https://github.com/ansariamann"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            className="hidden lg:flex size-9 items-center justify-center rounded-md border border-ink/10 transition-colors hover:bg-ink/5"
+          >
+            <Github size={16} />
+          </a>
+          <a
+            href="https://linkedin.com/in/-aman-ansari"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            className="hidden lg:flex size-9 items-center justify-center rounded-md border border-ink/10 transition-colors hover:bg-ink/5"
+          >
+            <Linkedin size={16} />
+          </a>
+
           <button
+            type="button"
             onClick={toggle}
             aria-label="Toggle dark mode"
-            className="p-2.5 text-muted-foreground hover:text-foreground hover:bg-secondary/50 rounded-lg transition-colors active:scale-90"
+            className="size-9 flex items-center justify-center rounded-md border border-ink/10 text-muted-foreground transition-colors hover:bg-ink/5"
           >
-            {isDark ? <Sun size={20} /> : <Moon size={20} />}
+            {isDark ? <Sun size={16} /> : <Moon size={16} />}
           </button>
+
+          <Link
+            href={isHome ? "#contact" : "/#contact"}
+            onClick={(e) => {
+              if (isHome) {
+                e.preventDefault();
+                handleScrollToSection("#contact");
+              }
+            }}
+            className="btn-primary !min-h-9 !py-2 !px-3.5 !text-sm hidden sm:inline-flex"
+          >
+            <Mail size={15} aria-hidden />
+            Hire me
+          </Link>
+
           <button
-            className="p-2.5 text-foreground/80 hover:text-foreground hover:bg-secondary/50 rounded-lg transition-colors"
+            type="button"
+            className="lg:hidden size-9 flex items-center justify-center rounded-md border border-ink/10"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
           >
-            {/* Pure CSS hamburger — no framer-motion spans */}
-            <div className="w-5 h-4 relative flex flex-col justify-between">
+            <div className="w-4 h-3 relative flex flex-col justify-between">
               <span
-                className="w-full h-0.5 bg-current rounded transition-transform duration-200 origin-left"
+                className="w-full h-0.5 bg-current rounded transition-transform origin-left"
                 style={{
-                  transform: isMenuOpen
-                    ? "rotate(45deg) translateY(-1px)"
-                    : "none",
+                  transform: isMenuOpen ? "rotate(45deg) translateY(-1px)" : "none",
                 }}
               />
               <span
-                className="w-full h-0.5 bg-current rounded transition-opacity duration-200"
+                className="w-full h-0.5 bg-current rounded transition-opacity"
                 style={{ opacity: isMenuOpen ? 0 : 1 }}
               />
               <span
-                className="w-full h-0.5 bg-current rounded transition-transform duration-200 origin-left"
+                className="w-full h-0.5 bg-current rounded transition-transform origin-left"
                 style={{
-                  transform: isMenuOpen
-                    ? "rotate(-45deg) translateY(1px)"
-                    : "none",
+                  transform: isMenuOpen ? "rotate(-45deg) translateY(1px)" : "none",
                 }}
               />
             </div>
@@ -228,41 +208,42 @@ export default function Header() {
         </div>
       </nav>
 
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2, ease: "easeInOut" }}
-            className="md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-border/50 shadow-xl overflow-hidden"
-          >
-            <div className="flex flex-col p-3 space-y-1.5">
-              {navigationItems.map((item) =>
-                item.isPage ? (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setIsMenuOpen(false)}
-                    className="px-4 py-3 text-left text-muted-foreground hover:text-foreground hover:bg-secondary/60 rounded-lg transition-colors text-sm font-medium"
-                  >
-                    {item.label}
-                  </Link>
-                ) : (
-                  <button
-                    key={item.href}
-                    onClick={() => handleScrollToSection(item.href)}
-                    className="px-4 py-3 text-left text-muted-foreground hover:text-foreground hover:bg-secondary/60 rounded-lg transition-colors text-sm font-medium"
-                  >
-                    {item.label}
-                  </button>
-                )
-              )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {isMenuOpen && (
+        <div className="lg:hidden border-t border-ink/10 bg-background/98 backdrop-blur-xl">
+          <div className="container-wide py-3 flex flex-col gap-1">
+            {homeNavItems.map((item) => (
+              <button
+                key={item.href}
+                type="button"
+                onClick={() => handleScrollToSection(item.href)}
+                className="nav-link w-full text-left"
+              >
+                {item.label}
+              </button>
+            ))}
+            {pageNavItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsMenuOpen(false)}
+                className={cn(
+                  "nav-link w-full text-left",
+                  isPageActive(item.href) && "nav-link-active"
+                )}
+              >
+                {item.label}
+              </Link>
+            ))}
+            <button
+              type="button"
+              onClick={() => handleScrollToSection("#contact")}
+              className="btn-primary mt-2 w-full"
+            >
+              Hire me
+            </button>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

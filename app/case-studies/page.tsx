@@ -1,131 +1,100 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, Brain } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { caseStudies } from "@/data/case-studies";
-import CaseStudyDetail from "@/components/ui/CaseStudyDetail";
-import CaseStudyNavigation from "@/components/ui/CaseStudyNavigation";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 export const metadata: Metadata = {
   title: "ML Case Studies",
   description:
-    "Deep-dive machine learning case studies by Aman Ansari — covering DDoS detection, malware classification, and network anomaly detection.",
-  keywords: [
-    "machine learning case studies",
-    "DDoS detection ML",
-    "malware detection AI",
-    "network anomaly detection",
-    "cybersecurity machine learning",
-  ],
+    "Deep-dive machine learning case studies by Aman Ansari — DDoS detection, malware classification, and network anomaly detection.",
 };
 
 export default function CaseStudiesPage() {
-  const latestCaseStudy = caseStudies[0];
-  const otherCaseStudies = caseStudies.slice(1);
-
   return (
-    <main id="main-content" className="min-h-screen bg-secondary/30">
-      {/* ── Hero Banner — matches HeroSection exactly ─────── */}
-      <section className="relative overflow-hidden pt-28 pb-16 min-h-[40vh] flex items-center">
-        {/* Animated gradient orbs */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-orb-float" />
-          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-violet-500/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2 animate-orb-float-slow" />
-          <div
-            className="absolute top-1/2 left-1/2 w-[300px] h-[300px] bg-cyan-500/8 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-orb-float"
-            style={{ animationDelay: "3s" }}
-          />
-          {/* Grid overlay */}
-          <div
-            className="absolute inset-0 opacity-[0.07]"
-            style={{
-              backgroundImage:
-                "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
-              backgroundSize: "60px 60px",
-            }}
-          />
-        </div>
-
-        <div className="container max-w-5xl mx-auto px-6 relative z-10 w-full">
-          {/* Back button */}
+    <main id="main-content" className="min-h-screen bg-background">
+      <section className="section-shell pt-24 md:pt-28 pb-12">
+        <div className="container-wide max-w-4xl">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8 group"
+            className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors mb-10 group"
           >
             <ArrowLeft
               size={15}
-              className="group-hover:-translate-x-1 transition-transform"
+              className="group-hover:-translate-x-0.5 transition-transform"
             />
-            Back to Portfolio
+            Back to home
           </Link>
 
-          {/* Badge — same style as HeroSection */}
-          <div className="inline-block mb-5">
-            <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium border border-primary/20 backdrop-blur-md flex items-center gap-2 w-fit">
-              <Brain size={13} />
-              Deep Dives
-            </span>
-          </div>
+          <SectionHeader
+            label="Case studies"
+            title="ML deep dives."
+            titleAccent="Problem, method, and results."
+            description="Detailed explorations of machine learning projects — problem framing, methodology, datasets, model selection, and outcomes. This section lives off the homepage scroll; reach it from the navigation."
+          />
 
-          {/* Heading */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground tracking-tight mb-4">
-            ML{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-violet-500 to-pink-500">
-              Case Studies
-            </span>
-          </h1>
-
-          <p className="text-lg text-muted-foreground max-w-xl leading-relaxed mb-8">
-            Detailed explorations of machine learning projects — problem
-            framing, methodology, datasets, model selection, and real-world
-            results.
-          </p>
-
-          {/* Stats row */}
-          <div className="flex flex-wrap gap-8">
+          <dl className="mt-10 grid grid-cols-3 gap-6 border-y border-ink/10 py-6">
             {[
-              { label: "Case Studies", value: caseStudies.length },
+              { label: "Case studies", value: caseStudies.length },
               {
                 label: "Featured",
                 value: caseStudies.filter((cs) => cs.featured).length,
               },
-              { label: "Focus Area", value: "Cybersecurity" },
-            ].map(({ label, value }) => (
-              <div key={label} className="flex flex-col">
-                <span className="text-2xl font-bold text-foreground">
-                  {value}
-                </span>
-                <span className="text-xs text-muted-foreground mt-0.5">
-                  {label}
-                </span>
+              { label: "Focus", value: "Cybersecurity ML" },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <dt className="stat-label">{stat.label}</dt>
+                <dd className="text-2xl font-semibold tracking-tight text-foreground">
+                  {stat.value}
+                </dd>
               </div>
             ))}
-          </div>
+          </dl>
         </div>
       </section>
 
-      {/* ── Latest Case Study Detail ─────────────────────── */}
-      <section className="container max-w-4xl mx-auto px-6 py-12 md:py-16">
-        <CaseStudyDetail caseStudy={latestCaseStudy} />
-      </section>
+      <section className="pb-20 md:pb-28">
+        <div className="container-wide max-w-4xl">
+          <div className="divide-y divide-ink/10">
+            {caseStudies.map((study) => (
+              <article key={study.id} className="work-row group">
+                <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                  <div className="flex-1 min-w-0 space-y-3">
+                    <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
+                      {study.domain}
+                    </p>
+                    <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground group-hover:text-accent transition-colors">
+                      {study.title}
+                    </h2>
+                    <p className="text-muted-foreground leading-relaxed text-[1.0625rem] leading-[1.65] max-w-2xl">
+                      {study.summary}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {study.technologies.slice(0, 5).map((tech) => (
+                        <span key={tech} className="tag">{tech}</span>
+                      ))}
+                    </div>
+                  </div>
+                  <Link
+                    href={`/case-studies/${study.id}`}
+                    className="inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-accent hover:text-accent-hover transition-colors md:pt-1"
+                  >
+                    Read case study
+                    <ArrowUpRight size={14} aria-hidden />
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
 
-      {/* ── Other Case Studies Navigation ─────────────────– */}
-      <section className="container max-w-4xl mx-auto px-6 pb-20">
-        <CaseStudyNavigation
-          otherCaseStudies={otherCaseStudies}
-          currentId={latestCaseStudy.id}
-        />
-
-        {/* CTA */}
-        <div className="mt-16 text-center">
-          <p className="text-muted-foreground mb-4 text-sm">
-            Interested in collaborating or discussing these projects?
-          </p>
-          <Link
-            href="/#contact"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-colors shadow-lg shadow-primary/30"
-          >
-            Get in Touch
-          </Link>
+          <div className="mt-14 text-center">
+            <p className="text-sm text-muted-foreground mb-4">
+              Interested in collaborating or discussing these projects?
+            </p>
+            <Link href="/#contact" className="btn-primary">
+              Get in touch
+            </Link>
+          </div>
         </div>
       </section>
     </main>

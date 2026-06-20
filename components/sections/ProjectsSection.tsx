@@ -10,7 +10,6 @@ import LazySection from "@/components/ui/LazySection";
 import { ProjectCardSkeleton } from "@/components/ui/SkeletonLoader";
 import { cn } from "@/lib/utils";
 import { useMobileOptimizedAnimation } from "@/lib/hooks";
-import AnimatedSectionHeading from "@/components/ui/AnimatedSectionHeading";
 
 type FilterCategory = "all" | Project["category"];
 
@@ -66,52 +65,25 @@ export default function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="min-h-screen py-20 relative bg-background overflow-hidden"
+      className="section-shell py-20 bg-background"
     >
-      {/* Background elements — pure CSS, no JS animation overhead */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 sm:top-40 left-10 sm:left-20 w-48 sm:w-96 h-48 sm:h-96 bg-primary/7 rounded-full blur-3xl animate-orb-float" />
-        <div className="absolute bottom-20 sm:bottom-40 right-10 sm:right-20 w-32 sm:w-80 h-32 sm:h-80 bg-secondary/12 rounded-full blur-3xl animate-orb-float-slow" />
-        {/* Slightly stronger grid overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.08]"
-          style={{
-            backgroundImage:
-              "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
-            backgroundSize: "66px 66px",
-          }}
-        />
-      </div>
-
-      <div className="container mx-auto px-6 relative z-10">
-        {/* Header */}
+      <div className="container-main relative z-10">
+        {/* Header — centered */}
         <motion.div
-          className="text-center mb-20"
+          className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.1 }}
-            className="inline-block mb-6"
-          >
-            <span className="px-4 py-2 bg-secondary/50 backdrop-blur-sm rounded-full text-sm font-medium text-primary border border-border/50">
-              My work
-            </span>
-          </motion.div>
+          <p className="section-label mb-4">My work</p>
 
-          <AnimatedSectionHeading
-            text="Featured Projects"
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight text-foreground"
-            preset="fast"
-          />
+          <h2 className="text-3xl sm:text-4xl md:text-[2.75rem] font-bold tracking-tight text-foreground leading-[1.12] mb-5">
+            Featured Projects
+          </h2>
 
           <motion.p
-            className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed"
+            className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -122,9 +94,9 @@ export default function ProjectsSection() {
           </motion.p>
         </motion.div>
 
-        {/* Filters */}
+        {/* Filters — centered */}
         <motion.div
-          className="flex flex-wrap justify-center gap-4 mb-16"
+          className="flex flex-wrap justify-center gap-2 mb-14"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -135,54 +107,40 @@ export default function ProjectsSection() {
             const count = getCategoryCount(category);
 
             return (
-              <motion.button
+              <button
                 key={category}
                 onClick={() => setActiveFilter(category)}
                 className={cn(
-                  "relative px-5 py-2.5 rounded-full font-medium transition-all duration-300 flex items-center gap-2 border",
+                  "px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 border flex items-center gap-2",
                   isActive
-                    ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/25"
-                    : "bg-secondary/50 backdrop-blur-sm text-muted-foreground border-border/50 hover:bg-secondary"
+                    ? "bg-foreground text-background border-foreground"
+                    : "bg-transparent text-muted-foreground border-ink/15 hover:border-ink/30 hover:text-foreground"
                 )}
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 + index * 0.05 }}
               >
-                <Filter size={14} />
-                <span className="capitalize text-sm">
+                <span className="capitalize">
                   {category === "all" ? "All Projects" : category}
                 </span>
                 <span
                   className={cn(
                     "px-1.5 py-0.5 rounded-full text-[10px] font-bold",
                     isActive
-                      ? "bg-white/20 text-white"
-                      : "bg-muted text-muted-foreground"
+                      ? "bg-background/20 text-background"
+                      : "bg-ink/[0.06] text-muted-foreground"
                   )}
                 >
                   {count}
                 </span>
-                {isActive && (
-                  <motion.div
-                    className="absolute inset-0 rounded-full"
-                    layoutId="activeProjectFilter"
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  />
-                )}
-              </motion.button>
+              </button>
             );
           })}
         </motion.div>
 
-        {/* Grid — no AnimatePresence wait, instant swap */}
+        {/* Grid — centered, max-w-6xl */}
         <motion.div
           key={activeFilter}
           className={cn(
-            "grid gap-6",
-            "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
-            isMobile && "px-2 sm:px-0"
+            "grid gap-6 max-w-6xl mx-auto",
+            "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
           )}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -211,7 +169,7 @@ export default function ProjectsSection() {
             <div className="w-16 h-16 mx-auto mb-4 bg-muted rounded-full flex items-center justify-center">
               <Grid size={24} className="text-muted-foreground" />
             </div>
-            <h3 className="text-xl font-semibold text-foreground mb-2">
+            <h3 className="text-xl font-bold text-foreground mb-2">
               No projects found
             </h3>
             <p className="text-muted-foreground">
