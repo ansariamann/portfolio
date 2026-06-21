@@ -82,7 +82,7 @@
 @layer components {
   /* ─── Section shell ─── */
   .section-shell {
-    @apply py-16 md:py-20 lg:py-24;
+    @apply py-16 md:py-20 lg:py-24 scroll-mt-20 md:scroll-mt-28 lg:scroll-mt-36;
   }
 
   /* ─── Section label (mono uppercase) ─── */

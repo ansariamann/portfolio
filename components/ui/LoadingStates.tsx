@@ -102,91 +102,7 @@ export const StatisticsVisualizationSkeleton: React.FC = () => (
   </motion.div>
 );
 
-// Achievements Skeleton
-export const AchievementsSkeleton: React.FC = () => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    className="space-y-6"
-  >
-    {/* Filter Buttons */}
-    <div className="flex flex-wrap gap-2 justify-center">
-      {[1, 2, 3, 4, 5].map((i) => (
-        <SkeletonBase key={i} className="h-10 w-20 rounded-full" />
-      ))}
-    </div>
 
-    {/* Achievements Grid */}
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
-      {Array.from({ length: 12 }).map((_, i) => (
-        <motion.div
-          key={i}
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: i * 0.05 }}
-          className="p-3 sm:p-4 bg-white/80 backdrop-blur-sm rounded-lg sm:rounded-xl border border-gray-200"
-        >
-          <div className="flex justify-center mb-2 sm:mb-3">
-            <SkeletonBase className="w-10 h-10 sm:w-12 sm:h-12 rounded-full" />
-          </div>
-          <SkeletonBase className="h-4 w-full mb-2" />
-          <SkeletonBase className="h-3 w-16 mx-auto mb-1" />
-          <SkeletonBase className="w-2 h-2 rounded-full mx-auto" />
-        </motion.div>
-      ))}
-    </div>
-  </motion.div>
-);
-
-// Activity Heatmap Skeleton
-export const ActivityHeatmapSkeleton: React.FC = () => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    className="space-y-6"
-  >
-    {/* Header */}
-    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
-        <SkeletonBase className="h-6 w-32" />
-        <div className="flex bg-gray-100 rounded-lg p-1">
-          {[1, 2, 3].map((i) => (
-            <SkeletonBase key={i} className="h-8 w-16 rounded-md mx-1" />
-          ))}
-        </div>
-      </div>
-      <div className="flex items-center space-x-2">
-        <SkeletonBase className="h-4 w-8" />
-        <div className="flex space-x-1">
-          {[1, 2, 3, 4].map((i) => (
-            <SkeletonBase key={i} className="w-3 h-3 rounded-sm" />
-          ))}
-        </div>
-        <SkeletonBase className="h-4 w-8" />
-      </div>
-    </div>
-
-    {/* Heatmap Grid */}
-    <div className="space-y-2">
-      <div className="flex space-x-1">
-        {Array.from({ length: 53 }).map((_, weekIndex) => (
-          <div key={weekIndex} className="flex flex-col space-y-1">
-            {Array.from({ length: 7 }).map((_, dayIndex) => (
-              <SkeletonBase key={dayIndex} className="w-3 h-3 rounded-sm" />
-            ))}
-          </div>
-        ))}
-      </div>
-    </div>
-
-    {/* Summary */}
-    <div className="flex flex-wrap gap-4 text-sm">
-      {[1, 2, 3].map((i) => (
-        <SkeletonBase key={i} className="h-4 w-32" />
-      ))}
-    </div>
-  </motion.div>
-);
 
 // Recent Activity Skeleton
 export const RecentActivitySkeleton: React.FC = () => (
@@ -270,54 +186,19 @@ export const SectionLoadingSkeleton: React.FC = () => (
     animate={{ opacity: 1 }}
     className="space-y-8 sm:space-y-12"
   >
-    {/* Platform Selector Skeleton */}
-    <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-10">
-      {[1, 2].map((i) => (
-        <SkeletonBase key={i} className="h-12 w-32 rounded-xl" />
-      ))}
-    </div>
 
-    {/* Mode Selector Skeleton */}
-    <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-12 sm:mb-14">
-      {[1, 2, 3, 4].map((i) => (
-        <SkeletonBase key={i} className="h-10 w-24 rounded-full" />
-      ))}
-    </div>
 
     {/* Main Content Skeleton */}
     <div className="space-y-6 sm:space-y-8">
       <PlatformCardSkeleton />
       <StatisticsVisualizationSkeleton />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-        <div className="p-4 sm:p-6 bg-white/80 backdrop-blur-sm rounded-2xl border border-white/60 shadow-xl">
-          <div className="flex items-center justify-between mb-4">
-            <SkeletonBase className="h-6 w-32" />
-            <SkeletonBase className="h-4 w-16" />
-          </div>
-          <div className="space-y-3">
-            {[1, 2, 3].map((i) => (
-              <div
-                key={i}
-                className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg"
-              >
-                <SkeletonBase className="w-10 h-10 rounded-full" />
-                <div className="flex-1">
-                  <SkeletonBase className="h-4 w-32 mb-1" />
-                  <SkeletonBase className="h-3 w-20" />
-                </div>
-              </div>
-            ))}
-          </div>
+      <div className="p-4 sm:p-6 bg-white/80 backdrop-blur-sm rounded-2xl border border-white/60 shadow-xl">
+        <div className="flex items-center justify-between mb-4">
+          <SkeletonBase className="h-6 w-32" />
+          <SkeletonBase className="h-4 w-16" />
         </div>
-
-        <div className="p-4 sm:p-6 bg-white/80 backdrop-blur-sm rounded-2xl border border-white/60 shadow-xl">
-          <div className="flex items-center justify-between mb-4">
-            <SkeletonBase className="h-6 w-32" />
-            <SkeletonBase className="h-4 w-16" />
-          </div>
-          <RecentActivitySkeleton />
-        </div>
+        <RecentActivitySkeleton />
       </div>
     </div>
   </motion.div>
@@ -326,8 +207,6 @@ export const SectionLoadingSkeleton: React.FC = () => (
 const LoadingStates = {
   PlatformCardSkeleton,
   StatisticsVisualizationSkeleton,
-  AchievementsSkeleton,
-  ActivityHeatmapSkeleton,
   RecentActivitySkeleton,
   LoadingSpinner,
   SectionLoadingSkeleton,

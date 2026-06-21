@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Moon, Sun, Mail, Github, Linkedin } from "lucide-react";
 import { scrollToSection, cn } from "@/lib/utils";
@@ -106,12 +107,19 @@ export default function Header() {
         "sticky top-0 z-50 w-full border-b border-ink/10 bg-background/95 backdrop-blur-sm transition-colors"
       )}
     >
-      <nav className="container-wide flex h-14 sm:h-16 items-center justify-between gap-3">
+      <nav className="container-wide flex items-center justify-between gap-2 py-2.5 sm:gap-3 sm:py-3 md:gap-4 md:py-4 lg:grid lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:items-center lg:gap-x-4 lg:py-4 xl:gap-x-6">
         <Link
           href="/"
-          className="text-sm font-semibold tracking-tight text-foreground shrink-0 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink/30 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          className="group relative z-[1] flex min-w-0 shrink-0 items-center rounded-md bg-transparent transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ink/30 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
-          Aman Ansari
+          <Image
+            src="/images/signature.png"
+            alt="Aman Ansari"
+            width={656}
+            height={289}
+            className="h-12 w-auto max-w-[min(14rem,68vw)] object-contain object-left sm:h-16 sm:max-w-[min(19rem,78vw)] md:h-[4.75rem] lg:h-[6.75rem] lg:max-w-[min(36rem,92vw)] dark:invert"
+            priority
+          />
         </Link>
 
         <div className="hidden lg:flex items-center justify-center gap-1 min-w-0">

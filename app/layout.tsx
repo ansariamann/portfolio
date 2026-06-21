@@ -121,11 +121,7 @@ export default function RootLayout({
           href="/images/platforms/leetcode-logo.svg"
           as="image"
         />
-        <link
-          rel="prefetch"
-          href="/images/platforms/hackerrank-logo.svg"
-          as="image"
-        />
+
 
         {/* Resource hints for better performance */}
         <meta name="format-detection" content="telephone=no" />

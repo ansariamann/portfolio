@@ -17,8 +17,8 @@ import {
 export const USER_CONFIG = {
   // LeetCode Profile Configuration
   leetcode: {
-    username: "sample-user", 
-    profileUrl: "https://leetcode.com/sample-user", 
+    username: "teatoast", 
+    profileUrl: "https://leetcode.com/teatoast", 
     isActive: true, // Set to false to hide this platform
 
     // Custom statistics (update these with your actual stats)
@@ -35,31 +35,6 @@ export const USER_CONFIG = {
       difficultyBreakdown: {
         easy: 80,
         medium: 55,
-        hard: 15,
-      },
-    },
-  },
-
-  // HackerRank Profile Configuration
-  hackerrank: {
-    username: "sample-user", 
-    profileUrl: "https://www.hackerrank.com/sample-user", 
-    isActive: true, // Set to false to hide this platform
-
-    // Custom statistics (update these with your actual stats)
-    customStats: {
-      totalSolved: 95,
-      ranking: 85000,
-      currentStreak: 12,
-      longestStreak: 18,
-      acceptanceRate: 72.3,
-      contestRating: 1420,
-      contestsParticipated: 8,
-      globalRanking: 12.8,
-      totalPoints: 1850,
-      difficultyBreakdown: {
-        easy: 45,
-        medium: 35,
         hard: 15,
       },
     },
@@ -106,19 +81,6 @@ export const PLATFORM_CONFIGS: Record<string, PlatformConfig> = {
     },
     textColor: "#2D3748",
   },
-  hackerrank: {
-    id: "hackerrank",
-    name: "HackerRank",
-    baseUrl: "https://www.hackerrank.com",
-    logoUrl: "/images/platforms/hackerrank-logo.svg",
-    primaryColor: "#00EA64",
-    secondaryColor: "#00C853",
-    gradientColors: {
-      from: "#00EA64",
-      to: "#4CAF50",
-    },
-    textColor: "#2D3748",
-  },
 } as const;
 
 /**
@@ -158,30 +120,6 @@ export const ACHIEVEMENT_TEMPLATES = {
     },
   },
 
-  // HackerRank achievement templates
-  hackerrank: {
-    "skill-badge": {
-      title: "{skill} ({level})",
-      description: "Achieved {level} level certification in {skill}",
-      iconUrl: "/images/badges/hackerrank-{skill}-{level}.svg",
-      category: "certificate" as const,
-      rarity: "epic" as const,
-    },
-    "challenge-badge": {
-      title: "{challenge} Challenge",
-      description: "Completed the {challenge} challenge",
-      iconUrl: "/images/badges/hackerrank-{challenge}.svg",
-      category: "badge" as const,
-      rarity: "common" as const,
-    },
-    "contest-participation": {
-      title: "{contest} Participant",
-      description: "Participated in {contest}",
-      iconUrl: "/images/badges/hackerrank-{contest}.svg",
-      category: "contest" as const,
-      rarity: "rare" as const,
-    },
-  },
 } as const;
 
 /**
@@ -262,78 +200,6 @@ export const SAMPLE_PROBLEMS = {
     },
   ],
 
-  hackerrank: [
-    {
-      title: "Array Manipulation",
-      difficulty: "hard" as const,
-      tags: ["Arrays", "Prefix Sum"],
-      estimatedTime: 75,
-      url: "https://www.hackerrank.com/challenges/crush/problem",
-    },
-    {
-      title: "New Year Chaos",
-      difficulty: "medium" as const,
-      tags: ["Arrays", "Sorting"],
-      estimatedTime: 40,
-      url: "https://www.hackerrank.com/challenges/new-year-chaos/problem",
-    },
-    {
-      title: "Minimum Swaps 2",
-      difficulty: "medium" as const,
-      tags: ["Arrays", "Graph Theory"],
-      estimatedTime: 55,
-      url: "https://www.hackerrank.com/challenges/minimum-swaps-2/problem",
-    },
-    {
-      title: "Hash Tables: Ransom Note",
-      difficulty: "easy" as const,
-      tags: ["Hash Tables", "Dictionaries"],
-      estimatedTime: 20,
-      url: "https://www.hackerrank.com/challenges/ctci-ransom-note/problem",
-    },
-    {
-      title: "Two Strings",
-      difficulty: "easy" as const,
-      tags: ["Strings", "Hash Tables"],
-      estimatedTime: 25,
-      url: "https://www.hackerrank.com/challenges/two-strings/problem",
-    },
-    {
-      title: "Sherlock and Anagrams",
-      difficulty: "medium" as const,
-      tags: ["Hash Tables", "Strings"],
-      estimatedTime: 35,
-      url: "https://www.hackerrank.com/challenges/sherlock-and-anagrams/problem",
-    },
-    {
-      title: "Count Triplets",
-      difficulty: "medium" as const,
-      tags: ["Hash Tables", "Dictionaries"],
-      estimatedTime: 50,
-      url: "https://www.hackerrank.com/challenges/count-triplets-1/problem",
-    },
-    {
-      title: "Frequency Queries",
-      difficulty: "medium" as const,
-      tags: ["Hash Tables", "Dictionaries"],
-      estimatedTime: 45,
-      url: "https://www.hackerrank.com/challenges/frequency-queries/problem",
-    },
-    {
-      title: "Sorting: Bubble Sort",
-      difficulty: "easy" as const,
-      tags: ["Sorting"],
-      estimatedTime: 15,
-      url: "https://www.hackerrank.com/challenges/ctci-bubble-sort/problem",
-    },
-    {
-      title: "Mark and Toys",
-      difficulty: "easy" as const,
-      tags: ["Sorting", "Greedy"],
-      estimatedTime: 20,
-      url: "https://www.hackerrank.com/challenges/mark-and-toys/problem",
-    },
-  ],
 } as const;
 
 /**
@@ -369,21 +235,12 @@ export function validateUserConfig(): {
   const warnings: string[] = [];
 
   // Check LeetCode configuration
-  if (USER_CONFIG.leetcode.username === "sample-user") {
+  if ((USER_CONFIG.leetcode.username as string) === "sample-user") {
     errors.push("LeetCode username is still set to default value");
   }
 
   if (USER_CONFIG.leetcode.profileUrl.includes("sample-user")) {
     errors.push("LeetCode profile URL is still set to default value");
-  }
-
-  // Check HackerRank configuration
-  if (USER_CONFIG.hackerrank.username === "sample-user") {
-    errors.push("HackerRank username is still set to default value");
-  }
-
-  if (USER_CONFIG.hackerrank.profileUrl.includes("sample-user")) {
-    errors.push("HackerRank profile URL is still set to default value");
   }
 
   // Validate statistics consistency
@@ -396,18 +253,6 @@ export function validateUserConfig(): {
   if (leetcodeTotal !== leetcodeStats.totalSolved) {
     errors.push(
       `LeetCode difficulty breakdown total (${leetcodeTotal}) doesn't match totalSolved (${leetcodeStats.totalSolved})`
-    );
-  }
-
-  const hackerrankStats = USER_CONFIG.hackerrank.customStats;
-  const hackerrankTotal =
-    hackerrankStats.difficultyBreakdown.easy +
-    hackerrankStats.difficultyBreakdown.medium +
-    hackerrankStats.difficultyBreakdown.hard;
-
-  if (hackerrankTotal !== hackerrankStats.totalSolved) {
-    errors.push(
-      `HackerRank difficulty breakdown total (${hackerrankTotal}) doesn't match totalSolved (${hackerrankStats.totalSolved})`
     );
   }
 
@@ -511,7 +356,7 @@ export function getConfigurationGuide(): {
         title: "Set Platform Visibility",
         description:
           "Set isActive to false for platforms you don't want to display",
-        example: `hackerrank: {
+        example: `leetcode: {
   isActive: false, // Hide this platform
   ...
 }`,
@@ -719,15 +564,6 @@ export function exportConfiguration(
         `LEETCODE_CURRENT_STREAK=${USER_CONFIG.leetcode.customStats.currentStreak}`
       );
 
-      // HackerRank config
-      envVars.push(`HACKERRANK_USERNAME=${USER_CONFIG.hackerrank.username}`);
-      envVars.push(
-        `HACKERRANK_TOTAL_SOLVED=${USER_CONFIG.hackerrank.customStats.totalSolved}`
-      );
-      envVars.push(
-        `HACKERRANK_CURRENT_STREAK=${USER_CONFIG.hackerrank.customStats.currentStreak}`
-      );
-
       return envVars.join("\n");
 
     case "yaml":
@@ -736,12 +572,7 @@ export function exportConfiguration(
 leetcode:
   username: "${USER_CONFIG.leetcode.username}"
   totalSolved: ${USER_CONFIG.leetcode.customStats.totalSolved}
-  currentStreak: ${USER_CONFIG.leetcode.customStats.currentStreak}
-
-hackerrank:
-  username: "${USER_CONFIG.hackerrank.username}"
-  totalSolved: ${USER_CONFIG.hackerrank.customStats.totalSolved}
-  currentStreak: ${USER_CONFIG.hackerrank.customStats.currentStreak}`;
+  currentStreak: ${USER_CONFIG.leetcode.customStats.currentStreak}`;
 
     default:
       return JSON.stringify(USER_CONFIG, null, 2);

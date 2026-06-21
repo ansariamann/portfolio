@@ -32,7 +32,7 @@ export default function WorkSection() {
         <div className="mt-10 text-center">
           <Link
             href="/projects"
-            className="btn-secondary !text-base !py-3 !px-6 !min-h-[48px]"
+            className="btn-secondary w-full sm:w-auto min-w-[260px] inline-flex"
           >
             View all projects →
           </Link>

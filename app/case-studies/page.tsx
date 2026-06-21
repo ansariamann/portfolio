@@ -63,7 +63,7 @@ export default function CaseStudiesPage() {
                     <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted-foreground">
                       {study.domain}
                     </p>
-                    <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground group-hover:text-accent transition-colors">
+                    <h2 className="text-xl md:text-2xl font-semibold tracking-tight text-foreground">
                       {study.title}
                     </h2>
                     <p className="text-muted-foreground leading-relaxed text-[1.0625rem] leading-[1.65] max-w-2xl">
@@ -77,10 +77,10 @@ export default function CaseStudiesPage() {
                   </div>
                   <Link
                     href={`/case-studies/${study.id}`}
-                    className="inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-accent hover:text-accent-hover transition-colors md:pt-1"
+                    className="font-mono inline-flex min-h-[3.25rem] items-center gap-2 rounded-full border border-transparent bg-accent px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-accent-foreground shadow-md hover:bg-accent-hover hover:shadow-lg active:scale-[0.98] shrink-0 self-start md:self-center"
                   >
                     Read case study
-                    <ArrowUpRight size={14} aria-hidden />
+                    <ArrowUpRight size={15} aria-hidden />
                   </Link>
                 </div>
               </article>

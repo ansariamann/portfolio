@@ -9,15 +9,6 @@ import { debugLog } from "@/lib/utils";
 export const LazyStatisticsVisualization = lazy(
   () => import("@/components/ui/StatisticsVisualization")
 );
-
-export const LazyAchievementsBadges = lazy(
-  () => import("@/components/ui/AchievementsBadges")
-);
-
-export const LazyActivityHeatmap = lazy(
-  () => import("@/components/ui/ActivityHeatmap")
-);
-
 export const LazyRecentActivity = lazy(
   () => import("@/components/ui/RecentActivity")
 );

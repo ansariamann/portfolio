@@ -191,103 +191,13 @@ export const leetcodeBranding: PlatformBranding = {
   },
 };
 
-/**
- * HackerRank Platform Branding
- */
-export const hackerrankBranding: PlatformBranding = {
-  id: "hackerrank",
-  name: "HackerRank",
-  displayName: "HackerRank",
 
-  logo: {
-    svg: "/images/platforms/hackerrank-logo.svg",
-    width: 32,
-    height: 32,
-  },
-
-  colors: {
-    primary: "#00EA64",
-    secondary: "#00C853",
-    accent: "#4CAF50",
-    background: "#F0FFF4",
-    surface: "#FFFFFF",
-    text: {
-      primary: "#2D3748",
-      secondary: "#4A5568",
-      inverse: "#FFFFFF",
-    },
-    status: {
-      success: "#48BB78",
-      warning: "#ED8936",
-      error: "#F56565",
-      info: "#4299E1",
-    },
-  },
-
-  gradients: {
-    primary: "linear-gradient(135deg, #00EA64 0%, #4CAF50 100%)",
-    secondary: "linear-gradient(135deg, #00C853 0%, #00EA64 100%)",
-    accent: "linear-gradient(135deg, #4CAF50 0%, #81C784 100%)",
-    background: "linear-gradient(135deg, #F0FFF4 0%, #E8F5E8 100%)",
-  },
-
-  typography: {
-    fontFamily:
-      "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-    fontWeights: {
-      light: 300,
-      normal: 400,
-      medium: 500,
-      semibold: 600,
-      bold: 700,
-    },
-  },
-
-  spacing: {
-    xs: "0.25rem",
-    sm: "0.5rem",
-    md: "1rem",
-    lg: "1.5rem",
-    xl: "2rem",
-    xxl: "3rem",
-  },
-
-  borderRadius: {
-    sm: "0.25rem",
-    md: "0.5rem",
-    lg: "0.75rem",
-    xl: "1rem",
-    full: "9999px",
-  },
-
-  shadows: {
-    sm: "0 1px 2px 0 rgba(0, 234, 100, 0.05)",
-    md: "0 4px 6px -1px rgba(0, 234, 100, 0.1), 0 2px 4px -1px rgba(0, 234, 100, 0.06)",
-    lg: "0 10px 15px -3px rgba(0, 234, 100, 0.1), 0 4px 6px -2px rgba(0, 234, 100, 0.05)",
-    xl: "0 20px 25px -5px rgba(0, 234, 100, 0.1), 0 10px 10px -5px rgba(0, 234, 100, 0.04)",
-  },
-
-  animation: {
-    duration: {
-      fast: "150ms",
-      normal: "300ms",
-      slow: "500ms",
-    },
-    easing: {
-      ease: "cubic-bezier(0.4, 0, 0.2, 1)",
-      easeIn: "cubic-bezier(0.4, 0, 1, 1)",
-      easeOut: "cubic-bezier(0, 0, 0.2, 1)",
-      easeInOut: "cubic-bezier(0.4, 0, 0.2, 1)",
-    },
-  },
-};
 
 /**
  * Platform Branding Registry
  */
 export const platformBranding: Record<string, PlatformBranding> = {
   leetcode: leetcodeBranding,
-  hackerrank: hackerrankBranding,
 };
 
 /**
@@ -473,157 +383,7 @@ export const leetcodeAchievementBadges: Record<string, AchievementBadgeConfig> =
     },
   };
 
-/**
- * HackerRank Achievement Badges
- */
-export const hackerrankAchievementBadges: Record<
-  string,
-  AchievementBadgeConfig
-> = {
-  "python-gold": {
-    id: "python-gold",
-    name: "Python (Gold)",
-    description: "Achieved Gold level certification in Python",
-    iconPath: "/images/badges/hackerrank-python-gold.svg",
-    rarity: "epic",
-    category: "certificate",
-    colors: {
-      primary: "#F59E0B",
-      secondary: "#D97706",
-      background: "#FFFBEB",
-    },
-  },
-  "algorithms-silver": {
-    id: "algorithms-silver",
-    name: "Algorithms (Silver)",
-    description: "Achieved Silver level certification in Algorithms",
-    iconPath: "/images/badges/hackerrank-algorithms-silver.svg",
-    rarity: "rare",
-    category: "certificate",
-    colors: {
-      primary: "#6B7280",
-      secondary: "#4B5563",
-      background: "#F9FAFB",
-    },
-  },
-  "data-structures-bronze": {
-    id: "data-structures-bronze",
-    name: "Data Structures (Bronze)",
-    description: "Achieved Bronze level certification in Data Structures",
-    iconPath: "/images/badges/hackerrank-data-structures-bronze.svg",
-    rarity: "common",
-    category: "certificate",
-    colors: {
-      primary: "#CD7C2F",
-      secondary: "#A0621C",
-      background: "#FEF7ED",
-    },
-  },
-  "30-days-of-code": {
-    id: "30-days-of-code",
-    name: "30 Days of Code",
-    description: "Completed the 30 Days of Code challenge",
-    iconPath: "/images/badges/hackerrank-30-days-of-code.svg",
-    rarity: "common",
-    category: "badge",
-    colors: {
-      primary: "#00EA64",
-      secondary: "#00C853",
-      background: "#F0FFF4",
-    },
-  },
-  "10-days-of-statistics": {
-    id: "10-days-of-statistics",
-    name: "10 Days of Statistics",
-    description: "Completed the 10 Days of Statistics challenge",
-    iconPath: "/images/badges/hackerrank-10-days-of-statistics.svg",
-    rarity: "common",
-    category: "badge",
-    colors: {
-      primary: "#00EA64",
-      secondary: "#00C853",
-      background: "#F0FFF4",
-    },
-  },
-  "interview-preparation-kit": {
-    id: "interview-preparation-kit",
-    name: "Interview Preparation Kit",
-    description: "Completed the Interview Preparation Kit challenge",
-    iconPath: "/images/badges/hackerrank-interview-preparation-kit.svg",
-    rarity: "rare",
-    category: "badge",
-    colors: {
-      primary: "#00EA64",
-      secondary: "#00C853",
-      background: "#F0FFF4",
-    },
-  },
-  "contest-participant": {
-    id: "contest-participant",
-    name: "Contest Participant",
-    description: "Participated in HackerRank contests",
-    iconPath: "/images/badges/hackerrank-contest-participant.svg",
-    rarity: "common",
-    category: "contest",
-    colors: {
-      primary: "#00EA64",
-      secondary: "#00C853",
-      background: "#F0FFF4",
-    },
-  },
-  "milestone-25": {
-    id: "milestone-25",
-    name: "25 Problems Solved",
-    description: "Solved 25 problems on HackerRank",
-    iconPath: "/images/badges/hackerrank-25.svg",
-    rarity: "common",
-    category: "milestone",
-    colors: {
-      primary: "#00EA64",
-      secondary: "#00C853",
-      background: "#F0FFF4",
-    },
-  },
-  "milestone-50": {
-    id: "milestone-50",
-    name: "50 Problems Solved",
-    description: "Solved 50 problems on HackerRank",
-    iconPath: "/images/badges/hackerrank-50.svg",
-    rarity: "rare",
-    category: "milestone",
-    colors: {
-      primary: "#4CAF50",
-      secondary: "#388E3C",
-      background: "#E8F5E8",
-    },
-  },
-  "milestone-100": {
-    id: "milestone-100",
-    name: "100 Problems Solved",
-    description: "Solved 100 problems on HackerRank",
-    iconPath: "/images/badges/hackerrank-100.svg",
-    rarity: "epic",
-    category: "milestone",
-    colors: {
-      primary: "#2196F3",
-      secondary: "#1976D2",
-      background: "#E3F2FD",
-    },
-  },
-  "milestone-150": {
-    id: "milestone-150",
-    name: "150 Problems Solved",
-    description: "Solved 150 problems on HackerRank",
-    iconPath: "/images/badges/hackerrank-150.svg",
-    rarity: "legendary",
-    category: "milestone",
-    colors: {
-      primary: "#9C27B0",
-      secondary: "#7B1FA2",
-      background: "#F3E5F5",
-    },
-  },
-};
+
 
 /**
  * Get achievement badge configuration
@@ -632,10 +392,7 @@ export function getAchievementBadge(
   platformId: string,
   badgeId: string
 ): AchievementBadgeConfig | null {
-  const badges =
-    platformId === "leetcode"
-      ? leetcodeAchievementBadges
-      : hackerrankAchievementBadges;
+  const badges = leetcodeAchievementBadges;
 
   return badges[badgeId] || null;
 }
@@ -646,9 +403,7 @@ export function getAchievementBadge(
 export function getPlatformAchievementBadges(
   platformId: string
 ): Record<string, AchievementBadgeConfig> {
-  return platformId === "leetcode"
-    ? leetcodeAchievementBadges
-    : hackerrankAchievementBadges;
+  return leetcodeAchievementBadges;
 }
 
 /**

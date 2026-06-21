@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Send, CheckCircle, AlertCircle } from "lucide-react";
+import { CheckCircle, AlertCircle } from "lucide-react";
 import {
   contactFormSchema,
   defaultContactFormValues,
@@ -49,7 +49,6 @@ export default function ContactForm() {
       formData.append("form-name", "contact");
       formData.append("name", sanitizedData.name);
       formData.append("email", sanitizedData.email);
-      formData.append("subject", sanitizedData.subject);
       formData.append("message", sanitizedData.message);
 
       // Submit to Netlify
@@ -63,7 +62,6 @@ export default function ContactForm() {
             "form-name": "contact",
             name: sanitizedData.name,
             email: sanitizedData.email,
-            subject: sanitizedData.subject,
             message: sanitizedData.message,
           })
         ).toString(),
@@ -133,7 +131,6 @@ export default function ContactForm() {
       >
         <input type="text" name="name" />
         <input type="email" name="email" />
-        <input type="text" name="subject" />
         <textarea name="message"></textarea>
       </form>
 
@@ -229,38 +226,7 @@ export default function ContactForm() {
           )}
         </motion.div>
 
-        {/* Subject Field */}
-        <motion.div
-          className="space-y-1"
-          initial={
-            prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }
-          }
-          animate={{ opacity: 1, x: 0 }}
-          transition={
-            prefersReducedMotion
-              ? { duration: 0 }
-              : { delay: 0.25, ...transition.default }
-          }
-        >
-          <label htmlFor="subject" className={labelClasses}>
-            Subject
-          </label>
-          <input
-            {...register("subject")}
-            type="text"
-            id="subject"
-            className={inputClasses}
-          />
-          {errors.subject && (
-            <motion.p
-              className={errorClasses}
-              initial={{ opacity: 0, y: -5 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              {errors.subject.message}
-            </motion.p>
-          )}
-        </motion.div>
+
 
         {/* Message Field */}
         <motion.div
@@ -305,7 +271,7 @@ export default function ContactForm() {
           <button
             type="submit"
             disabled={!isValid || !isDirty || submissionStatus === "submitting"}
-            className="group relative w-full h-14 px-8 bg-primary text-primary-foreground font-bold text-base rounded-full shadow-lg hover:shadow-xl hover:bg-primary/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden active:scale-[0.98] flex items-center justify-center"
+            className="group relative w-full h-14 px-8 bg-primary text-primary-foreground font-bold text-base rounded-full shadow-lg hover:shadow-xl hover:bg-primary/90 disabled:cursor-not-allowed overflow-hidden active:scale-[0.98] flex items-center justify-center"
           >
             <div className="relative flex items-center justify-center">
               {submissionStatus === "submitting" ? (
@@ -315,11 +281,7 @@ export default function ContactForm() {
                 </>
               ) : (
                 <>
-                  <Send
-                    size={18}
-                    className="mr-2 group-hover:translate-x-1 transition-transform duration-300"
-                  />
-                  Send Message
+                  Send message
                 </>
               )}
             </div>

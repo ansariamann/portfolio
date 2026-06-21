@@ -1,6 +1,6 @@
-﻿/**
+/**
  * Type definitions for coding platforms integration
- * Defines interfaces and types for LeetCode, HackerRank and other coding platforms
+ * Defines interfaces and types for LeetCode and other coding platforms
  */
 
 // Difficulty levels for problems
@@ -18,11 +18,7 @@ export type AchievementCategory =
 export type AchievementRarity = "common" | "rare" | "epic" | "legendary";
 
 // Visualization modes for the platforms section
-export type VisualizationMode =
-  | "dashboard"
-  | "achievements"
-  | "heatmap"
-  | "progress";
+export type VisualizationMode = "dashboard";
 
 // Platform statistics breakdown by difficulty
 export interface DifficultyBreakdown {
@@ -127,29 +123,7 @@ export interface StatisticsVisualizationProps {
   className?: string;
 }
 
-// Props for achievements display
-export interface AchievementsBadgesProps {
-  achievements: CodingAchievement[];
-  layout?: "grid" | "list" | "carousel";
-  showTooltips?: boolean;
-  filterCategories?: AchievementCategory[];
-  maxItems?: number;
-  className?: string;
-}
 
-// Props for activity heatmap
-export interface ActivityHeatmapProps {
-  activities: RecentActivity[];
-  timePeriod?: "month" | "quarter" | "year";
-  colorScale: {
-    empty: string;
-    low: string;
-    medium: string;
-    high: string;
-  };
-  interactive?: boolean;
-  className?: string;
-}
 
 // Props for recent activity timeline
 export interface RecentActivityProps {

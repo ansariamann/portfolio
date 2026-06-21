@@ -24,7 +24,7 @@ export default function WorkCard({ project }: WorkCardProps) {
           </p>
 
           <div>
-            <h3 className="text-xl md:text-2xl font-bold text-foreground tracking-tight group-hover:text-accent transition-colors">
+            <h3 className="text-xl md:text-2xl font-bold text-foreground tracking-tight">
               {project.title}
             </h3>
             <p className="mt-1 text-sm text-muted-foreground capitalize font-medium">
@@ -45,24 +45,24 @@ export default function WorkCard({ project }: WorkCardProps) {
           </p>
         </div>
 
-        <div className="flex shrink-0 flex-wrap items-center gap-4 md:flex-col md:items-end md:pt-1">
+        <div className="flex shrink-0 flex-wrap items-center gap-3 md:items-center md:pt-1">
           {project.githubUrl && (
             <a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm font-bold text-foreground hover:text-accent transition-colors"
+              className="font-mono inline-flex min-h-[3.25rem] items-center gap-2 rounded-full border border-ink/10 bg-transparent px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-foreground transition-all hover:bg-ink/5 hover:border-ink/20 active:scale-[0.98]"
             >
-              View code
-              <ArrowUpRight size={14} aria-hidden />
+              Code
+              <ArrowUpRight size={15} aria-hidden />
             </a>
           )}
           <Link
             href={href}
-            className="inline-flex items-center gap-1.5 text-sm font-bold text-accent hover:text-accent-hover transition-colors"
+            className="font-mono inline-flex min-h-[3.25rem] items-center gap-2 rounded-full border border-transparent bg-accent px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-accent-foreground shadow-md hover:bg-accent-hover hover:shadow-lg active:scale-[0.98]"
           >
             View project
-            <ArrowUpRight size={14} aria-hidden />
+            <ArrowUpRight size={15} aria-hidden />
           </Link>
         </div>
       </div>

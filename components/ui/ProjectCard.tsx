@@ -70,7 +70,7 @@ export default function ProjectCard({
       <div className="flex min-w-0 flex-1 flex-col p-6 sm:p-7">
         <div className="mb-3 flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <h3 className="truncate text-lg sm:text-xl font-bold leading-snug text-foreground transition-colors group-hover:text-accent">
+            <h3 className="truncate text-lg sm:text-xl font-bold leading-snug text-foreground">
               {project.title}
             </h3>
             <span className="mt-1 inline-flex items-center gap-1 text-xs text-muted-foreground">

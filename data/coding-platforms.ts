@@ -23,11 +23,6 @@ import {
  */
 export const leetcodeProfile: CodingPlatform = createLeetCodeProfile();
 
-/**
- * HackerRank profile data
- * Automatically configured from USER_CONFIG
- */
-export const hackerrankProfile: CodingPlatform = createHackerRankProfile();
 
 /**
  * Factory functions to create platform profiles from configuration
@@ -71,43 +66,7 @@ function createLeetCodeProfile(): CodingPlatform {
   return profile;
 }
 
-/**
- * Creates HackerRank profile from user configuration
- */
-function createHackerRankProfile(): CodingPlatform {
-  const config = USER_CONFIG.hackerrank;
-  const platformConfig = PLATFORM_CONFIGS.hackerrank;
-  const recentActivity = generateHackerRankActivity();
 
-  const profile: CodingPlatform = {
-    id: "hackerrank",
-    name: platformConfig.name,
-    username: config.username,
-    profileUrl: config.profileUrl,
-    logoUrl: platformConfig.logoUrl,
-    primaryColor: platformConfig.primaryColor,
-    secondaryColor: platformConfig.secondaryColor,
-    statistics: {
-      ...config.customStats,
-      // Recalculate streaks from activity if needed
-      currentStreak: calculateCurrentStreak(recentActivity),
-      longestStreak: Math.max(
-        config.customStats.longestStreak,
-        calculateLongestStreak(recentActivity)
-      ),
-    },
-    achievements: createHackerRankAchievements(),
-    recentActivity,
-    isActive: config.isActive,
-  };
-
-  // Validate the created profile
-  if (!validatePlatformData(profile)) {
-    console.warn("HackerRank profile validation failed, using defaults");
-  }
-
-  return profile;
-}
 
 /**
  * Creates comprehensive LeetCode achievements
@@ -230,97 +189,7 @@ function createLeetCodeAchievements(): CodingAchievement[] {
   );
 }
 
-/**
- * Creates comprehensive HackerRank achievements
- */
-function createHackerRankAchievements(): CodingAchievement[] {
-  const achievements: CodingAchievement[] = [];
-  const stats = USER_CONFIG.hackerrank.customStats;
-  const currentYear = new Date().getFullYear();
 
-  // Skill certifications
-  const skills = [
-    { name: "Python", level: "Gold", rarity: "epic" as const },
-    { name: "Algorithms", level: "Silver", rarity: "rare" as const },
-    { name: "Data Structures", level: "Bronze", rarity: "common" as const },
-  ];
-
-  skills.forEach((skill, index) => {
-    achievements.push({
-      id: `${skill.name.toLowerCase()}-${skill.level.toLowerCase()}-badge`,
-      title: `${skill.name} (${skill.level})`,
-      description: `Achieved ${skill.level} level certification in ${skill.name}`,
-      iconUrl: `/images/badges/hackerrank-${skill.name.toLowerCase()}-${skill.level.toLowerCase()}.svg`,
-      earnedDate: new Date(currentYear, 10 - index, 15),
-      category: "certificate",
-      rarity: skill.rarity,
-    });
-  });
-
-  // Challenge completions
-  const challenges = [
-    { name: "30 Days of Code", rarity: "common" as const },
-    { name: "10 Days of Statistics", rarity: "common" as const },
-    { name: "Interview Preparation Kit", rarity: "rare" as const },
-  ];
-
-  challenges.forEach((challenge, index) => {
-    achievements.push({
-      id: `${challenge.name.toLowerCase().replace(/\s+/g, "-")}-challenge`,
-      title: challenge.name,
-      description: `Completed the ${challenge.name} challenge`,
-      iconUrl: `/images/badges/hackerrank-${challenge.name
-        .toLowerCase()
-        .replace(/\s+/g, "-")}.svg`,
-      earnedDate: new Date(currentYear, 8 - index, 30),
-      category: "badge",
-      rarity: challenge.rarity,
-    });
-  });
-
-  // Contest participation
-  if (stats.contestsParticipated > 0) {
-    achievements.push({
-      id: "contest-participant-hr",
-      title: "Contest Participant",
-      description: "Participated in HackerRank contests",
-      iconUrl: "/images/badges/hackerrank-contest-participant.svg",
-      earnedDate: new Date(currentYear, 3, 20),
-      category: "contest",
-      rarity: "common",
-      metadata: {
-        contestsParticipated: stats.contestsParticipated,
-      },
-    });
-  }
-
-  // Problem solving milestones
-  const milestones = [25, 50, 100, 150];
-  milestones.forEach((milestone, index) => {
-    if (stats.totalSolved >= milestone) {
-      const rarities: AchievementRarity[] = [
-        "common",
-        "rare",
-        "epic",
-        "legendary",
-      ];
-      achievements.push({
-        id: `hr-milestone-${milestone}`,
-        title: `${milestone} Problems Solved`,
-        description: `Solved ${milestone} problems on HackerRank`,
-        iconUrl: `/images/badges/hackerrank-${milestone}.svg`,
-        earnedDate: new Date(currentYear, index + 2, 10),
-        category: "milestone",
-        rarity: rarities[index] || "rare",
-        metadata: { milestone },
-      });
-    }
-  });
-
-  return achievements.sort(
-    (a, b) => b.earnedDate.getTime() - a.earnedDate.getTime()
-  );
-}
 
 /**
  * Combined array of all coding platforms
@@ -328,7 +197,6 @@ function createHackerRankAchievements(): CodingAchievement[] {
  */
 export const codingPlatforms: CodingPlatform[] = [
   ...(USER_CONFIG.leetcode.isActive ? [leetcodeProfile] : []),
-  ...(USER_CONFIG.hackerrank.isActive ? [hackerrankProfile] : []),
 ];
 
 /**
@@ -511,94 +379,4 @@ function generateLeetCodeActivity(): RecentActivity[] {
   );
 }
 
-/**
- * Generate comprehensive HackerRank activity data for heatmap visualization
- * Creates realistic activity patterns spanning multiple months
- */
-function generateHackerRankActivity(): RecentActivity[] {
-  const activities: RecentActivity[] = [];
-  const today = new Date();
-  const startDate = new Date(today.getFullYear(), 0, 1); // Start of year
-  const problems = SAMPLE_PROBLEMS.hackerrank;
-  const languages = PROGRAMMING_LANGUAGES;
-  const stats = USER_CONFIG.hackerrank.customStats;
-  const random = createSeededRandom(84);
 
-  let activityId = 1;
-  let totalGenerated = 0;
-  const targetTotal = stats.totalSolved;
-
-  // Calculate how many activities to generate per day on average
-  const daysSinceStart = Math.floor(
-    (today.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
-  );
-  const averagePerDay = targetTotal / daysSinceStart;
-
-  // Generate activity with slightly different patterns than LeetCode
-  for (
-    let d = new Date(startDate);
-    d <= today && totalGenerated < targetTotal;
-    d.setDate(d.getDate() + 1)
-  ) {
-    const dayOfWeek = d.getDay();
-    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
-
-    // Slightly lower activity rate than LeetCode
-    const activityProbability = isWeekend ? 0.2 : 0.5;
-
-    if (random() < activityProbability && totalGenerated < targetTotal) {
-      const problemsToday =
-        random() < 0.2 ? Math.min(2, targetTotal - totalGenerated) : 1;
-
-      for (let i = 0; i < problemsToday && totalGenerated < targetTotal; i++) {
-        const problem = problems[Math.floor(random() * problems.length)];
-        const language =
-          languages[Math.floor(random() * languages.length)];
-
-        activities.push({
-          id: `hr-activity-${activityId++}`,
-          problemTitle: problem.title,
-          difficulty: problem.difficulty,
-          solvedDate: new Date(d),
-          problemUrl: problem.url,
-          tags: [...problem.tags],
-          language,
-          timeSpent: problem.estimatedTime + Math.floor(random() * 15) - 7, // Add some variance
-          isAccepted: random() > 0.4, // 60% first attempt success rate
-          attemptCount:
-            random() > 0.4 ? 1 : Math.floor(random() * 3) + 2,
-        });
-
-        totalGenerated++;
-      }
-    }
-  }
-
-  // Ensure we have the right difficulty distribution
-  const targetEasy = stats.difficultyBreakdown.easy;
-  const targetMedium = stats.difficultyBreakdown.medium;
-  const targetHard = stats.difficultyBreakdown.hard;
-
-  // Adjust difficulty distribution to match target
-  const easyActivities = activities.filter((a) => a.difficulty === "easy");
-  const mediumActivities = activities.filter((a) => a.difficulty === "medium");
-  const hardActivities = activities.filter((a) => a.difficulty === "hard");
-
-  // If we need to adjust, modify some activities
-  while (
-    easyActivities.length < targetEasy &&
-    (mediumActivities.length > targetMedium ||
-      hardActivities.length > targetHard)
-  ) {
-    const toChange =
-      mediumActivities.length > targetMedium
-        ? mediumActivities[Math.floor(random() * mediumActivities.length)]
-        : hardActivities[Math.floor(random() * hardActivities.length)];
-    toChange.difficulty = "easy";
-    easyActivities.push(toChange);
-  }
-
-  return activities.sort(
-    (a, b) => b.solvedDate.getTime() - a.solvedDate.getTime()
-  );
-}
