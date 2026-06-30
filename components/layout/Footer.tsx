@@ -12,12 +12,12 @@ const footerNav = [
 ];
 
 const socialLinks = [
-  { icon: Github, href: "https://github.com/ansariamann", label: "GitHub" },
   {
     icon: Linkedin,
     href: "https://linkedin.com/in/-aman-ansari",
     label: "LinkedIn",
   },
+  { icon: Github, href: "https://github.com/ansariamann", label: "GitHub" },
   { icon: Twitter, href: "https://twitter.com/thoht_z", label: "Twitter" },
   {
     icon: Mail,
@@ -33,11 +33,12 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
           <div>
             <p className="text-base font-bold text-foreground">
-              © {new Date().getFullYear()} {siteConfig.author?.name ?? "Aman Ansari"}
+              © {new Date().getFullYear()}{" "}
+              {siteConfig.author?.name ?? "Aman Ansari"}
             </p>
             <p className="mt-2 text-sm text-muted-foreground leading-relaxed max-w-xs">
-              Full-stack development. Systems thinking. Delivery you can ship and
-              measure.
+              Full-stack development. Systems thinking. Delivery you can ship
+              and measure.
             </p>
           </div>
 

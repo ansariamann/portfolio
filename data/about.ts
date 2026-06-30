@@ -12,15 +12,15 @@ export const experienceData: ExperienceItem[] = [
   {
     id: "1",
     role: "Frontend Development Intern",
-    company: "StartupCo",
-    period: "Summer 2023",
+    company: "Coneio",
+    period: "2025",
   },
   {
     id: "2",
     role: "Computer Science Student",
-    company: "Tech University",
-    period: "2022 — Present",
-    current: true,
+    company: "SGGSIET",
+    period: "2021 — 2025",
+    current: false,
   },
   {
     id: "3",
@@ -34,7 +34,7 @@ export const experienceData: ExperienceItem[] = [
 export const profileStats = [
   {
     label: "Years in development",
-    value: "2+",
+    value: "1+",
   },
   {
     label: "Roles considered",
@@ -42,7 +42,7 @@ export const profileStats = [
   },
   {
     label: "Latest role",
-    value: "Frontend Intern, StartupCo",
+    value: "Frontend Intern, Coneio",
   },
   {
     label: "How I work",
@@ -144,7 +144,8 @@ export const achievementsData: Achievement[] = [
   {
     id: "4",
     title: "AI Agents Shipped",
-    description: "Autonomous agents built to research, plan, and execute real-world tasks",
+    description:
+      "Autonomous agents built to research, plan, and execute real-world tasks",
     value: "10+",
     icon: "🤖",
     color: "#F59E0B",

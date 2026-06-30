@@ -51,8 +51,10 @@ export default function ContactForm() {
       formData.append("email", sanitizedData.email);
       formData.append("message", sanitizedData.message);
 
-      // Submit to Netlify
-      const response = await fetch("/", {
+      // Submit to Netlify — must POST to the static __forms.html page,
+      // not "/", because output:"standalone" routes all requests through
+      // the Next.js serverless function which swallows the form data.
+      const response = await fetch("/__forms.html", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",

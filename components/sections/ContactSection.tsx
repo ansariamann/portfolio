@@ -5,16 +5,16 @@ import { cn } from "@/lib/utils";
 
 const socialLinks = [
   {
-    icon: Github,
-    href: "https://github.com/ansariamann",
-    label: "GitHub",
-    bgColor: "bg-[#24292f] hover:bg-[#1f2328]",
-  },
-  {
     icon: Linkedin,
     href: "https://linkedin.com/in/-aman-ansari",
     label: "LinkedIn",
     bgColor: "bg-[#0a66c2] hover:bg-[#0077b5]",
+  },
+  {
+    icon: Github,
+    href: "https://github.com/ansariamann",
+    label: "GitHub",
+    bgColor: "bg-[#24292f] hover:bg-[#1f2328]",
   },
   {
     icon: Twitter,
@@ -48,7 +48,8 @@ export default function ContactSection() {
             </h2>
 
             <p className="text-lg text-muted-foreground/90 leading-relaxed max-w-lg mb-12">
-              Tell me what you&apos;re building, the role or engagement type, and your timeline. Short briefs beat polished vagueness.
+              Tell me what you&apos;re building, the role or engagement type,
+              and your timeline. Short briefs beat polished vagueness.
             </p>
 
             <div className="mt-4">
