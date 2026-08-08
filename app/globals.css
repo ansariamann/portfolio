@@ -5,8 +5,8 @@
 @layer base {
   :root {
     /* Hashton-inspired palette — light */
-    --paper: 42 33% 96%;
-    --surface: 0 0% 100%;
+    --paper: 42 38% 96%;
+    --surface: 42 5% 98%;
     --muted: 38 24% 91%;
     --ink: 30 12% 9%;
     --ink-muted: 33 8% 42%;
@@ -34,8 +34,8 @@
   }
 
   .dark {
-    --paper: 30 8% 4%;
-    --surface: 30 6% 9%;
+    --paper: 30 13% 4%;
+    --surface: 30 11% 9%;
     --muted: 30 5% 13%;
     --ink: 40 20% 94%;
     --ink-muted: 38 10% 58%;

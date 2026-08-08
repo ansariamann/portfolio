@@ -20,7 +20,7 @@ export function Button({
     useMobileOptimizedAnimation();
 
   const baseClasses = cn(
-    "inline-flex items-center justify-center font-medium rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed",
+    "inline-flex items-center justify-center font-light rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed",
     // Enhanced accessibility
     "focus-visible:ring-4 focus-visible:ring-offset-2",
     "disabled:pointer-events-none disabled:select-none",
@@ -52,19 +52,19 @@ export function Button({
 
   const sizes = {
     sm: cn(
-      "px-3 py-1.5 text-sm",
-      isMobile && "px-4 py-2 text-base min-h-[40px]",
-      touchDevice && "min-w-[88px]" // Double the minimum touch target
+      "px-4 py-2.5 text-sm",
+      isMobile && "px-5 py-3 text-base min-h-[44px]",
+      touchDevice && "min-w-[96px]" // Double the minimum touch target
     ),
     md: cn(
-      "px-4 py-2 text-base",
-      isMobile && "px-5 py-3 text-base min-h-[44px]",
-      touchDevice && "min-w-[100px]"
+      "px-6 py-3.5 text-base",
+      isMobile && "px-7 py-4 text-base min-h-[52px]",
+      touchDevice && "min-w-[110px]"
     ),
     lg: cn(
-      "px-6 py-3 text-lg",
-      isMobile && "px-8 py-4 text-lg min-h-[48px]",
-      touchDevice && "min-w-[120px]"
+      "px-8 py-4.5 text-lg",
+      isMobile && "px-10 py-5 text-lg min-h-[60px]",
+      touchDevice && "min-w-[130px]"
     ),
   };
 

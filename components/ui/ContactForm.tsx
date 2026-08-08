@@ -12,6 +12,7 @@ import {
   sanitizeContactFormData,
   type ContactFormData,
 } from "@/lib/contact-schema";
+import emailjs from "@emailjs/browser";
 import { useMobileOptimizedAnimation } from "@/lib/hooks";
 import { useReducedMotion } from "@/lib/hooks/useScrollAnimations";
 import { cn, debugLog } from "@/lib/utils";
@@ -44,33 +45,23 @@ export default function ContactForm() {
 
       debugLog("Form Data prepared for submission:", sanitizedData);
 
-      // Prepare FormData for Netlify
-      const formData = new FormData();
-      formData.append("form-name", "contact");
-      formData.append("name", sanitizedData.name);
-      formData.append("email", sanitizedData.email);
-      formData.append("message", sanitizedData.message);
+      const templateParams = {
+        name: sanitizedData.name,
+        email: sanitizedData.email,
+        message: sanitizedData.message,
+        to_name: "Aman Ansari",
+        to_email: "iamamanansari786a@gmail.com",
+      };
 
-      // Submit to Netlify — must POST to the static __forms.html page,
-      // not "/", because output:"standalone" routes all requests through
-      // the Next.js serverless function which swallows the form data.
-      const response = await fetch("/__forms.html", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams(
-          Object.entries({
-            "form-name": "contact",
-            name: sanitizedData.name,
-            email: sanitizedData.email,
-            message: sanitizedData.message,
-          })
-        ).toString(),
-      });
+      const response = await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "",
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "",
+        templateParams,
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || ""
+      );
 
-      if (!response.ok) {
-        throw new Error(`Form submission failed: ${response.statusText}`);
+      if (response.status !== 200) {
+        throw new Error(`Form submission failed: ${response.text}`);
       }
 
       setSubmissionStatus("success");
@@ -124,24 +115,10 @@ export default function ContactForm() {
 
   return (
     <>
-      {/* Static form for Netlify detection - hidden from users */}
-      <form
-        name="contact"
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
-        hidden
-      >
-        <input type="text" name="name" />
-        <input type="email" name="email" />
-        <textarea name="message"></textarea>
-      </form>
-
       {/* Actual React form that users interact with */}
       <motion.form
         name="contact"
         method="POST"
-        data-netlify="true"
-        data-netlify-honeypot="bot-field"
         onSubmit={handleSubmit(onSubmit)}
         className={cn(
           "w-full space-y-6",
@@ -153,14 +130,7 @@ export default function ContactForm() {
         animate={{ opacity: 1, y: 0 }}
         transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6 }}
       >
-        {/* Hidden honeypot field for spam protection */}
-        <input type="hidden" name="form-name" value="contact" />
-        <div style={{ display: "none" }}>
-          <label>
-            Don&apos;t fill this out if you&apos;re human:{" "}
-            <input name="bot-field" />
-          </label>
-        </div>
+
 
         {/* Name Field */}
         <motion.div

@@ -11,7 +11,7 @@ export interface ExperienceItem {
 export const experienceData: ExperienceItem[] = [
   {
     id: "1",
-    role: "Frontend Development Intern",
+    role: "Full Stack Java & ML Developer",
     company: "Coneio",
     period: "2025",
   },
@@ -42,7 +42,7 @@ export const profileStats = [
   },
   {
     label: "Latest role",
-    value: "Frontend Intern, Coneio",
+    value: "Full Stack Java Developer, Coneio",
   },
   {
     label: "How I work",
@@ -81,22 +81,22 @@ export const timelineData: TimelineItem[] = [
   },
   {
     id: "4",
-    title: "Frontend Development Intern",
+    title: "Full Stack Java & AWS Developer",
     company: "StartupCo",
     period: "Summer 2023",
     description:
-      "Contributed to the company's main product by implementing new features and fixing bugs in the React frontend.",
-    technologies: ["React", "Next.js", "TypeScript", "Styled Components"],
+      "Contributed to the company's main product by implementing backend services in Java Spring Boot, machine learning models, and deploying on AWS.",
+    technologies: ["Java", "Spring Boot", "AWS", "Machine Learning"],
     type: "work",
   },
   {
     id: "5",
-    title: "Full Stack Certification",
+    title: "Java & Machine Learning Certification",
     company: "FreeCodeCamp",
     period: "2023",
     description:
-      "Completed comprehensive full-stack web development certification covering both frontend and backend technologies.",
-    technologies: ["Node.js", "Express", "MongoDB", "React"],
+      "Completed comprehensive certification covering Java development, Machine Learning algorithms, and AWS cloud architecture.",
+    technologies: ["Java", "Python", "AWS", "Machine Learning"],
     type: "achievement",
   },
   {

@@ -1,4 +1,5 @@
 import React from "react";
+import { FaJava } from "react-icons/fa";
 import {
   // Technology icons from react-icons
   SiReact,
@@ -16,6 +17,7 @@ import {
   SiDjango,
   SiPostgresql,
   SiMongodb,
+  SiSpringboot,
   SiRedis,
   SiGit,
   SiDocker,
@@ -49,6 +51,8 @@ export const skillIconMap: Record<
   django: SiDjango,
   postgresql: SiPostgresql,
   mongodb: SiMongodb,
+  java: FaJava,
+  spring: SiSpringboot,
   redis: SiRedis,
   git: SiGit,
   docker: SiDocker,

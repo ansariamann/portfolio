@@ -2,16 +2,16 @@ import { SiteConfig } from "@/types";
 
 export const siteConfig: SiteConfig = {
   name: "Portfolio",
-  title: "Aman - Software Engineer",
+  title: "Aman - Full Stack Java, ML & AWS Engineer",
   description:
-    "Modern portfolio website showcasing full-stack development skills, projects, and technical expertise. Built with Next.js, TypeScript, and Framer Motion.",
+    "Modern portfolio website showcasing expertise as a Full Stack Java Developer, with specializations in Machine Learning and AWS.",
   url: "https://johndeveloper.dev",
 
   author: {
     name: "Aman Ansari",
     email: "iamamanansari786a@gmail.com",
-    title: "Junior Software Developer",
-    bio: "Passionate junior developer with expertise in modern web technologies. I love creating beautiful, functional applications that solve real-world problems. Always eager to learn new technologies and contribute to meaningful projects.",
+    title: "Full Stack Java, ML & AWS Developer",
+    bio: "Passionate developer with expertise in Full Stack Java, Machine Learning, and AWS cloud infrastructure. I love creating beautiful, functional applications and building scalable, intelligent systems that solve real-world problems. Always eager to learn new technologies and contribute to meaningful projects.",
     image: "/images/profile.svg",
   },
 
@@ -49,16 +49,19 @@ export const siteConfig: SiteConfig = {
   },
 
   seo: {
-    title: "Aman Ansari - Full Stack Developer ",
+    title: "Aman Ansari - Full Stack Java, ML & AWS Engineer ",
     description:
-      "Modern portfolio website showcasing full-stack development skills, projects, and technical expertise. Built with Next.js, TypeScript, and Framer Motion.",
+      "Modern portfolio website showcasing expertise as a Full Stack Java Developer, with specializations in Machine Learning and AWS.",
     keywords: [
       "full stack developer",
-      "web developer",
+      "java developer",
+      "machine learning",
+      "aws",
+      "cloud computing",
+      "spring boot",
       "react developer",
       "next.js developer",
       "typescript developer",
-      "frontend developer",
       "backend developer",
       "portfolio",
       "javascript",
@@ -71,7 +74,7 @@ export const siteConfig: SiteConfig = {
       "@context": "https://schema.org",
       "@type": "Person",
       name: "Aman Ansari",
-      jobTitle: "Junior Full Stack Developer",
+      jobTitle: "Full Stack Java, ML & AWS Engineer",
       url: "https://johndeveloper.dev",
       email: "iamamanansari786a@gmail.com",
       image: "https://johndeveloper.dev/images/profile.svg",
@@ -81,13 +84,15 @@ export const siteConfig: SiteConfig = {
         "https://twitter.com/thoht_z",
       ],
       knowsAbout: [
+        "Java",
+        "Spring Boot",
+        "Machine Learning",
+        "AWS",
         "JavaScript",
         "TypeScript",
         "React",
         "Next.js",
-        "Node.js",
         "Python",
-        "Web Development",
         "Full Stack Development",
       ],
     },
