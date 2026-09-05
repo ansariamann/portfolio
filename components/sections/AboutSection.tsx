@@ -72,7 +72,7 @@ export default function AboutSection() {
           <aside className="lg:sticky lg:top-28 space-y-8">
             <div className="relative aspect-[4/5] w-full max-w-[300px] mx-auto overflow-hidden rounded-2xl border border-ink/10 bg-muted/30 shadow-card">
               <Image
-                src="/images/profile-photo.jpg"
+                src="/images/about-photo.png"
                 alt={`${siteConfig.author?.name ?? "Aman Ansari"}, profile photo`}
                 fill
                 className="object-cover"

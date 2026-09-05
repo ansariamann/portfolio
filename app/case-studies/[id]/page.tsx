@@ -51,8 +51,18 @@ export default function CaseStudyPage({ params }: CaseStudyPageProps) {
   const otherCaseStudies = caseStudies.filter((cs) => cs.id !== params.id);
 
   return (
-    <main id="main-content" className="min-h-screen bg-background">
-      <section className="section-shell pt-24 md:pt-28 pb-8">
+    <main id="main-content" className="min-h-screen bg-background relative">
+      {/* Full-page continuous subtle grid pattern */}
+      <div
+        className="fixed inset-0 pointer-events-none opacity-[0.035] z-0"
+        style={{
+          backgroundImage:
+            "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
+          backgroundSize: "56px 56px",
+        }}
+      />
+
+      <section className="section-shell pt-24 md:pt-28 pb-8 relative z-10">
         <div className="container-wide max-w-4xl">
           <Link
             href="/case-studies"
@@ -67,11 +77,11 @@ export default function CaseStudyPage({ params }: CaseStudyPageProps) {
         </div>
       </section>
 
-      <section className="container-wide max-w-4xl pb-12 md:pb-16">
+      <section className="container-wide max-w-4xl pb-12 md:pb-16 relative z-10">
         <CaseStudyDetail caseStudy={caseStudy} />
       </section>
 
-      <section className="container-wide max-w-4xl pb-20 md:pb-28">
+      <section className="container-wide max-w-4xl pb-20 md:pb-28 relative z-10">
         <CaseStudyNavigation
           otherCaseStudies={otherCaseStudies}
           currentId={caseStudy.id}

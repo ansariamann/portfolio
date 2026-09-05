@@ -43,7 +43,7 @@ const nextConfig = {
           {
             key: "Link",
             value: [
-              "</images/profile-photo.jpg>; rel=preload; as=image",
+              "</images/about-photo.png>; rel=preload; as=image",
               "<https://fonts.googleapis.com>; rel=preconnect",
               "<https://fonts.gstatic.com>; rel=preconnect; crossorigin",
             ].join(", "),

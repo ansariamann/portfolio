@@ -155,27 +155,36 @@ export default function Header() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="hidden lg:flex size-9 items-center justify-center rounded-md border border-ink/10 transition-colors hover:bg-ink/5"
+            className="group relative hidden lg:flex size-9 items-center justify-center rounded-md border border-ink/10 transition-colors hover:bg-ink/5 text-foreground"
           >
             <Github size={16} />
+            <span className="pointer-events-none absolute top-full mt-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-foreground px-2 py-0.5 font-mono text-[11px] font-medium text-background shadow opacity-0 transition-opacity duration-150 group-hover:opacity-100 z-50">
+              GitHub
+            </span>
           </a>
           <a
             href="https://linkedin.com/in/-aman-ansari"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className="hidden lg:flex size-9 items-center justify-center rounded-md border border-ink/10 transition-colors hover:bg-ink/5"
+            className="group relative hidden lg:flex size-9 items-center justify-center rounded-md border border-ink/10 transition-colors hover:bg-ink/5 text-foreground"
           >
             <Linkedin size={16} />
+            <span className="pointer-events-none absolute top-full mt-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-foreground px-2 py-0.5 font-mono text-[11px] font-medium text-background shadow opacity-0 transition-opacity duration-150 group-hover:opacity-100 z-50">
+              LinkedIn
+            </span>
           </a>
 
           <button
             type="button"
             onClick={toggle}
             aria-label="Toggle dark mode"
-            className="size-9 flex items-center justify-center rounded-md border border-ink/10 text-muted-foreground transition-colors hover:bg-ink/5"
+            className="group relative size-9 flex items-center justify-center rounded-md border border-ink/10 text-muted-foreground transition-colors hover:bg-ink/5 hover:text-foreground"
           >
             {isDark ? <Sun size={16} /> : <Moon size={16} />}
+            <span className="pointer-events-none absolute top-full mt-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-foreground px-2 py-0.5 font-mono text-[11px] font-medium text-background shadow opacity-0 transition-opacity duration-150 group-hover:opacity-100 z-50">
+              {isDark ? "Light mode" : "Dark mode"}
+            </span>
           </button>
 
           <Link

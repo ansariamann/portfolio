@@ -20,34 +20,34 @@ export default function HeroSection() {
           </h1>
 
           <p className="mt-7 text-lg md:text-xl lg:text-[1.35rem] text-muted-foreground leading-relaxed max-w-2xl mx-auto text-balance">
-            Full-stack development — <strong className="font-semibold text-foreground">React</strong>,{" "}
-            <strong className="font-semibold text-foreground">TypeScript</strong>, and production systems
+            Full-stack development — <strong className="font-semibold text-foreground">Java</strong>,{" "}
+            <strong className="font-semibold text-foreground">React</strong>, and production systems
             for teams that need reliable delivery without unnecessary complexity.
           </p>
 
           <p className="mt-10 text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-            {siteConfig.contact?.location ?? "Pune, IN"}. 2+ years shipping web apps. Open to
+            {siteConfig.contact?.location ?? "Pune, IN"}. Using AI to create something that would take months in days .Open to
             full-time, contract, internship, or junior individual contributor
             roles.
           </p>
 
-          <div className="mt-12 mx-auto flex max-w-4xl flex-col gap-6 rounded-[24px] border border-ink/10 bg-surface/80 p-4 sm:p-5 shadow-sm">
+          <div className="mt-12 mx-auto flex max-w-4xl flex-col gap-6 rounded-[28px] border border-ink/10 bg-surface/80 p-5 sm:p-6 shadow-sm">
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <button type="button" onClick={handleContact} className="btn-primary flex-1">
+              <button type="button" onClick={handleContact} className="btn-primary flex-1 sm:min-w-[220px]">
                 Hire me
               </button>
               <Link
                 href="/cv/Aman_Ansari_CV.pdf"
                 target="_blank"
                 rel="noreferrer"
-                className="btn-secondary flex-1"
+                className="btn-secondary flex-1 sm:min-w-[220px]"
               >
                 See resume
               </Link>
             </div>
 
             <div className="flex justify-center">
-              <Link href="/projects" className="btn-primary w-full sm:w-auto min-w-[260px] bg-surface text-foreground border border-ink/10 hover:bg-muted">
+              <Link href="/projects" className="btn-primary w-full sm:w-auto min-w-[280px] sm:min-w-[320px] bg-surface text-foreground border border-ink/10 hover:bg-muted">
                 See my work
               </Link>
             </div>

@@ -12,8 +12,18 @@ export const metadata: Metadata = {
 
 export default function CaseStudiesPage() {
   return (
-    <main id="main-content" className="min-h-screen bg-background">
-      <section className="section-shell pt-24 md:pt-28 pb-12">
+    <main id="main-content" className="min-h-screen bg-background relative">
+      {/* Full-page continuous subtle grid pattern */}
+      <div
+        className="fixed inset-0 pointer-events-none opacity-[0.035] z-0"
+        style={{
+          backgroundImage:
+            "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
+          backgroundSize: "56px 56px",
+        }}
+      />
+
+      <section className="section-shell pt-24 md:pt-28 pb-12 relative z-10">
         <div className="container-wide max-w-4xl">
           <Link
             href="/"
@@ -53,7 +63,7 @@ export default function CaseStudiesPage() {
         </div>
       </section>
 
-      <section className="pb-20 md:pb-28">
+      <section className="pb-20 md:pb-28 relative z-10">
         <div className="container-wide max-w-4xl">
           <div className="divide-y divide-ink/10">
             {caseStudies.map((study) => (

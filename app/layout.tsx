@@ -98,9 +98,9 @@ export default function RootLayout({
         {/* Critical resource preloads */}
         <link
           rel="preload"
-          href="/images/profile-photo.jpg"
+          href="/images/about-photo.png"
           as="image"
-          type="image/jpeg"
+          type="image/png"
         />
 
         {/* Preconnect to external domains */}

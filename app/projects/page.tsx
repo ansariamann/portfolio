@@ -54,23 +54,24 @@ export default function ProjectsPage() {
     };
 
     return (
-        <main id="main-content" className="min-h-screen bg-secondary/30">
-            {/* ── Hero Banner — matches HeroSection exactly ────────── */}
-            <section className="relative overflow-hidden pt-28 pb-16 min-h-[40vh] flex items-center">
-                {/* Animated gradient orbs — identical to HeroSection */}
+        <main id="main-content" className="min-h-screen bg-background relative">
+            {/* Full-page continuous subtle grid pattern */}
+            <div
+                className="fixed inset-0 pointer-events-none opacity-[0.035] z-0"
+                style={{
+                    backgroundImage:
+                        "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
+                    backgroundSize: "56px 56px",
+                }}
+            />
+
+            {/* ── Hero Banner ────────── */}
+            <section className="relative overflow-hidden pt-28 pb-16 min-h-[40vh] flex items-center z-10">
+                {/* Animated gradient orbs with softer intensity */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-500/12 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-orb-float" />
-                    <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-violet-500/12 rounded-full blur-3xl translate-x-1/2 translate-y-1/2 animate-orb-float-slow" />
-                    <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] bg-cyan-500/9 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-orb-float" style={{ animationDelay: "3s" }} />
-                    {/* Slightly stronger grid overlay */}
-                    <div
-                        className="absolute inset-0 opacity-[0.08]"
-                        style={{
-                            backgroundImage:
-                                "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
-                            backgroundSize: "66px 66px",
-                        }}
-                    />
+                    <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-500/8 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-orb-float" />
+                    <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-violet-500/8 rounded-full blur-3xl translate-x-1/2 translate-y-1/2 animate-orb-float-slow" />
+                    <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] bg-cyan-500/6 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 animate-orb-float" style={{ animationDelay: "3s" }} />
                 </div>
 
                 <div className="container max-w-5xl mx-auto px-6 relative z-10 w-full">
@@ -140,7 +141,7 @@ export default function ProjectsPage() {
             </section>
 
             {/* ── Project List ─────────────────────────────────────── */}
-            <section className="container max-w-5xl mx-auto px-6 pb-20">
+            <section className="container max-w-5xl mx-auto px-6 pb-20 relative z-10">
                 {/* Category Filters */}
                 <motion.div
                     className="flex flex-wrap gap-3 mb-8"
