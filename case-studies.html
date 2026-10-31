@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+  <!-- Theme flash prevention -->
+  <script>
+    (function() {
+      var t = localStorage.getItem('theme');
+      var isDark = t !== null ? t === 'dark' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (!isDark) {
+        document.documentElement.classList.remove('dark');
+      } else {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Case Studies — Aman Ansari</title>
+  <meta name="description" content="Detailed engineering and machine learning case studies analyzing cybersecurity attack detection, malware classification, and real-time systems.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" type="image/png" href="favicon.png">
+  <link rel="canonical" href="https://ansariaman.netlify.app/case-studies.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ansariaman.netlify.app/case-studies.html">
+  <meta property="og:title" content="Case Studies — Aman Ansari">
+  <meta property="og:description" content="Detailed engineering and machine learning case studies analyzing cybersecurity attack detection, malware classification, and real-time systems.">
+  <meta property="og:image" content="https://ansariaman.netlify.app/images/about-photo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Case Studies — Aman Ansari">
+  <meta name="twitter:description" content="Detailed engineering and machine learning case studies analyzing cybersecurity attack detection, malware classification, and real-time systems.">
+  <meta name="twitter:image" content="https://ansariaman.netlify.app/images/about-photo.png">
+
+  <!-- Preconnect & Google Fonts: Inter and JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+
+  <!-- Exact compiled production stylesheet with all Hashton design system tokens & Tailwind utilities -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="min-h-screen bg-background text-foreground antialiased selection:bg-accent/35 selection:text-ink">
+
+  <!-- Header -->
+  <header id="main-header" class="sticky top-0 z-50 w-full border-b border-ink/10 bg-background/95 backdrop-blur-sm transition-colors">
+    <div class="container-wide flex items-center justify-between py-3">
+      <div class="flex items-center gap-4">
+        <a href="index.html" class="flex items-center">
+          <img src="images/signature.png" alt="Aman Ansari" class="h-10 w-auto object-contain dark:invert" />
+        </a>
+        <span class="text-ink/20">/</span>
+        <a href="index.html" class="text-xs font-mono font-semibold uppercase tracking-wider text-muted-foreground hover:text-foreground flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          Back to Home
+        </a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="projects.html" class="text-xs font-mono font-semibold uppercase tracking-wider text-muted-foreground hover:text-foreground hidden sm:inline">
+          Projects →
+        </a>
+
+        <!-- Dark Mode Toggle -->
+        <button
+          id="theme-toggle"
+          type="button"
+          aria-label="Toggle dark mode"
+          class="group relative size-9 flex items-center justify-center rounded-md border border-ink/10 text-muted-foreground transition-colors hover:bg-ink/5 hover:text-foreground"
+        >
+          <svg class="lucide-sun w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+          </svg>
+          <svg class="lucide-moon w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="pt-16 pb-24">
+    <div class="container-main max-w-5xl">
+      <!-- Page Banner -->
+      <header class="mb-14">
+        <p class="section-label mb-3">Engineering Research &amp; ML</p>
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-foreground tracking-tight">Case Studies</h1>
+        <p class="mt-4 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl">
+          Deep-dive analyses of complex engineering problems, feature engineering architectures, and empirical model benchmarks.
+        </p>
+      </header>
+
+      <!-- Case Studies List -->
+      <div id="case-studies-list" class="space-y-10">
+        <!-- Rendered by js/case-studies.js -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-ink/10 bg-background py-10">
+    <div class="container-main max-w-5xl flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
+      <p>© 2026 Aman Ansari. All rights reserved.</p>
+      <div class="flex items-center gap-6 font-medium">
+        <a href="index.html" class="hover:text-foreground">Home</a>
+        <a href="projects.html" class="hover:text-foreground">Projects</a>
+        <a href="index.html#contact" class="hover:text-foreground">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/case-studies.js"></script>
+</body>
+</html>

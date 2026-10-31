@@ -1,101 +1,133 @@
-# Modern Portfolio Website
+<div align="center">
 
-A modern portfolio website for a junior software developer built with Next.js 14, TypeScript, and Tailwind CSS. Features smooth animations, responsive design, and clean code architecture.
+# Aman Ansari — Portfolio
 
-## Tech Stack
+**Full Stack Java, Machine Learning & AWS Engineer**
 
-- **Framework**: Next.js 14 with App Router
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **Forms**: React Hook Form with Zod validation
-- **Code Quality**: ESLint, Prettier, TypeScript
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-ansariaman.netlify.app-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://ansariaman.netlify.app/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
-## Getting Started
+*A clean, performant, standalone portfolio website built with HTML5, CSS3, Vanilla JavaScript, and Tailwind CSS. Zero runtime build complexity, direct browser executable.*
 
-### Prerequisites
+</div>
 
-- Node.js 18+
-- npm or yarn
+---
 
-### Installation
+## 🌟 Overview
 
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+This repository hosts the official personal portfolio website of **Aman Ansari**, showcasing production web systems, machine learning research, cloud architecture, and competitive programming achievements.
 
-### Development
+The codebase is built on **pure standard web technologies (HTML5, CSS3, JavaScript ES6+)** complemented by the compiled Hashton design system stylesheet and Tailwind CSS. It runs natively in any web browser without needing `npm install`, Node.js runtimes, or build steps.
 
+---
+
+## 🚀 Key Features
+
+- 🌓 **Theme Management**: Dark and light modes with automatic OS system preference detection and `localStorage` persistence.
+- 🎨 **Hashton-Inspired Aesthetic**: Minimalist typography, custom warm color palettes (`--paper`, `--surface`, `--ink`, `--accent`), glassmorphic cards (`.glass-card`), and subtle ambient background animations.
+- ⚡ **Interactive Skills Section**: Dynamic category filtering across 24 technologies with official vector icons and micro-interactions.
+- 💼 **Featured Work & Projects Showcase**:
+  - Main landing highlights 4 featured production systems.
+  - Dedicated [`projects.html`](projects.html) with real-time text search, category filtering, and modal detail views.
+- 🛡️ **Cybersecurity & ML Case Studies**: [`case-studies.html`](case-studies.html) covering DDoS attack mitigation (96% accuracy), malware binary classification, and LSTM network anomaly detection.
+- 📊 **Competitive Programming (LeetCode)**:
+  - Real-time profile overview for `@teatoast` (150+ solved, current streak, global ranking).
+  - Difficulty progress bars (Easy 80, Medium 55, Hard 15).
+  - Chronological recent activity feed with expandable problem summaries.
+- 📜 **Verified Certifications**:
+  - Oracle Cloud Infrastructure 2025 Certified Data Science Professional
+  - Oracle Cloud Infrastructure 2025 Certified Developer Professional
+  - Oracle Cloud Infrastructure 2025 Certified Generative AI Professional
+- 📬 **Fully Working Contact Form**:
+  - Multi-tier delivery: Direct **EmailJS Browser SDK** integration + **Netlify Forms** backend + graceful pre-filled mail client fallback.
+  - Real-time client-side validation and instant feedback alerts.
+
+---
+
+## 📁 Repository Structure
+
+```
+portfolio/
+├── index.html            # Main portfolio landing page (Hero, About, Work, Skills, Certs, LeetCode, Contact)
+├── projects.html         # Complete projects catalog with search & modal details
+├── case-studies.html     # In-depth machine learning & cybersecurity case studies
+├── __forms.html          # Netlify build-time form detection helper
+├── package.json          # Lightweight project manifest with run scripts
+├── .gitignore            # Clean git ignore configuration
+├── css/
+│   └── style.css         # Production stylesheet (Hashton tokens, Tailwind utilities & glassmorphism)
+├── js/
+│   ├── main.js           # Core client logic (Theme, mobile drawer, scrollspy, skills filter, form)
+│   ├── projects.js       # Projects dataset, live search, and modal controller
+│   └── case-studies.js   # Case studies data & metrics visualization
+├── images/               # Profile photo, handwritten signature, certificate badges & logos
+│   ├── certifications/   # Oracle accreditation badges
+│   └── platforms/        # LeetCode and competitive programming logos
+└── cv/
+    └── Aman_Ansari_CV.pdf# Downloadable resume
+```
+
+---
+
+## 💻 Quick Start & Running Locally
+
+Because this codebase is pure HTML/CSS/JS, you can run it instantly without compiling:
+
+### Option 1: Direct File Open
+Simply double-click [`index.html`](index.html) to open it in any web browser.
+
+### Option 2: Python HTTP Server (Recommended)
 ```bash
-npm run dev          # Start development server
-npm run build        # Create production build
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run type-check   # Run TypeScript compiler check
+# Start server on port 3000
+python -m http.server 3000
 ```
+Then navigate to `http://localhost:3000`.
 
-### Testing (To be implemented)
-
+### Option 3: Node.js Serve
 ```bash
-npm run test         # Run unit tests
-npm run test:watch   # Run tests in watch mode
-npm run test:e2e     # Run end-to-end tests
-npm run test:coverage # Generate test coverage report
+npx serve . -p 3000
 ```
 
-### Performance (To be implemented)
+---
 
-```bash
-npm run analyze      # Analyze bundle size
-npm run lighthouse   # Run Lighthouse performance audit
-```
+## 🚀 Deployment
 
-## Project Structure
+### Deploy to Netlify
+1. Connect your repository to [Netlify](https://www.netlify.com/).
+2. Set **Publish directory** to `/` (root directory).
+3. Leave the **Build command** empty (static site requires no build).
+4. Netlify will automatically detect the contact form via `__forms.html` / `index.html`.
 
-```
-/
-├── app/                    # Next.js 14 App Router directory
-│   ├── globals.css        # Global styles and Tailwind imports
-│   ├── layout.tsx         # Root layout component
-│   └── page.tsx           # Homepage component
-├── components/            # Reusable UI components
-│   ├── ui/               # Basic UI components (buttons, inputs, etc.)
-│   ├── sections/         # Main page sections (Hero, About, Skills, etc.)
-│   └── layout/           # Layout components (Header, Footer, Navigation)
-├── lib/                  # Utility functions and configurations
-├── types/                # TypeScript type definitions
-├── data/                 # Static data files (projects, skills)
-└── public/               # Static assets (images, icons, fonts)
-```
+### Deploy to GitHub Pages
+1. Go to your repository settings on GitHub $\rightarrow$ **Pages**.
+2. Select `main` (or `master`) branch as the source and `/ (root)` folder.
+3. Click **Save**. Your site will be live in seconds.
 
-## Features
+---
 
-- ✅ Next.js 14 with App Router
-- ✅ TypeScript configuration
-- ✅ Tailwind CSS with custom design system
-- ✅ Framer Motion for animations
-- ✅ React Hook Form with Zod validation
-- ✅ ESLint and code quality tools
-- ✅ Responsive design foundation
-- 🚧 Hero section with animations (Next task)
-- 🚧 About section with timeline
-- 🚧 Skills section with interactive visualizations
-- 🚧 Projects showcase with filtering
-- 🚧 Contact form with validation
-- 🚧 Performance optimization
-- 🚧 Testing suite
+## 🛠️ Tech Stack & Integrations
 
-## Development Guidelines
+| Layer | Technologies |
+| :--- | :--- |
+| **Markup & Semantics** | HTML5, Semantic Elements, WAI-ARIA Accessibility |
+| **Styling & Design** | CSS3, Tailwind CSS, Custom Properties (Hashton Palette), Google Fonts (Inter, JetBrains Mono) |
+| **Scripting & Logic** | Modern JavaScript (ES6+), Vanilla DOM APIs |
+| **Email Delivery** | [EmailJS](https://www.emailjs.com/) (`@emailjs/browser` v4), [Netlify Forms](https://www.netlify.com/platform/core/forms/) |
+| **Asset Optimization** | SVG Vectors, Optimized PNGs, WebP |
 
-- Follow TypeScript best practices
-- Use Tailwind CSS for styling
-- Implement responsive design (mobile-first)
-- Ensure accessibility compliance
-- Maintain 90+ Lighthouse performance scores
-- Write clean, modular, reusable components
+---
 
-## License
+## 👤 Author
 
-This project is for portfolio demonstration purposes.
+**Aman Ansari**
+- 🌐 Website: [ansariaman.netlify.app](https://ansariaman.netlify.app/)
+- 💼 LinkedIn: [linkedin.com/in/-aman-ansari](https://linkedin.com/in/-aman-ansari)
+- 🐙 GitHub: [@ansariamann](https://github.com/ansariamann)
+- 🐦 Twitter: [@thoht_z](https://twitter.com/thoht_z)
+- ✉️ Email: [iamamanansari786a@gmail.com](mailto:iamamanansari786a@gmail.com)
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
