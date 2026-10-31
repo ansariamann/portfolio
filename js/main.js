@@ -346,33 +346,7 @@ function initContactForm() {
   }
 }
 
-/* ─── Coding Platform Tabs (Key Metrics & Progress Bars) ─── */
+/* ─── Coding Platforms Interactive Hooks (Ready for Custom Stats) ─── */
 function initCodingPlatforms() {
-  const tabButtons = document.querySelectorAll('[role="tablist"] [role="tab"]');
-  const tabPanels = {
-    "chart-panel-trends": document.getElementById("chart-panel-trends"),
-    "chart-panel-progress": document.getElementById("chart-panel-progress")
-  };
-
-  tabButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const targetId = btn.getAttribute("aria-controls");
-      tabButtons.forEach(b => {
-        b.setAttribute("aria-selected", "false");
-        b.className = "px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 min-h-[44px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-accent bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer";
-      });
-
-      btn.setAttribute("aria-selected", "true");
-      btn.className = "px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 min-h-[44px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-accent bg-accent text-accent-foreground shadow-lg cursor-pointer";
-
-      Object.entries(tabPanels).forEach(([id, panel]) => {
-        if (!panel) return;
-        if (id === targetId) {
-          panel.classList.remove("hidden");
-        } else {
-          panel.classList.add("hidden");
-        }
-      });
-    });
-  });
+  // Hook for future interactive platform integrations
 }

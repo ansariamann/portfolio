@@ -889,204 +889,242 @@
         </div>
       </div>
     </section>
-    <section id="coding-platforms" class="section-shell border-t border-border/50 relative overflow-hidden">
-      <div class="container-main relative z-10">
-        <div class="text-center mb-12 sm:mb-16 md:mb-20">
-          <div class="inline-block mb-4 sm:mb-6"><span
-              class="px-3 sm:px-4 py-1.5 sm:py-2 bg-secondary/50 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-primary border border-border/50">Competitive
-              Programming</span></div>
-          <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-6 sm:mb-8 tracking-tight px-4"><span
-              class="text-foreground">Coding Platforms</span></h2>
-          <p
-            class="text-base sm:text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed font-light px-4">
-            Showcasing problem-solving skills and competitive programming achievements across multiple platforms</p>
-        </div>
-        <div class="max-w-7xl mx-auto" role="main" aria-live="polite" aria-label="LeetCode view">
-          <div id="platform-panel-leetcode" role="tabpanel" aria-labelledby="platform-tab-leetcode">
-            <div class="space-y-6 sm:space-y-8">
-              <div class="glass-card flex flex-col items-center justify-between p-4 sm:p-6 rounded-[1.5rem]">
-                <div class="flex flex-col sm:flex-row items-center mb-4 sm:mb-6 w-full">
-                  <div class="mb-4 sm:mb-0 sm:mr-4">
-                    <div class="relative inline-block"><img alt="LeetCode logo" fetchPriority="high" width="64"
-                        height="64" decoding="async" data-nimg="1" class="transition-opacity duration-300 opacity-0"
-                        src="images/platforms/leetcode-logo.svg" />
-                      <div class="absolute inset-0 bg-gray-200 animate-pulse rounded" style="width:64px;height:64px">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="text-center sm:text-left flex-1">
-                    <h3 class="font-bold text-foreground text-xl sm:text-2xl">LeetCode</h3>
-                    <p class="text-muted-foreground text-base sm:text-lg">@teatoast</p><a
-                      href="https://leetcode.com/teatoast" target="_blank" rel="noopener noreferrer"
-                      class="text-xs sm:text-sm text-primary hover:text-primary/80 transition-colors inline-flex items-center gap-1 mt-1">View
-                      Profile &rarr;</a>
-                  </div>
+      <section id="coding-platforms" class="section-shell border-t border-ink/10 relative">
+    <div class="container-main">
+      <header class="mb-12 max-w-3xl text-center mx-auto">
+        <p class="section-label mb-4">Competitive Programming</p>
+        <h2 class="text-3xl sm:text-4xl md:text-[2.75rem] font-bold tracking-tight text-foreground leading-[1.12]">
+          Algorithmic problem solving.<br/>
+          <span class="text-muted-foreground font-medium">Proven across engineering platforms.</span>
+        </h2>
+        <p class="mt-4 text-muted-foreground leading-relaxed text-base md:text-lg max-w-2xl mx-auto">
+          Demonstrating strong foundations in data structures, time-space complexity optimization, and disciplined algorithmic practice.
+        </p>
+      </header>
+
+      <!-- 3 Featured Platform Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        
+        <!-- LeetCode Card -->
+        <article class="surface-card p-6 sm:p-7 flex flex-col justify-between group hover:border-accent/40 hover:shadow-card-hover transition-all duration-300">
+          <div>
+            <div class="flex items-center justify-between gap-3 mb-5">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-xl bg-ink/[0.04] border border-ink/10 p-2 flex items-center justify-center shrink-0">
+                  <img src="images/platforms/leetcode-logo.svg" alt="LeetCode" width="32" height="32" class="w-8 h-8 object-contain" />
                 </div>
-                <div class="
-          grid gap-4 sm:gap-6 text-center w-full
-          grid-cols-3
-        ">
-                  <div class="bg-secondary/30 rounded-xl p-3 sm:p-4">
-                    <div class="font-bold text-foreground text-2xl sm:text-3xl">150</div>
-                    <div class="text-xs sm:text-sm text-muted-foreground">Problems Solved</div>
-                  </div>
-                  <div class="bg-secondary/30 rounded-xl p-3 sm:p-4">
-                    <div class="font-bold text-foreground text-2xl sm:text-3xl">14</div>
-                    <div class="text-xs sm:text-sm text-muted-foreground">Current Streak (days)</div>
-                  </div>
-                  <div class="bg-secondary/30 rounded-xl p-3 sm:p-4 ">
-                    <div class="font-bold text-foreground text-2xl sm:text-3xl">#125,000</div>
-                    <div class="text-xs sm:text-sm text-muted-foreground">Global Ranking</div>
-                  </div>
+                <div>
+                  <h3 class="text-lg font-bold text-foreground">LeetCode</h3>
+                  <p class="font-mono text-xs text-muted-foreground">@teatoast</p>
+                </div>
+              </div>
+              <a href="https://leetcode.com/teatoast" target="_blank" rel="noopener noreferrer" class="font-mono text-xs font-semibold uppercase tracking-wider text-accent hover:underline flex items-center gap-1">
+                Profile &nearr;
+              </a>
+            </div>
+
+            <!-- Key Stat Pills -->
+            <div class="grid grid-cols-3 gap-2 p-3 rounded-xl bg-ink/[0.02] border border-ink/10 text-center mb-5">
+              <div>
+                <p class="text-xl font-bold text-foreground tabular-nums">150</p>
+                <p class="text-[11px] font-mono text-muted-foreground uppercase tracking-wider">Solved</p>
+              </div>
+              <div class="border-x border-ink/10">
+                <p class="text-xl font-bold text-accent tabular-nums">1,620</p>
+                <p class="text-[11px] font-mono text-muted-foreground uppercase tracking-wider">Rating</p>
+              </div>
+              <div>
+                <p class="text-xl font-bold text-foreground tabular-nums">Top 18%</p>
+                <p class="text-[11px] font-mono text-muted-foreground uppercase tracking-wider">Global</p>
+              </div>
+            </div>
+
+            <!-- Breakdown Bars -->
+            <div class="space-y-3 mb-5">
+              <div>
+                <div class="flex justify-between text-xs font-medium mb-1">
+                  <span class="text-green-600 dark:text-green-400 font-semibold">Easy</span>
+                  <span class="font-mono text-muted-foreground">65 <span class="text-[10px]">solved</span></span>
+                </div>
+                <div class="w-full bg-ink/10 h-2 rounded-full overflow-hidden">
+                  <div class="bg-green-500 h-full rounded-full" style="width: 58%"></div>
                 </div>
               </div>
               <div>
-                <div class="space-y-4 sm:space-y-6 glass-card rounded-[1.5rem] p-6">
-                  <div class="flex flex-wrap gap-1 sm:gap-2 justify-center px-2" role="tablist"
-                    aria-label="Select statistics chart type"><button
-                      class="px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 min-h-[44px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-                      role="tab" aria-selected="false" aria-controls="chart-panel-progress"
-                      aria-label="Progress Bars chart" tabindex="-1"><span class="hidden sm:inline">Progress
-                        Bars</span><span class="sm:hidden">Progress</span></button><button
-                      class="px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 min-h-[44px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 bg-accent text-accent-foreground shadow-lg"
-                      role="tab" aria-selected="true" aria-controls="chart-panel-trends"
-                      aria-label="Key Metrics chart (currently selected)" tabindex="0"><span
-                        class="hidden sm:inline">Key Metrics</span><span class="sm:hidden">Metrics</span></button></div>
-                  <div class="bg-white dark:bg-gray-800 rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-lg" role="tabpanel"
-                    id="chart-panel-trends" aria-labelledby="chart-tab-trends">
-                    <div class="space-y-6">
-                      <h3 class="text-lg font-semibold text-center text-gray-900 dark:text-gray-100">Key Statistics</h3>
-                      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-                        <div
-                          class="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 rounded-lg p-3 sm:p-4 text-center">
-                          <div class="flex justify-center mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                              height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                              stroke-linecap="round" stroke-linejoin="round"
-                              class="lucide lucide-target w-6 h-6 sm:w-8 sm:h-8" aria-hidden="true"
-                              style="color:#FFA116">
-                              <circle cx="12" cy="12" r="10"></circle>
-                              <circle cx="12" cy="12" r="6"></circle>
-                              <circle cx="12" cy="12" r="2"></circle>
-                            </svg></div>
-                          <div class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100"><span
-                              class="font-bold tabular-nums">150</span></div>
-                          <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Total Solved</div>
-                        </div>
-                        <div
-                          class="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 rounded-lg p-3 sm:p-4 text-center">
-                          <div class="flex justify-center mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                              height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                              stroke-linecap="round" stroke-linejoin="round"
-                              class="lucide lucide-award w-6 h-6 sm:w-8 sm:h-8" aria-hidden="true"
-                              style="color:#FF6B35">
-                              <path
-                                d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526">
-                              </path>
-                              <circle cx="12" cy="8" r="6"></circle>
-                            </svg></div>
-                          <div class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100"><span
-                              class="font-bold tabular-nums">14 days</span></div>
-                          <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Current Streak</div>
-                        </div>
-                        <div
-                          class="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 rounded-lg p-3 sm:p-4 text-center">
-                          <div class="flex justify-center mb-2"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                              height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                              stroke-linecap="round" stroke-linejoin="round"
-                              class="lucide lucide-zap w-6 h-6 sm:w-8 sm:h-8" aria-hidden="true" style="color:#8B5CF6">
-                              <path
-                                d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z">
-                              </path>
-                            </svg></div>
-                          <div class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100"><span
-                              class="font-bold tabular-nums">45 days</span></div>
-                          <div class="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Longest Streak</div>
-                        </div>
-                      </div>
-                      <div
-                        class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                        <div class="text-center">
-                          <div class="text-lg font-semibold text-gray-900 dark:text-gray-100">Ranking</div>
-                          <div class="text-2xl font-bold" style="color:#FFA116">#125,000</div>
-                        </div>
-                        <div class="text-center">
-                          <div class="text-lg font-semibold text-gray-900 dark:text-gray-100">Contest Rating</div>
-                          <div class="text-2xl font-bold" style="color:#FF6B35"><span
-                              class="font-bold tabular-nums">1,620</span></div>
-                        </div>
-                      </div>
-                      <div class="space-y-2 pt-4 border-t border-gray-200 dark:border-gray-700">
-                        <h4 class="font-medium text-gray-900 dark:text-gray-100">Trends</h4>
-                        <div class="flex items-center space-x-2 text-gray-600 dark:text-gray-400" role="status"
-                          aria-label="Total Problems: 150, no trend data available"><svg
-                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-minus w-4 h-4" aria-hidden="true">
-                            <path d="M5 12h14"></path>
-                          </svg><span class="text-sm">Total Problems: +12 this month</span></div>
-                        <div class="flex items-center space-x-2 text-gray-600 dark:text-gray-400" role="status"
-                          aria-label="Acceptance Rate: 68.5, no trend data available"><svg
-                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-minus w-4 h-4" aria-hidden="true">
-                            <path d="M5 12h14"></path>
-                          </svg><span class="text-sm">Acceptance Rate: 68.5% (consistent)</span></div>
-                      </div>
-                    </div>
-                    <div class="bg-white dark:bg-gray-800 rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-lg hidden"
-                      role="tabpanel" id="chart-panel-progress" aria-labelledby="chart-tab-progress">
-                      <div class="space-y-5">
-                        <h3 class="text-lg font-semibold text-center text-gray-900 dark:text-gray-100">Problems Solved
-                          by Difficulty</h3>
-                        <div class="space-y-4 max-w-xl mx-auto">
-                          <div>
-                            <div class="flex justify-between text-sm mb-1.5 font-medium">
-                              <span class="text-green-600 dark:text-green-400">Easy</span>
-                              <span class="text-gray-600 dark:text-gray-400">65 <span class="text-xs">/
-                                  820</span></span>
-                            </div>
-                            <div class="w-full bg-gray-200 dark:bg-gray-700 h-2.5 rounded-full overflow-hidden">
-                              <div class="bg-green-500 h-2.5 rounded-full" style="width: 58%"></div>
-                            </div>
-                          </div>
-                          <div>
-                            <div class="flex justify-between text-sm mb-1.5 font-medium">
-                              <span class="text-yellow-600 dark:text-yellow-400">Medium</span>
-                              <span class="text-gray-600 dark:text-gray-400">70 <span class="text-xs">/
-                                  1,720</span></span>
-                            </div>
-                            <div class="w-full bg-gray-200 dark:bg-gray-700 h-2.5 rounded-full overflow-hidden">
-                              <div class="bg-yellow-500 h-2.5 rounded-full" style="width: 48%"></div>
-                            </div>
-                          </div>
-                          <div>
-                            <div class="flex justify-between text-sm mb-1.5 font-medium">
-                              <span class="text-red-600 dark:text-red-400">Hard</span>
-                              <span class="text-gray-600 dark:text-gray-400">15 <span class="text-xs">/
-                                  740</span></span>
-                            </div>
-                            <div class="w-full bg-gray-200 dark:bg-gray-700 h-2.5 rounded-full overflow-hidden">
-                              <div class="bg-red-500 h-2.5 rounded-full" style="width: 25%"></div>
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          class="pt-4 border-t border-gray-200 dark:border-gray-700 grid grid-cols-3 gap-2 text-center text-xs text-muted-foreground">
-                          <div><span class="font-bold text-foreground text-sm">65</span><br />Easy (43%)</div>
-                          <div><span class="font-bold text-foreground text-sm">70</span><br />Medium (47%)</div>
-                          <div><span class="font-bold text-foreground text-sm">15</span><br />Hard (10%)</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div class="flex justify-between text-xs font-medium mb-1">
+                  <span class="text-yellow-600 dark:text-yellow-400 font-semibold">Medium</span>
+                  <span class="font-mono text-muted-foreground">70 <span class="text-[10px]">solved</span></span>
+                </div>
+                <div class="w-full bg-ink/10 h-2 rounded-full overflow-hidden">
+                  <div class="bg-yellow-500 h-full rounded-full" style="width: 52%"></div>
                 </div>
               </div>
-              
+              <div>
+                <div class="flex justify-between text-xs font-medium mb-1">
+                  <span class="text-red-600 dark:text-red-400 font-semibold">Hard</span>
+                  <span class="font-mono text-muted-foreground">15 <span class="text-[10px]">solved</span></span>
+                </div>
+                <div class="w-full bg-ink/10 h-2 rounded-full overflow-hidden">
+                  <div class="bg-red-500 h-full rounded-full" style="width: 28%"></div>
+                </div>
+              </div>
             </div>
+          </div>
+
+          <!-- Verified Badges Row -->
+          <div class="pt-4 border-t border-ink/10 flex items-center justify-between">
+            <span class="font-mono text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">Badges Earned</span>
+            <div class="flex items-center gap-1.5">
+              <img src="images/badges/leetcode-annual-2024.svg" alt="LeetCode Annual 2024" title="2024 Annual Badge" class="w-7 h-7 object-contain opacity-85 hover:opacity-100 transition-opacity" />
+              <img src="images/badges/leetcode-50-days.svg" alt="LeetCode 50 Days" title="50 Days Streak" class="w-7 h-7 object-contain opacity-85 hover:opacity-100 transition-opacity" />
+              <img src="images/badges/leetcode-hard-solver.svg" alt="LeetCode Hard Solver" title="Hard Problem Solver" class="w-7 h-7 object-contain opacity-85 hover:opacity-100 transition-opacity" />
+            </div>
+          </div>
+        </article>
+
+        <!-- HackerRank Card -->
+        <article class="surface-card p-6 sm:p-7 flex flex-col justify-between group hover:border-accent/40 hover:shadow-card-hover transition-all duration-300">
+          <div>
+            <div class="flex items-center justify-between gap-3 mb-5">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-xl bg-ink/[0.04] border border-ink/10 p-2 flex items-center justify-center shrink-0">
+                  <img src="images/platforms/hackerrank-logo.svg" alt="HackerRank" width="32" height="32" class="w-8 h-8 object-contain" />
+                </div>
+                <div>
+                  <h3 class="text-lg font-bold text-foreground">HackerRank</h3>
+                  <p class="font-mono text-xs text-muted-foreground">@ansariamann</p>
+                </div>
+              </div>
+              <a href="https://www.hackerrank.com" target="_blank" rel="noopener noreferrer" class="font-mono text-xs font-semibold uppercase tracking-wider text-accent hover:underline flex items-center gap-1">
+                Profile &nearr;
+              </a>
+            </div>
+
+            <!-- Key Stat Pills -->
+            <div class="grid grid-cols-3 gap-2 p-3 rounded-xl bg-ink/[0.02] border border-ink/10 text-center mb-5">
+              <div>
+                <p class="text-xl font-bold text-foreground tabular-nums">5★</p>
+                <p class="text-[11px] font-mono text-muted-foreground uppercase tracking-wider">Python</p>
+              </div>
+              <div class="border-x border-ink/10">
+                <p class="text-xl font-bold text-accent tabular-nums">Silver</p>
+                <p class="text-[11px] font-mono text-muted-foreground uppercase tracking-wider">Algorithms</p>
+              </div>
+              <div>
+                <p class="text-xl font-bold text-foreground tabular-nums">Bronze</p>
+                <p class="text-[11px] font-mono text-muted-foreground uppercase tracking-wider">Structures</p>
+              </div>
+            </div>
+
+            <!-- Topics List -->
+            <div class="space-y-2.5 mb-5 text-sm">
+              <div class="flex items-center justify-between p-2 rounded-lg bg-ink/[0.02]">
+                <span class="text-muted-foreground">Python Proficiency</span>
+                <span class="font-mono text-xs font-semibold text-foreground">Gold Badge (5 Stars)</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-ink/[0.02]">
+                <span class="text-muted-foreground">Algorithm Analysis</span>
+                <span class="font-mono text-xs font-semibold text-foreground">Silver Badge</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded-lg bg-ink/[0.02]">
+                <span class="text-muted-foreground">Data Structures</span>
+                <span class="font-mono text-xs font-semibold text-foreground">Problem Solving Track</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Verified Badges Row -->
+          <div class="pt-4 border-t border-ink/10 flex items-center justify-between">
+            <span class="font-mono text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">Specializations</span>
+            <div class="flex items-center gap-1.5">
+              <img src="images/badges/hackerrank-python-gold.svg" alt="Python Gold" title="Python 5-Star Gold" class="w-7 h-7 object-contain opacity-85 hover:opacity-100 transition-opacity" />
+              <img src="images/badges/hackerrank-algorithms-silver.svg" alt="Algorithms Silver" title="Algorithms Silver" class="w-7 h-7 object-contain opacity-85 hover:opacity-100 transition-opacity" />
+              <img src="images/badges/hackerrank-data-structures-bronze.svg" alt="Data Structures Bronze" title="Data Structures" class="w-7 h-7 object-contain opacity-85 hover:opacity-100 transition-opacity" />
+            </div>
+          </div>
+        </article>
+
+        <!-- Core DSA & Architecture Card -->
+        <article class="surface-card p-6 sm:p-7 flex flex-col justify-between group hover:border-accent/40 hover:shadow-card-hover transition-all duration-300">
+          <div>
+            <div class="flex items-center justify-between gap-3 mb-5">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-xl bg-ink/[0.04] border border-ink/10 p-2 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cpu text-accent"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>
+                </div>
+                <div>
+                  <h3 class="text-lg font-bold text-foreground">Core Competencies</h3>
+                  <p class="font-mono text-xs text-muted-foreground">Java &amp; Python</p>
+                </div>
+              </div>
+              <span class="tag text-[10px] py-1 px-2.5">Active</span>
+            </div>
+
+            <!-- Key Stat Pills -->
+            <div class="grid grid-cols-3 gap-2 p-3 rounded-xl bg-ink/[0.02] border border-ink/10 text-center mb-5">
+              <div>
+                <p class="text-xl font-bold text-foreground tabular-nums">O(1)</p>
+                <p class="text-[11px] font-mono text-muted-foreground uppercase tracking-wider">Target</p>
+              </div>
+              <div class="border-x border-ink/10">
+                <p class="text-xl font-bold text-accent tabular-nums">O(log n)</p>
+                <p class="text-[11px] font-mono text-muted-foreground uppercase tracking-wider">Search</p>
+              </div>
+              <div>
+                <p class="text-xl font-bold text-foreground tabular-nums">Clean</p>
+                <p class="text-[11px] font-mono text-muted-foreground uppercase tracking-wider">Testing</p>
+              </div>
+            </div>
+
+            <!-- Core Strengths -->
+            <div class="flex flex-wrap gap-1.5 mb-5">
+              <span class="tag text-[10px] py-1 px-2.5">Binary Search</span>
+              <span class="tag text-[10px] py-1 px-2.5">BFS &amp; DFS</span>
+              <span class="tag text-[10px] py-1 px-2.5">Dynamic Programming</span>
+              <span class="tag text-[10px] py-1 px-2.5">Two Pointers</span>
+              <span class="tag text-[10px] py-1 px-2.5">Sliding Window</span>
+              <span class="tag text-[10px] py-1 px-2.5">Hash Maps</span>
+              <span class="tag text-[10px] py-1 px-2.5">Stack &amp; Queue</span>
+              <span class="tag text-[10px] py-1 px-2.5">Recursion</span>
+            </div>
+          </div>
+
+          <!-- Bottom Row Link -->
+          <div class="pt-4 border-t border-ink/10 flex items-center justify-between">
+            <span class="font-mono text-[11px] uppercase tracking-wider text-muted-foreground font-semibold">Repository Solutions</span>
+            <a href="https://github.com/ansariamann" target="_blank" rel="noopener noreferrer" class="font-mono text-xs font-semibold uppercase tracking-wider text-accent hover:underline flex items-center gap-1">
+              GitHub Repos &nearr;
+            </a>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Quick Summary Banner -->
+      <div class="mt-8 max-w-6xl mx-auto rounded-2xl border border-ink/10 bg-surface/80 p-5 sm:p-6 shadow-sm">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center divide-y sm:divide-y-0 sm:divide-x divide-ink/10">
+          <div class="pt-2 sm:pt-0">
+            <dt class="stat-label">Total Problems Solved</dt>
+            <dd class="text-2xl sm:text-3xl font-bold text-foreground tabular-nums">150+</dd>
+          </div>
+          <div class="pt-2 sm:pt-0">
+            <dt class="stat-label">Contest Performance</dt>
+            <dd class="text-2xl sm:text-3xl font-bold text-accent tabular-nums">Top 18%</dd>
+          </div>
+          <div class="pt-2 sm:pt-0">
+            <dt class="stat-label">HackerRank Rating</dt>
+            <dd class="text-2xl sm:text-3xl font-bold text-foreground">5★ Gold</dd>
+          </div>
+          <div class="pt-2 sm:pt-0">
+            <dt class="stat-label">Primary Languages</dt>
+            <dd class="text-2xl sm:text-3xl font-bold text-foreground">Java / Python</dd>
           </div>
         </div>
       </div>
-    </section>
+
+    </div>
+  </section>
+    
     <section id="contact" class="section-shell border-t border-ink/10">
       <div class="container-main">
         <div class="grid gap-16 lg:grid-cols-[1fr_1.1fr] items-start max-w-7xl mx-auto">
