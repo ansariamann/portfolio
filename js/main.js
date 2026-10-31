@@ -346,27 +346,8 @@ function initContactForm() {
   }
 }
 
-/* ─── Expandable Coding Platform Activities & Tabs ─── */
+/* ─── Coding Platform Tabs (Key Metrics & Progress Bars) ─── */
 function initCodingPlatforms() {
-  // Activity expand toggle
-  const activityItems = document.querySelectorAll('[role="feed"] [role="button"]');
-  activityItems.forEach(item => {
-    item.addEventListener("click", () => {
-      const isExpanded = item.getAttribute("aria-expanded") === "true";
-      item.setAttribute("aria-expanded", String(!isExpanded));
-      item.classList.toggle("ring-2", !isExpanded);
-      item.classList.toggle("ring-accent", !isExpanded);
-    });
-
-    item.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        item.click();
-      }
-    });
-  });
-
-  // Tab switching between Progress Bars and Key Metrics
   const tabButtons = document.querySelectorAll('[role="tablist"] [role="tab"]');
   const tabPanels = {
     "chart-panel-trends": document.getElementById("chart-panel-trends"),
@@ -394,75 +375,4 @@ function initCodingPlatforms() {
       });
     });
   });
-
-  // Load more button logic
-  const loadMoreBtn = document.querySelector("#platform-panel-leetcode button:not([role='tab'])");
-  if (loadMoreBtn && loadMoreBtn.textContent.includes("Load More")) {
-    let expanded = false;
-    loadMoreBtn.addEventListener("click", () => {
-      const feed = document.querySelector('[role="feed"] .space-y-0');
-      if (!feed) return;
-
-      if (!expanded) {
-        // Append additional realistic problem activities
-        const moreItems = [
-          { title: "Binary Tree Level Order Traversal", diff: "medium", date: "Jul 2", time: "35m", lang: "Java", tags: ["Tree", "BFS"], url: "https://leetcode.com/problems/binary-tree-level-order-traversal/" },
-          { title: "Best Time to Buy and Sell Stock", diff: "easy", date: "Jun 28", time: "18m", lang: "Python", tags: ["Array", "Dynamic Programming"], url: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" },
-          { title: "Coin Change", diff: "medium", date: "Jun 24", time: "48m", lang: "Java", tags: ["Dynamic Programming", "BFS"], url: "https://leetcode.com/problems/coin-change/" },
-          { title: "LRU Cache", diff: "medium", date: "Jun 20", time: "52m", lang: "Java", tags: ["Hash Table", "Linked List", "Design"], url: "https://leetcode.com/problems/lru-cache/" }
-        ];
-
-        moreItems.forEach(item => {
-          const colorClass = item.diff === "easy" 
-            ? "bg-green-100 dark:bg-green-900/20 border-green-200 dark:border-green-800 text-green-700 dark:text-green-300" 
-            : "bg-yellow-100 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800 text-yellow-700 dark:text-yellow-300";
-          const dotColor = item.diff === "easy" ? "bg-green-500" : "bg-yellow-500";
-          const tagsHtml = item.tags.map(t => `<span class="inline-flex items-center gap-1 px-2 py-1 text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded">${t}</span>`).join(" ");
-
-          const div = document.createElement("div");
-          div.className = "relative animate-fadeIn";
-          div.innerHTML = `
-            <div class="absolute left-0 top-6 w-3 h-3 rounded-full border-2 border-white dark:border-gray-900 z-10"><div class="w-full h-full rounded-full ${dotColor}"></div></div>
-            <div class="absolute left-1.5 top-9 w-0.5 h-full bg-gray-200 dark:bg-gray-700 -z-10"></div>
-            <div class="ml-6 sm:ml-8 pb-4 sm:pb-6">
-              <div class="p-3 sm:p-4 rounded-lg border transition-all duration-200 cursor-pointer ${colorClass} hover:shadow-md hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-accent" tabindex="0" role="button" aria-expanded="false">
-                <div class="flex items-start justify-between gap-2 sm:gap-3">
-                  <div class="flex-1 min-w-0">
-                    <div class="flex items-center gap-1 sm:gap-2 mb-1">
-                      <h3 class="text-sm sm:text-base font-semibold text-gray-900 dark:text-white truncate">${item.title}</h3>
-                      <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="text-accent hover:opacity-80 flex-shrink-0">
-                        <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                      </a>
-                    </div>
-                    <div class="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-                      <span class="px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-xs font-medium ${colorClass}">${item.diff}</span>
-                      <span>${item.date}</span>
-                      <span>${item.time}</span>
-                      <span>${item.lang}</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="flex flex-wrap gap-1 mt-2">${tagsHtml}</div>
-              </div>
-            </div>
-          `;
-          feed.appendChild(div);
-        });
-
-        expanded = true;
-        loadMoreBtn.textContent = "Show Less";
-        const countText = document.querySelector("#platform-panel-leetcode .text-gray-500");
-        if (countText) countText.textContent = "Showing 12 of 150 activities";
-      } else {
-        // Remove extra items
-        while (feed.children.length > 8) {
-          feed.removeChild(feed.lastChild);
-        }
-        expanded = false;
-        loadMoreBtn.textContent = "Load More (142 remaining)";
-        const countText = document.querySelector("#platform-panel-leetcode .text-gray-500");
-        if (countText) countText.textContent = "Showing 8 of 150 activities";
-      }
-    });
-  }
 }
