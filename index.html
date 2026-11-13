@@ -95,11 +95,13 @@
             <circle cx="4" cy="4" r="2"></circle>
           </svg><span
             class="pointer-events-none absolute top-full mt-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-foreground px-2 py-0.5 font-mono text-[11px] font-medium text-background shadow opacity-0 transition-opacity duration-150 group-hover:opacity-100 z-50">LinkedIn</span></a><button
-          id="theme-toggle" type="button" aria-label="Toggle dark mode"
-          class="group relative size-9 flex items-center justify-center rounded-md border border-ink/10 text-muted-foreground transition-colors hover:bg-ink/5 hover:text-foreground"><svg
-            xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-sun" aria-hidden="true">
+          id="theme-toggle"
+          type="button"
+          aria-label="Toggle theme"
+          class="group relative size-9 flex items-center justify-center rounded-md border border-ink/10 text-muted-foreground transition-colors hover:bg-ink/5 hover:text-foreground cursor-pointer"
+        >
+          <!-- Sun icon (shown in light mode) -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun" aria-hidden="true">
             <circle cx="12" cy="12" r="4"></circle>
             <path d="M12 2v2"></path>
             <path d="M12 20v2"></path>
@@ -109,9 +111,13 @@
             <path d="M20 12h2"></path>
             <path d="m6.34 17.66-1.41 1.41"></path>
             <path d="m19.07 4.93-1.41 1.41"></path>
-          </svg><span
-            class="pointer-events-none absolute top-full mt-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-foreground px-2 py-0.5 font-mono text-[11px] font-medium text-background shadow opacity-0 transition-opacity duration-150 group-hover:opacity-100 z-50">Light
-            mode</span></button><a class="btn-primary !min-h-9 !py-2 !px-3.5 !text-sm hidden sm:inline-flex"
+          </svg>
+          <!-- Moon icon (shown in dark mode) -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon" aria-hidden="true">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+          <span id="theme-tooltip" class="pointer-events-none absolute top-full mt-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-foreground px-2 py-0.5 font-mono text-[11px] font-medium text-background shadow opacity-0 transition-opacity duration-150 group-hover:opacity-100 z-50">Dark mode</span>
+        </button><a class="btn-primary !min-h-9 !py-2 !px-3.5 !text-sm hidden sm:inline-flex"
           href="#contact"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             class="lucide lucide-mail" aria-hidden="true">

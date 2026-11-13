@@ -41,28 +41,11 @@ function initTheme() {
 }
 
 function updateThemeIcon(isDark) {
-  const sunIcons = document.querySelectorAll(".lucide-sun, #theme-icon-sun");
-  const moonIcons = document.querySelectorAll(".lucide-moon, #theme-icon-moon");
   const tooltips = document.querySelectorAll("#theme-tooltip, #theme-toggle span");
+  const buttons = document.querySelectorAll("#theme-toggle");
 
-  sunIcons.forEach(icon => {
-    if (isDark) {
-      icon.classList.remove("hidden");
-      icon.style.display = "";
-    } else {
-      icon.classList.add("hidden");
-      icon.style.display = "none";
-    }
-  });
-
-  moonIcons.forEach(icon => {
-    if (isDark) {
-      icon.classList.add("hidden");
-      icon.style.display = "none";
-    } else {
-      icon.classList.remove("hidden");
-      icon.style.display = "";
-    }
+  buttons.forEach(btn => {
+    btn.setAttribute("aria-label", isDark ? "Current: Dark mode. Click for light mode" : "Current: Light mode. Click for dark mode");
   });
 
   tooltips.forEach(t => {
