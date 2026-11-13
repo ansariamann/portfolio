@@ -4,6 +4,7 @@
   "description": "Portfolio of Aman Ansari — Full Stack Java, ML & AWS Engineer",
   "main": "index.html",
   "scripts": {
+    "build": "echo \"Static site - no build step required\"",
     "start": "python -m http.server 3000",
     "serve": "npx serve . -p 3000"
   },

@@ -1,0 +1,9 @@
+# Static HTML/CSS/JS site — no framework build step required.
+[build]
+  command = "npm run build"
+  publish = "."
+
+[build.environment]
+  # The Next.js runtime plugin is installed on this site but the project is not
+  # a Next.js app; skip it so it doesn't look for a .next build output.
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"
