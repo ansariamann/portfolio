@@ -7,7 +7,7 @@
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-ansariaman.netlify.app-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://ansariaman.netlify.app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
-*A clean, performant, standalone portfolio website built with HTML5, CSS3, Vanilla JavaScript, and Tailwind CSS. Zero runtime build complexity, direct browser executable.*
+*A clean, performant, standalone portfolio website built with HTML5, CSS3, and vanilla JavaScript. Zero runtime build complexity, direct browser executable.*
 
 </div>
 
@@ -17,7 +17,7 @@
 
 This repository hosts the official personal portfolio website of **Aman Ansari**, showcasing production web systems, machine learning research, cloud architecture, and competitive programming achievements.
 
-The codebase is built on **pure standard web technologies (HTML5, CSS3, JavaScript ES6+)** complemented by the compiled Hashton design system stylesheet and Tailwind CSS. It runs natively in any web browser without needing `npm install`, Node.js runtimes, or build steps.
+The codebase is built on **pure standard web technologies (HTML5, CSS3, JavaScript ES6+)** complemented by a custom design system stylesheet. It runs natively in any web browser without needing a build step.
 
 ---
 
@@ -55,7 +55,7 @@ portfolio/
 ├── package.json          # Lightweight project manifest with run scripts
 ├── .gitignore            # Clean git ignore configuration
 ├── css/
-│   └── style.css         # Production stylesheet (Hashton tokens, Tailwind utilities & glassmorphism)
+│   └── style.css         # Production stylesheet (design tokens, utilities & glassmorphism)
 ├── js/
 │   ├── main.js           # Core client logic (Theme, mobile drawer, scrollspy, skills filter, form)
 │   ├── projects.js       # Projects dataset, live search, and modal controller
@@ -83,11 +83,6 @@ python -m http.server 3000
 ```
 Then navigate to `http://localhost:3000`.
 
-### Option 3: Node.js Serve
-```bash
-npx serve . -p 3000
-```
-
 ---
 
 ## 🚀 Deployment
@@ -110,7 +105,7 @@ npx serve . -p 3000
 | Layer | Technologies |
 | :--- | :--- |
 | **Markup & Semantics** | HTML5, Semantic Elements, WAI-ARIA Accessibility |
-| **Styling & Design** | CSS3, Tailwind CSS, Custom Properties (Hashton Palette), Google Fonts (Inter, JetBrains Mono) |
+| **Styling & Design** | CSS3, Custom Properties (Hashton Palette), Google Fonts (Inter, JetBrains Mono) |
 | **Scripting & Logic** | Modern JavaScript (ES6+), Vanilla DOM APIs |
 | **Email Delivery** | [EmailJS](https://www.emailjs.com/) (`@emailjs/browser` v4), [Netlify Forms](https://www.netlify.com/platform/core/forms/) |
 | **Asset Optimization** | SVG Vectors, Optimized PNGs, WebP |

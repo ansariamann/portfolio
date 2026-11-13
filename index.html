@@ -21,7 +21,7 @@
     content="Modern portfolio website showcasing expertise as a Full Stack Java Developer, with specializations in Machine Learning and AWS." />
   <meta name="author" content="Aman Ansari" />
   <meta name="keywords"
-    content="full stack developer,java developer,machine learning,aws,cloud computing,spring boot,react developer,next.js developer,typescript developer,backend developer,portfolio,javascript,node.js" />
+    content="full stack developer,java developer,machine learning,aws,cloud computing,spring boot,react developer,backend developer,portfolio,javascript" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="alternate icon" type="image/png" href="favicon.png" />
   <link rel="canonical" href="https://ansariaman.netlify.app/" />
@@ -52,7 +52,9 @@
   <link rel="preload" href="images/about-photo.png" as="image" type="image/png" />
   <link rel="prefetch" href="images/platforms/leetcode-logo.svg" as="image" />
 
-  <!-- Exact compiled production stylesheet with all Hashton design system tokens & Tailwind utilities -->
+  <!-- Production stylesheet containing the portfolio design system and utility layer -->
+  <!-- Bootstrap is loaded before the existing stylesheet so the current visual system remains unchanged during migration. -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="css/style.css" />
 
   <!-- EmailJS Browser SDK -->
@@ -289,12 +291,12 @@
                   <h3 class="text-xl md:text-2xl font-bold text-foreground tracking-tight">HR System / ATS Platform</h3>
                   <p class="mt-1 text-sm text-muted-foreground capitalize font-medium">web &middot; completed</p>
                 </div>
-                <div class="flex flex-wrap gap-2"><span class="tag">Python</span><span class="tag">FastAPI</span><span
-                    class="tag">PostgreSQL</span><span class="tag">Redis</span><span class="tag">Celery</span><span
-                    class="tag">SQLAlchemy</span></div>
-                <p class="text-muted-foreground leading-relaxed max-w-2xl text-base md:text-[17px]">A multi-tenant HR
-                  and applicant-tracking platform for recruitment firms that source candidates and pass them to client
-                  companies.</p>
+                <div class="flex flex-wrap gap-2"><span class="tag">Java 21</span><span class="tag">Spring Boot</span><span
+                    class="tag">PostgreSQL</span><span class="tag">Redis</span><span class="tag">React</span><span
+                    class="tag">Docker</span></div>
+                <p class="text-muted-foreground leading-relaxed max-w-2xl text-base md:text-[17px]">A high-performance,
+                  multi-tenant applicant-tracking system with secure candidate workflows, document parsing, OCR support,
+                  and PostgreSQL Row-Level Security.</p>
               </div>
               <div class="flex shrink-0 flex-wrap items-center gap-3 md:items-center md:pt-1"><a
                   href="https://github.com/ansariamann/hr-system" target="_blank" rel="noopener noreferrer"
@@ -324,14 +326,14 @@
                   <h3 class="text-xl md:text-2xl font-bold text-foreground tracking-tight">Tasbih Counter</h3>
                   <p class="mt-1 text-sm text-muted-foreground capitalize font-medium">web &middot; completed</p>
                 </div>
-                <div class="flex flex-wrap gap-2"><span class="tag">React</span><span class="tag">TypeScript</span><span
-                    class="tag">Vite</span><span class="tag">Tailwind CSS</span><span class="tag">shadcn/ui</span><span
+                <div class="flex flex-wrap gap-2"><span class="tag">React</span><span class="tag">Vite</span><span
+                    class="tag">shadcn/ui</span><span
                     class="tag">Framer Motion</span></div>
                 <p class="text-muted-foreground leading-relaxed max-w-2xl text-base md:text-[17px]">A polished digital
                   tasbih app with persistent counting, progress tracking, and a live site that actually works.</p>
               </div>
               <div class="flex shrink-0 flex-wrap items-center gap-3 md:items-center md:pt-1"><a
-                  href="https://github.com/ansariamann/tasbih-counter" target="_blank" rel="noopener noreferrer"
+                  href="https://github.com/ansariamann/tasbih_counter" target="_blank" rel="noopener noreferrer"
                   class="font-mono inline-flex min-h-[3.25rem] items-center gap-2 rounded-full border border-ink/10 bg-transparent px-6 py-3.5 text-sm font-semibold uppercase tracking-[0.14em] text-foreground transition-all hover:bg-ink/5 hover:border-ink/20 active:scale-[0.98]">Code<svg
                     xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -359,11 +361,11 @@
                   </h3>
                   <p class="mt-1 text-sm text-muted-foreground capitalize font-medium">web &middot; completed</p>
                 </div>
-                <div class="flex flex-wrap gap-2"><span class="tag">Next.js</span><span class="tag">React</span><span
-                    class="tag">TypeScript</span><span class="tag">Tailwind CSS</span><span
-                    class="tag">shadcn/ui</span><span class="tag">html5-qrcode</span></div>
-                <p class="text-muted-foreground leading-relaxed max-w-2xl text-base md:text-[17px]">A simple grocery
-                  bill calculator, which is exactly why it ends up being one of the most useful things here.</p>
+                <div class="flex flex-wrap gap-2"><span class="tag">React</span><span class="tag">JavaScript</span><span
+                    class="tag">shadcn/ui</span><span class="tag">html5-qrcode</span><span class="tag">PWA</span></div>
+                <p class="text-muted-foreground leading-relaxed max-w-2xl text-base md:text-[17px]">A grocery-list and
+                  budget companion with barcode scanning, automatic calculations, saved favorites, transaction history,
+                  and installable app support.</p>
               </div>
               <div class="flex shrink-0 flex-wrap items-center gap-3 md:items-center md:pt-1"><a
                   href="https://github.com/ansariamann/cart-calculator" target="_blank" rel="noopener noreferrer"
@@ -513,8 +515,8 @@
             </div>
           </div>
 
-          <!-- Skill: Tailwind CSS -->
-          <div class="skill-grid-item group cursor-default" data-category="frontend">
+          <!-- Skill: Responsive CSS -->
+          <div class="skill-grid-item group cursor-default hidden" data-category="frontend">
             <div class="flex flex-col items-center justify-center gap-2.5 w-full">
               <div class="w-10 h-10 flex items-center justify-center"><svg stroke="currentColor" fill="currentColor"
                   stroke-width="0" role="img" viewBox="0 0 24 24" color="#06B6D4"
@@ -523,7 +525,7 @@
                   <path
                     d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z">
                   </path>
-                </svg></div><span class="text-[13px] font-semibold text-foreground text-center leading-tight">Tailwind
+                </svg></div><span class="text-[13px] font-semibold text-foreground text-center leading-tight">Responsive
                 CSS</span>
             </div>
           </div>
@@ -1232,6 +1234,7 @@
   </footer>
 
   <!-- Interactive Scripts (Theme, Scrollspy, Skills filter, Contact Form validation & EmailJS submission) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/main.js"></script>
 </body>
 

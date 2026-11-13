@@ -8,17 +8,17 @@ const projectsData = [
     title: "HR System / ATS Platform",
     category: "web",
     featured: true,
-    completedDate: "March 2026",
-    description: "A multi-tenant HR and applicant-tracking platform for recruitment firms with resume parsing, OCR fallbacks, and candidate pipeline tracking.",
-    longDescription: "Built a production-grade HR operations platform centered on candidate intake, resume processing, and application tracking for staffing workflows. The backend uses FastAPI with PostgreSQL, Redis, Celery, and Alembic to support multi-tenant data isolation, background resume parsing, email-based ingestion, OCR fallbacks for scanned documents, duplicate detection, application flagging, and operational monitoring. The project also includes a separate React admin frontend for dashboards, candidate management, and recruitment workflow views, plus Docker-based environments.",
-    technologies: ["Python", "FastAPI", "PostgreSQL", "Redis", "Celery", "SQLAlchemy", "React", "Docker"],
+    completedDate: "Updated October 2026",
+    description: "A high-performance, multi-tenant applicant-tracking system with resume parsing, duplicate detection, and secure recruitment workflows.",
+    longDescription: "A modern enterprise ATS built around Java 21 and Spring Boot. It uses PostgreSQL Row-Level Security for tenant isolation, Redis for caching and pub/sub, Flyway migrations, JobRunr background processing, and a React portal for HR and client workflows. The document pipeline supports Apache PDFBox and Tess4J OCR for resilient resume ingestion.",
+    technologies: ["Java 21", "Spring Boot", "PostgreSQL", "Redis", "React", "Docker"],
     githubUrl: "https://github.com/ansariamann/hr-system",
     highlights: [
       "Multi-tenant architecture with PostgreSQL Row-Level Security for strict client isolation",
-      "Email ingestion pipeline with background resume parsing and OCR fallback support",
-      "Candidate pipeline management with audit trails and duplicate detection",
-      "React admin dashboard with responsive metrics and candidate management",
-      "Containerized with Docker Compose for local, staging, and production"
+      "Automated resume parsing with PDF and OCR fallback support",
+      "Candidate pipeline management with duplicate detection",
+      "Separate HR and client portals backed by Spring Boot APIs",
+      "Containerized services with health, API, and worker dashboards"
     ]
   },
   {
@@ -26,12 +26,12 @@ const projectsData = [
     title: "Tasbih Counter",
     category: "web",
     featured: true,
-    completedDate: "February 2026",
+    completedDate: "Updated May 2026",
     description: "A polished digital tasbih app with persistent counting, progress tracking, vibration feedback, and audio chimes.",
-    longDescription: "Devotional utility in React and TypeScript that turns a simple tasbih counter into a smooth daily-use experience. The app persists count, total dhikr, target, multiplier, sound, and vibration preferences in localStorage, then layers on animated feedback, completion chimes, progress visualization, and a premium mobile-friendly UI.",
-    technologies: ["React", "TypeScript", "Tailwind CSS", "shadcn/ui", "Framer Motion", "LocalStorage"],
+    longDescription: "A devotional utility that turns a simple tasbih counter into a smooth daily-use experience. It persists count, total dhikr, target, multiplier, sound, and vibration preferences in local storage, then layers on animated feedback, completion chimes, progress visualization, and a mobile-friendly interface.",
+    technologies: ["React", "Vite", "shadcn/ui", "Framer Motion", "LocalStorage"],
     liveUrl: "https://tasbiy.netlify.app",
-    githubUrl: "https://github.com/ansariamann/tasbih-counter",
+    githubUrl: "https://github.com/ansariamann/tasbih_counter",
     highlights: [
       "Full offline support and zero-latency localStorage persistence",
       "Tactile haptic feedback and custom audio synthesis for completion cues",
@@ -43,15 +43,16 @@ const projectsData = [
     title: "Cart Calculator / QuickMart",
     category: "web",
     featured: true,
-    completedDate: "January 2026",
-    description: "A smart grocery bill calculator with barcode scanning, running budget tally, and real-time itemized subtotals.",
-    longDescription: "Created a modern grocery budget calculator in Next.js and TypeScript featuring integrated barcode scanning via html5-qrcode, dynamic tax and discount calculations, and persistent cart sessions. Designed to save time in checkout lines and prevent surprise overspends.",
-    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "shadcn/ui", "html5-qrcode"],
+    completedDate: "Updated April 2026",
+    description: "A grocery-list and budget companion with barcode scanning, automatic totals, saved favorites, and transaction history.",
+    longDescription: "QuickMart helps shoppers build and manage grocery lists while tracking totals, taxes, discounts, and spending. It includes camera-based barcode scanning, favorites for recurring items, transaction history, and installable offline-friendly app support.",
+    technologies: ["React", "JavaScript", "shadcn/ui", "html5-qrcode", "PWA"],
     githubUrl: "https://github.com/ansariamann/cart-calculator",
     highlights: [
       "Client-side barcode scanner integration with camera stream access",
-      "Real-time reactive calculation of taxes, discounts, and item quantities",
-      "Persistent cart state preserved across sessions with exportable receipts"
+      "Automatic totals, taxes, discounts, and budget tracking",
+      "Favorites and transaction history for repeat shopping trips",
+      "Installable PWA support for a mobile-friendly experience"
     ]
   },
   {
@@ -166,18 +167,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     filtered.forEach((project, idx) => {
       const card = document.createElement("article");
-      card.className = "surface-card p-6 sm:p-7 flex flex-col justify-between group hover:border-accent/40 hover:shadow-card-hover transition-all duration-300";
+      card.className = "project-archive-card surface-card p-6 sm:p-7 flex flex-col justify-between group hover:border-accent/40 hover:shadow-card-hover transition-all duration-300";
       card.style.animation = `fadeIn 0.3s ease forwards ${idx * 0.05}s`;
 
       const techBadges = project.technologies.map(t => `<span class="tag text-[10px] py-1 px-2.5">${t}</span>`).join(" ");
 
       card.innerHTML = `
         <div>
-          <div class="flex items-center justify-between gap-2 mb-3">
+          <div class="project-card-top flex items-center justify-between gap-2 mb-5">
+            <span class="project-number">0${idx + 1}</span>
             <span class="font-mono text-xs uppercase tracking-wider text-muted-foreground">${project.completedDate}</span>
             ${project.featured ? '<span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-accent/15 text-accent border border-accent/20">Featured</span>' : ''}
           </div>
-          <h3 class="text-xl font-bold text-foreground group-hover:text-accent transition-colors">${project.title}</h3>
+          <h3 class="project-card-title text-xl font-bold text-foreground group-hover:text-accent transition-colors">${project.title}</h3>
           <p class="mt-3 text-muted-foreground text-sm leading-relaxed">${project.description}</p>
           <div class="flex flex-wrap gap-1.5 mt-4">
             ${techBadges}
